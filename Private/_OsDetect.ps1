@@ -65,14 +65,36 @@ function Resolve-HtDefaultList {
         }
         # Release bonus (24H2 etc.)
         if ($os.Release -and $hay -match [regex]::Escape($os.Release)) { $score += 5 }
-        # Prefer machine/member-server lists over DC by default (least surprising)
-        if ($hay -match 'Member Server|Machine') { $score += 1 }
+        # Prefer machine/member-server lists over DC by default (least surprising).
+        # Match both spaced ("Member Server", from listName) and underscored
+        # ("Member_Server", from the importer's safe filename).
+        if ($hay -match 'Member.Server|Machine') { $score += 1 }
         if ($score -gt $bestScore) { $bestScore = $score; $best = $c }
     }
 
+    # Build any cautions about the auto-pick so the engine can surface them at runtime.
+    $warnings = @()
+    if ($best -and $bestScore -ge 10) {
+        $chosen = $best.BaseName
+        # Server role ambiguity: auto-detect knows the OS but NOT whether this box is a
+        # Domain Controller or Member Server (they report the same OS). If we defaulted to
+        # a Member Server / Machine list on a Server OS, warn — a DC needs its own list.
+        if ($os.Product -match 'Server' -and $chosen -match 'Member.Server|Machine') {
+            $warnings += "Detected $($os.Product); defaulted to a Member Server/Machine list. " +
+                         "If THIS box is a Domain Controller, specify -FindingList explicitly — " +
+                         "auto-detect cannot tell DC from member server."
+        }
+        # Release mismatch: product matched but the chosen list is for a different release.
+        if ($os.Release -and $chosen -notmatch [regex]::Escape($os.Release)) {
+            $warnings += "Running release is $($os.Release) but the closest list is '$chosen' " +
+                         "(different release). Values may not fully match this build."
+        }
+    }
+
     [pscustomobject]@{
-        Path   = if ($best -and $bestScore -ge 10) { $best.FullName } else { $null }
-        Os     = $os
-        Reason = if ($best -and $bestScore -ge 10) { "matched '$($best.Name)' (score $bestScore)" } else { 'no list matched this OS' }
+        Path     = if ($best -and $bestScore -ge 10) { $best.FullName } else { $null }
+        Os       = $os
+        Reason   = if ($best -and $bestScore -ge 10) { "matched '$($best.Name)' (score $bestScore)" } else { 'no list matched this OS' }
+        Warnings = $warnings
     }
 }
