@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "HardeningTomcat Finding List",
+  "description": "A cleaner, typed replacement for the legacy HardeningKitty CSV finding format. A list is an object with metadata plus an array of findings.",
+  "type": "object",
+  "required": ["listName", "version", "findings"],
+  "properties": {
+    "listName":   { "type": "string", "description": "Human name, e.g. 'Windows Server 2022 Machine - CIS L1'" },
+    "version":    { "type": "string", "description": "List version, independent of engine version" },
+    "scope":      { "type": "string", "enum": ["machine", "user"], "description": "Whether findings need elevation (machine) or run as the user" },
+    "description":{ "type": "string" },
+    "findings": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/finding" }
+    }
+  },
+  "definitions": {
+    "finding": {
+      "type": "object",
+      "required": ["id", "name", "method", "operator", "recommendedValue", "severity"],
+      "properties": {
+        "id":       { "type": "string", "description": "Stable unique ID, e.g. '1100'" },
+        "name":     { "type": "string" },
+        "category": { "type": "string" },
+        "method": {
+          "type": "string",
+          "description": "Which handler evaluates this finding",
+          "enum": [
+            "Registry", "RegistryList", "secedit", "auditpol", "accountpolicy",
+            "localaccount", "accesschk", "WindowsOptionalFeature", "CimInstance",
+            "BitLockerVolume", "LanguageMode", "MpComputerStatus", "MpPreference",
+            "MpPreferenceAsr", "MpPreferenceExclusion", "Processmitigation",
+            "ProcessmitigationApplication", "bcdedit", "FirewallRule",
+            "ScheduledTask", "service"
+          ]
+        },
+        "args": {
+          "type": "object",
+          "description": "Method-specific arguments. Replaces the old overloaded MethodArgument/RegistryPath/RegistryItem/etc. columns. Each handler documents the keys it reads.",
+          "additionalProperties": true
+        },
+        "operator": {
+          "type": "string",
+          "description": "Comparison between observed result and recommendedValue",
+          "enum": ["=", "!=", "<=", ">=", "<=!0", "contains", "=|0"]
+        },
+        "recommendedValue": {
+          "description": "Target value. String or number; coerced per operator.",
+          "type": ["string", "number", "boolean"]
+        },
+        "defaultValue": {
+          "description": "Value assumed when the setting is not present on the system",
+          "type": ["string", "number", "boolean"]
+        },
+        "severity": {
+          "type": "string",
+          "enum": ["Low", "Medium", "High"],
+          "description": "Severity if the finding FAILS. Passed findings always score full marks."
+        }
+      }
+    }
+  }
+}
