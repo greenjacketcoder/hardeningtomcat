@@ -104,6 +104,10 @@ function Invoke-HardeningTomcat {
             $FindingList = $resolved.Path
             Write-Host "No -FindingList given. Auto-selected for $($resolved.Os.Product) $($resolved.Os.Release): $(Split-Path $FindingList -Leaf)" -ForegroundColor Cyan
             & $Context.Log "Auto-selected list: $($resolved.Reason)"
+            foreach ($w in $resolved.Warnings) {
+                Write-Warning $w
+                & $Context.Log "Auto-select caution: $w" 'Warn'
+            }
         } else {
             throw "No -FindingList specified and no list under lists/ matched this system " +
                   "($($resolved.Os.Product) $($resolved.Os.Release); $($resolved.Reason)). " +
