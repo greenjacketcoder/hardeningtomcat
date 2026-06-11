@@ -1,12 +1,30 @@
 # HardeningTomcat (beta)
 
-A ground-up, modular rewrite inspired by HardeningKitty's problem domain — **not** a fork.
-Where HardeningKitty uses one ~3,400-line signed module with a 21-branch method ladder and
-separate audit/apply loops, HardeningTomcat uses a **pluggable handler architecture** with a
-**single unified loop** and a **typed JSON finding format**.
+```
+          ____
+       __/ o.o\__     recon • survey • strike
+   ~~ |  TOMCAT  |>==>
+       \__\___/__/     Windows hardening, locked on
+```
+
+**HardeningTomcat** audits and hardens a Windows system against a finding list (JSON).
+Settings are read from the registry and other sources, scored, and can optionally be
+applied. It is an independent, from-scratch implementation **inspired by**
+[scipag/HardeningKitty](https://github.com/scipag/HardeningKitty) — **not a fork** — built
+around a pluggable handler architecture, a unified audit/apply loop, and a typed JSON
+finding format.
+
+Three modes: **Recon** (read-only audit), **Survey** (dump current values), **Strike**
+(apply hardening — gated behind `-Force`).
+
+Versioning: the engine is independently versioned (currently `0.1.0`); finding-list content
+is versioned separately per list. The tool was developed for English systems; analysis on
+other languages may be incorrect.
 
 > **BETA. Recon freely. Strike only on a disposable VM with a snapshot.** The `Strike`
-> (apply) path writes to the system and is deliberately gated behind `-Force`.
+> (apply) path writes to the system and is deliberately gated behind `-Force`. The engine
+> and 4 of 21 check methods are implemented (Registry, service, auditpol, secedit), plus
+> direct import of Microsoft SCT baselines. Runs on Windows PowerShell 5.1 and PowerShell 7+.
 
 ## Why this exists / what's better
 
@@ -35,6 +53,12 @@ HardeningTomcat/
 │   ├── service.ps1             Test + Apply
 │   ├── auditpol.ps1            Prefetch (batched) + Test + Apply
 │   └── secedit.ps1             Prefetch (batched) + Test  (Apply gated/null in beta)
+├── Importers/                  pull finding lists from authoritative baselines
+│   ├── Import-MicrosoftBaseline.ps1   orchestrator: SCT baseline → JSON list
+│   ├── RegistryPolParser.ps1   parses the binary registry.pol format
+│   ├── GptTmplInfParser.ps1    parses GptTmpl.inf (account policy / security options)
+│   ├── AuditCsvParser.ps1      parses audit.csv (advanced audit policy)
+│   └── tests/                  synthetic sample for parser validation
 ├── Private/_Helpers.ps1        shared helpers, dot-sourced before handlers
 ├── Schema/Finding.schema.json  the new finding format
 ├── lists/sample_machine.json   4-finding demo list
@@ -61,10 +85,36 @@ Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\sample_machine.json -Fo
 
 `-Filter` accepts a scriptblock over findings, e.g. `-Filter { $_.severity -eq 'High' }`.
 
+## Finding lists — sourcing from authoritative baselines
+
+Finding lists are typed JSON (`Schema/Finding.schema.json`). Rather than hand-writing them
+or depending on a third party's translation, `Importers/` pulls content **directly from the
+authoritative source**.
+
+**Microsoft baselines (implemented).** Download the free **Security Compliance Toolkit (SCT)**
+from the Microsoft Download Center, unzip the baseline you want, and point the importer at its
+`GPOs\` folder:
+
+```powershell
+.\Importers\Import-MicrosoftBaseline.ps1 `
+    -BaselinePath "C:\...\Windows 11 v24H2 Security Baseline\GPOs" `
+    -ListName "Microsoft Windows 11 24H2 - Machine"
+# writes lists\microsoft\<name>.json, then:
+Invoke-HardeningTomcat -Mode Recon -FindingList .\lists\microsoft\<name>.json -Report
+```
+
+This reads Microsoft's own `registry.pol` / `GptTmpl.inf` / `audit.csv` artifacts — no
+HardeningKitty in the chain — so every future Microsoft baseline works unchanged. See
+`Importers/README.md` for coverage and the required post-import validation step.
+
+**CIS / other (planned).** A CSV→JSON converter for HardeningKitty-format lists is the
+intended path for CIS content, where those translations are a reasonable source.
+
 ## Staged testing plan (do these in order)
 
-1. **Recon on the VM.** Confirm results look sane vs. a known state. Cross-check a few
-   findings against HardeningKitty running the equivalent checks — they should agree.
+1. **Recon on the VM.** Confirm results look sane vs. a known state. For Microsoft lists,
+   cross-check a few findings against the **baseline spreadsheet in the SCT** (the
+   authoritative source) — the imported `recommendedValue` should match.
 2. **Survey mode.** Verify observed values are being read correctly per method.
 3. **`-WhatIf` Strike.** Read every "would set …" line. Make sure nothing surprising.
 4. **Real Strike on a snapshot.** Apply, re-Recon, confirm findings flip to Passed,
@@ -96,9 +146,15 @@ runtime), which is why `Sign-Module.ps1` globs the entire tree.
 
 ## Status / not yet built
 
+- **Microsoft baseline import: working** (registry.pol / GptTmpl.inf / audit.csv → JSON).
+  Pending: validation against a real SCT download, and `[Privilege Rights]` user-rights
+  settings (need the `accesschk` handler).
 - 17 of 21 methods still to port (RegistryList, accesschk, CimInstance, Mp* Defender
   family, BitLocker, Processmitigation, bcdedit, FirewallRule, ScheduledTask,
   WindowsOptionalFeature, accountpolicy, localaccount, LanguageMode).
+- CIS importer (CSV→JSON converter) — planned.
 - `secedit` apply (read-only for now).
 - Backup/restore export before Strike (planned before apply is considered trustworthy).
 - JSON Schema validation at load time (schema exists; runtime enforcement is a TODO).
+- Imported findings carry a defaulted severity (Microsoft baselines lack CIS-style
+  severities); per-finding severity tuning is a TODO.
