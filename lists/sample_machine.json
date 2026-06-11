@@ -1,0 +1,52 @@
+{
+  "listName": "Sample Machine Baseline (beta demo)",
+  "version": "0.1.0",
+  "scope": "machine",
+  "description": "A small, safe sample to prove the engine end-to-end. Mix of methods and operators. NOT a real hardening baseline.",
+  "findings": [
+    {
+      "id": "1000",
+      "name": "Remote Desktop disabled (deny TS connections)",
+      "category": "Remote Access",
+      "method": "Registry",
+      "args": { "path": "HKLM:\\System\\CurrentControlSet\\Control\\Terminal Server", "name": "fDenyTSConnections", "type": "DWord" },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "1001",
+      "name": "Remote Registry service disabled",
+      "category": "Services",
+      "method": "service",
+      "args": { "name": "RemoteRegistry" },
+      "operator": "=",
+      "recommendedValue": "Disabled",
+      "defaultValue": "Manual",
+      "severity": "Medium"
+    },
+    {
+      "id": "1002",
+      "name": "Minimum password length >= 14",
+      "category": "Account Policy",
+      "method": "secedit",
+      "args": { "key": "MinimumPasswordLength" },
+      "operator": ">=",
+      "recommendedValue": "14",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "1003",
+      "name": "Audit Credential Validation = Success and Failure",
+      "category": "Audit Policy",
+      "method": "auditpol",
+      "args": { "subcategory": "Credential Validation" },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Low"
+    }
+  ]
+}
