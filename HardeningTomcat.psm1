@@ -23,8 +23,8 @@ function Invoke-HardeningTomcat {
         [ValidateSet('Recon', 'Survey', 'Strike')]
         [string] $Mode,
 
-        [Parameter(Mandatory = $true)]
-        [ValidateScript({ Test-Path $_ })]
+        # Optional for Recon/Survey (auto-detected from OS if omitted).
+        # REQUIRED for Strike — apply mode refuses to guess.
         [string] $FindingList,
 
         [switch] $Log,
@@ -72,6 +72,12 @@ function Invoke-HardeningTomcat {
         throw "Strike mode WRITES to the system. Re-run with -Force to confirm you understand. " +
               "Strongly recommended: take a VM snapshot / backup first, and run Recon mode beforehand."
     }
+    # Strike never guesses a list. It must be named explicitly.
+    if ($Mode -eq 'Strike' -and -not $FindingList) {
+        throw "No finding list specified. Strike mode will not auto-select a list — applying " +
+              "changes from a guessed baseline is unsafe. Specify -FindingList explicitly, and " +
+              "choose it deliberately after reviewing it in Recon mode."
+    }
     if ($Mode -eq 'Strike') {
         Write-Warning "Strike mode applies changes to THIS system. Ensure you have a backup/snapshot."
     }
@@ -89,6 +95,22 @@ function Invoke-HardeningTomcat {
             else { Write-Warning "Handler $($_.Name) did not return a valid handler object; skipped." }
         }
     & $Context.Log "Loaded $($Handlers.Count) handlers: $($Handlers.Keys -join ', ')"
+
+    # ---- Resolve finding list (auto-detect for Recon/Survey if omitted) --------
+    if (-not $FindingList) {
+        # Strike already refused above, so this is Recon/Survey.
+        $resolved = Resolve-HtDefaultList -ModuleRoot $ModuleRoot
+        if ($resolved.Path) {
+            $FindingList = $resolved.Path
+            Write-Host "No -FindingList given. Auto-selected for $($resolved.Os.Product) $($resolved.Os.Release): $(Split-Path $FindingList -Leaf)" -ForegroundColor Cyan
+            & $Context.Log "Auto-selected list: $($resolved.Reason)"
+        } else {
+            throw "No -FindingList specified and no list under lists/ matched this system " +
+                  "($($resolved.Os.Product) $($resolved.Os.Release); $($resolved.Reason)). " +
+                  "Specify -FindingList explicitly."
+        }
+    }
+    if (-not (Test-Path $FindingList)) { throw "Finding list not found: $FindingList" }
 
     # ---- Load & validate finding list -----------------------------------------
     $listRaw = Get-Content -Path $FindingList -Raw

@@ -71,17 +71,31 @@ HardeningTomcat/
 Import-Module .\HardeningTomcat.psd1
 
 # 1) Recon (read-only, safe) — observe and assess, change nothing
-Invoke-HardeningTomcat -Mode Recon -FindingList .\lists\sample_machine.json -Report
+#    With no -FindingList, it auto-detects the OS and picks the matching list from lists/.
+Invoke-HardeningTomcat -Mode Recon -Report
+#    Or name a list explicitly:
+Invoke-HardeningTomcat -Mode Recon -FindingList .\lists\microsoft\Microsoft_Windows_11_25H2_-_Machine.json -Report
 
-# 2) Survey (dump current values, no pass/fail)
-Invoke-HardeningTomcat -Mode Survey -FindingList .\lists\sample_machine.json
+# 2) Survey (dump current values, no pass/fail) — also auto-detects if no list given
+Invoke-HardeningTomcat -Mode Survey
 
 # 3) Dry-run the Strike path (shows what WOULD change, changes nothing)
-Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\sample_machine.json -Force -WhatIf
+Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\...json -Force -WhatIf
 
-# 4) Strike for real — ONLY on a throwaway VM with a snapshot
-Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\sample_machine.json -Force
+# 4) Strike for real — ONLY on a throwaway VM with a snapshot.
+#    Strike NEVER auto-selects a list; you must name it explicitly (a deliberate safety barrier).
+Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\...json -Force
 ```
+
+### List selection (mirrors HardeningKitty's safe-default philosophy)
+
+- **Recon / Survey** (read-only): if `-FindingList` is omitted, HardeningTomcat detects the
+  running OS (product family + release, e.g. "Windows 11 24H2") and auto-selects the
+  best-matching list under `lists/`. If nothing matches, it errors clearly rather than
+  guessing wrong. You can always override by naming a list.
+- **Strike** (apply): **never** auto-selects — applying changes from a guessed baseline is
+  unsafe. You must pass `-FindingList` explicitly *and* `-Force`. This is the HardeningTomcat
+  equivalent of HardeningKitty's deliberate refusal to default the apply path.
 
 `-Filter` accepts a scriptblock over findings, e.g. `-Filter { $_.severity -eq 'High' }`.
 
