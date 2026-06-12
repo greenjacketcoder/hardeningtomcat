@@ -21,6 +21,21 @@ function Test-HtListIntegrity {
         return $result
     }
 
+    # If the manifest itself is signed (manifest.sha256 with an Authenticode catalog,
+    # or a sidecar .p7s), verify that signature first so a tampered manifest is caught.
+    # Activated once you run the signing step (#9); until then, the unsigned manifest is
+    # used and a note is logged. This makes signing a pure "run the signer" step later.
+    $sig = $null
+    try { $sig = Get-AuthenticodeSignature -FilePath $manifestPath -ErrorAction SilentlyContinue } catch {}
+    if ($sig -and $sig.Status -eq 'Valid') {
+        $result | Add-Member -NotePropertyName ManifestSigned -NotePropertyValue $true -Force
+    } elseif ($sig -and $sig.Status -in 'HashMismatch','NotTrusted') {
+        # A present-but-invalid signature means the manifest was tampered with — refuse to trust it.
+        $result.Status = 'manifest-tampered'
+        $result.Message = "The integrity manifest's signature is invalid ($($sig.Status)). The manifest may have been altered."
+        return $result
+    }
+
     $actual = (Get-FileHash -Path $FindingList -Algorithm SHA256).Hash.ToLower()
     $result.Actual = $actual
 

@@ -38,6 +38,10 @@ function Invoke-HardeningTomcat {
         # Optional override for the pre-Strike backup directory.
         [string] $BackupDir,
 
+        # Proceed with Strike even if the pre-Strike backup fails. Use only when you
+        # have another safety net (e.g. a VM snapshot) and accept the risk.
+        [switch] $SkipBackupCheck,
+
         # Optional filter scriptblock over findings, e.g. { $_.severity -eq 'High' }
         [scriptblock] $Filter
     )
@@ -123,6 +127,10 @@ function Invoke-HardeningTomcat {
     $integrity = Test-HtListIntegrity -FindingList $FindingList -ModuleRoot $ModuleRoot
     switch ($integrity.Status) {
         'verified' { & $Context.Log $integrity.Message }
+        'manifest-tampered' {
+            # A signed manifest that fails signature check is a hard stop in ALL modes.
+            throw "Integrity manifest failed verification: $($integrity.Message) Refusing to run."
+        }
         default {
             # Strike will not apply changes from an unverified/tampered/unlisted list.
             if ($Mode -eq 'Strike') {
@@ -189,8 +197,14 @@ function Invoke-HardeningTomcat {
         $backup = Invoke-HtPreStrikeBackup -BackupDir $BackupDir -Context $Context
         if ($backup.Complete) {
             Write-Host "Pre-Strike backup written to: $($backup.Dir)" -ForegroundColor Green
+        } elseif ($SkipBackupCheck) {
+            Write-Warning "Pre-Strike backup was incomplete, but -SkipBackupCheck was set. Proceeding without a full backup. Backup dir: $($backup.Dir)"
+            & $Context.Log "Strike proceeding despite incomplete backup (-SkipBackupCheck)." 'Warn'
         } else {
-            Write-Warning "Pre-Strike backup was incomplete (see log). Backup dir: $($backup.Dir)"
+            # The backup is the safety net for apply. If it failed, do NOT apply changes.
+            throw "Strike halted: the pre-Strike backup did not complete (see log; backup dir: $($backup.Dir)). " +
+                  "Applying changes without a recoverable backup is unsafe. Resolve the backup failure, " +
+                  "or re-run with -SkipBackupCheck if you have another safety net (e.g. a VM snapshot)."
         }
     }
 
@@ -382,11 +396,23 @@ function Test-HtOperator {
         '=|0'  { try { return ([string]$Observed -eq $Recommended -or $Observed.Length -eq 0) } catch { return $false } }
         'set=' {
             # Set-equality for SID lists (user rights). Order-independent, comma-separated.
-            # Empty both sides = match. Normalizes whitespace and *-prefixes on SIDs.
+            # Resolves account NAMES to SIDs on both sides so "Administrators" matches
+            # "S-1-5-32-544" — secedit export may emit either form depending on the system.
             $norm = {
                 param($s)
                 if ([string]::IsNullOrWhiteSpace($s)) { return @() }
-                ($s -split '[,;]' | ForEach-Object { $_.Trim().TrimStart('*') } | Where-Object { $_ } | Sort-Object -Unique)
+                $items = $s -split '[,;]' | ForEach-Object { $_.Trim().TrimStart('*') } | Where-Object { $_ }
+                $sids = foreach ($it in $items) {
+                    if ($it -match '^S-1-') { $it }   # already a SID
+                    else {
+                        # Try to translate an account name to its SID; fall back to the raw name.
+                        try {
+                            (New-Object System.Security.Principal.NTAccount($it)
+                            ).Translate([System.Security.Principal.SecurityIdentifier]).Value
+                        } catch { $it }
+                    }
+                }
+                $sids | Sort-Object -Unique
             }
             $o = & $norm $Observed
             $r = & $norm $Recommended
