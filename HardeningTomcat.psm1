@@ -490,13 +490,16 @@ function New-HtResult {
     # Build a human-readable description of WHAT was checked, per method, so the report
     # shows the registry path / subcategory / key -- not just an opaque finding name.
     $checked = switch ($Finding.method) {
-        'Registry'     { "$($Finding.args.path)\$($Finding.args.name)" }
-        'RegistryList' { "$($Finding.args.path)\$($Finding.args.name)" }
-        'auditpol'     { "Audit subcategory: $($Finding.args.subcategory)" }
-        'secedit'      { "Policy: $($Finding.args.key)" }
-        'service'      { "Service: $($Finding.args.name)" }
-        'accesschk'    { "User right: $($Finding.args.privilege)" }
-        default        { $Finding.method }
+        'Registry'        { "$($Finding.args.path)\$($Finding.args.name)" }
+        'RegistryList'    { "$($Finding.args.path)\$($Finding.args.name)" }
+        'auditpol'        { "Audit subcategory: $($Finding.args.subcategory)" }
+        'secedit'         { "Policy: $($Finding.args.key)" }
+        'accountpolicy'   { "Account policy: $($Finding.name)" }
+        'service'         { "Service: $($Finding.args.name)" }
+        'accesschk'       { "User right: $($Finding.args.privilege)" }
+        'localaccount'    { "Local account RID: $($Finding.args.rid)" }
+        'MpPreferenceAsr' { "ASR rule: $($Finding.args.ruleId)" }
+        default           { $Finding.method }
     }
     [pscustomobject]@{
         ID          = $Finding.id
@@ -508,6 +511,7 @@ function New-HtResult {
         Recommended = if ($Recommended) { $Recommended } else { "$($Finding.recommendedValue)" }
         Operator    = $Finding.operator
         Severity    = $Finding.severity
+        Level       = if ($Finding.level) { "L$($Finding.level)" } else { '' }
         Result      = $Status      # Passed / Low / Medium / High / Skipped / Survey
         Detail      = $Detail
         Hostname    = $script:HtHostname
