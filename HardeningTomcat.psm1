@@ -42,9 +42,13 @@ function Invoke-HardeningTomcat {
         # have another safety net (e.g. a VM snapshot) and accept the risk.
         [switch] $SkipBackupCheck,
 
-        # Print every failed/skipped finding to the console. Off by default — the run
+        # Print every failed/skipped finding to the console. Off by default -- the run
         # shows a progress bar then the summary; full detail goes to the -Report CSV.
         [switch] $ShowDetails,
+
+        # Return the {Summary; Results} object to the pipeline for scripting. Off by
+        # default so interactive runs show only the formatted summary, not a raw dump.
+        [switch] $PassThru,
 
         # Optional filter scriptblock over findings, e.g. { $_.severity -eq 'High' }
         [scriptblock] $Filter
@@ -389,12 +393,31 @@ function Invoke-HardeningTomcat {
         }
     }
 
-    # Emit to pipeline
+    # ---- Final summary (clean, aligned) ---------------------------------------
+    $passColor = if ($stats.High -gt 0) { 'Red' } elseif (($stats.Medium + $stats.Low) -gt 0) { 'Yellow' } else { 'Green' }
     Write-Host ""
     Write-Host "==== HardeningTomcat $Mode complete ====" -ForegroundColor Cyan
-    $summary | Format-List | Out-Host
+    Write-Host ""
+    Write-Host ("  {0,-12}{1}" -f 'List:',     $summary.ListName)
+    Write-Host ("  {0,-12}{1}" -f 'Host:',     $script:HtHostname)
+    Write-Host ("  {0,-12}{1}" -f 'Mode:',     $summary.Mode)
+    Write-Host ("  {0,-12}{1}" -f 'Total:',    $summary.Total)
+    Write-Host ("  {0,-12}{1}" -f 'Passed:',   $summary.Passed) -ForegroundColor Green
+    if ($summary.Low    -gt 0) { Write-Host ("  {0,-12}{1}" -f 'Low:',    $summary.Low)    -ForegroundColor Yellow }
+    if ($summary.Medium -gt 0) { Write-Host ("  {0,-12}{1}" -f 'Medium:', $summary.Medium) -ForegroundColor DarkYellow }
+    if ($summary.High   -gt 0) { Write-Host ("  {0,-12}{1}" -f 'High:',   $summary.High)   -ForegroundColor Red }
+    if ($summary.Skipped -gt 0){ Write-Host ("  {0,-12}{1}" -f 'Skipped:',$summary.Skipped) -ForegroundColor DarkGray }
+    if ($Mode -eq 'Strike')    { Write-Host ("  {0,-12}{1}" -f 'Applied:',$summary.Applied) }
+    Write-Host ""
+    Write-Host ("  {0,-12}{1}" -f 'Score:',    "$($summary.Score)  ($($summary.Percent)%)") -ForegroundColor $passColor
+    Write-Host ("  {0,-12}{1:N1}s" -f 'Duration:', $summary.Duration)
+    Write-Host ""
 
-    [pscustomobject]@{ Summary = $summary; Results = $results }
+    # Return the structured object only when asked (-PassThru), so interactive runs
+    # don't dump a raw @{...} hashtable to the console after the formatted summary.
+    if ($PassThru) {
+        return [pscustomobject]@{ Summary = $summary; Results = $results }
+    }
 }
 
 # ---- Engine helpers (not handler-specific) ------------------------------------
