@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 
 <#
 .SYNOPSIS
@@ -24,7 +24,7 @@ function Invoke-HardeningTomcat {
         [string] $Mode,
 
         # Optional for Recon/Survey (auto-detected from OS if omitted).
-        # REQUIRED for Strike — apply mode refuses to guess.
+        # REQUIRED for Strike -- apply mode refuses to guess.
         [string] $FindingList,
 
         [switch] $Log,
@@ -82,7 +82,7 @@ function Invoke-HardeningTomcat {
     }
     # Strike never guesses a list. It must be named explicitly.
     if ($Mode -eq 'Strike' -and -not $FindingList) {
-        throw "No finding list specified. Strike mode will not auto-select a list — applying " +
+        throw "No finding list specified. Strike mode will not auto-select a list -- applying " +
               "changes from a guessed baseline is unsafe. Specify -FindingList explicitly, and " +
               "choose it deliberately after reviewing it in Recon mode."
     }
@@ -137,7 +137,7 @@ function Invoke-HardeningTomcat {
             if ($Mode -eq 'Strike') {
                 throw "Strike blocked: $($integrity.Message) Strike requires a list whose hash is in lists/manifest.sha256."
             }
-            # Recon/Survey are read-only — warn loudly but proceed.
+            # Recon/Survey are read-only -- warn loudly but proceed.
             Write-Warning "Integrity: $($integrity.Message)"
             & $Context.Log "Integrity ($($integrity.Status)): $($integrity.Message)" 'Warn'
         }
@@ -340,7 +340,7 @@ function Invoke-HardeningTomcat {
         $skipped = $results | Where-Object Result -eq 'Skipped'
         if ($skipped) {
             Write-Host ""
-            Write-Host "--- Skipped ($($skipped.Count)) — not evaluated ---" -ForegroundColor DarkGray
+            Write-Host "--- Skipped ($($skipped.Count)) -- not evaluated ---" -ForegroundColor DarkGray
             foreach ($x in $skipped) { Write-Host ("  $($x.Name): $($x.Detail)") -ForegroundColor DarkGray }
         }
     }
@@ -364,7 +364,7 @@ function New-HtResult {
         [string]$Recommended = ''
     )
     # Build a human-readable description of WHAT was checked, per method, so the report
-    # shows the registry path / subcategory / key — not just an opaque finding name.
+    # shows the registry path / subcategory / key -- not just an opaque finding name.
     $checked = switch ($Finding.method) {
         'Registry'     { "$($Finding.args.path)\$($Finding.args.name)" }
         'RegistryList' { "$($Finding.args.path)\$($Finding.args.name)" }
@@ -404,7 +404,7 @@ function Test-HtOperator {
         'set=' {
             # Set-equality for SID lists (user rights). Order-independent, comma-separated.
             # Resolves account NAMES to SIDs on both sides so "Administrators" matches
-            # "S-1-5-32-544" — secedit export may emit either form depending on the system.
+            # "S-1-5-32-544" -- secedit export may emit either form depending on the system.
             $norm = {
                 param($s)
                 if ([string]::IsNullOrWhiteSpace($s)) { return @() }

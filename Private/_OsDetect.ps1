@@ -1,4 +1,4 @@
-# OS detection + default finding-list resolution.
+﻿# OS detection + default finding-list resolution.
 # Used by Recon/Survey when -FindingList is omitted. Strike never calls this.
 
 function Get-HtOsIdentity {
@@ -78,10 +78,10 @@ function Resolve-HtDefaultList {
         $chosen = $best.BaseName
         # Server role ambiguity: auto-detect knows the OS but NOT whether this box is a
         # Domain Controller or Member Server (they report the same OS). If we defaulted to
-        # a Member Server / Machine list on a Server OS, warn — a DC needs its own list.
+        # a Member Server / Machine list on a Server OS, warn -- a DC needs its own list.
         if ($os.Product -match 'Server' -and $chosen -match 'Member.Server|Machine') {
             $warnings += "Detected $($os.Product); defaulted to a Member Server/Machine list. " +
-                         "If THIS box is a Domain Controller, specify -FindingList explicitly — " +
+                         "If THIS box is a Domain Controller, specify -FindingList explicitly -- " +
                          "auto-detect cannot tell DC from member server."
         }
         # Release mismatch: product matched but the chosen list is for a different release.

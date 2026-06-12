@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
     Validates an imported Microsoft baseline JSON by surfacing key findings across all
@@ -52,8 +52,8 @@ if ($badReg) { $issues += "[$($badReg.Count)] Registry findings missing args.pat
 
 # Are values suspiciously all identical? (would indicate a stuck parser)
 $distinctVals = ($f | Where-Object method -eq 'Registry' | Select-Object -ExpandProperty recommendedValue | Sort-Object -Unique).Count
-if ($distinctVals -le 1) { $issues += "All Registry values are identical (=$distinctVals distinct) — parser likely broken" }
-else { Write-Host "  Registry recommendedValues span $distinctVals distinct values (good — not stuck)" -ForegroundColor Green }
+if ($distinctVals -le 1) { $issues += "All Registry values are identical (=$distinctVals distinct) -- parser likely broken" }
+else { Write-Host "  Registry recommendedValues span $distinctVals distinct values (good -- not stuck)" -ForegroundColor Green }
 
 # Type distribution
 $types = $f | Where-Object method -eq 'Registry' | Group-Object { $_.args.type }

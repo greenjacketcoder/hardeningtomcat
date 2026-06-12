@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
     Parses an SCT GPO-backup manifest.xml and resolves which GPO folders to import.
@@ -20,7 +20,7 @@ function Get-SctGpoManifest {
 
     $manifestPath = Join-Path $GposPath 'manifest.xml'
     if (-not (Test-Path $manifestPath)) {
-        # No manifest (e.g. a single-GPO folder pointed at directly) — signal caller to
+        # No manifest (e.g. a single-GPO folder pointed at directly) -- signal caller to
         # fall back to "use everything under the path".
         return $null
     }
@@ -65,7 +65,7 @@ function Resolve-SctGpoSelection {
     # Role presets -> display-name patterns, verified against real SCT Server GPO names.
     # Shared layers (Domain Security, Defender, IE Computer) are included in BOTH server roles.
     # '*Member Server*' also matches 'Member Server Credential Guard'; '*Domain Controller*'
-    # also matches 'Domain Controller Virtualization Based Security' — both intended.
+    # also matches 'Domain Controller Virtualization Based Security' -- both intended.
     $rolePatterns = switch ($Role) {
         'MemberServer'     { @('*Member Server*','*Domain Security*','*Defender*','*Internet Explorer*Computer*') }
         'DomainController' { @('*Domain Controller*','*Domain Security*','*Defender*','*Internet Explorer*Computer*') }
@@ -76,7 +76,7 @@ function Resolve-SctGpoSelection {
     $patterns = if ($IncludeGpo) { $IncludeGpo } elseif ($rolePatterns) { $rolePatterns } else { $null }
 
     if (-not $patterns) {
-        # No selection given — return manifest so caller can print options and stop.
+        # No selection given -- return manifest so caller can print options and stop.
         return [pscustomobject]@{ Mode = 'ListOnly'; Folders = @(); Manifest = $manifest }
     }
 

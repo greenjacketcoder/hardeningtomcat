@@ -1,9 +1,9 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
     Imports a Microsoft Security Compliance Toolkit (SCT) baseline directly into a
     HardeningTomcat JSON finding list. No HardeningKitty or other third-party
-    translation in the path — this reads Microsoft's own GPO-backup artifacts.
+    translation in the path -- this reads Microsoft's own GPO-backup artifacts.
 
 .DESCRIPTION
     Point this at an unzipped SCT baseline's GPO-backup folder (the one containing
@@ -116,7 +116,7 @@ foreach ($pol in $polFiles) {
     try { $recs = ConvertFrom-RegistryPol -Path $pol.FullName }
     catch { Write-Warning "Skipping $($pol.FullName): $($_.Exception.Message)"; continue }
     foreach ($r in $recs) {
-        # A '**del.' value name or DELVALS marker means "delete" — skip for an audit baseline.
+        # A '**del.' value name or DELVALS marker means "delete" -- skip for an audit baseline.
         if ($r.ValueName -match '^\*\*del') { continue }
         $findings.Add([pscustomobject]@{
             id   = Next-Id
