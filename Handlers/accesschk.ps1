@@ -1,10 +1,10 @@
-# accesschk handler — user-rights assignments (the [Privilege Rights] section).
+﻿# accesschk handler -- user-rights assignments (the [Privilege Rights] section).
 # args: { "privilege": "SeShutdownPrivilege" }
 # recommendedValue: comma-separated SID list, e.g. "S-1-5-32-544,S-1-5-19"
 # operator: 'set=' (order-independent set equality)
 #
 # Reads user rights via `secedit /export` ONCE in Prefetch (batched), then each Test
-# is an in-memory lookup — same pattern as the secedit handler. No accesschk.exe needed.
+# is an in-memory lookup -- same pattern as the secedit handler. No accesschk.exe needed.
 
 @{
     Name = 'accesschk'
@@ -37,7 +37,7 @@
                 }
             }
         } else {
-            & $Context.Log "accesschk: USER_RIGHTS export FAILED — user-rights findings will be Skipped, not passed." 'Warn'
+            & $Context.Log "accesschk: USER_RIGHTS export FAILED -- user-rights findings will be Skipped, not passed." 'Warn'
         }
 
         # Always clean up the security-policy dump (contains sensitive SID assignments).
@@ -50,7 +50,7 @@
 
     Test = {
         param($Finding, $Cache, $Context)
-        # If the export failed, we genuinely don't know the state — do NOT claim compliant.
+        # If the export failed, we genuinely don't know the state -- do NOT claim compliant.
         if (-not $Cache['userrights_ok']) {
             throw "user-rights export unavailable; cannot evaluate $($Finding.args.privilege)"
         }

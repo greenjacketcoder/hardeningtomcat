@@ -1,5 +1,5 @@
-# Update-ListManifest.ps1
-# Generates/updates lists/manifest.sha256 — a record of known-good SHA256 hashes for
+﻿# Update-ListManifest.ps1
+# Generates/updates lists/manifest.sha256 -- a record of known-good SHA256 hashes for
 # every finding list. Run this AFTER you've imported or edited lists you trust.
 #
 # The engine verifies a list against this manifest before use. Strike REFUSES a list

@@ -1,4 +1,4 @@
-# Secedit handler.
+﻿# Secedit handler.
 # Like auditpol: the old engine ran `secedit /export` repeatedly. Here Prefetch
 # exports ONCE to a temp INI, parses it, and caches. Tests are in-memory lookups.
 #
@@ -29,7 +29,7 @@
                 }
             }
         } else {
-            & $Context.Log "secedit: export FAILED — policy findings will be Skipped, not passed." 'Warn'
+            & $Context.Log "secedit: export FAILED -- policy findings will be Skipped, not passed." 'Warn'
         }
         Remove-Item $tmp -Force -ErrorAction SilentlyContinue
         $Cache['secedit']    = $table
@@ -39,7 +39,7 @@
 
     Test = {
         param($Finding, $Cache, $Context)
-        # If the export failed, we don't know the state — do NOT claim compliant.
+        # If the export failed, we don't know the state -- do NOT claim compliant.
         if (-not $Cache['secedit_ok']) {
             throw "secedit export unavailable; cannot evaluate $($Finding.args.key)"
         }

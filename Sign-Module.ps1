@@ -1,8 +1,8 @@
-<#
+﻿<#
 .SYNOPSIS
     Signs every PowerShell file in the HardeningTomcat module tree.
 .DESCRIPTION
-    Run this ONCE the code has stabilized — not during active development, since
+    Run this ONCE the code has stabilized -- not during active development, since
     every edit invalidates the signature. Under AllSigned, the engine dot-sources
     handler .ps1 files at runtime, so EVERY script must be signed, not just the
     root .psm1/.psd1. This globs the whole tree to handle that.

@@ -1,4 +1,4 @@
-# Auditpol handler.
+﻿# Auditpol handler.
 # THE KEY ARCHITECTURAL WIN: the old engine ran auditpol.exe once PER finding
 # (hundreds of process spawns). Here Prefetch runs `auditpol /get /category:*` ONCE,
 # parses all subcategories into the cache, and every Test is then an in-memory lookup.
@@ -31,7 +31,7 @@
             & $Context.Log "auditpol: query threw: $($_.Exception.Message)" 'Warn'
         }
         if (-not $exportOk) {
-            & $Context.Log "auditpol: query FAILED — audit findings will be Skipped, not passed." 'Warn'
+            & $Context.Log "auditpol: query FAILED -- audit findings will be Skipped, not passed." 'Warn'
         }
         $Cache['auditpol']    = $parsed
         $Cache['auditpol_ok'] = $exportOk

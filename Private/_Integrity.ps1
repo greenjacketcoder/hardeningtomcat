@@ -1,4 +1,4 @@
-# Finding-list integrity verification against lists/manifest.sha256.
+﻿# Finding-list integrity verification against lists/manifest.sha256.
 # Defense against a tampered list weaponizing the tool. Strike refuses mismatches;
 # Recon/Survey warn but proceed (read-only can't harm the system).
 
@@ -30,7 +30,7 @@ function Test-HtListIntegrity {
     if ($sig -and $sig.Status -eq 'Valid') {
         $result | Add-Member -NotePropertyName ManifestSigned -NotePropertyValue $true -Force
     } elseif ($sig -and $sig.Status -in 'HashMismatch','NotTrusted') {
-        # A present-but-invalid signature means the manifest was tampered with — refuse to trust it.
+        # A present-but-invalid signature means the manifest was tampered with -- refuse to trust it.
         $result.Status = 'manifest-tampered'
         $result.Message = "The integrity manifest's signature is invalid ($($sig.Status)). The manifest may have been altered."
         return $result
@@ -39,7 +39,7 @@ function Test-HtListIntegrity {
     $actual = (Get-FileHash -Path $FindingList -Algorithm SHA256).Hash.ToLower()
     $result.Actual = $actual
 
-    # Match by hash directly — path-independent, so a list is trusted wherever it sits
+    # Match by hash directly -- path-independent, so a list is trusted wherever it sits
     # as long as its content hash is in the manifest.
     $known = @{}
     foreach ($line in (Get-Content $manifestPath)) {
