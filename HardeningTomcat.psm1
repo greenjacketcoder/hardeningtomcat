@@ -324,6 +324,19 @@ function Test-HtOperator {
         '<=!0' { try { return ([int]$Observed -le [int]$Recommended -and [int]$Observed -ne 0) } catch { return $false } }
         'contains' { return ($Observed.ToString().Contains($Recommended)) }
         '=|0'  { try { return ([string]$Observed -eq $Recommended -or $Observed.Length -eq 0) } catch { return $false } }
+        'set=' {
+            # Set-equality for SID lists (user rights). Order-independent, comma-separated.
+            # Empty both sides = match. Normalizes whitespace and *-prefixes on SIDs.
+            $norm = {
+                param($s)
+                if ([string]::IsNullOrWhiteSpace($s)) { return @() }
+                ($s -split '[,;]' | ForEach-Object { $_.Trim().TrimStart('*') } | Where-Object { $_ } | Sort-Object -Unique)
+            }
+            $o = & $norm $Observed
+            $r = & $norm $Recommended
+            if ($o.Count -ne $r.Count) { return $false }
+            return (-not (Compare-Object $o $r))
+        }
         default { return $false }
     }
 }

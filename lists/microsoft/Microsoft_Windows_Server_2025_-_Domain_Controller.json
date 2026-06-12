@@ -4758,6 +4758,292 @@
     },
     {
       "id": "10319",
+      "name": "User Right: SeCreateTokenPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateTokenPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10320",
+      "name": "User Right: SeTrustedCredManAccessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTrustedCredManAccessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10321",
+      "name": "User Right: SeRemoteInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRemoteInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10322",
+      "name": "User Right: SeCreatePagefilePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePagefilePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10323",
+      "name": "User Right: SeRemoteShutdownPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRemoteShutdownPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10324",
+      "name": "User Right: SeLoadDriverPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLoadDriverPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10325",
+      "name": "User Right: SeRestorePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRestorePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10326",
+      "name": "User Right: SeCreateGlobalPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateGlobalPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10327",
+      "name": "User Right: SeManageVolumePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeManageVolumePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10328",
+      "name": "User Right: SeInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-9,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10329",
+      "name": "User Right: SeEnableDelegationPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeEnableDelegationPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10330",
+      "name": "User Right: SeCreatePermanentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePermanentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10331",
+      "name": "User Right: SeDebugPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDebugPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10332",
+      "name": "User Right: SeProfileSingleProcessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeProfileSingleProcessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10333",
+      "name": "User Right: SeBackupPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeBackupPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10334",
+      "name": "User Right: SeNetworkLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeNetworkLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-9,*S-1-5-11,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10335",
+      "name": "User Right: SeImpersonatePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeImpersonatePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-6,*S-1-5-99-216390572-1995538116-3857911515-2404958512-2623887229,*S-1-5-20,*S-1-5-19,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10336",
+      "name": "User Right: SeSystemEnvironmentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSystemEnvironmentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10337",
+      "name": "User Right: SeLockMemoryPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLockMemoryPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10338",
+      "name": "User Right: SeTcbPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTcbPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10339",
+      "name": "User Right: SeTakeOwnershipPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTakeOwnershipPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10340",
+      "name": "User Right: SeDenyRemoteInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyRemoteInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-546",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10341",
       "name": "Audit: Audit Credential Validation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4770,7 +5056,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10320",
+      "id": "10342",
       "name": "Audit: Audit Kerberos Authentication Service",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4783,7 +5069,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10321",
+      "id": "10343",
       "name": "Audit: Audit Kerberos Service Ticket Operations",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4796,7 +5082,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10322",
+      "id": "10344",
       "name": "Audit: Audit Computer Account Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4809,7 +5095,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10323",
+      "id": "10345",
       "name": "Audit: Audit Other Account Management Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4822,7 +5108,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10324",
+      "id": "10346",
       "name": "Audit: Audit Security Group Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4835,7 +5121,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10325",
+      "id": "10347",
       "name": "Audit: Audit User Account Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4848,7 +5134,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10326",
+      "id": "10348",
       "name": "Audit: Audit PNP Activity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4861,7 +5147,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10327",
+      "id": "10349",
       "name": "Audit: Audit Process Creation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4874,7 +5160,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10328",
+      "id": "10350",
       "name": "Audit: Audit Directory Service Access",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4887,7 +5173,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10329",
+      "id": "10351",
       "name": "Audit: Audit Directory Service Changes",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4900,7 +5186,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10330",
+      "id": "10352",
       "name": "Audit: Audit Account Lockout",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4913,7 +5199,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10331",
+      "id": "10353",
       "name": "Audit: Audit Group Membership",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4926,7 +5212,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10332",
+      "id": "10354",
       "name": "Audit: Audit Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4939,7 +5225,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10333",
+      "id": "10355",
       "name": "Audit: Audit Other Logon/Logoff Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4952,7 +5238,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10334",
+      "id": "10356",
       "name": "Audit: Audit Special Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4965,7 +5251,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10335",
+      "id": "10357",
       "name": "Audit: Audit Detailed File Share",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4978,7 +5264,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10336",
+      "id": "10358",
       "name": "Audit: Audit File Share",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4991,7 +5277,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10337",
+      "id": "10359",
       "name": "Audit: Audit Other Object Access Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5004,7 +5290,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10338",
+      "id": "10360",
       "name": "Audit: Audit Removable Storage",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5017,7 +5303,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10339",
+      "id": "10361",
       "name": "Audit: Audit Audit Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5030,7 +5316,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10340",
+      "id": "10362",
       "name": "Audit: Audit Authentication Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5043,7 +5329,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10341",
+      "id": "10363",
       "name": "Audit: Audit Authorization Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5056,7 +5342,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10342",
+      "id": "10364",
       "name": "Audit: Audit MPSSVC Rule-Level Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5069,7 +5355,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10343",
+      "id": "10365",
       "name": "Audit: Audit Other Policy Change Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5082,7 +5368,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10344",
+      "id": "10366",
       "name": "Audit: Audit Sensitive Privilege Use",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5095,7 +5381,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10345",
+      "id": "10367",
       "name": "Audit: Audit Other System Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5108,7 +5394,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10346",
+      "id": "10368",
       "name": "Audit: Audit Security State Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5121,7 +5407,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10347",
+      "id": "10369",
       "name": "Audit: Audit Security System Extension",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -5134,7 +5420,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10348",
+      "id": "10370",
       "name": "Audit: Audit System Integrity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",

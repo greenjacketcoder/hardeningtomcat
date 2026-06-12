@@ -3000,6 +3000,357 @@
     },
     {
       "id": "10201",
+      "name": "User Right: SeSecurityPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSecurityPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10202",
+      "name": "User Right: SeCreateTokenPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateTokenPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10203",
+      "name": "User Right: SeTrustedCredManAccessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTrustedCredManAccessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10204",
+      "name": "User Right: SeCreatePagefilePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePagefilePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10205",
+      "name": "User Right: SeRemoteShutdownPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRemoteShutdownPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10206",
+      "name": "User Right: SeDenyInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-546",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10207",
+      "name": "User Right: SeIncreaseBasePriorityPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeIncreaseBasePriorityPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10208",
+      "name": "User Right: SeLoadDriverPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLoadDriverPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10209",
+      "name": "User Right: SeRestorePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRestorePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10210",
+      "name": "User Right: SeCreateGlobalPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateGlobalPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10211",
+      "name": "User Right: SeManageVolumePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeManageVolumePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10212",
+      "name": "User Right: SeInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10213",
+      "name": "User Right: SeEnableDelegationPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeEnableDelegationPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10214",
+      "name": "User Right: SeCreatePermanentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePermanentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10215",
+      "name": "User Right: SeDebugPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDebugPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10216",
+      "name": "User Right: SeProfileSingleProcessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeProfileSingleProcessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10217",
+      "name": "User Right: SeBackupPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeBackupPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10218",
+      "name": "User Right: SeNetworkLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeNetworkLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-11,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10219",
+      "name": "User Right: SeCreateSymbolicLinkPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateSymbolicLinkPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10220",
+      "name": "User Right: SeDenyNetworkLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyNetworkLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-114,*S-1-5-32-546",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10221",
+      "name": "User Right: SeImpersonatePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeImpersonatePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10222",
+      "name": "User Right: SeSystemEnvironmentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSystemEnvironmentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10223",
+      "name": "User Right: SeLockMemoryPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLockMemoryPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10224",
+      "name": "User Right: SeTcbPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTcbPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10225",
+      "name": "User Right: SeAuditPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeAuditPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10226",
+      "name": "User Right: SeTakeOwnershipPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTakeOwnershipPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10227",
+      "name": "User Right: SeDenyRemoteInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyRemoteInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-546,*S-1-5-113",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10228",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3014,7 +3365,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10202",
+      "id": "10229",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\UseMachineId",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3029,7 +3380,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10203",
+      "id": "10230",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3044,7 +3395,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10204",
+      "id": "10231",
       "name": "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3059,7 +3410,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10205",
+      "id": "10232",
       "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\autodisconnect",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3074,7 +3425,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10206",
+      "id": "10233",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3089,7 +3440,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10207",
+      "id": "10234",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3104,7 +3455,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10208",
+      "id": "10235",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3119,7 +3470,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10209",
+      "id": "10236",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3134,7 +3485,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10210",
+      "id": "10237",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3149,7 +3500,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10211",
+      "id": "10238",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableUIADesktopToggle",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3164,7 +3515,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10212",
+      "id": "10239",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3179,7 +3530,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10213",
+      "id": "10240",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3194,7 +3545,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10214",
+      "id": "10241",
       "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3209,7 +3560,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10215",
+      "id": "10242",
       "name": "System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3224,7 +3575,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10216",
+      "id": "10243",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3239,7 +3590,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10217",
+      "id": "10244",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\EveryoneIncludesAnonymous",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3254,7 +3605,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10218",
+      "id": "10245",
       "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\enablesecuritysignature",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3269,7 +3620,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10219",
+      "id": "10246",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3284,7 +3635,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10220",
+      "id": "10247",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3299,7 +3650,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10221",
+      "id": "10248",
       "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnableSecuritySignature",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3314,7 +3665,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10222",
+      "id": "10249",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3329,7 +3680,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10223",
+      "id": "10250",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3344,7 +3695,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10224",
+      "id": "10251",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3359,7 +3710,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10225",
+      "id": "10252",
       "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3374,7 +3725,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10226",
+      "id": "10253",
       "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3389,7 +3740,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10227",
+      "id": "10254",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3404,7 +3755,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10228",
+      "id": "10255",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3419,7 +3770,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10229",
+      "id": "10256",
       "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3434,7 +3785,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10230",
+      "id": "10257",
       "name": "System\\CurrentControlSet\\Control\\Session Manager\\Kernel\\ObCaseInsensitive",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3449,7 +3800,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10231",
+      "id": "10258",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3464,7 +3815,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10232",
+      "id": "10259",
       "name": "System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3479,7 +3830,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10233",
+      "id": "10260",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3494,7 +3845,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10234",
+      "id": "10261",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\maximumpasswordage",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3509,7 +3860,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10235",
+      "id": "10262",
       "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\disablepasswordchange",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3524,7 +3875,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10236",
+      "id": "10263",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\NoLMHash",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3539,7 +3890,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10237",
+      "id": "10264",
       "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3554,7 +3905,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10238",
+      "id": "10265",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
@@ -3569,7 +3920,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10239",
+      "id": "10266",
       "name": "System Access: MinimumPasswordAge",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3582,7 +3933,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10240",
+      "id": "10267",
       "name": "System Access: MaximumPasswordAge",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3595,7 +3946,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10241",
+      "id": "10268",
       "name": "System Access: MinimumPasswordLength",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3608,7 +3959,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10242",
+      "id": "10269",
       "name": "System Access: PasswordComplexity",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3621,7 +3972,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10243",
+      "id": "10270",
       "name": "System Access: PasswordHistorySize",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3634,7 +3985,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10244",
+      "id": "10271",
       "name": "System Access: LockoutBadCount",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3647,7 +3998,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10245",
+      "id": "10272",
       "name": "System Access: ResetLockoutCount",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3660,7 +4011,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10246",
+      "id": "10273",
       "name": "System Access: LockoutDuration",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3673,7 +4024,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10247",
+      "id": "10274",
       "name": "System Access: ClearTextPassword",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3686,7 +4037,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10248",
+      "id": "10275",
       "name": "Audit: Audit Credential Validation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3699,7 +4050,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10249",
+      "id": "10276",
       "name": "Audit: Audit Other Account Management Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3712,7 +4063,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10250",
+      "id": "10277",
       "name": "Audit: Audit Security Group Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3725,7 +4076,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10251",
+      "id": "10278",
       "name": "Audit: Audit User Account Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3738,7 +4089,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10252",
+      "id": "10279",
       "name": "Audit: Audit PNP Activity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3751,7 +4102,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10253",
+      "id": "10280",
       "name": "Audit: Audit Process Creation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3764,7 +4115,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10254",
+      "id": "10281",
       "name": "Audit: Audit Account Lockout",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3777,7 +4128,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10255",
+      "id": "10282",
       "name": "Audit: Audit Group Membership",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3790,7 +4141,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10256",
+      "id": "10283",
       "name": "Audit: Audit Logoff",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3803,7 +4154,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10257",
+      "id": "10284",
       "name": "Audit: Audit Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3816,7 +4167,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10258",
+      "id": "10285",
       "name": "Audit: Audit Special Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3829,7 +4180,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10259",
+      "id": "10286",
       "name": "Audit: Audit Removable Storage",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3842,7 +4193,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10260",
+      "id": "10287",
       "name": "Audit: Audit Audit Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3855,7 +4206,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10261",
+      "id": "10288",
       "name": "Audit: Audit Authentication Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3868,7 +4219,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10262",
+      "id": "10289",
       "name": "Audit: Audit Authorization Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3881,7 +4232,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10263",
+      "id": "10290",
       "name": "Audit: Audit Sensitive Privilege Use",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3894,7 +4245,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10264",
+      "id": "10291",
       "name": "Audit: Audit IPsec Driver",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3907,7 +4258,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10265",
+      "id": "10292",
       "name": "Audit: Audit Other System Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3920,7 +4271,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10266",
+      "id": "10293",
       "name": "Audit: Audit Security State Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3933,7 +4284,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10267",
+      "id": "10294",
       "name": "Audit: Audit Security System Extension",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3946,7 +4297,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10268",
+      "id": "10295",
       "name": "Audit: Audit System Integrity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
