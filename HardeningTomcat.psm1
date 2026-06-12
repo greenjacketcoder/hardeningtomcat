@@ -50,6 +50,7 @@ function Invoke-HardeningTomcat {
     $script:StartTime = Get-Date
 
     # ---- Session context -------------------------------------------------------
+    $script:HtHostname = $env:COMPUTERNAME   # read once; reused by every result row
     $IsAdmin = ([Security.Principal.WindowsPrincipal] `
         [Security.Principal.WindowsIdentity]::GetCurrent()
         ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
@@ -181,13 +182,19 @@ function Invoke-HardeningTomcat {
     & $Context.Log "Finding list '$($list.listName)' v$($list.version): $($findings.Count) findings after filter."
 
     # ---- Prefetch pass (batch slow external calls once) -----------------------
+    # Group findings by method ONCE (O(n)) instead of re-filtering the whole list
+    # per method (O(methods x n)).
+    $byMethod = @{}
+    foreach ($f in $findings) {
+        if (-not $byMethod.ContainsKey($f.method)) { $byMethod[$f.method] = New-Object System.Collections.Generic.List[object] }
+        $byMethod[$f.method].Add($f)
+    }
     $Cache = @{}
-    foreach ($methodName in ($findings.method | Sort-Object -Unique)) {
+    foreach ($methodName in $byMethod.Keys) {
         $handler = $Handlers[$methodName]
         if (-not $handler) { continue }
         if ($handler.Prefetch) {
-            $methodFindings = $findings | Where-Object { $_.method -eq $methodName }
-            try { & $handler.Prefetch $methodFindings $Cache $Context }
+            try { & $handler.Prefetch $byMethod[$methodName] $Cache $Context }
             catch { & $Context.Log "Prefetch for $methodName failed: $($_.Exception.Message)" 'Warn' }
         }
     }
@@ -379,7 +386,7 @@ function New-HtResult {
         Severity    = $Finding.severity
         Result      = $Status      # Passed / Low / Medium / High / Skipped / Survey
         Detail      = $Detail
-        Hostname    = $env:COMPUTERNAME
+        Hostname    = $script:HtHostname
     }
 }
 
