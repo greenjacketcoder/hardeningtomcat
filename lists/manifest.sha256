@@ -1,5 +1,11 @@
 # HardeningTomcat finding-list integrity manifest
-# Generated: 2026-06-12 14:26:11  Format: <sha256>  <relative path>
+# Generated: 2026-06-12 17:56:26  Format: <sha256>  <relative path>
+d6a7a7e25294f3d169e2893fb00a7a1455ec0bcfb0412a490837bbdf08b3a92e  cis/CIS_Windows_11_25H2_L1-L2.json
+11167c60ac6bd94d4cc545b4aec03f0d552555a98a54a67b177aa25a2a6fd71d  cis/CIS_Windows_11_25H2_L1.json
+f12f4c2e497e672904403fa4c9e75e0052fcafaba2696d50d00368590c1e8246  cis/CIS_Windows_Server_2016_L1.json
+44eec0eb804eacaaeb36c793b294dbf43635668c1288696684cdf3367712fadf  cis/CIS_Windows_Server_2019_L1.json
+47acb3b18d5457ee79c3fc934d75f1090bb92a87dfb2bcd0afe2a61b1e593638  cis/CIS_Windows_Server_2022_L1-L2.json
+b4c46c7c752551014d0dc46554babcd468a7541ac04d74600627b848bafe1637  cis/CIS_Windows_Server_2022_L1.json
 e165d4aedd4aa61040d1cb0d1a0819757e7091f7f1c27a3088941a3356507f49  microsoft/Microsoft_Windows_11_23H2_-_Machine.json
 735575034e6d4d5ca1f0dcbf9ef03f08b5d649356282c7e2282359eb23ea2142  microsoft/Microsoft_Windows_11_24H2_-_Machine.json
 b6bed08b3f754a7278b323c6c97e484a4e4b8cce290de361f9e89c8f38d9f4af  microsoft/Microsoft_Windows_11_25H2_-_Machine.json

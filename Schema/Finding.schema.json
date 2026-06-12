@@ -56,6 +56,11 @@
           "type": "string",
           "enum": ["Low", "Medium", "High"],
           "description": "Severity if the finding FAILS. Passed findings always score full marks."
+        },
+        "level": {
+          "type": "integer",
+          "enum": [1, 2],
+          "description": "CIS hardening level (1 = baseline, 2 = high-security). Optional; present on CIS-derived lists."
         }
       }
     }

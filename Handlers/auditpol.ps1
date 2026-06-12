@@ -23,7 +23,11 @@
                 foreach ($row in $csv) {
                     $sub = $row.Subcategory
                     $set = $row.'Inclusion Setting'
+                    # Key by BOTH name and GUID so findings can reference either form.
+                    # Microsoft baselines use names; CIS lists use the subcategory GUID.
                     if ($sub) { $parsed[$sub.Trim()] = $set }
+                    $guid = $row.'Subcategory GUID'
+                    if ($guid) { $parsed[$guid.Trim().ToLower()] = $set }
                 }
                 if ($parsed.Count -gt 0) { $exportOk = $true }
             }
@@ -45,8 +49,13 @@
         }
         $table = $Cache['auditpol']
         $sub = $Finding.args.subcategory
+        # Try exact (name) match first, then lowercased (GUID) match.
         if ($table.ContainsKey($sub)) {
             return [pscustomobject]@{ Result = $table[$sub]; Found = $true }
+        }
+        $subLower = "$sub".ToLower()
+        if ($table.ContainsKey($subLower)) {
+            return [pscustomobject]@{ Result = $table[$subLower]; Found = $true }
         }
         [pscustomobject]@{ Result = $null; Found = $false }
     }

@@ -51,7 +51,11 @@ function Invoke-HardeningTomcat {
         [switch] $PassThru,
 
         # Optional filter scriptblock over findings, e.g. { $_.severity -eq 'High' }
-        [scriptblock] $Filter
+        [scriptblock] $Filter,
+
+        # CIS level filter: 1 runs only L1 findings, 2 runs L1+L2. Findings without a
+        # level field are always included (e.g. Microsoft-baseline lists carry no level).
+        [ValidateSet('1','2')][string] $Level
     )
 
     $ModuleRoot = $PSScriptRoot
@@ -193,6 +197,13 @@ function Invoke-HardeningTomcat {
 
     $findings = $list.findings
     if ($Filter) { $findings = $findings | Where-Object $Filter }
+    if ($Level) {
+        # L1 -> only level-1 findings; L2 -> level 1 and 2. Findings with no level
+        # field are always kept (Microsoft lists have no levels to filter on).
+        $maxLvl = [int]$Level
+        $findings = $findings | Where-Object { (-not $_.level) -or ($_.level -le $maxLvl) }
+        & $Context.Log "Level filter L$($Level): $($findings.Count) findings remain."
+    }
     & $Context.Log "Finding list '$($list.listName)' v$($list.version): $($findings.Count) findings after filter."
 
     # ---- Elevation pre-check: warn up front if not admin ----------------------
