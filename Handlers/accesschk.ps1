@@ -13,39 +13,53 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        # Reuse a secedit export if one was already cached by the secedit handler.
-        if ($Cache['secedit_inf_path'] -and (Test-Path $Cache['secedit_inf_path'])) {
-            $infPath = $Cache['secedit_inf_path']
-        } else {
-            $infPath = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_userrights_{0:yyyyMMdd-HHmmss}.inf" -f (Get-Date))
+        $infPath = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_userrights_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
+        $exportOk = $false
+        try {
             & secedit.exe /export /areas USER_RIGHTS /cfg $infPath /quiet 2>$null
+            # secedit returns 0 on success; also require the file to actually exist & be non-empty.
+            if ($LASTEXITCODE -eq 0 -and (Test-Path $infPath) -and (Get-Item $infPath).Length -gt 0) {
+                $exportOk = $true
+            }
+        } catch {
+            & $Context.Log "accesschk: secedit export threw: $($_.Exception.Message)" 'Warn'
         }
 
         $rights = @{}
-        if (Test-Path $infPath) {
+        if ($exportOk) {
             $inSection = $false
             foreach ($line in (Get-Content -Path $infPath -Encoding Unicode)) {
                 $t = $line.Trim()
                 if ($t -match '^\[Privilege Rights\]') { $inSection = $true; continue }
                 if ($t -match '^\[') { $inSection = $false; continue }
                 if ($inSection -and $t -match '^(Se\w+)\s*=\s*(.*)$') {
-                    # Value is a comma-separated list of *SIDs (or account names). Store raw.
                     $rights[$matches[1]] = $matches[2].Trim()
                 }
             }
+        } else {
+            & $Context.Log "accesschk: USER_RIGHTS export FAILED — user-rights findings will be Skipped, not passed." 'Warn'
         }
-        $Cache['userrights'] = $rights
-        & $Context.Log "accesschk prefetch: cached $($rights.Count) user-rights assignments."
+
+        # Always clean up the security-policy dump (contains sensitive SID assignments).
+        Remove-Item $infPath -Force -ErrorAction SilentlyContinue
+
+        $Cache['userrights']    = $rights
+        $Cache['userrights_ok'] = $exportOk
+        & $Context.Log "accesschk prefetch: export $(if($exportOk){'OK'}else{'FAILED'}), cached $($rights.Count) assignments."
     }
 
     Test = {
         param($Finding, $Cache, $Context)
+        # If the export failed, we genuinely don't know the state — do NOT claim compliant.
+        if (-not $Cache['userrights_ok']) {
+            throw "user-rights export unavailable; cannot evaluate $($Finding.args.privilege)"
+        }
         $table = $Cache['userrights']
         $priv = $Finding.args.privilege
-        if ($table -and $table.ContainsKey($priv)) {
+        if ($table.ContainsKey($priv)) {
             return [pscustomobject]@{ Result = $table[$priv]; Found = $true }
         }
-        # Privilege absent from export = no accounts hold it = empty set.
+        # Export succeeded AND privilege is absent = genuinely no accounts hold it (empty set).
         [pscustomobject]@{ Result = ''; Found = $true }
     }
 

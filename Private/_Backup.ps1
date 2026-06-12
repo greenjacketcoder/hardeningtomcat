@@ -9,6 +9,23 @@ function Invoke-HtPreStrikeBackup {
     }
     New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
 
+    # Restrict ACLs: these files contain full security policy (user rights, SIDs,
+    # account policy). Lock the backup dir to SYSTEM + Administrators only, removing
+    # inherited access so non-admin users can't read the dumps.
+    try {
+        $acl = Get-Acl $BackupDir
+        $acl.SetAccessRuleProtection($true, $false)   # disable inheritance, drop inherited rules
+        foreach ($id in 'NT AUTHORITY\SYSTEM','BUILTIN\Administrators') {
+            $rule = New-Object System.Security.AccessControl.FileSystemAccessRule(
+                $id, 'FullControl', 'ContainerInherit,ObjectInherit', 'None', 'Allow')
+            $acl.AddAccessRule($rule)
+        }
+        Set-Acl -Path $BackupDir -AclObject $acl
+        & $Context.Log "Backup dir ACL restricted to SYSTEM + Administrators."
+    } catch {
+        & $Context.Log "Backup: could not restrict ACLs on $BackupDir : $($_.Exception.Message)" 'Warn'
+    }
+
     $ok = $true
 
     # 1) Security policy (account policy, user rights, audit) via secedit export

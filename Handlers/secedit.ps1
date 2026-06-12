@@ -13,26 +13,39 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secedit_{0:yyyyMMdd-HHmmss}.inf" -f (Get-Date))
-        & secedit.exe /export /cfg $tmp /quiet 2>$null
+        $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secedit_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
+        $exportOk = $false
+        try {
+            & secedit.exe /export /cfg $tmp /quiet 2>$null
+            if ($LASTEXITCODE -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $exportOk = $true }
+        } catch {
+            & $Context.Log "secedit: export threw: $($_.Exception.Message)" 'Warn'
+        }
         $table = @{}
-        if (Test-Path $tmp) {
+        if ($exportOk) {
             foreach ($line in (Get-Content -Path $tmp -Encoding Unicode)) {
                 if ($line -match '^\s*([^=\[]+?)\s*=\s*(.+?)\s*$') {
                     $table[$matches[1].Trim()] = $matches[2].Trim()
                 }
             }
-            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        } else {
+            & $Context.Log "secedit: export FAILED — policy findings will be Skipped, not passed." 'Warn'
         }
-        $Cache['secedit'] = $table
-        & $Context.Log "secedit prefetch: cached $($table.Count) policy keys in one export."
+        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        $Cache['secedit']    = $table
+        $Cache['secedit_ok'] = $exportOk
+        & $Context.Log "secedit prefetch: export $(if($exportOk){'OK'}else{'FAILED'}), cached $($table.Count) keys."
     }
 
     Test = {
         param($Finding, $Cache, $Context)
+        # If the export failed, we don't know the state — do NOT claim compliant.
+        if (-not $Cache['secedit_ok']) {
+            throw "secedit export unavailable; cannot evaluate $($Finding.args.key)"
+        }
         $table = $Cache['secedit']
         $key = $Finding.args.key
-        if ($table -and $table.ContainsKey($key)) {
+        if ($table.ContainsKey($key)) {
             return [pscustomobject]@{ Result = $table[$key]; Found = $true }
         }
         [pscustomobject]@{ Result = $null; Found = $false }

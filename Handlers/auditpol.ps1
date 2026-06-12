@@ -14,26 +14,38 @@
     Prefetch = {
         param($Findings, $Cache, $Context)
         # One spawn for the whole run.
-        $raw = & auditpol.exe /get /category:* /r 2>$null   # /r = CSV output
+        $exportOk = $false
         $parsed = @{}
-        if ($raw) {
-            $csv = $raw | ConvertFrom-Csv
-            foreach ($row in $csv) {
-                # Column name is 'Subcategory' and 'Inclusion Setting' in auditpol /r output
-                $sub = $row.Subcategory
-                $set = $row.'Inclusion Setting'
-                if ($sub) { $parsed[$sub.Trim()] = $set }
+        try {
+            $raw = & auditpol.exe /get /category:* /r 2>$null   # /r = CSV output
+            if ($LASTEXITCODE -eq 0 -and $raw) {
+                $csv = $raw | ConvertFrom-Csv
+                foreach ($row in $csv) {
+                    $sub = $row.Subcategory
+                    $set = $row.'Inclusion Setting'
+                    if ($sub) { $parsed[$sub.Trim()] = $set }
+                }
+                if ($parsed.Count -gt 0) { $exportOk = $true }
             }
+        } catch {
+            & $Context.Log "auditpol: query threw: $($_.Exception.Message)" 'Warn'
         }
-        $Cache['auditpol'] = $parsed
-        & $Context.Log "auditpol prefetch: cached $($parsed.Count) subcategories in one call."
+        if (-not $exportOk) {
+            & $Context.Log "auditpol: query FAILED — audit findings will be Skipped, not passed." 'Warn'
+        }
+        $Cache['auditpol']    = $parsed
+        $Cache['auditpol_ok'] = $exportOk
+        & $Context.Log "auditpol prefetch: query $(if($exportOk){'OK'}else{'FAILED'}), cached $($parsed.Count) subcategories."
     }
 
     Test = {
         param($Finding, $Cache, $Context)
+        if (-not $Cache['auditpol_ok']) {
+            throw "auditpol query unavailable; cannot evaluate $($Finding.args.subcategory)"
+        }
         $table = $Cache['auditpol']
         $sub = $Finding.args.subcategory
-        if ($table -and $table.ContainsKey($sub)) {
+        if ($table.ContainsKey($sub)) {
             return [pscustomobject]@{ Result = $table[$sub]; Found = $true }
         }
         [pscustomobject]@{ Result = $null; Found = $false }
