@@ -168,7 +168,7 @@ function Invoke-HardeningTomcat {
     if (-not $list.findings) { throw "Finding list contains no 'findings' array." }
 
     # ---- Validate findings up front (fail fast with ALL problems) --------------
-    $validOps = @('=','!=','<=','>=','<=!0','contains','=|0','set=')
+    $validOps = @('=','!=','<=','>=','<','>','<=!0','contains','=|0','set=')
     $validSev = @('Low','Medium','High')
     $problems = New-Object System.Collections.Generic.List[string]
     $seenIds  = @{}
@@ -519,13 +519,15 @@ function New-HtResult {
 }
 
 function Test-HtOperator {
-    # Replicates the original engine's 7-operator semantics exactly.
+    # Comparison operators supported by the engine (see schema enum for the list).
     param([string]$Operator, [string]$Observed, [string]$Recommended)
     switch ($Operator) {
         '='    { return ([string]$Observed -eq $Recommended) }
         '!='   { return ([string]$Observed -ne $Recommended) }
         '<='   { try { return ([int]$Observed -le [int]$Recommended) } catch { return $false } }
         '>='   { try { return ([int]$Observed -ge [int]$Recommended) } catch { return $false } }
+        '<'    { try { return ([int]$Observed -lt [int]$Recommended) } catch { return $false } }
+        '>'    { try { return ([int]$Observed -gt [int]$Recommended) } catch { return $false } }
         '<=!0' { try { return ([int]$Observed -le [int]$Recommended -and [int]$Observed -ne 0) } catch { return $false } }
         'contains' { return ($Observed.ToString().Contains($Recommended)) }
         '=|0'  { try { return ([string]$Observed -eq $Recommended -or $Observed.Length -eq 0) } catch { return $false } }
