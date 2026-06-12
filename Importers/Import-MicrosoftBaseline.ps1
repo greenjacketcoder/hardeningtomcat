@@ -62,7 +62,10 @@ $here = $PSScriptRoot
 if (-not (Test-Path $BaselinePath)) { throw "BaselinePath not found: $BaselinePath" }
 
 # ---- Resolve which GPO folders to import -----------------------------------
-$resolution = Resolve-SctGpoSelection -GposPath $BaselinePath -IncludeGpo $IncludeGpo -Role $Role
+$resolveParams = @{ GposPath = $BaselinePath }
+if ($IncludeGpo) { $resolveParams.IncludeGpo = $IncludeGpo }
+if ($Role)       { $resolveParams.Role = $Role }
+$resolution = Resolve-SctGpoSelection @resolveParams
 
 if ($resolution.Mode -eq 'ListOnly') {
     Write-Host ""

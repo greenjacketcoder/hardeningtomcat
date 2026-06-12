@@ -62,11 +62,14 @@ function Resolve-SctGpoSelection {
         return [pscustomobject]@{ Mode = 'WholePath'; Folders = @($GposPath); Manifest = $null }
     }
 
-    # Role presets -> display-name patterns. Common layers (Defender, IE) included in each.
+    # Role presets -> display-name patterns, verified against real SCT Server GPO names.
+    # Shared layers (Domain Security, Defender, IE Computer) are included in BOTH server roles.
+    # '*Member Server*' also matches 'Member Server Credential Guard'; '*Domain Controller*'
+    # also matches 'Domain Controller Virtualization Based Security' — both intended.
     $rolePatterns = switch ($Role) {
-        'MemberServer'     { @('*Member Server*','*Credential Guard*','*Defender*','*Domain Security*','*Internet Explorer*Computer*','*BitLocker*') }
-        'DomainController' { @('*Domain Controller*','*Defender*','*Domain Security*','*Internet Explorer*Computer*','*BitLocker*') }
-        'Client'           { @('*Computer*','*Credential Guard*','*Defender*','*Domain Security*','*BitLocker*','*Internet Explorer*Computer*') }
+        'MemberServer'     { @('*Member Server*','*Domain Security*','*Defender*','*Internet Explorer*Computer*') }
+        'DomainController' { @('*Domain Controller*','*Domain Security*','*Defender*','*Internet Explorer*Computer*') }
+        'Client'           { @('*- Computer*','*Credential Guard*','*Defender*','*BitLocker*','*Internet Explorer*Computer*') }
         default            { $null }
     }
 
