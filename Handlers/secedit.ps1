@@ -38,9 +38,33 @@
         [pscustomobject]@{ Result = $null; Found = $false }
     }
 
-    # Applying secedit settings means writing an INF and running /configure.
-    # That's a heavier, riskier operation; for the beta we mark it non-trivial
-    # and require it to be implemented deliberately. Left as $null = read-only
-    # until you've validated the Recon path, exactly the staged approach we agreed.
-    Apply = $null
+    # Apply a [System Access] account-policy setting by writing a minimal INF and
+    # running secedit /configure. Only account-policy keys are supported here;
+    # registry-backed security options go through the Registry handler instead.
+    Apply = {
+        param($Finding, $Cache, $Context)
+        $key = $Finding.args.key
+        $val = $Finding.recommendedValue
+        if ($Context.WhatIf) {
+            return @{ Changed = $false; Message = "WhatIf: would set [System Access] $key = $val" }
+        }
+        $tmpInf = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
+        $tmpDb  = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.sdb" -f (Get-Date))
+        # Minimal security template applying just this one System Access key.
+        $inf = @"
+[Unicode]
+Unicode=yes
+[Version]
+signature="`$CHICAGO`$"
+Revision=1
+[System Access]
+$key = $val
+"@
+        Set-Content -Path $tmpInf -Value $inf -Encoding Unicode
+        & secedit.exe /configure /db $tmpDb /cfg $tmpInf /areas SECURITYPOLICY /quiet 2>$null
+        Remove-Item $tmpInf,$tmpDb -Force -ErrorAction SilentlyContinue
+        # Invalidate cached export so a re-Test reads fresh state.
+        if ($Cache.ContainsKey('secedit')) { $Cache.Remove('secedit') }
+        @{ Changed = $true; Message = "[System Access] $key set to $val" }
+    }
 }
