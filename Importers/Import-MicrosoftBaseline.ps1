@@ -155,8 +155,12 @@ foreach ($inf in $infFiles) {
                 if ($r.Value -match '^(\d+),(.*)$') {
                     $regType = [int]$matches[1]; $regData = $matches[2]
                     $fullKey = $r.Key -replace '^MACHINE\\', ''
-                    $leaf = Split-Path $fullKey -Leaf
-                    $parent = Split-Path $fullKey -Parent
+                    # Split on backslash MANUALLY. Split-Path is OS-path-aware and mangles
+                    # registry backslashes into forward slashes when this importer runs on
+                    # macOS/Linux. Registry separator is always '\' regardless of OS.
+                    $idx    = $fullKey.LastIndexOf('\')
+                    $leaf   = if ($idx -ge 0) { $fullKey.Substring($idx + 1) } else { $fullKey }
+                    $parent = if ($idx -ge 0) { $fullKey.Substring(0, $idx) } else { '' }
                     $tn = @{1='REG_SZ';2='REG_EXPAND_SZ';3='REG_BINARY';4='REG_DWORD';7='REG_MULTI_SZ';11='REG_QWORD'}[$regType]
                     $findings.Add([pscustomobject]@{
                         id = Next-Id; name = "$fullKey"
