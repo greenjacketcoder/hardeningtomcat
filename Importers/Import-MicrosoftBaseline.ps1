@@ -43,15 +43,48 @@ param(
     [string] $OutFile,
     [string] $ListName = 'Microsoft Security Baseline (imported)',
     [ValidateSet('Low','Medium','High')][string] $DefaultSeverity = 'Medium',
-    [ValidateSet('machine','user')][string] $Scope = 'machine'
+    [ValidateSet('machine','user')][string] $Scope = 'machine',
+
+    # GPO selection (server baselines bundle mutually-exclusive roles). Pick ONE approach:
+    #   -Role MemberServer|DomainController|Client   (preset: role GPO + common layers)
+    #   -IncludeGpo '*Member Server*','*Defender*'    (manual wildcard patterns vs display name)
+    # With neither, if the baseline has a manifest the script LISTS available GPOs and stops.
+    [string[]] $IncludeGpo,
+    [ValidateSet('MemberServer','DomainController','Client')][string] $Role
 )
 
 $here = $PSScriptRoot
 . (Join-Path $here 'RegistryPolParser.ps1')
 . (Join-Path $here 'GptTmplInfParser.ps1')
 . (Join-Path $here 'AuditCsvParser.ps1')
+. (Join-Path $here 'SctManifest.ps1')
 
 if (-not (Test-Path $BaselinePath)) { throw "BaselinePath not found: $BaselinePath" }
+
+# ---- Resolve which GPO folders to import -----------------------------------
+$resolution = Resolve-SctGpoSelection -GposPath $BaselinePath -IncludeGpo $IncludeGpo -Role $Role
+
+if ($resolution.Mode -eq 'ListOnly') {
+    Write-Host ""
+    Write-Host "This baseline bundles multiple GPOs. Choose which to import." -ForegroundColor Yellow
+    Write-Host "Available GPOs (from manifest.xml):" -ForegroundColor Cyan
+    $resolution.Manifest | ForEach-Object { Write-Host "  - $($_.DisplayName)" }
+    Write-Host ""
+    Write-Host "Re-run with a selection, e.g.:" -ForegroundColor Yellow
+    Write-Host "  -Role MemberServer        (member server + Defender/IE/Domain Security layers)" -ForegroundColor DarkGray
+    Write-Host "  -Role DomainController     (DC + common layers)" -ForegroundColor DarkGray
+    Write-Host "  -IncludeGpo '*Member Server*','*Defender*'   (manual patterns)" -ForegroundColor DarkGray
+    return
+}
+
+if ($resolution.Mode -eq 'Selected') {
+    Write-Host "Selected GPOs:" -ForegroundColor Cyan
+    $resolution.Selected | ForEach-Object { Write-Host "  + $($_.DisplayName)" -ForegroundColor Green }
+    if (-not $resolution.Folders) { throw "Selection matched no GPOs. Check -Role/-IncludeGpo patterns against the listed names." }
+}
+
+# Folders to scan: either the selected GPO folders, or the whole path (single-GPO/no-manifest case).
+$scanRoots = $resolution.Folders
 
 $findings = New-Object System.Collections.Generic.List[object]
 $idSeed = 10000
@@ -74,7 +107,7 @@ function Get-HtRegType($typeName) {
 $hive = if ($Scope -eq 'user') { 'HKCU:' } else { 'HKLM:' }
 
 # ---- 1) registry.pol files -------------------------------------------------
-$polFiles = Get-ChildItem -Path $BaselinePath -Recurse -Filter 'registry.pol' -ErrorAction SilentlyContinue
+$polFiles = $scanRoots | ForEach-Object { Get-ChildItem -Path $_ -Recurse -Filter 'registry.pol' -ErrorAction SilentlyContinue }
 Write-Host "Found $($polFiles.Count) registry.pol file(s)." -ForegroundColor Cyan
 foreach ($pol in $polFiles) {
     try { $recs = ConvertFrom-RegistryPol -Path $pol.FullName }
@@ -97,7 +130,7 @@ foreach ($pol in $polFiles) {
 }
 
 # ---- 2) GptTmpl.inf files --------------------------------------------------
-$infFiles = Get-ChildItem -Path $BaselinePath -Recurse -Filter 'GptTmpl.inf' -ErrorAction SilentlyContinue
+$infFiles = $scanRoots | ForEach-Object { Get-ChildItem -Path $_ -Recurse -Filter 'GptTmpl.inf' -ErrorAction SilentlyContinue }
 Write-Host "Found $($infFiles.Count) GptTmpl.inf file(s)." -ForegroundColor Cyan
 foreach ($inf in $infFiles) {
     try { $recs = ConvertFrom-GptTmplInf -Path $inf.FullName }
@@ -137,7 +170,7 @@ foreach ($inf in $infFiles) {
 }
 
 # ---- 3) audit.csv files ----------------------------------------------------
-$auditFiles = Get-ChildItem -Path $BaselinePath -Recurse -Filter 'audit.csv' -ErrorAction SilentlyContinue
+$auditFiles = $scanRoots | ForEach-Object { Get-ChildItem -Path $_ -Recurse -Filter 'audit.csv' -ErrorAction SilentlyContinue }
 Write-Host "Found $($auditFiles.Count) audit.csv file(s)." -ForegroundColor Cyan
 foreach ($ac in $auditFiles) {
     try { $recs = ConvertFrom-AuditCsv -Path $ac.FullName }
