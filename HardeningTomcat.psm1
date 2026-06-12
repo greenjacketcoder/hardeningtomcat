@@ -42,6 +42,10 @@ function Invoke-HardeningTomcat {
         # have another safety net (e.g. a VM snapshot) and accept the risk.
         [switch] $SkipBackupCheck,
 
+        # Print every failed/skipped finding to the console. Off by default — the run
+        # shows a progress bar then the summary; full detail goes to the -Report CSV.
+        [switch] $ShowDetails,
+
         # Optional filter scriptblock over findings, e.g. { $_.severity -eq 'High' }
         [scriptblock] $Filter
     )
@@ -219,7 +223,18 @@ function Invoke-HardeningTomcat {
     $results = New-Object System.Collections.Generic.List[object]
     $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0 }
 
+    $total = $findings.Count
+    $i = 0
     foreach ($finding in $findings) {
+        $i++
+        # Live progress bar (updates in place) instead of flooding the console.
+        # Throttled to every 10th finding (and the last) to avoid progress-render overhead.
+        if ($i -eq $total -or ($i % 10) -eq 0) {
+            $pct = [int](($i / $total) * 100)
+            Write-Progress -Activity "HardeningTomcat $Mode" `
+                -Status "$i / $total  (Passed $($stats.Passed), Failed $($stats.Medium + $stats.Low + $stats.High), Skipped $($stats.Skipped))" `
+                -PercentComplete $pct
+        }
         $handler = $Handlers[$finding.method]
 
         # --- guards: unknown method, missing admin, missing binary -------------
@@ -289,6 +304,7 @@ function Invoke-HardeningTomcat {
             }
         }
     }
+    Write-Progress -Activity "HardeningTomcat $Mode" -Completed   # clear the progress bar
 
     # ---- Scoring ---------------------------------------------------------------
     # Same model as the original: Passed=4, Low=2, Medium=1, High=0.
@@ -321,10 +337,22 @@ function Invoke-HardeningTomcat {
         & $Context.Log "Report written: $reportPath"
     }
 
-    # ---- Console: show failures (and skips) so you SEE what's wrong -------------
+    # ---- Console: failures summary -------------------------------------------
+    # By default show concise counts; -ShowDetails prints every failed/skipped line.
     if ($Mode -ne 'Survey') {
-        $failed = $results | Where-Object { $_.Result -in 'Low','Medium','High' }
-        if ($failed) {
+        $failed  = $results | Where-Object { $_.Result -in 'Low','Medium','High' }
+        $skipped = $results | Where-Object Result -eq 'Skipped'
+
+        if (-not $ShowDetails) {
+            Write-Host ""
+            if ($failed)  { Write-Host ("{0} finding(s) FAILED. " -f $failed.Count) -ForegroundColor Yellow -NoNewline }
+            else          { Write-Host "All graded findings passed. " -ForegroundColor Green -NoNewline }
+            if ($skipped) { Write-Host ("{0} skipped (not evaluated)." -f $skipped.Count) -ForegroundColor DarkGray -NoNewline }
+            Write-Host ""
+            if ($Report)  { Write-Host "Full per-finding detail is in the report CSV." -ForegroundColor DarkGray }
+            else          { Write-Host "Re-run with -ShowDetails (or -Report) to see per-finding detail." -ForegroundColor DarkGray }
+        }
+        elseif ($failed) {
             Write-Host ""
             Write-Host "--- Findings that FAILED ($($failed.Count)) ---" -ForegroundColor Yellow
             foreach ($x in ($failed | Sort-Object @{e={@{High=0;Medium=1;Low=2}[$_.Result]}}, ID)) {
@@ -337,8 +365,7 @@ function Invoke-HardeningTomcat {
             Write-Host ""
             Write-Host "All graded findings passed." -ForegroundColor Green
         }
-        $skipped = $results | Where-Object Result -eq 'Skipped'
-        if ($skipped) {
+        if ($ShowDetails -and $skipped) {
             Write-Host ""
             Write-Host "--- Skipped ($($skipped.Count)) -- not evaluated ---" -ForegroundColor DarkGray
             foreach ($x in $skipped) { Write-Host ("  $($x.Name): $($x.Detail)") -ForegroundColor DarkGray }
