@@ -119,6 +119,21 @@ function Invoke-HardeningTomcat {
     }
     if (-not (Test-Path $FindingList)) { throw "Finding list not found: $FindingList" }
 
+    # ---- Integrity check (defense against tampered lists) ----------------------
+    $integrity = Test-HtListIntegrity -FindingList $FindingList -ModuleRoot $ModuleRoot
+    switch ($integrity.Status) {
+        'verified' { & $Context.Log $integrity.Message }
+        default {
+            # Strike will not apply changes from an unverified/tampered/unlisted list.
+            if ($Mode -eq 'Strike') {
+                throw "Strike blocked: $($integrity.Message) Strike requires a list whose hash is in lists/manifest.sha256."
+            }
+            # Recon/Survey are read-only — warn loudly but proceed.
+            Write-Warning "Integrity: $($integrity.Message)"
+            & $Context.Log "Integrity ($($integrity.Status)): $($integrity.Message)" 'Warn'
+        }
+    }
+
     # ---- Load & validate finding list -----------------------------------------
     $listRaw = Get-Content -Path $FindingList -Raw
     try { $list = $listRaw | ConvertFrom-Json }
