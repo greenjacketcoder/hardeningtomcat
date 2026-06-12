@@ -10,6 +10,12 @@ function Get-HtRegistryValue {
       On a ~300-finding registry-heavy list that halves registry round-trips.
     #>
     param([string]$Path, [string]$Name)
+    # Defensive: normalize any forward slashes in the registry path to backslashes.
+    # Registry paths always use '\'; a '/' can only be corruption (e.g. an old list
+    # generated on macOS/Linux where Split-Path mangled separators). Preserve 'HKLM:' etc.
+    if ($Path -match '/') {
+        $Path = $Path -replace '(?<!:)/', '\'
+    }
     try {
         $item = Get-ItemProperty -Path $Path -Name $Name -ErrorAction Stop
         return @{ Found = $true; Result = $item.$Name }

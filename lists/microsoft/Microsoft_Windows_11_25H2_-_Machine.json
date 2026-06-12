@@ -4885,7 +4885,7 @@
       "args": {
         "type": "DWord",
         "name": "ConsentPromptBehaviorEnhancedAdmin",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4900,7 +4900,7 @@
       "args": {
         "type": "DWord",
         "name": "TypeOfAdminApprovalMode",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -4915,7 +4915,7 @@
       "args": {
         "type": "String",
         "name": "ScRemoveOption",
-        "path": "HKLM:\\Software/Microsoft/Windows NT/CurrentVersion/Winlogon"
+        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
       "recommendedValue": "\"1\"",
@@ -4930,7 +4930,7 @@
       "args": {
         "type": "DWord",
         "name": "InactivityTimeoutSecs",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "900",
@@ -4945,7 +4945,7 @@
       "args": {
         "type": "DWord",
         "name": "EnablePlainTextPassword",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4960,7 +4960,7 @@
       "args": {
         "type": "DWord",
         "name": "LimitBlankPasswordUse",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4975,7 +4975,7 @@
       "args": {
         "type": "DWord",
         "name": "RestrictAnonymousSAM",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4990,7 +4990,7 @@
       "args": {
         "type": "DWord",
         "name": "RestrictAnonymous",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5005,7 +5005,7 @@
       "args": {
         "type": "DWord",
         "name": "RestrictNullSessAccess",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5020,7 +5020,7 @@
       "args": {
         "type": "DWord",
         "name": "SCENoApplyLegacyAuditPolicy",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5035,7 +5035,7 @@
       "args": {
         "type": "DWord",
         "name": "NTLMMinClientSec",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "537395200",
@@ -5050,7 +5050,7 @@
       "args": {
         "type": "DWord",
         "name": "LmCompatibilityLevel",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "5",
@@ -5065,7 +5065,7 @@
       "args": {
         "type": "DWord",
         "name": "allownullsessionfallback",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5080,7 +5080,7 @@
       "args": {
         "type": "DWord",
         "name": "NTLMMinServerSec",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "537395200",
@@ -5095,7 +5095,7 @@
       "args": {
         "type": "DWord",
         "name": "requirestrongkey",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5110,7 +5110,7 @@
       "args": {
         "type": "DWord",
         "name": "RequireSecuritySignature",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5125,7 +5125,7 @@
       "args": {
         "type": "DWord",
         "name": "sealsecurechannel",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5140,7 +5140,7 @@
       "args": {
         "type": "DWord",
         "name": "requiresignorseal",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5155,7 +5155,7 @@
       "args": {
         "type": "DWord",
         "name": "signsecurechannel",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5170,7 +5170,7 @@
       "args": {
         "type": "DWord",
         "name": "requiresecuritysignature",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5185,7 +5185,7 @@
       "args": {
         "type": "DWord",
         "name": "ProtectionMode",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Session Manager"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Session Manager"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5200,7 +5200,7 @@
       "args": {
         "type": "DWord",
         "name": "ConsentPromptBehaviorAdmin",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -5215,7 +5215,7 @@
       "args": {
         "type": "DWord",
         "name": "EnableSecureUIAPaths",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5230,7 +5230,7 @@
       "args": {
         "type": "DWord",
         "name": "EnableLUA",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5245,7 +5245,7 @@
       "args": {
         "type": "DWord",
         "name": "ConsentPromptBehaviorUser",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5260,7 +5260,7 @@
       "args": {
         "type": "DWord",
         "name": "EnableInstallerDetection",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5275,7 +5275,7 @@
       "args": {
         "type": "DWord",
         "name": "FilterAdministratorToken",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5290,7 +5290,7 @@
       "args": {
         "type": "DWord",
         "name": "EnableVirtualization",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5305,7 +5305,7 @@
       "args": {
         "type": "DWord",
         "name": "LDAPClientIntegrity",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LDAP"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LDAP"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5320,7 +5320,7 @@
       "args": {
         "type": "String",
         "name": "RestrictRemoteSAM",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "\"O:BAG:BAD:(A;;RC;;;BA)\"",
@@ -5335,7 +5335,7 @@
       "args": {
         "type": "DWord",
         "name": "DisablePasswordChange",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
