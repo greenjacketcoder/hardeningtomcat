@@ -35,6 +35,9 @@ function Invoke-HardeningTomcat {
         # Required guard for Strike. Without it, apply mode refuses to run.
         [switch] $Force,
 
+        # Optional override for the pre-Strike backup directory.
+        [string] $BackupDir,
+
         # Optional filter scriptblock over findings, e.g. { $_.severity -eq 'High' }
         [scriptblock] $Filter
     )
@@ -122,6 +125,34 @@ function Invoke-HardeningTomcat {
     catch { throw "Finding list is not valid JSON: $($_.Exception.Message)" }
     if (-not $list.findings) { throw "Finding list contains no 'findings' array." }
 
+    # ---- Validate findings up front (fail fast with ALL problems) --------------
+    $validOps = @('=','!=','<=','>=','<=!0','contains','=|0','set=')
+    $validSev = @('Low','Medium','High')
+    $problems = New-Object System.Collections.Generic.List[string]
+    $seenIds  = @{}
+    $idx = 0
+    foreach ($f in $list.findings) {
+        $idx++
+        $label = if ($f.id) { "id '$($f.id)'" } else { "finding #$idx" }
+        foreach ($req in 'id','name','method','operator','recommendedValue','severity') {
+            if ($null -eq $f.$req -or "$($f.$req)" -eq '') {
+                # recommendedValue may legitimately be empty (e.g. user-rights = no one)
+                if ($req -eq 'recommendedValue') { continue }
+                $problems.Add("$label is missing required field '$req'")
+            }
+        }
+        if ($f.operator -and $f.operator -notin $validOps) { $problems.Add("$label has invalid operator '$($f.operator)'") }
+        if ($f.severity -and $f.severity -notin $validSev) { $problems.Add("$label has invalid severity '$($f.severity)'") }
+        if ($f.id) {
+            if ($seenIds.ContainsKey("$($f.id)")) { $problems.Add("duplicate id '$($f.id)'") }
+            else { $seenIds["$($f.id)"] = $true }
+        }
+    }
+    if ($problems.Count -gt 0) {
+        $msg = "Finding list '$FindingList' failed validation ($($problems.Count) problem(s)):`n  - " + ($problems -join "`n  - ")
+        throw $msg
+    }
+
     $findings = $list.findings
     if ($Filter) { $findings = $findings | Where-Object $Filter }
     & $Context.Log "Finding list '$($list.listName)' v$($list.version): $($findings.Count) findings after filter."
@@ -135,6 +166,16 @@ function Invoke-HardeningTomcat {
             $methodFindings = $findings | Where-Object { $_.method -eq $methodName }
             try { & $handler.Prefetch $methodFindings $Cache $Context }
             catch { & $Context.Log "Prefetch for $methodName failed: $($_.Exception.Message)" 'Warn' }
+        }
+    }
+
+    # ---- Pre-Strike backup (export current state so apply is recoverable) ------
+    if ($Mode -eq 'Strike') {
+        $backup = Invoke-HtPreStrikeBackup -BackupDir $BackupDir -Context $Context
+        if ($backup.Complete) {
+            Write-Host "Pre-Strike backup written to: $($backup.Dir)" -ForegroundColor Green
+        } else {
+            Write-Warning "Pre-Strike backup was incomplete (see log). Backup dir: $($backup.Dir)"
         }
     }
 
