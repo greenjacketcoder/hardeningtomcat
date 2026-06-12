@@ -246,15 +246,15 @@ function Invoke-HardeningTomcat {
 
     $total = $findings.Count
     $i = 0
+    # Decide progress style ONCE: custom ASCII bar on a capable host, native
+    # Write-Progress on the legacy Windows PowerShell 5.1 console (where redrawing
+    # a line and Unicode/width handling are unreliable).
+    $script:HtUseAsciiBar = ($Host.Name -ne 'ConsoleHost') -or ($PSVersionTable.PSVersion.Major -ge 6)
     foreach ($finding in $findings) {
         $i++
-        # Live progress bar (updates in place) instead of flooding the console.
-        # Throttled to every 10th finding (and the last) to avoid progress-render overhead.
-        if ($i -eq $total -or ($i % 10) -eq 0) {
-            $pct = [int](($i / $total) * 100)
-            Write-Progress -Activity "HardeningTomcat $Mode" `
-                -Status "$i / $total  (Passed $($stats.Passed), Failed $($stats.Medium + $stats.Low + $stats.High), Skipped $($stats.Skipped))" `
-                -PercentComplete $pct
+        # Throttled to every 5th finding (and the last) to limit redraw overhead.
+        if ($i -eq $total -or ($i % 5) -eq 0) {
+            Write-HtProgress -Activity "HardeningTomcat $Mode" -Current $i -Total $total -Stats $stats
         }
         $handler = $Handlers[$finding.method]
 
@@ -325,7 +325,7 @@ function Invoke-HardeningTomcat {
             }
         }
     }
-    Write-Progress -Activity "HardeningTomcat $Mode" -Completed   # clear the progress bar
+    Write-HtProgress -Activity "HardeningTomcat $Mode" -Current $total -Total $total -Stats $stats -Complete   # clear the progress bar
 
     # ---- Scoring ---------------------------------------------------------------
     # Same model as the original: Passed=4, Low=2, Medium=1, High=0.
@@ -421,6 +421,52 @@ function Invoke-HardeningTomcat {
 }
 
 # ---- Engine helpers (not handler-specific) ------------------------------------
+
+function Write-HtProgress {
+    # Dual-mode progress. On a capable host ($script:HtUseAsciiBar) draws a custom
+    # single-line ASCII bar with live pass/fail/skip counts, in color. On the legacy
+    # 5.1 console it falls back to native Write-Progress (robust, host-rendered).
+    param(
+        [string]$Activity,
+        [int]$Current,
+        [int]$Total,
+        [hashtable]$Stats,
+        [switch]$Complete
+    )
+    if ($Total -le 0) { return }
+    $pct = [int](($Current / $Total) * 100)
+
+    if (-not $script:HtUseAsciiBar) {
+        if ($Complete) { Write-Progress -Activity $Activity -Completed }
+        else {
+            $failed = $Stats.Medium + $Stats.Low + $Stats.High
+            Write-Progress -Activity $Activity `
+                -Status "$Current / $Total  (Passed $($Stats.Passed), Failed $failed, Skipped $($Stats.Skipped))" `
+                -PercentComplete $pct
+        }
+        return
+    }
+
+    # Custom ASCII bar. Pure ASCII (#/.) so it renders identically on any console.
+    if ($Complete) {
+        # Clear the line so the summary prints cleanly underneath.
+        Write-Host ("`r" + (' ' * 78) + "`r") -NoNewline
+        return
+    }
+    $width  = 24
+    $filled = [int]($width * $Current / $Total)
+    $bar    = ('#' * $filled) + ('.' * ($width - $filled))
+    $failed = $Stats.Medium + $Stats.Low + $Stats.High
+
+    # Write segments in color, staying on one line via carriage return.
+    Write-Host ("`r  {0} [" -f $Activity) -NoNewline
+    Write-Host $bar -NoNewline -ForegroundColor Cyan
+    Write-Host ("] {0,3}%  {1,4}/{2}  " -f $pct, $Current, $Total) -NoNewline
+    Write-Host ("OK {0}" -f $Stats.Passed) -NoNewline -ForegroundColor Green
+    Write-Host ("  X {0}" -f $failed) -NoNewline -ForegroundColor Yellow
+    Write-Host ("  - {0}  " -f $Stats.Skipped) -NoNewline -ForegroundColor DarkGray
+}
+
 
 function New-HtResult {
     param(
