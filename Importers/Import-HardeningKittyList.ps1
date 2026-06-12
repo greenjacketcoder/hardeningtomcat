@@ -12,16 +12,31 @@ param(
     [Parameter(Mandatory)][string] $CsvPath,
     [Parameter(Mandatory)][string] $ListName,
     [string] $OutDir = (Join-Path (Split-Path $PSScriptRoot -Parent) 'lists/cis'),
-    [ValidateSet('1','2','')][string] $Level = ''
+    # Optional L1 reference CSV. When $CsvPath is a combined L1+L2 list, findings whose ID
+    # appears in this L1 file are tagged level 1; the rest are level 2. This produces the
+    # correct PER-FINDING level (the filename alone only tells you the file's scope).
+    [string] $Level1RefCsv
 )
 
 if (-not (Test-Path $CsvPath)) { throw "CSV not found: $CsvPath" }
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
-# Infer level from filename if not given explicitly.
-if (-not $Level) {
-    if     ($CsvPath -match '_level1_level2') { $Level = '2' }   # combined L1+L2 set
-    elseif ($CsvPath -match '_level1')        { $Level = '1' }
+# Determine how to assign levels.
+#  - If an L1 reference is given: per-finding (id in L1 ref -> 1, else -> 2). Combined list.
+#  - Else if filename says _level1 (and not _level2): every finding is level 1.
+#  - Else: no level tagging (e.g. a plain non-CIS list).
+$l1Ids = $null
+$flatLevel = $null
+if ($Level1RefCsv) {
+    if (-not (Test-Path $Level1RefCsv)) { throw "Level1RefCsv not found: $Level1RefCsv" }
+    $l1Ids = @{}
+    foreach ($row in (Import-Csv $Level1RefCsv)) { $l1Ids[$row.ID] = $true }
+    Write-Host "Per-finding levels from L1 reference ($($l1Ids.Count) L1 ids)." -ForegroundColor Cyan
+} elseif ($CsvPath -match '_level1' -and $CsvPath -notmatch '_level1_level2') {
+    $flatLevel = 1
+} elseif ($CsvPath -match '_level1_level2') {
+    Write-Warning "Combined L1+L2 list given without -Level1RefCsv; cannot distinguish per-finding levels. All findings will be tagged level 2. Pass -Level1RefCsv for correct L1/L2 split."
+    $flatLevel = 2
 }
 
 $rows = Import-Csv -Path $CsvPath
@@ -47,22 +62,34 @@ foreach ($r in $rows) {
         recommendedValue = $r.RecommendedValue; defaultValue = $r.DefaultValue
         severity = $sev
     }
-    if ($Level) { $obj.level = [int]$Level }
+    # Per-finding level.
+    $thisLevel = $null
+    if ($l1Ids)            { $thisLevel = if ($l1Ids.ContainsKey($r.ID)) { 1 } else { 2 } }
+    elseif ($flatLevel)    { $thisLevel = $flatLevel }
+    if ($thisLevel)        { $obj.level = $thisLevel }
     $findings.Add([pscustomobject]$obj)
 }
 
-$levelVal = $null
-if ($Level) { $levelVal = [int]$Level }
+# Top-level 'level' = the highest level present (the file's scope).
+$scopeLevel = $null
+if ($l1Ids)         { $scopeLevel = 2 }
+elseif ($flatLevel) { $scopeLevel = $flatLevel }
 $out = [ordered]@{
     listName = $ListName
     version  = (Get-Date -Format 'yyyy.MM.dd')
     source   = "Derived from HardeningKitty finding list (Apache-2.0): $(Split-Path $CsvPath -Leaf)"
-    level    = $levelVal
+    level    = $scopeLevel
     findings = $findings
 }
 $safe = ($ListName -replace '[^\w\-]', '_')
 $outPath = Join-Path $OutDir "$safe.json"
 $out | ConvertTo-Json -Depth 8 | Set-Content -Path $outPath -Encoding UTF8
 Write-Host "Wrote $($findings.Count) findings -> $outPath" -ForegroundColor Green
-if ($Level) { Write-Host "  Level tag: L$Level" -ForegroundColor Cyan }
+if ($l1Ids) {
+    $l1c = ($findings | Where-Object { $_.level -eq 1 }).Count
+    $l2c = ($findings | Where-Object { $_.level -eq 2 }).Count
+    Write-Host "  Per-finding levels: $l1c L1, $l2c L2" -ForegroundColor Cyan
+} elseif ($flatLevel) {
+    Write-Host "  Level tag: L$flatLevel (all findings)" -ForegroundColor Cyan
+}
 Write-Host "  NOTE: CIS auditpol findings use GUID subcategories; verify the auditpol handler resolves GUIDs (see README)." -ForegroundColor DarkYellow
