@@ -55,9 +55,15 @@ function Invoke-HardeningTomcat {
 
     # ---- Session context -------------------------------------------------------
     $script:HtHostname = $env:COMPUTERNAME   # read once; reused by every result row
-    $IsAdmin = ([Security.Principal.WindowsPrincipal] `
-        [Security.Principal.WindowsIdentity]::GetCurrent()
-        ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    # Admin check is Windows-only; GetCurrent() throws on non-Windows, so guard it.
+    $IsAdmin = $false
+    try {
+        $IsAdmin = ([Security.Principal.WindowsPrincipal] `
+            [Security.Principal.WindowsIdentity]::GetCurrent()
+            ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+    } catch {
+        $IsAdmin = $false   # not Windows, or identity unavailable
+    }
 
     $Context = @{
         Mode      = $Mode
@@ -184,6 +190,17 @@ function Invoke-HardeningTomcat {
     $findings = $list.findings
     if ($Filter) { $findings = $findings | Where-Object $Filter }
     & $Context.Log "Finding list '$($list.listName)' v$($list.version): $($findings.Count) findings after filter."
+
+    # ---- Elevation pre-check: warn up front if not admin ----------------------
+    # Count findings whose handler requires admin so the user knows BEFORE the run
+    # how much will be skipped, rather than discovering it in the results.
+    if (-not $IsAdmin) {
+        $adminMethods = $Handlers.Keys | Where-Object { $Handlers[$_].RequiresAdmin }
+        $needAdmin = ($findings | Where-Object { $_.method -in $adminMethods }).Count
+        Write-Warning ("Not running as Administrator. $needAdmin of $($findings.Count) findings " +
+            "(user rights, audit policy, security policy) cannot be read and will be Skipped. " +
+            "For a complete audit, re-run in an elevated PowerShell (Run as administrator).")
+    }
 
     # ---- Prefetch pass (batch slow external calls once) -----------------------
     # Group findings by method ONCE (O(n)) instead of re-filtering the whole list
