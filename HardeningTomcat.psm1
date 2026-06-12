@@ -534,9 +534,12 @@ function Test-HtOperator {
                 }
                 $sids | Sort-Object -Unique
             }
-            $o = & $norm $Observed
-            $r = & $norm $Recommended
+            $o = @(& $norm $Observed)
+            $r = @(& $norm $Recommended)
             if ($o.Count -ne $r.Count) { return $false }
+            # Both empty = equal sets (e.g. "no one holds this privilege"). Compare-Object
+            # throws on empty/null input, so short-circuit before calling it.
+            if ($o.Count -eq 0) { return $true }
             return (-not (Compare-Object $o $r))
         }
         default { return $false }
