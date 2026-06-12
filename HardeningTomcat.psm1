@@ -171,16 +171,15 @@ function Invoke-HardeningTomcat {
 
         # --- Survey mode just records the observed value ------------------------
         if ($Mode -eq 'Survey') {
-            $r = New-HtResult $finding 'Survey' "Result=$observed"
-            $r | Add-Member -NotePropertyName Observed -NotePropertyValue $observed
-            $results.Add($r); continue
+            $results.Add((New-HtResult $finding 'Survey' "Result=$observed" -Observed $observed))
+            continue
         }
 
         # --- compare (engine owns operator semantics) ---------------------------
         $passed = Test-HtOperator -Operator $finding.operator -Observed $observed -Recommended ([string]$finding.recommendedValue)
 
         if ($passed) {
-            $results.Add((New-HtResult $finding 'Passed' "Result=$observed, Recommended=$($finding.recommendedValue)"))
+            $results.Add((New-HtResult $finding 'Passed' "Result=$observed, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
             $stats.Passed++
             continue
         }
@@ -188,7 +187,7 @@ function Invoke-HardeningTomcat {
         # --- failed: record at its severity -------------------------------------
         $sev = "$($finding.severity)"
         if ($stats.ContainsKey($sev)) { $stats[$sev]++ }
-        $results.Add((New-HtResult $finding $sev "Result=$observed, Recommended=$($finding.recommendedValue)"))
+        $results.Add((New-HtResult $finding $sev "Result=$observed, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
 
         # --- apply (Strike only, only on failed findings) -----------------------
         if ($Mode -eq 'Strike') {
@@ -238,10 +237,35 @@ function Invoke-HardeningTomcat {
 
     # ---- Report ----------------------------------------------------------------
     if ($Report) {
+        $safeList = ($list.listName -replace '[^\w\-]', '_')
         $reportPath = if ($ReportFile) { $ReportFile } `
-            else { Join-Path (Get-Location) ("hardeningtomcat_report_{0:yyyyMMdd-HHmmss}.csv" -f $script:StartTime) }
+            else { Join-Path (Get-Location) ("hardeningtomcat_report_{0}_{1}_{2:yyyyMMdd-HHmmss}.csv" -f $env:COMPUTERNAME, $safeList, $script:StartTime) }
         $results | Export-Csv -Path $reportPath -NoTypeInformation -Encoding UTF8
         & $Context.Log "Report written: $reportPath"
+    }
+
+    # ---- Console: show failures (and skips) so you SEE what's wrong -------------
+    if ($Mode -ne 'Survey') {
+        $failed = $results | Where-Object { $_.Result -in 'Low','Medium','High' }
+        if ($failed) {
+            Write-Host ""
+            Write-Host "--- Findings that FAILED ($($failed.Count)) ---" -ForegroundColor Yellow
+            foreach ($x in ($failed | Sort-Object @{e={@{High=0;Medium=1;Low=2}[$_.Result]}}, ID)) {
+                $color = switch ($x.Result) { 'High' {'Red'} 'Medium' {'DarkYellow'} 'Low' {'Yellow'} }
+                Write-Host ("  [{0,-6}] {1}" -f $x.Result, $x.Name) -ForegroundColor $color
+                Write-Host ("           checked: {0}" -f $x.Checked) -ForegroundColor DarkGray
+                Write-Host ("           found '{0}'  expected ({1}) '{2}'" -f $x.Observed, $x.Operator, $x.Recommended) -ForegroundColor DarkGray
+            }
+        } else {
+            Write-Host ""
+            Write-Host "All graded findings passed." -ForegroundColor Green
+        }
+        $skipped = $results | Where-Object Result -eq 'Skipped'
+        if ($skipped) {
+            Write-Host ""
+            Write-Host "--- Skipped ($($skipped.Count)) — not evaluated ---" -ForegroundColor DarkGray
+            foreach ($x in $skipped) { Write-Host ("  $($x.Name): $($x.Detail)") -ForegroundColor DarkGray }
+        }
     }
 
     # Emit to pipeline
@@ -255,15 +279,37 @@ function Invoke-HardeningTomcat {
 # ---- Engine helpers (not handler-specific) ------------------------------------
 
 function New-HtResult {
-    param($Finding, [string]$Status, [string]$Detail)
+    param(
+        $Finding,
+        [string]$Status,
+        [string]$Detail,
+        [string]$Observed = '',
+        [string]$Recommended = ''
+    )
+    # Build a human-readable description of WHAT was checked, per method, so the report
+    # shows the registry path / subcategory / key — not just an opaque finding name.
+    $checked = switch ($Finding.method) {
+        'Registry'     { "$($Finding.args.path)\$($Finding.args.name)" }
+        'RegistryList' { "$($Finding.args.path)\$($Finding.args.name)" }
+        'auditpol'     { "Audit subcategory: $($Finding.args.subcategory)" }
+        'secedit'      { "Policy: $($Finding.args.key)" }
+        'service'      { "Service: $($Finding.args.name)" }
+        'accesschk'    { "User right: $($Finding.args.privilege)" }
+        default        { $Finding.method }
+    }
     [pscustomobject]@{
-        ID       = $Finding.id
-        Name     = $Finding.name
-        Category = $Finding.category
-        Method   = $Finding.method
-        Severity = $Finding.severity
-        Status   = $Status
-        Detail   = $Detail
+        ID          = $Finding.id
+        Category    = $Finding.category
+        Name        = $Finding.name
+        Method      = $Finding.method
+        Checked     = $checked
+        Observed    = $Observed
+        Recommended = if ($Recommended) { $Recommended } else { "$($Finding.recommendedValue)" }
+        Operator    = $Finding.operator
+        Severity    = $Finding.severity
+        Result      = $Status      # Passed / Low / Medium / High / Skipped / Survey
+        Detail      = $Detail
+        Hostname    = $env:COMPUTERNAME
     }
 }
 
