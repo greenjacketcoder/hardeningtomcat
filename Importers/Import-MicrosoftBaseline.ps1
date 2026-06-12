@@ -167,7 +167,18 @@ foreach ($inf in $infFiles) {
                     })
                 }
             }
-            default { }  # Privilege Rights / Event Audit handled once accesschk handler exists
+            'Privilege Rights' {
+                # User-rights assignments -> accesschk findings.
+                # Key = privilege (SeShutdownPrivilege), Value = comma-separated *SID list.
+                $findings.Add([pscustomobject]@{
+                    id = Next-Id; name = "User Right: $($r.Key)"
+                    category = 'User Rights (MS baseline)'; method = 'accesschk'
+                    args = @{ privilege = $r.Key }
+                    operator = 'set='; recommendedValue = "$($r.Value)"; defaultValue = ''
+                    severity = $DefaultSeverity
+                })
+            }
+            default { }  # Event Audit and other sections not yet mapped
         }
     }
 }

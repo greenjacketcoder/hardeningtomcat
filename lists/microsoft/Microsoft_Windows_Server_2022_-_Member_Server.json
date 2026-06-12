@@ -10,9 +10,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "RunThisTimeEnabled",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -25,9 +25,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "VersionCheckEnabled",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Ext"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -40,9 +40,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "RunInvalidSignatures",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Download",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Download"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -55,9 +55,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "CheckExeSignatures",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Download",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Download"
       },
       "operator": "=",
       "recommendedValue": "yes",
@@ -70,9 +70,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "Isolation64Bit",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -85,9 +85,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableEPMCompat",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -100,9 +100,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "Isolation",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main"
       },
       "operator": "=",
       "recommendedValue": "PMEM",
@@ -115,9 +115,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -130,9 +130,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -145,9 +145,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_DISABLE_MK_PROTOCOL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -160,9 +160,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -175,9 +175,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -190,9 +190,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_HANDLING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -205,9 +205,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -220,9 +220,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -235,9 +235,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_MIME_SNIFFING"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -250,9 +250,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -265,9 +265,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -280,9 +280,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_ACTIVEXINSTALL"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -295,9 +295,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -310,9 +310,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -325,9 +325,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_RESTRICT_FILEDOWNLOAD"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -340,9 +340,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -355,9 +355,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -370,9 +370,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_SECURITYBAND"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -385,9 +385,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -400,9 +400,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -415,9 +415,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_WINDOW_RESTRICTIONS"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -430,9 +430,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "(Reserved)",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -445,9 +445,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "explorer.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -460,9 +460,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "iexplore.exe",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_ZONE_ELEVATION"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -475,9 +475,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "PreventOverrideAppRepUnknown",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -490,9 +490,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "PreventOverride",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -505,9 +505,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnabledV9",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\PhishingFilter"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -520,9 +520,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoCrashDetection",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Restrictions",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Restrictions"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -535,9 +535,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableSecuritySettingsCheck",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Security",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Security"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -550,9 +550,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "BlockNonAdminActiveXInstall",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Security\\ActiveX",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Security\\ActiveX"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -565,9 +565,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "OnlyUseAXISForActiveXInstall",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\AxInstaller",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\AxInstaller"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -580,9 +580,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "Security_zones_map_edit",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -595,9 +595,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "Security_options_edit",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -610,9 +610,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "Security_HKLM_only",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -625,9 +625,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "CertificateRevocation",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -640,9 +640,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "PreventIgnoreCertErrors",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -655,9 +655,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "WarnOnBadCertRecving",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -670,9 +670,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableSSL3Fallback",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -685,9 +685,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "SecureProtocols",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
       "operator": "=",
       "recommendedValue": "2560",
@@ -700,9 +700,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\0",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\0"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -715,9 +715,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\1",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\1"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -730,9 +730,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\2",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\2"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -745,9 +745,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2301",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -760,9 +760,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2301",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -775,9 +775,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Lockdown_Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -790,9 +790,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "UNCAsIntranet",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\ZoneMap"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -805,9 +805,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -820,9 +820,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "270C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\0"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -835,9 +835,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "270C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -850,9 +850,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1201",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -865,9 +865,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\1"
       },
       "operator": "=",
       "recommendedValue": "65536",
@@ -880,9 +880,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2"
       },
       "operator": "=",
       "recommendedValue": "65536",
@@ -895,9 +895,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "270C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -910,9 +910,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1201",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\2"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -925,9 +925,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2001",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -940,9 +940,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2102",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -955,9 +955,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1802",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -970,9 +970,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "160A",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -985,9 +985,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1201",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1000,9 +1000,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1406",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1015,9 +1015,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1804",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1030,9 +1030,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2200",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1045,9 +1045,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1209",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1060,9 +1060,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1206",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1075,9 +1075,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1809",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1090,9 +1090,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2500",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1105,9 +1105,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2103",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1120,9 +1120,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1606",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1135,9 +1135,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2402",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1150,9 +1150,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2004",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1165,9 +1165,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1180,9 +1180,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1001",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1195,9 +1195,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1A00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "65536",
@@ -1210,9 +1210,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2708",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1225,9 +1225,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1004",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1240,9 +1240,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "120b",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1255,9 +1255,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1407",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1270,9 +1270,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1409",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1285,9 +1285,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "270C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1300,9 +1300,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1607",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1315,9 +1315,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2709",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1330,9 +1330,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2101",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1345,9 +1345,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2301",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1360,9 +1360,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1806",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1375,9 +1375,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "120c",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1390,9 +1390,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "140C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\3"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1405,9 +1405,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1608",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1420,9 +1420,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1201",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1435,9 +1435,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1001",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1450,9 +1450,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1607",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1465,9 +1465,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "120b",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1480,9 +1480,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1809",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1495,9 +1495,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1004",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1510,9 +1510,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1606",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1525,9 +1525,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1407",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1540,9 +1540,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "160A",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1555,9 +1555,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1406",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1570,9 +1570,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2102",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1585,9 +1585,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2004",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1600,9 +1600,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2200",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1615,9 +1615,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2000",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1630,9 +1630,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1402",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1645,9 +1645,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1803",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1660,9 +1660,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2402",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1675,9 +1675,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1400",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1690,9 +1690,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1A00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "196608",
@@ -1705,9 +1705,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2001",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1720,9 +1720,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2500",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1735,9 +1735,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1409",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1750,9 +1750,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1C00",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1765,9 +1765,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1209",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1780,9 +1780,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "270C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1795,9 +1795,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1206",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1810,9 +1810,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2708",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1825,9 +1825,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1802",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1840,9 +1840,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2103",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1855,9 +1855,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2709",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1870,9 +1870,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1405",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1885,9 +1885,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2101",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1900,9 +1900,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "2301",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1915,9 +1915,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1200",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1930,9 +1930,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1804",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1945,9 +1945,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "1806",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1960,9 +1960,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "120c",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1975,9 +1975,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "140C",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\Internet Settings\\Zones\\4"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -1990,9 +1990,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoDriveTypeAutoRun",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "255",
@@ -2005,9 +2005,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoAutorun",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2020,9 +2020,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableAutomaticRestartSignOn",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2035,9 +2035,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "LocalAccountTokenFilterPolicy",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2050,9 +2050,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowEncryptionOracle",
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2065,9 +2065,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnhancedAntiSpoofing",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Biometrics\\FacialFeatures",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Biometrics\\FacialFeatures"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2080,9 +2080,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableEnclosureDownload",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2095,9 +2095,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowProtectedCreds",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2110,9 +2110,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "MaxSize",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application"
       },
       "operator": "=",
       "recommendedValue": "32768",
@@ -2125,9 +2125,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "MaxSize",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security"
       },
       "operator": "=",
       "recommendedValue": "196608",
@@ -2140,9 +2140,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "MaxSize",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System"
       },
       "operator": "=",
       "recommendedValue": "32768",
@@ -2155,9 +2155,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoAutoplayfornonVolume",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2170,9 +2170,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoBackgroundPolicy",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2185,9 +2185,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoGPOListChanges",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2200,9 +2200,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AlwaysInstallElevated",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2215,9 +2215,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableUserControl",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2230,9 +2230,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DeviceEnumerationPolicy",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Kernel DMA Protection",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Kernel DMA Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2245,9 +2245,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowInsecureGuestAuth",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2260,9 +2260,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "\\\\*\\SYSVOL",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
       },
       "operator": "=",
       "recommendedValue": "RequireMutualAuthentication=1,RequireIntegrity=1",
@@ -2275,9 +2275,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "\\\\*\\NETLOGON",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
       },
       "operator": "=",
       "recommendedValue": "RequireMutualAuthentication=1,RequireIntegrity=1",
@@ -2290,9 +2290,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoLockScreenCamera",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2305,9 +2305,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoLockScreenSlideshow",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2320,9 +2320,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableScriptBlockLogging",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2335,9 +2335,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnumerateLocalUsers",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2350,9 +2350,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableSmartScreen",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2365,9 +2365,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "ShellSmartScreenLevel",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "Block",
@@ -2380,9 +2380,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowIndexingEncryptedStoresOrItems",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Windows Search",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Windows Search"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2395,9 +2395,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowBasic",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2410,9 +2410,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowUnencryptedTraffic",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2425,9 +2425,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowDigest",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2440,9 +2440,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowBasic",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2455,9 +2455,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowUnencryptedTraffic",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2470,9 +2470,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableRunAs",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2485,9 +2485,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableMulticast",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2500,9 +2500,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "RestrictDriverInstallationToAdministrators",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2515,9 +2515,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "RestrictRemoteClients",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Rpc",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Rpc"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2530,9 +2530,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisablePasswordSaving",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2545,9 +2545,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "fDisableCdm",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2560,9 +2560,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "fPromptForPassword",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2575,9 +2575,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "fEncryptRPCTraffic",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2590,9 +2590,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "MinEncryptionLevel",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -2605,9 +2605,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "PolicyVersion",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall"
       },
       "operator": "=",
       "recommendedValue": "538",
@@ -2620,9 +2620,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultOutboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2635,9 +2635,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultInboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2650,9 +2650,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableFirewall",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2665,9 +2665,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableFirewall",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2680,9 +2680,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultInboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2695,9 +2695,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultOutboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2710,9 +2710,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableFirewall",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2725,9 +2725,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultOutboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2740,9 +2740,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DefaultInboundAction",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2755,9 +2755,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AllowWindowsInkWorkspace",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2770,9 +2770,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "AdmPwdEnabled",
-        "path": "HKLM:\\Software\\Policies\\Microsoft Services\\AdmPwd",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2785,9 +2785,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "UseLogonCredential",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2800,9 +2800,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableExceptionChainValidation",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2815,9 +2815,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DriverLoadPolicy",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Policies\\EarlyLaunch",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Policies\\EarlyLaunch"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -2830,9 +2830,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "SMB1",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2845,9 +2845,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "Start",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\MrxSmb10",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\MrxSmb10"
       },
       "operator": "=",
       "recommendedValue": "4",
@@ -2860,9 +2860,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NoNameReleaseOnDemand",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2875,9 +2875,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "NodeType",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netbt\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -2890,9 +2890,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableICMPRedirect",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2905,9 +2905,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableIPSourceRouting",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -2920,9 +2920,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableIPSourceRouting",
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -2935,9 +2935,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableVirtualizationBasedSecurity",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2950,9 +2950,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "RequirePlatformSecurityFeatures",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2965,9 +2965,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "HypervisorEnforcedCodeIntegrity",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2980,9 +2980,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "HVCIMATRequired",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2995,9 +2995,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "LsaCfgFlags",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3010,9 +3010,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "ConfigureSystemGuardLaunch",
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
-        "type": "DWord"
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3025,9 +3025,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "PUAProtection",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3040,9 +3040,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "MpCloudBlockLevel",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\MpEngine",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\MpEngine"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3055,9 +3055,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableIOAVProtection",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3070,9 +3070,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableRealtimeMonitoring",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3085,9 +3085,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableScriptScanning",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3100,9 +3100,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableRemovableDriveScanning",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3115,9 +3115,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "SubmitSamplesConsent",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3130,9 +3130,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "SpynetReporting",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3145,9 +3145,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "DisableBlockAtFirstSeen",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Spynet"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3160,9 +3160,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "ExploitGuard_ASR_Rules",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3175,9 +3175,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3190,9 +3190,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "3b576869-a4ec-4529-8536-b80a7769e899",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3205,9 +3205,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "d4f940ab-401b-4efc-aadc-ad5f3c50688a",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3220,9 +3220,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "92E97FA1-2EDF-4476-BDD6-9DD0B4DDDC7B",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3235,9 +3235,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "5beb7efe-fd9a-4556-801d-275e5ffc04cc",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3250,9 +3250,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "d3e037e1-3eb8-44c8-a917-57927947596d",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3265,9 +3265,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3280,9 +3280,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3295,9 +3295,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3310,9 +3310,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "26190899-1602-49e8-8b27-eb1d0a1ce869",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3325,9 +3325,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3340,9 +3340,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "c1db55ab-c21a-4637-bb3f-a12568109d35",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3355,9 +3355,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "e6db77e5-3df2-4cf1-b95a-636979351e5b",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules",
-        "type": "String"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\Rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3370,9 +3370,9 @@
       "category": "Registry (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnableNetworkProtection",
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection",
-        "type": "DWord"
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3394,13 +3394,312 @@
     },
     {
       "id": "10227",
+      "name": "User Right: SeSecurityPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSecurityPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10228",
+      "name": "User Right: SeCreateTokenPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateTokenPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10229",
+      "name": "User Right: SeTrustedCredManAccessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTrustedCredManAccessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10230",
+      "name": "User Right: SeCreatePagefilePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePagefilePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10231",
+      "name": "User Right: SeRemoteShutdownPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRemoteShutdownPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10232",
+      "name": "User Right: SeLoadDriverPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLoadDriverPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10233",
+      "name": "User Right: SeRestorePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRestorePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10234",
+      "name": "User Right: SeCreateGlobalPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateGlobalPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10235",
+      "name": "User Right: SeManageVolumePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeManageVolumePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10236",
+      "name": "User Right: SeInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10237",
+      "name": "User Right: SeEnableDelegationPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeEnableDelegationPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10238",
+      "name": "User Right: SeCreatePermanentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePermanentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10239",
+      "name": "User Right: SeDebugPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDebugPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10240",
+      "name": "User Right: SeProfileSingleProcessPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeProfileSingleProcessPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10241",
+      "name": "User Right: SeBackupPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeBackupPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10242",
+      "name": "User Right: SeNetworkLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeNetworkLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-11,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10243",
+      "name": "User Right: SeDenyNetworkLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyNetworkLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-114",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10244",
+      "name": "User Right: SeImpersonatePrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeImpersonatePrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-20,*S-1-5-19,*S-1-5-6,*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10245",
+      "name": "User Right: SeSystemEnvironmentPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSystemEnvironmentPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10246",
+      "name": "User Right: SeLockMemoryPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLockMemoryPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10247",
+      "name": "User Right: SeTcbPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTcbPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10248",
+      "name": "User Right: SeTakeOwnershipPrivilege",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTakeOwnershipPrivilege"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-32-544",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10249",
+      "name": "User Right: SeDenyRemoteInteractiveLogonRight",
+      "category": "User Rights (MS baseline)",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyRemoteInteractiveLogonRight"
+      },
+      "operator": "set=",
+      "recommendedValue": "*S-1-5-113",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10250",
       "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictRemoteSAM",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "String",
         "name": "RestrictRemoteSAM",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "String"
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
       },
       "operator": "=",
       "recommendedValue": "\"O:BAG:BAD:(A;;RC;;;BA)\"",
@@ -3408,374 +3707,29 @@
       "severity": "Medium"
     },
     {
-      "id": "10228",
+      "id": "10251",
       "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\EnablePlainTextPassword",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
+        "type": "DWord",
         "name": "EnablePlainTextPassword",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters",
-        "type": "DWord"
+        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10229",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\NoLMHash",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "NoLMHash",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10230",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "LimitBlankPasswordUse",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10231",
-      "name": "System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "ProtectionMode",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Session Manager",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10232",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "RestrictAnonymous",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10233",
-      "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "RestrictNullSessAccess",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10234",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "RestrictAnonymousSAM",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10235",
-      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "requirestrongkey",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10236",
-      "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "requiresecuritysignature",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10237",
-      "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "RequireSecuritySignature",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10238",
-      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "signsecurechannel",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10239",
-      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "requiresignorseal",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10240",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "NTLMMinServerSec",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "537395200",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10241",
-      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "sealsecurechannel",
-        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10242",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "NTLMMinClientSec",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "537395200",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10243",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "LmCompatibilityLevel",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "5",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10244",
-      "name": "System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "LDAPClientIntegrity",
-        "path": "HKLM:\\System/CurrentControlSet/Services/LDAP",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10245",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "EnableSecureUIAPaths",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10246",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "ConsentPromptBehaviorUser",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "0",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10247",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "ConsentPromptBehaviorAdmin",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "2",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10248",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "EnableInstallerDetection",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10249",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "EnableLUA",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10250",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "FilterAdministratorToken",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
-      "defaultValue": "",
-      "severity": "Medium"
-    },
-    {
-      "id": "10251",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization",
-      "category": "Security Options (MS baseline)",
-      "method": "Registry",
-      "args": {
-        "name": "EnableVirtualization",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
-      },
-      "operator": "=",
-      "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium"
     },
     {
       "id": "10252",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\NoLMHash",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
-        "name": "SCENoApplyLegacyAuditPolicy",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa",
-        "type": "DWord"
+        "type": "DWord",
+        "name": "NoLMHash",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3784,43 +3738,253 @@
     },
     {
       "id": "10253",
-      "name": "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\LimitBlankPasswordUse",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
-        "name": "ScRemoveOption",
-        "path": "HKLM:\\Software/Microsoft/Windows NT/CurrentVersion/Winlogon",
-        "type": "String"
+        "type": "DWord",
+        "name": "LimitBlankPasswordUse",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
       },
       "operator": "=",
-      "recommendedValue": "\"1\"",
+      "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium"
     },
     {
       "id": "10254",
-      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs",
+      "name": "System\\CurrentControlSet\\Control\\Session Manager\\ProtectionMode",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
-        "name": "InactivityTimeoutSecs",
-        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System",
-        "type": "DWord"
+        "type": "DWord",
+        "name": "ProtectionMode",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Session Manager"
       },
       "operator": "=",
-      "recommendedValue": "900",
+      "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium"
     },
     {
       "id": "10255",
-      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymous",
       "category": "Security Options (MS baseline)",
       "method": "Registry",
       "args": {
-        "name": "allownullsessionfallback",
-        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0",
-        "type": "DWord"
+        "type": "DWord",
+        "name": "RestrictAnonymous",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10256",
+      "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\RestrictNullSessAccess",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "RestrictNullSessAccess",
+        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10257",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\RestrictAnonymousSAM",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "RestrictAnonymousSAM",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10258",
+      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requirestrongkey",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "requirestrongkey",
+        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10259",
+      "name": "System\\CurrentControlSet\\Services\\LanManServer\\Parameters\\requiresecuritysignature",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "requiresecuritysignature",
+        "path": "HKLM:\\System/CurrentControlSet/Services/LanManServer/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10260",
+      "name": "System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters\\RequireSecuritySignature",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "RequireSecuritySignature",
+        "path": "HKLM:\\System/CurrentControlSet/Services/LanmanWorkstation/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10261",
+      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\signsecurechannel",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "signsecurechannel",
+        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10262",
+      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\requiresignorseal",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "requiresignorseal",
+        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10263",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinServerSec",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "NTLMMinServerSec",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10264",
+      "name": "System\\CurrentControlSet\\Services\\Netlogon\\Parameters\\sealsecurechannel",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "sealsecurechannel",
+        "path": "HKLM:\\System/CurrentControlSet/Services/Netlogon/Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10265",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\NTLMMinClientSec",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "NTLMMinClientSec",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10266",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\LmCompatibilityLevel",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "LmCompatibilityLevel",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10267",
+      "name": "System\\CurrentControlSet\\Services\\LDAP\\LDAPClientIntegrity",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "LDAPClientIntegrity",
+        "path": "HKLM:\\System/CurrentControlSet/Services/LDAP"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10268",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableSecureUIAPaths",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "EnableSecureUIAPaths",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10269",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorUser",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "ConsentPromptBehaviorUser",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3828,7 +3992,142 @@
       "severity": "Medium"
     },
     {
-      "id": "10256",
+      "id": "10270",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\ConsentPromptBehaviorAdmin",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "ConsentPromptBehaviorAdmin",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10271",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableInstallerDetection",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "EnableInstallerDetection",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10272",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableLUA",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "EnableLUA",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10273",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\FilterAdministratorToken",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "FilterAdministratorToken",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10274",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\EnableVirtualization",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "EnableVirtualization",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10275",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\SCENoApplyLegacyAuditPolicy",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "SCENoApplyLegacyAuditPolicy",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10276",
+      "name": "Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\ScRemoveOption",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "String",
+        "name": "ScRemoveOption",
+        "path": "HKLM:\\Software/Microsoft/Windows NT/CurrentVersion/Winlogon"
+      },
+      "operator": "=",
+      "recommendedValue": "\"1\"",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10277",
+      "name": "Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\InactivityTimeoutSecs",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "InactivityTimeoutSecs",
+        "path": "HKLM:\\Software/Microsoft/Windows/CurrentVersion/Policies/System"
+      },
+      "operator": "=",
+      "recommendedValue": "900",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10278",
+      "name": "System\\CurrentControlSet\\Control\\Lsa\\MSV1_0\\allownullsessionfallback",
+      "category": "Security Options (MS baseline)",
+      "method": "Registry",
+      "args": {
+        "type": "DWord",
+        "name": "allownullsessionfallback",
+        "path": "HKLM:\\System/CurrentControlSet/Control/Lsa/MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "10279",
       "name": "System Access: MinimumPasswordLength",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3841,7 +4140,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10257",
+      "id": "10280",
       "name": "System Access: PasswordComplexity",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3854,7 +4153,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10258",
+      "id": "10281",
       "name": "System Access: PasswordHistorySize",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3867,7 +4166,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10259",
+      "id": "10282",
       "name": "System Access: LockoutBadCount",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3880,7 +4179,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10260",
+      "id": "10283",
       "name": "System Access: ResetLockoutCount",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3893,7 +4192,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10261",
+      "id": "10284",
       "name": "System Access: LockoutDuration",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3906,7 +4205,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10262",
+      "id": "10285",
       "name": "System Access: ClearTextPassword",
       "category": "Account Policy (MS baseline)",
       "method": "secedit",
@@ -3919,7 +4218,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10263",
+      "id": "10286",
       "name": "Audit: Audit Credential Validation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3932,7 +4231,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10264",
+      "id": "10287",
       "name": "Audit: Audit Security Group Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3945,7 +4244,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10265",
+      "id": "10288",
       "name": "Audit: Audit User Account Management",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3958,7 +4257,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10266",
+      "id": "10289",
       "name": "Audit: Audit PNP Activity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3971,7 +4270,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10267",
+      "id": "10290",
       "name": "Audit: Audit Process Creation",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3984,7 +4283,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10268",
+      "id": "10291",
       "name": "Audit: Audit Account Lockout",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -3997,7 +4296,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10269",
+      "id": "10292",
       "name": "Audit: Audit Group Membership",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4010,7 +4309,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10270",
+      "id": "10293",
       "name": "Audit: Audit Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4023,7 +4322,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10271",
+      "id": "10294",
       "name": "Audit: Audit Other Logon/Logoff Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4036,7 +4335,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10272",
+      "id": "10295",
       "name": "Audit: Audit Special Logon",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4049,7 +4348,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10273",
+      "id": "10296",
       "name": "Audit: Audit Detailed File Share",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4062,7 +4361,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10274",
+      "id": "10297",
       "name": "Audit: Audit File Share",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4075,7 +4374,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10275",
+      "id": "10298",
       "name": "Audit: Audit Other Object Access Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4088,7 +4387,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10276",
+      "id": "10299",
       "name": "Audit: Audit Removable Storage",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4101,7 +4400,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10277",
+      "id": "10300",
       "name": "Audit: Audit Audit Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4114,7 +4413,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10278",
+      "id": "10301",
       "name": "Audit: Audit Authentication Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4127,7 +4426,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10279",
+      "id": "10302",
       "name": "Audit: Audit MPSSVC Rule-Level Policy Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4140,7 +4439,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10280",
+      "id": "10303",
       "name": "Audit: Audit Other Policy Change Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4153,7 +4452,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10281",
+      "id": "10304",
       "name": "Audit: Audit Sensitive Privilege Use",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4166,7 +4465,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10282",
+      "id": "10305",
       "name": "Audit: Audit Other System Events",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4179,7 +4478,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10283",
+      "id": "10306",
       "name": "Audit: Audit Security State Change",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4192,7 +4491,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10284",
+      "id": "10307",
       "name": "Audit: Audit Security System Extension",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
@@ -4205,7 +4504,7 @@
       "severity": "Medium"
     },
     {
-      "id": "10285",
+      "id": "10308",
       "name": "Audit: Audit System Integrity",
       "category": "Audit Policy (MS baseline)",
       "method": "auditpol",
