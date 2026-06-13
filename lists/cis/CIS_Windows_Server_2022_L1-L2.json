@@ -9,7 +9,9 @@
       "name": "Length of password history maintained",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "PasswordHistorySize"
+      },
       "operator": ">=",
       "recommendedValue": "24",
       "defaultValue": "None",
@@ -21,7 +23,9 @@
       "name": "Maximum password age",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MaximumPasswordAge"
+      },
       "operator": "<=!0",
       "recommendedValue": "365",
       "defaultValue": "42",
@@ -33,7 +37,9 @@
       "name": "Minimum password age",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MinimumPasswordAge"
+      },
       "operator": ">=",
       "recommendedValue": "1",
       "defaultValue": "0",
@@ -45,7 +51,9 @@
       "name": "Minimum password length",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MinimumPasswordLength"
+      },
       "operator": ">=",
       "recommendedValue": "14",
       "defaultValue": "0",
@@ -100,7 +108,9 @@
       "name": "Account lockout duration",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "LockoutDuration"
+      },
       "operator": ">=",
       "recommendedValue": "15",
       "defaultValue": "30",
@@ -112,7 +122,9 @@
       "name": "Account lockout threshold",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "LockoutBadCount"
+      },
       "operator": "<=!0",
       "recommendedValue": "5",
       "defaultValue": "Never",
@@ -138,7 +150,9 @@
       "name": "Reset account lockout counter",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "ResetLockoutCount"
+      },
       "operator": ">=",
       "recommendedValue": "15",
       "defaultValue": "30",

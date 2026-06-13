@@ -9,7 +9,9 @@
       "name": "Length of password history maintained",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "PasswordHistorySize"
+      },
       "operator": ">=",
       "recommendedValue": "24",
       "defaultValue": "None",
@@ -21,7 +23,9 @@
       "name": "Maximum password age",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MaximumPasswordAge"
+      },
       "operator": "<=!0",
       "recommendedValue": "365",
       "defaultValue": "42",
@@ -33,7 +37,9 @@
       "name": "Minimum password age",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MinimumPasswordAge"
+      },
       "operator": ">=",
       "recommendedValue": "1",
       "defaultValue": "0",
@@ -45,7 +51,9 @@
       "name": "Minimum password length",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "MinimumPasswordLength"
+      },
       "operator": ">=",
       "recommendedValue": "14",
       "defaultValue": "0",
@@ -85,7 +93,9 @@
       "name": "Account lockout duration",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "LockoutDuration"
+      },
       "operator": ">=",
       "recommendedValue": "15",
       "defaultValue": "30",
@@ -97,7 +107,9 @@
       "name": "Account lockout threshold",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "LockoutBadCount"
+      },
       "operator": "<=!0",
       "recommendedValue": "5",
       "defaultValue": "Never",
@@ -123,7 +135,9 @@
       "name": "Reset account lockout counter",
       "category": "Account Policies",
       "method": "accountpolicy",
-      "args": {},
+      "args": {
+        "key": "ResetLockoutCount"
+      },
       "operator": ">=",
       "recommendedValue": "15",
       "defaultValue": "30",
@@ -808,8 +822,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "NoConnectedUser"
+        "name": "NoConnectedUser",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -837,8 +851,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "LimitBlankPasswordUse"
+        "name": "LimitBlankPasswordUse",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -880,8 +894,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "SCENoApplyLegacyAuditPolicy"
+        "name": "SCENoApplyLegacyAuditPolicy",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -895,8 +909,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
-        "name": "CrashOnAuditFail"
+        "name": "CrashOnAuditFail",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -910,8 +924,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers",
-        "name": "AddPrinterDrivers"
+        "name": "AddPrinterDrivers",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Print\\Providers\\LanMan Print Services\\Servers"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -925,8 +939,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
-        "name": "SubmitControl"
+        "name": "SubmitControl",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -940,8 +954,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "VulnerableChannelAllowList"
+        "name": "VulnerableChannelAllowList",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "",
@@ -955,8 +969,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\NTDS\\Parameters",
-        "name": "LdapEnforceChannelBinding"
+        "name": "LdapEnforceChannelBinding",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\NTDS\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -970,8 +984,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\NTDS\\Parameters",
-        "name": "LDAPServerIntegrity"
+        "name": "LDAPServerIntegrity",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\NTDS\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -985,8 +999,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "RefusePasswordChange"
+        "name": "RefusePasswordChange",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1000,8 +1014,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "RequireSignOrSeal"
+        "name": "RequireSignOrSeal",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1015,8 +1029,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "SealSecureChannel"
+        "name": "SealSecureChannel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1030,8 +1044,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "SignSecureChannel"
+        "name": "SignSecureChannel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1045,8 +1059,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "DisablePasswordChange"
+        "name": "DisablePasswordChange",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1060,8 +1074,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "MaximumPasswordAge"
+        "name": "MaximumPasswordAge",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "<=!0",
       "recommendedValue": "30",
@@ -1075,8 +1089,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "RequireStrongKey"
+        "name": "RequireStrongKey",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1090,8 +1104,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "DontDisplayLastUserName"
+        "name": "DontDisplayLastUserName",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1105,8 +1119,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "DisableCAD"
+        "name": "DisableCAD",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1120,8 +1134,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "InactivityTimeoutSecs"
+        "name": "InactivityTimeoutSecs",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "<=!0",
       "recommendedValue": "900",
@@ -1135,8 +1149,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "LegalNoticeText"
+        "name": "LegalNoticeText",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "!=",
       "recommendedValue": "",
@@ -1150,8 +1164,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "LegalNoticeCaption"
+        "name": "LegalNoticeCaption",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "!=",
       "recommendedValue": "",
@@ -1165,8 +1179,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "PasswordExpiryWarning"
+        "name": "PasswordExpiryWarning",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "<=",
       "recommendedValue": "14",
@@ -1180,8 +1194,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "PasswordExpiryWarning"
+        "name": "PasswordExpiryWarning",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": ">=",
       "recommendedValue": "5",
@@ -1195,8 +1209,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-        "name": "ForceUnlockLogon"
+        "name": "ForceUnlockLogon",
+        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1210,8 +1224,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-        "name": "ScRemoveOption"
+        "name": "ScRemoveOption",
+        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1225,8 +1239,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
-        "name": "RequireSecuritySignature"
+        "name": "RequireSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1240,8 +1254,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
-        "name": "EnableSecuritySignature"
+        "name": "EnableSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1255,8 +1269,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
-        "name": "EnablePlainTextPassword"
+        "name": "EnablePlainTextPassword",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1270,8 +1284,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "AutoDisconnect"
+        "name": "AutoDisconnect",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "<=",
       "recommendedValue": "15",
@@ -1285,8 +1299,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "RequireSecuritySignature"
+        "name": "RequireSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1300,8 +1314,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "EnableSecuritySignature"
+        "name": "EnableSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1315,8 +1329,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "enableforcedlogoff"
+        "name": "enableforcedlogoff",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1330,8 +1344,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "SMBServerNameHardeningLevel"
+        "name": "SMBServerNameHardeningLevel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": ">=",
       "recommendedValue": "1",
@@ -1359,8 +1373,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "RestrictAnonymousSAM"
+        "name": "RestrictAnonymousSAM",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1374,8 +1388,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "RestrictAnonymous"
+        "name": "RestrictAnonymous",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1389,8 +1403,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "EveryoneIncludesAnonymous"
+        "name": "EveryoneIncludesAnonymous",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1404,8 +1418,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
-        "name": "NullSessionPipes"
+        "name": "NullSessionPipes",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "netlogon;samr;lsarpc",
@@ -1419,8 +1433,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
-        "name": "NullSessionPipes"
+        "name": "NullSessionPipes",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "",
@@ -1434,8 +1448,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths",
-        "name": "Machine"
+        "name": "Machine",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedExactPaths"
       },
       "operator": "=",
       "recommendedValue": "System\\CurrentControlSet\\Control\\ProductOptions;System\\CurrentControlSet\\Control\\Server Applications;Software\\Microsoft\\Windows NT\\CurrentVersion",
@@ -1449,8 +1463,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths",
-        "name": "Machine"
+        "name": "Machine",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurePipeServers\\Winreg\\AllowedPaths"
       },
       "operator": "=",
       "recommendedValue": "System\\CurrentControlSet\\Control\\Print\\Printers;System\\CurrentControlSet\\Services\\Eventlog;Software\\Microsoft\\OLAP Server;Software\\Microsoft\\Windows NT\\CurrentVersion\\Print;Software\\Microsoft\\Windows NT\\CurrentVersion\\Windows;System\\CurrentControlSet\\Control\\ContentIndex;System\\CurrentControlSet\\Control\\Terminal Server;System\\CurrentControlSet\\Control\\Terminal Server\\UserConfig;System\\CurrentControlSet\\Control\\Terminal Server\\DefaultUserConfiguration;Software\\Microsoft\\Windows NT\\CurrentVersion\\Perflib;System\\CurrentControlSet\\Services\\SysmonLog",
@@ -1464,8 +1478,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "RestrictNullSessAccess"
+        "name": "RestrictNullSessAccess",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1479,8 +1493,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "RestrictRemoteSAM"
+        "name": "RestrictRemoteSAM",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "O:BAG:BAD:(A;;RC;;;BA)",
@@ -1494,8 +1508,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters",
-        "name": "NullSessionShares"
+        "name": "NullSessionShares",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "",
@@ -1509,8 +1523,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "ForceGuest"
+        "name": "ForceGuest",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1524,8 +1538,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "UseMachineId"
+        "name": "UseMachineId",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1539,8 +1553,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
-        "name": "allownullsessionfallback"
+        "name": "allownullsessionfallback",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1554,8 +1568,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\pku2u",
-        "name": "AllowOnlineID"
+        "name": "AllowOnlineID",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\pku2u"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1569,8 +1583,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
-        "name": "SupportedEncryptionTypes"
+        "name": "SupportedEncryptionTypes",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters"
       },
       "operator": "<=",
       "recommendedValue": "2147483640",
@@ -1584,8 +1598,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "NoLMHash"
+        "name": "NoLMHash",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1613,8 +1627,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
-        "name": "LmCompatibilityLevel"
+        "name": "LmCompatibilityLevel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "5",
@@ -1628,8 +1642,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LDAP",
-        "name": "LDAPClientIntegrity"
+        "name": "LDAPClientIntegrity",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LDAP"
       },
       "operator": ">=",
       "recommendedValue": "1",
@@ -1643,8 +1657,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
-        "name": "NTLMMinClientSec"
+        "name": "NTLMMinClientSec",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "537395200",
@@ -1658,8 +1672,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
-        "name": "NTLMMinServerSec"
+        "name": "NTLMMinServerSec",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "537395200",
@@ -1673,8 +1687,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
-        "name": "AuditReceivingNTLMTraffic"
+        "name": "AuditReceivingNTLMTraffic",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -1688,8 +1702,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
-        "name": "AuditNTLMInDomain"
+        "name": "AuditNTLMInDomain",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "7",
@@ -1703,8 +1717,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
-        "name": "RestrictSendingNTLMTraffic"
+        "name": "RestrictSendingNTLMTraffic",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
       },
       "operator": ">=",
       "recommendedValue": "1",
@@ -1718,8 +1732,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "ShutdownWithoutLogon"
+        "name": "ShutdownWithoutLogon",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1733,8 +1747,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel",
-        "name": "ObCaseInsensitive"
+        "name": "ObCaseInsensitive",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Kernel"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1748,8 +1762,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Session Manager",
-        "name": "ProtectionMode"
+        "name": "ProtectionMode",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Session Manager"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1763,8 +1777,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "FilterAdministratorToken"
+        "name": "FilterAdministratorToken",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1778,8 +1792,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "ConsentPromptBehaviorAdmin"
+        "name": "ConsentPromptBehaviorAdmin",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -1793,8 +1807,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "ConsentPromptBehaviorUser"
+        "name": "ConsentPromptBehaviorUser",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -1808,8 +1822,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "EnableInstallerDetection"
+        "name": "EnableInstallerDetection",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1823,8 +1837,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "EnableSecureUIAPaths"
+        "name": "EnableSecureUIAPaths",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1838,8 +1852,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "EnableLUA"
+        "name": "EnableLUA",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1853,8 +1867,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "PromptOnSecureDesktop"
+        "name": "PromptOnSecureDesktop",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1868,8 +1882,8 @@
       "category": "Security Options",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "EnableVirtualization"
+        "name": "EnableVirtualization",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1883,8 +1897,8 @@
       "category": "System Services",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Spooler",
-        "name": "Start"
+        "name": "Start",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Spooler"
       },
       "operator": "=",
       "recommendedValue": "4",
@@ -1912,8 +1926,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "name": "EnableFirewall"
+        "name": "EnableFirewall",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1927,8 +1941,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "name": "DefaultInboundAction"
+        "name": "DefaultInboundAction",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1942,8 +1956,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile",
-        "name": "DisableNotifications"
+        "name": "DisableNotifications",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -1957,8 +1971,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
-        "name": "LogFilePath"
+        "name": "LogFilePath",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "%SystemRoot%\\System32\\logfiles\\firewall\\domainfw.log",
@@ -1972,8 +1986,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
-        "name": "LogFileSize"
+        "name": "LogFileSize",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging"
       },
       "operator": ">=",
       "recommendedValue": "16384",
@@ -1987,8 +2001,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
-        "name": "LogDroppedPackets"
+        "name": "LogDroppedPackets",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2002,8 +2016,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging",
-        "name": "LogSuccessfulConnections"
+        "name": "LogSuccessfulConnections",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\DomainProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2017,8 +2031,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "name": "EnableFirewall"
+        "name": "EnableFirewall",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2032,8 +2046,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "name": "DefaultInboundAction"
+        "name": "DefaultInboundAction",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2047,8 +2061,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile",
-        "name": "DisableNotifications"
+        "name": "DisableNotifications",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2062,8 +2076,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
-        "name": "LogFilePath"
+        "name": "LogFilePath",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "%SystemRoot%\\System32\\logfiles\\firewall\\privatefw.log",
@@ -2077,8 +2091,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
-        "name": "LogFileSize"
+        "name": "LogFileSize",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging"
       },
       "operator": ">=",
       "recommendedValue": "16384",
@@ -2092,8 +2106,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
-        "name": "LogDroppedPackets"
+        "name": "LogDroppedPackets",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2107,8 +2121,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging",
-        "name": "LogSuccessfulConnections"
+        "name": "LogSuccessfulConnections",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PrivateProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2122,8 +2136,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "name": "EnableFirewall"
+        "name": "EnableFirewall",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2137,8 +2151,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "name": "DefaultInboundAction"
+        "name": "DefaultInboundAction",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2152,8 +2166,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "name": "DisableNotifications"
+        "name": "DisableNotifications",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2167,8 +2181,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "name": "AllowLocalPolicyMerge"
+        "name": "AllowLocalPolicyMerge",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2182,8 +2196,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile",
-        "name": "AllowLocalIPsecPolicyMerge"
+        "name": "AllowLocalIPsecPolicyMerge",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2197,8 +2211,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
-        "name": "LogFilePath"
+        "name": "LogFilePath",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "%SystemRoot%\\System32\\logfiles\\firewall\\publicfw.log",
@@ -2212,8 +2226,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
-        "name": "LogFileSize"
+        "name": "LogFileSize",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging"
       },
       "operator": ">=",
       "recommendedValue": "16384",
@@ -2227,8 +2241,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
-        "name": "LogDroppedPackets"
+        "name": "LogDroppedPackets",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2242,8 +2256,8 @@
       "category": "Windows Firewall",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging",
-        "name": "LogSuccessfulConnections"
+        "name": "LogSuccessfulConnections",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsFirewall\\PublicProfile\\Logging"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2733,8 +2747,8 @@
       "category": "Administrative Templates: Control Panel",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization",
-        "name": "NoLockScreenCamera"
+        "name": "NoLockScreenCamera",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2748,8 +2762,8 @@
       "category": "Administrative Templates: Control Panel",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization",
-        "name": "NoLockScreenSlideshow"
+        "name": "NoLockScreenSlideshow",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2763,8 +2777,8 @@
       "category": "Administrative Templates: Control Panel",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
-        "name": "AllowInputPersonalization"
+        "name": "AllowInputPersonalization",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2778,8 +2792,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\GPExtensions\\{D76B9641-3288-4f75-942D-087DE603E3EA}",
-        "name": "DllName"
+        "name": "DllName",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon\\GPExtensions\\{D76B9641-3288-4f75-942D-087DE603E3EA}"
       },
       "operator": "=",
       "recommendedValue": "C:\\Program Files\\LAPS\\CSE\\AdmPwd.dll",
@@ -2793,8 +2807,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd",
-        "name": "PwdExpirationProtectionEnabled"
+        "name": "PwdExpirationProtectionEnabled",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2808,8 +2822,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft Services\\AdmPwd",
-        "name": "AdmPwdEnabled"
+        "name": "AdmPwdEnabled",
+        "path": "HKLM:\\Software\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2823,8 +2837,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd",
-        "name": "PasswordComplexity"
+        "name": "PasswordComplexity",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": "=",
       "recommendedValue": "4",
@@ -2838,8 +2852,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd",
-        "name": "PasswordLength"
+        "name": "PasswordLength",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": ">=",
       "recommendedValue": "15",
@@ -2853,8 +2867,8 @@
       "category": "Administrative Templates: LAPS",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd",
-        "name": "PasswordAgeDays"
+        "name": "PasswordAgeDays",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft Services\\AdmPwd"
       },
       "operator": "<=",
       "recommendedValue": "30",
@@ -2868,8 +2882,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "LocalAccountTokenFilterPolicy"
+        "name": "LocalAccountTokenFilterPolicy",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2883,8 +2897,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\MrxSmb10",
-        "name": "Start"
+        "name": "Start",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\MrxSmb10"
       },
       "operator": "=",
       "recommendedValue": "4",
@@ -2898,8 +2912,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
-        "name": "SMB1"
+        "name": "SMB1",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2913,8 +2927,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Cryptography\\Wintrust\\Config",
-        "name": "EnableCertPaddingCheck"
+        "name": "EnableCertPaddingCheck",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Cryptography\\Wintrust\\Config"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2928,8 +2942,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
-        "name": "DisableExceptionChainValidation"
+        "name": "DisableExceptionChainValidation",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2943,8 +2957,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
-        "name": "RunAsPPL"
+        "name": "RunAsPPL",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -2958,8 +2972,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters",
-        "name": "NodeType"
+        "name": "NodeType",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -2973,8 +2987,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
-        "name": "UseLogonCredential"
+        "name": "UseLogonCredential",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -2988,8 +3002,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-        "name": "AutoAdminLogon"
+        "name": "AutoAdminLogon",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3003,8 +3017,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
-        "name": "DisableIPSourceRouting"
+        "name": "DisableIPSourceRouting",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip6\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3018,8 +3032,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters",
-        "name": "DisableIPSourceRouting"
+        "name": "DisableIPSourceRouting",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3033,8 +3047,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters",
-        "name": "EnableICMPRedirect"
+        "name": "EnableICMPRedirect",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3048,8 +3062,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netbt\\Parameters",
-        "name": "NoNameReleaseOnDemand"
+        "name": "NoNameReleaseOnDemand",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netbt\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3063,8 +3077,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager",
-        "name": "SafeDLLSearchMode"
+        "name": "SafeDLLSearchMode",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3078,8 +3092,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
-        "name": "ScreenSaverGracePeriod"
+        "name": "ScreenSaverGracePeriod",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "<=",
       "recommendedValue": "5",
@@ -3093,8 +3107,8 @@
       "category": "MSS (Legacy)",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Security",
-        "name": "WarningLevel"
+        "name": "WarningLevel",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Security"
       },
       "operator": "<=",
       "recommendedValue": "90",
@@ -3108,8 +3122,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient",
-        "name": "EnableMDNS"
+        "name": "EnableMDNS",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3123,8 +3137,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient",
-        "name": "EnableNetbios"
+        "name": "EnableNetbios",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3138,8 +3152,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient",
-        "name": "EnableMulticast"
+        "name": "EnableMulticast",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\DNSClient"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3153,8 +3167,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
-        "name": "AllowInsecureGuestAuth"
+        "name": "AllowInsecureGuestAuth",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3168,8 +3182,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections",
-        "name": "NC_AllowNetBridge_NLA"
+        "name": "NC_AllowNetBridge_NLA",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3183,8 +3197,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections",
-        "name": "NC_ShowSharedAccessUI"
+        "name": "NC_ShowSharedAccessUI",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3198,8 +3212,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections",
-        "name": "NC_StdDomainUserSetLocation"
+        "name": "NC_StdDomainUserSetLocation",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3213,8 +3227,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
-        "name": "\\\\*\\NETLOGON"
+        "name": "\\\\*\\NETLOGON",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
       },
       "operator": "=",
       "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1",
@@ -3228,8 +3242,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
-        "name": "\\\\*\\SYSVOL"
+        "name": "\\\\*\\SYSVOL",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
       },
       "operator": "=",
       "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1",
@@ -3243,8 +3257,8 @@
       "category": "Administrative Templates: Network",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy",
-        "name": "fMinimizeConnections"
+        "name": "fMinimizeConnections",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3258,8 +3272,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers",
-        "name": "RegisterSpoolerRemoteRpcEndPoint"
+        "name": "RegisterSpoolerRemoteRpcEndPoint",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -3273,8 +3287,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers",
-        "name": "RedirectionGuardPolicy"
+        "name": "RedirectionGuardPolicy",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3288,8 +3302,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
-        "name": "RpcUseNamedPipeProtocol"
+        "name": "RpcUseNamedPipeProtocol",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3303,8 +3317,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
-        "name": "RpcAuthentication"
+        "name": "RpcAuthentication",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3318,8 +3332,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
-        "name": "RpcProtocols"
+        "name": "RpcProtocols",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC"
       },
       "operator": "=",
       "recommendedValue": "5",
@@ -3333,8 +3347,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
-        "name": "ForceKerberosForRpc"
+        "name": "ForceKerberosForRpc",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC"
       },
       "operator": ">=",
       "recommendedValue": "0",
@@ -3348,8 +3362,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
-        "name": "RpcTcpPort"
+        "name": "RpcTcpPort",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\RPC"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3363,8 +3377,8 @@
       "category": "MS Security Guide",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Print",
-        "name": "RpcAuthnLevelPrivacyEnabled"
+        "name": "RpcAuthnLevelPrivacyEnabled",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Print"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3378,8 +3392,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
-        "name": "RestrictDriverInstallationToAdministrators"
+        "name": "RestrictDriverInstallationToAdministrators",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3393,8 +3407,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers",
-        "name": "CopyFilesPolicy"
+        "name": "CopyFilesPolicy",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3408,8 +3422,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
-        "name": "NoWarningNoElevationOnInstall"
+        "name": "NoWarningNoElevationOnInstall",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3423,8 +3437,8 @@
       "category": "Administrative Templates: Printers",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
-        "name": "UpdatePromptSettings"
+        "name": "UpdatePromptSettings",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3438,8 +3452,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit",
-        "name": "ProcessCreationIncludeCmdLine_Enabled"
+        "name": "ProcessCreationIncludeCmdLine_Enabled",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3453,8 +3467,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters",
-        "name": "AllowEncryptionOracle"
+        "name": "AllowEncryptionOracle",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3468,8 +3482,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation",
-        "name": "AllowProtectedCreds"
+        "name": "AllowProtectedCreds",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3483,8 +3497,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Device Metadata",
-        "name": "PreventDeviceMetadataFromNetwork"
+        "name": "PreventDeviceMetadataFromNetwork",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Device Metadata"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3498,8 +3512,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\System\\CurrentControlSet\\Policies\\EarlyLaunch",
-        "name": "DriverLoadPolicy"
+        "name": "DriverLoadPolicy",
+        "path": "HKLM:\\System\\CurrentControlSet\\Policies\\EarlyLaunch"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -3513,8 +3527,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
-        "name": "NoBackgroundPolicy"
+        "name": "NoBackgroundPolicy",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3528,8 +3542,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}",
-        "name": "NoGPOListChanges"
+        "name": "NoGPOListChanges",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3543,8 +3557,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}",
-        "name": "NoBackgroundPolicy"
+        "name": "NoBackgroundPolicy",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3558,8 +3572,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}",
-        "name": "NoGPOListChanges"
+        "name": "NoGPOListChanges",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{827D319E-6EAC-11D2-A4EA-00C04F79F83A}"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3573,8 +3587,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "EnableCdp"
+        "name": "EnableCdp",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3588,8 +3602,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "DisableBkGndGroupPolicy"
+        "name": "DisableBkGndGroupPolicy",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3603,8 +3617,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers",
-        "name": "DisableWebPnPDownload"
+        "name": "DisableWebPnPDownload",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3618,8 +3632,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "name": "NoWebServices"
+        "name": "NoWebServices",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3633,8 +3647,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "BlockUserFromShowingAccountDetailsOnSignin"
+        "name": "BlockUserFromShowingAccountDetailsOnSignin",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3648,8 +3662,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "name": "DontDisplayNetworkSelectionUI"
+        "name": "DontDisplayNetworkSelectionUI",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3663,8 +3677,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "DontEnumerateConnectedUsers"
+        "name": "DontEnumerateConnectedUsers",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3678,8 +3692,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "name": "EnumerateLocalUsers"
+        "name": "EnumerateLocalUsers",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3693,8 +3707,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "name": "DisableLockScreenAppNotifications"
+        "name": "DisableLockScreenAppNotifications",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3708,8 +3722,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "BlockDomainPicturePassword"
+        "name": "BlockDomainPicturePassword",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3723,8 +3737,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
-        "name": "AllowDomainPINLogon"
+        "name": "AllowDomainPINLogon",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3738,8 +3752,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
-        "name": "DCSettingIndex"
+        "name": "DCSettingIndex",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3753,8 +3767,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
-        "name": "ACSettingIndex"
+        "name": "ACSettingIndex",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3768,8 +3782,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "fAllowUnsolicited"
+        "name": "fAllowUnsolicited",
+        "path": "HKLM:\\Software\\policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3783,8 +3797,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "fAllowToGetHelp"
+        "name": "fAllowToGetHelp",
+        "path": "HKLM:\\Software\\policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3798,8 +3812,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Rpc",
-        "name": "EnableAuthEpResolution"
+        "name": "EnableAuthEpResolution",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Rpc"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3813,8 +3827,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\W32time\\TimeProviders\\NtpClient",
-        "name": "Enabled"
+        "name": "Enabled",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\W32time\\TimeProviders\\NtpClient"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3828,8 +3842,8 @@
       "category": "Administrative Templates: System",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\W32time\\TimeProviders\\NtpServer",
-        "name": "Enabled"
+        "name": "Enabled",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\W32time\\TimeProviders\\NtpServer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3843,8 +3857,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "MSAOptional"
+        "name": "MSAOptional",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3858,8 +3872,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
-        "name": "NoAutoplayfornonVolume"
+        "name": "NoAutoplayfornonVolume",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3873,8 +3887,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "name": "NoAutorun"
+        "name": "NoAutorun",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3888,8 +3902,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "name": "NoDriveTypeAutoRun"
+        "name": "NoDriveTypeAutoRun",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "255",
@@ -3903,8 +3917,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Biometrics\\FacialFeatures",
-        "name": "EnhancedAntiSpoofing"
+        "name": "EnhancedAntiSpoofing",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Biometrics\\FacialFeatures"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3918,8 +3932,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
-        "name": "DisableConsumerAccountStateContent"
+        "name": "DisableConsumerAccountStateContent",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CloudContent"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3933,8 +3947,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CloudContent",
-        "name": "DisableWindowsConsumerFeatures"
+        "name": "DisableWindowsConsumerFeatures",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CloudContent"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3948,8 +3962,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Connect",
-        "name": "RequirePinForPairing"
+        "name": "RequirePinForPairing",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Connect"
       },
       "operator": ">=",
       "recommendedValue": "1",
@@ -3963,8 +3977,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredUI",
-        "name": "DisablePasswordReveal"
+        "name": "DisablePasswordReveal",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredUI"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -3978,8 +3992,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI",
-        "name": "EnumerateAdministrators"
+        "name": "EnumerateAdministrators",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -3993,8 +4007,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "AllowTelemetry"
+        "name": "AllowTelemetry",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "<=",
       "recommendedValue": "1",
@@ -4008,8 +4022,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "DisableOneSettingsDownloads"
+        "name": "DisableOneSettingsDownloads",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4023,8 +4037,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "DoNotShowFeedbackNotifications"
+        "name": "DoNotShowFeedbackNotifications",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4038,8 +4052,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "EnableOneSettingsAuditing"
+        "name": "EnableOneSettingsAuditing",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4053,8 +4067,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "LimitDiagnosticLogCollection"
+        "name": "LimitDiagnosticLogCollection",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4068,8 +4082,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection",
-        "name": "LimitDumpCollection"
+        "name": "LimitDumpCollection",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4083,8 +4097,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application",
-        "name": "Retention"
+        "name": "Retention",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4098,8 +4112,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application",
-        "name": "MaxSize"
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application"
       },
       "operator": ">=",
       "recommendedValue": "32768",
@@ -4113,8 +4127,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security",
-        "name": "Retention"
+        "name": "Retention",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4128,8 +4142,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security",
-        "name": "MaxSize"
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security"
       },
       "operator": ">=",
       "recommendedValue": "196608",
@@ -4143,8 +4157,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Setup",
-        "name": "Retention"
+        "name": "Retention",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Setup"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4158,8 +4172,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Setup",
-        "name": "MaxSize"
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Setup"
       },
       "operator": ">=",
       "recommendedValue": "32768",
@@ -4173,8 +4187,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System",
-        "name": "Retention"
+        "name": "Retention",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4188,8 +4202,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System",
-        "name": "MaxSize"
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System"
       },
       "operator": ">=",
       "recommendedValue": "32768",
@@ -4203,8 +4217,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
-        "name": "DisableMotWOnInsecurePathCopy"
+        "name": "DisableMotWOnInsecurePathCopy",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4218,8 +4232,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
-        "name": "NoDataExecutionPrevention"
+        "name": "NoDataExecutionPrevention",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4233,8 +4247,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
-        "name": "NoHeapTerminationOnCorruption"
+        "name": "NoHeapTerminationOnCorruption",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4248,8 +4262,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
-        "name": "PreXPSP2ShellProtocolBehavior"
+        "name": "PreXPSP2ShellProtocolBehavior",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4263,8 +4277,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MicrosoftAccount",
-        "name": "DisableUserAuth"
+        "name": "DisableUserAuth",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MicrosoftAccount"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4278,8 +4292,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Features",
-        "name": "PassiveRemediation"
+        "name": "PassiveRemediation",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Features"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4293,8 +4307,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Spynet",
-        "name": "LocalSettingOverrideSpynetReporting"
+        "name": "LocalSettingOverrideSpynetReporting",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Spynet"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4308,8 +4322,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR",
-        "name": "ExploitGuard_ASR_Rules"
+        "name": "ExploitGuard_ASR_Rules",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4323,8 +4337,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "26190899-1602-49e8-8b27-eb1d0a1ce869"
+        "name": "26190899-1602-49e8-8b27-eb1d0a1ce869",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4352,8 +4366,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "d4f940ab-401b-4efc-aadc-ad5f3c50688a"
+        "name": "d4f940ab-401b-4efc-aadc-ad5f3c50688a",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4381,8 +4395,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "3b576869-a4ec-4529-8536-b80a7769e899"
+        "name": "3b576869-a4ec-4529-8536-b80a7769e899",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4410,8 +4424,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "56a863a9-875e-4185-98a7-b882c64b5ce5"
+        "name": "56a863a9-875e-4185-98a7-b882c64b5ce5",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4439,8 +4453,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "5beb7efe-fd9a-4556-801d-275e5ffc04cc"
+        "name": "5beb7efe-fd9a-4556-801d-275e5ffc04cc",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4468,8 +4482,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84"
+        "name": "75668c1f-73b5-4cf0-bb93-3ecf5cb7cc84",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4497,8 +4511,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c"
+        "name": "7674ba52-37eb-4a4f-a9a1-f0f9a1619a2c",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4526,8 +4540,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2"
+        "name": "9e6c4e1f-7d60-472f-ba1a-a39ef669e4b2",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4555,8 +4569,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4"
+        "name": "b2b3f03d-6a65-4f7b-a9c7-1c7ef74a9ba4",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4584,8 +4598,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules",
-        "name": "be9ba2d9-53ea-4cdc-84e5-9b1eeee46550"
+        "name": "be9ba2d9-53ea-4cdc-84e5-9b1eeee46550",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\ASR\\rules"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4613,8 +4627,8 @@
       "category": "Microsoft Defender Exploit Guard",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection",
-        "name": "EnableNetworkProtection"
+        "name": "EnableNetworkProtection",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Windows Defender Exploit Guard\\Network Protection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4628,8 +4642,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\MpEngine",
-        "name": "EnableFileHashComputation"
+        "name": "EnableFileHashComputation",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\MpEngine"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4643,8 +4657,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "name": "OobeEnableRtpAndSigUpdate"
+        "name": "OobeEnableRtpAndSigUpdate",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4658,8 +4672,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "name": "DisableIOAVProtection"
+        "name": "DisableIOAVProtection",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4673,8 +4687,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "name": "DisableRealtimeMonitoring"
+        "name": "DisableRealtimeMonitoring",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4688,8 +4702,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "name": "DisableBehaviorMonitoring"
+        "name": "DisableBehaviorMonitoring",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4703,8 +4717,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection",
-        "name": "DisableScriptScanning"
+        "name": "DisableScriptScanning",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Real-Time Protection"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4718,8 +4732,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Remediation\\BehavioralNetwork Blocks\\Brute Force Protection",
-        "name": "BruteForceProtectionConfiguredState"
+        "name": "BruteForceProtectionConfiguredState",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Remediation\\BehavioralNetwork Blocks\\Brute Force Protection"
       },
       "operator": "=",
       "recommendedValue": "2 or 1",
@@ -4733,8 +4747,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "name": "QuickScanIncludeExclusions"
+        "name": "QuickScanIncludeExclusions",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4748,8 +4762,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "name": "DisablePackedExeScanning"
+        "name": "DisablePackedExeScanning",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4763,8 +4777,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "name": "DisableRemovableDriveScanning"
+        "name": "DisableRemovableDriveScanning",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4778,8 +4792,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "name": "DaysUntilAggressiveCatchupQuickScan"
+        "name": "DaysUntilAggressiveCatchupQuickScan",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "7",
@@ -4793,8 +4807,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan",
-        "name": "DisableEmailScanning"
+        "name": "DisableEmailScanning",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender\\Scan"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -4808,8 +4822,8 @@
       "category": "Microsoft Defender Antivirus",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender",
-        "name": "PUAProtection"
+        "name": "PUAProtection",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows Defender"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4823,8 +4837,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender",
-        "name": "HideExclusionsFromLocalUsers"
+        "name": "HideExclusionsFromLocalUsers",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4838,8 +4852,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\OneDrive",
-        "name": "DisableFileSyncNGSC"
+        "name": "DisableFileSyncNGSC",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\OneDrive"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4853,8 +4867,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "DisablePasswordSaving"
+        "name": "DisablePasswordSaving",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4868,8 +4882,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "fDisableCdm"
+        "name": "fDisableCdm",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4883,8 +4897,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "fPromptForPassword"
+        "name": "fPromptForPassword",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4898,8 +4912,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "fEncryptRPCTraffic"
+        "name": "fEncryptRPCTraffic",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4913,8 +4927,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "SecurityLayer"
+        "name": "SecurityLayer",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -4928,8 +4942,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "UserAuthentication"
+        "name": "UserAuthentication",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4943,8 +4957,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "MinEncryptionLevel"
+        "name": "MinEncryptionLevel",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "3",
@@ -4958,8 +4972,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "DeleteTempDirsOnExit"
+        "name": "DeleteTempDirsOnExit",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4973,8 +4987,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
-        "name": "PerSessionTempDir"
+        "name": "PerSessionTempDir",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -4988,8 +5002,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
-        "name": "DisableEnclosureDownload"
+        "name": "DisableEnclosureDownload",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5003,8 +5017,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
-        "name": "AllowBasicAuthInClear"
+        "name": "AllowBasicAuthInClear",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5018,8 +5032,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
-        "name": "AllowIndexingEncryptedStoresOrItems"
+        "name": "AllowIndexingEncryptedStoresOrItems",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5033,8 +5047,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "EnableSmartScreen"
+        "name": "EnableSmartScreen",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5048,8 +5062,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
-        "name": "ShellSmartScreenLevel"
+        "name": "ShellSmartScreenLevel",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
       },
       "operator": "=",
       "recommendedValue": "Block",
@@ -5063,8 +5077,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace",
-        "name": "AllowWindowsInkWorkspace"
+        "name": "AllowWindowsInkWorkspace",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace"
       },
       "operator": "<=",
       "recommendedValue": "1",
@@ -5078,8 +5092,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer",
-        "name": "EnableUserControl"
+        "name": "EnableUserControl",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5093,8 +5107,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer",
-        "name": "AlwaysInstallElevated"
+        "name": "AlwaysInstallElevated",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5108,8 +5122,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
-        "name": "DisableAutomaticRestartSignOn"
+        "name": "DisableAutomaticRestartSignOn",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5123,8 +5137,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "name": "AllowBasic"
+        "name": "AllowBasic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5138,8 +5152,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "name": "AllowUnencryptedTraffic"
+        "name": "AllowUnencryptedTraffic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5153,8 +5167,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
-        "name": "AllowDigest"
+        "name": "AllowDigest",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5168,8 +5182,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "name": "AllowBasic"
+        "name": "AllowBasic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5183,8 +5197,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "name": "AllowUnencryptedTraffic"
+        "name": "AllowUnencryptedTraffic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5198,8 +5212,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
-        "name": "DisableRunAs"
+        "name": "DisableRunAs",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5213,8 +5227,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender Security Center\\App and Browser protection",
-        "name": "DisallowExploitProtectionOverride"
+        "name": "DisallowExploitProtectionOverride",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender Security Center\\App and Browser protection"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5228,8 +5242,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au",
-        "name": "NoAutoRebootWithLoggedOnUsers"
+        "name": "NoAutoRebootWithLoggedOnUsers",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5243,8 +5257,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au",
-        "name": "NoAutoUpdate"
+        "name": "NoAutoUpdate",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5258,8 +5272,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au",
-        "name": "ScheduledInstallDay"
+        "name": "ScheduledInstallDay",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\Au"
       },
       "operator": "=",
       "recommendedValue": "0",
@@ -5273,8 +5287,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "ManagePreviewBuildsPolicyValue"
+        "name": "ManagePreviewBuildsPolicyValue",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5288,8 +5302,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "ManagePreviewBuilds"
+        "name": "ManagePreviewBuilds",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5303,8 +5317,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "DeferFeatureUpdates"
+        "name": "DeferFeatureUpdates",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5318,8 +5332,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "BranchReadinessLevel"
+        "name": "BranchReadinessLevel",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "2",
@@ -5333,8 +5347,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "DeferFeatureUpdatesPeriodInDays"
+        "name": "DeferFeatureUpdatesPeriodInDays",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": ">=",
       "recommendedValue": "180",
@@ -5348,8 +5362,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "DeferQualityUpdates"
+        "name": "DeferQualityUpdates",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "1",
@@ -5363,8 +5377,8 @@
       "category": "Administrative Templates: Windows Components",
       "method": "Registry",
       "args": {
-        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
-        "name": "DeferQualityUpdatesPeriodInDays"
+        "name": "DeferQualityUpdatesPeriodInDays",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate"
       },
       "operator": "=",
       "recommendedValue": "0",

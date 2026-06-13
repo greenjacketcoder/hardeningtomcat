@@ -21,6 +21,23 @@ param(
 if (-not (Test-Path $CsvPath)) { throw "CSV not found: $CsvPath" }
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
+# Map CIS account-policy finding names -> secedit [System Access] keys. Baking the key
+# into args at import time avoids fragile exact-name matching at runtime (CIS wording
+# varies by version/OS). Matching is done case-insensitively on a normalized name.
+$acctPolicyKeys = @{
+    'length of password history maintained' = 'PasswordHistorySize'
+    'maximum password age'                  = 'MaximumPasswordAge'
+    'minimum password age'                  = 'MinimumPasswordAge'
+    'minimum password length'               = 'MinimumPasswordLength'
+    'password must meet complexity requirements' = 'PasswordComplexity'
+    'store passwords using reversible encryption' = 'ClearTextPassword'
+    'account lockout duration'              = 'LockoutDuration'
+    'account lockout threshold'             = 'LockoutBadCount'
+    'reset account lockout counter'         = 'ResetLockoutCount'
+    'reset account lockout counter after'   = 'ResetLockoutCount'
+    'allow administrator account lockout'   = 'AllowAdministratorLockout'
+}
+
 # Determine how to assign levels.
 #  - If an L1 reference is given: per-finding (id in L1 ref -> 1, else -> 2). Combined list.
 #  - Else if filename says _level1 (and not _level2): every finding is level 1.
@@ -50,7 +67,13 @@ foreach ($r in $rows) {
         'service'         { $args = @{ name = $r.MethodArgument } }
         'auditpol'        { $args = @{ subcategory = $r.MethodArgument } }  # CIS uses GUID; see note
         'secedit'         { $args = @{ key = ($r.MethodArgument -replace '^System Access\\','') } }
-        'accountpolicy'   { $args = @{ } }                                  # resolved by name in handler
+        'accountpolicy'   {
+            # Resolve the secedit key now (case-insensitive) so the handler doesn't
+            # depend on exact runtime name matching. Falls back to empty if unknown.
+            $k = $acctPolicyKeys[$r.Name.Trim().ToLower()]
+            $args = @{ key = $k }
+            if (-not $k) { Write-Warning "No account-policy key mapping for '$($r.Name)' (id $($r.ID)) -- will Skip at runtime." }
+        }
         'localaccount'    { $args = @{ rid = $r.MethodArgument } }
         'MpPreferenceAsr' { $args = @{ ruleId = $r.MethodArgument } }
         default           { $args = @{ raw = $r.MethodArgument } }
