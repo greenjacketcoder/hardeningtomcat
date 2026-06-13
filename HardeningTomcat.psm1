@@ -324,10 +324,13 @@ function Invoke-HardeningTomcat {
         }
 
         $observed = if ($obs.Found) { [string]$obs.Result } else { [string]$finding.defaultValue }
+        # For the human-readable Detail string, show empty/absent values clearly.
+        $observedDisp = if ([string]::IsNullOrEmpty($observed)) { '(not set)' } else { $observed }
+        $obsNote = if ($obs.PSObject.Properties.Name -contains 'Note' -and $obs.Note) { " [$($obs.Note)]" } else { '' }
 
         # --- Survey mode just records the observed value ------------------------
         if ($Mode -eq 'Survey') {
-            $results.Add((New-HtResult $finding 'Survey' "Result=$observed" -Observed $observed))
+            $results.Add((New-HtResult $finding 'Survey' "Observed=$observedDisp" -Observed $observed))
             continue
         }
 
@@ -335,7 +338,7 @@ function Invoke-HardeningTomcat {
         $passed = Test-HtOperator -Operator $finding.operator -Observed $observed -Recommended ([string]$finding.recommendedValue)
 
         if ($passed) {
-            $results.Add((New-HtResult $finding 'Passed' "Result=$observed, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
+            $results.Add((New-HtResult $finding 'Passed' "Observed=$observedDisp, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
             $stats.Passed++
             continue
         }
@@ -343,7 +346,7 @@ function Invoke-HardeningTomcat {
         # --- failed: record at its severity -------------------------------------
         $sev = "$($finding.severity)"
         if ($stats.ContainsKey($sev)) { $stats[$sev]++ }
-        $results.Add((New-HtResult $finding $sev "Result=$observed, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
+        $results.Add((New-HtResult $finding $sev "Observed=$observedDisp, Recommended=$($finding.recommendedValue)$obsNote" -Observed $observed -Recommended "$($finding.recommendedValue)"))
 
         # --- apply (Strike only, only on failed findings) -----------------------
         if ($Mode -eq 'Strike') {
