@@ -55,7 +55,13 @@ function Invoke-HardeningTomcat {
 
         # CIS level filter: 1 runs only L1 findings, 2 runs L1+L2. Findings without a
         # level field are always included (e.g. Microsoft-baseline lists carry no level).
-        [ValidateSet('1','2')][string] $Level
+        [ValidateSet('1','2')][string] $Level,
+
+        # Defense-in-depth (Finding 5): when set, every handler/helper script must carry
+        # a Valid Authenticode signature or the run aborts -- independent of the OS
+        # execution policy. Off by default so unsigned development still works; turn on
+        # once the tree is signed for belt-and-suspenders protection on top of AllSigned.
+        [switch] $RequireSignedHandlers
     )
 
     $ModuleRoot = $PSScriptRoot
@@ -109,13 +115,30 @@ function Invoke-HardeningTomcat {
     }
 
     # ---- Load handlers ---------------------------------------------------------
+    # Optional defense-in-depth: verify Authenticode signatures before dot-sourcing.
+    $verifySig = {
+        param($FilePath)
+        if (-not $RequireSignedHandlers) { return }
+        if (-not (Get-Command Get-AuthenticodeSignature -ErrorAction SilentlyContinue)) {
+            throw "RequireSignedHandlers was specified but Authenticode verification is unavailable on this platform (Windows-only). Aborting rather than running unverified."
+        }
+        $s = $null
+        try { $s = Get-AuthenticodeSignature -FilePath $FilePath -ErrorAction Stop } catch {
+            throw "RequireSignedHandlers: could not read signature for $(Split-Path $FilePath -Leaf): $($_.Exception.Message)"
+        }
+        if ($s.Status -ne 'Valid') {
+            throw "RequireSignedHandlers: $(Split-Path $FilePath -Leaf) is not validly signed (status: $($s.Status)). Aborting."
+        }
+    }
+
     # Dot-source private helpers first (shared utilities), then every handler file.
     Get-ChildItem -Path (Join-Path $ModuleRoot 'Private') -Filter '*.ps1' -ErrorAction SilentlyContinue |
-        ForEach-Object { . $_.FullName }
+        ForEach-Object { & $verifySig $_.FullName; . $_.FullName }
 
     $Handlers = @{}
     Get-ChildItem -Path (Join-Path $ModuleRoot 'Handlers') -Filter '*.ps1' -ErrorAction SilentlyContinue |
         ForEach-Object {
+            & $verifySig $_.FullName
             $h = & $_.FullName        # each handler file returns its hashtable
             if ($h -and $h.Name) { $Handlers[$h.Name] = $h }
             else { Write-Warning "Handler $($_.Name) did not return a valid handler object; skipped." }

@@ -21,19 +21,39 @@ function Test-HtListIntegrity {
         return $result
     }
 
-    # If the manifest itself is signed (manifest.sha256 with an Authenticode catalog,
-    # or a sidecar .p7s), verify that signature first so a tampered manifest is caught.
-    # Activated once you run the signing step (#9); until then, the unsigned manifest is
-    # used and a note is logged. This makes signing a pure "run the signer" step later.
-    $sig = $null
-    try { $sig = Get-AuthenticodeSignature -FilePath $manifestPath -ErrorAction SilentlyContinue } catch {}
-    if ($sig -and $sig.Status -eq 'Valid') {
-        $result | Add-Member -NotePropertyName ManifestSigned -NotePropertyValue $true -Force
-    } elseif ($sig -and $sig.Status -in 'HashMismatch','NotTrusted') {
-        # A present-but-invalid signature means the manifest was tampered with -- refuse to trust it.
-        $result.Status = 'manifest-tampered'
-        $result.Message = "The integrity manifest's signature is invalid ($($sig.Status)). The manifest may have been altered."
-        return $result
+    # ---- Catalog signature check (Finding 1) ---------------------------------
+    # A plain .sha256 text file cannot itself carry an Authenticode signature, so the
+    # correct mechanism is a SIGNED FILE CATALOG (HardeningTomcat.cat) produced by
+    # Sign-Module.ps1, covering everything under lists/ (the manifest AND the lists).
+    # When the catalog is present we verify it: a Valid catalog whose signature chains
+    # to a trusted publisher means the lists+manifest are exactly as signed. A present-
+    # but-invalid catalog means tampering -> refuse to trust, in all modes.
+    $catPath = Join-Path $ModuleRoot 'HardeningTomcat.cat'
+    if (Test-Path $catPath) {
+        $catSig = $null
+        try { $catSig = Get-AuthenticodeSignature -FilePath $catPath -ErrorAction SilentlyContinue } catch {}
+        if ($catSig -and $catSig.Status -ne 'Valid') {
+            $result.Status = 'manifest-tampered'
+            $result.Message = "The signed file catalog's signature is invalid ($($catSig.Status)). The lists or manifest may have been altered."
+            return $result
+        }
+        # Catalog signature is valid; confirm the actual files still match the catalog.
+        if (Get-Command Test-FileCatalog -ErrorAction SilentlyContinue) {
+            $listsRoot = Join-Path $ModuleRoot 'lists'
+            try {
+                $catStatus = Test-FileCatalog -CatalogFilePath $catPath -Path $listsRoot -Detailed -ErrorAction Stop
+                if ($catStatus.Status -ne 'Valid') {
+                    $result.Status = 'manifest-tampered'
+                    $result.Message = "File catalog verification failed ($($catStatus.Status)): a file under lists/ does not match the signed catalog."
+                    return $result
+                }
+                $result | Add-Member -NotePropertyName CatalogVerified -NotePropertyValue $true -Force
+            } catch {
+                # Test-FileCatalog threw; fall through to hash-manifest check rather than
+                # hard-failing, but record that catalog verification was inconclusive.
+                $result | Add-Member -NotePropertyName CatalogVerified -NotePropertyValue $false -Force
+            }
+        }
     }
 
     $actual = (Get-FileHash -Path $FindingList -Algorithm SHA256).Hash.ToLower()
