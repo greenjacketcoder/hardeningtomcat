@@ -553,7 +553,12 @@ function Test-HtOperator {
         '<'    { try { return ([int]$Observed -lt [int]$Recommended) } catch { return $false } }
         '>'    { try { return ([int]$Observed -gt [int]$Recommended) } catch { return $false } }
         '<=!0' { try { return ([int]$Observed -le [int]$Recommended -and [int]$Observed -ne 0) } catch { return $false } }
-        'contains' { return ($Observed.ToString().Contains($Recommended)) }
+        'contains' {
+            # An empty recommended substring would match everything -- treat as non-match
+            # (a security tool must not report a pass it cannot actually justify).
+            if ([string]::IsNullOrEmpty($Recommended)) { return $false }
+            return ($Observed.ToString().Contains($Recommended))
+        }
         '=|0'  { try { return ([string]$Observed -eq $Recommended -or $Observed.Length -eq 0) } catch { return $false } }
         'set=' {
             # Set-equality for SID lists (user rights). Order-independent, comma-separated.
