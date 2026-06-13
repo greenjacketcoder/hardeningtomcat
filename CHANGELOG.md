@@ -107,9 +107,13 @@ CIS integration and the first live-Windows validation. (Reconstructed.)
 - Cross-platform admin check (`GetCurrent()` threw on non-Windows).
 
 ### Validated on live Windows 11
+- Scope: the **Microsoft** Win11 baseline with the original handlers (Registry, secedit,
+  auditpol, accesschk). The CIS handlers added in this version (accountpolicy,
+  localaccount, MpPreferenceAsr) were NOT validated on live hardware -- only structurally
+  and via the engine on macOS.
 - Recon read path across Registry/secedit/auditpol/accesschk on real hardware.
-- Strike applied the Win11 baseline; re-Recon confirmed findings flipped to Passed
-  (16 -> 367 Passed, 28% -> 93.5%).
+- Strike applied the Microsoft Win11 baseline; re-Recon confirmed findings flipped to
+  Passed (16 -> 367 Passed, 28% -> 93.5%).
 
 ## [0.3.0]
 
