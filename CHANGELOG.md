@@ -8,6 +8,33 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.6.0]
+
+Authoritative DISA Windows 11 STIG support via a SCAP (XCCDF + OVAL) importer.
+
+### Added
+- **`Import-DisaStigScap.ps1`** -- parses a DISA SCAP 1.3 benchmark (the official
+  XCCDF + OVAL data-stream from cyber.mil) directly, rather than relying on a third
+  party's interpretation. Walks each XCCDF Rule to its OVAL definition, follows
+  `extend_definition` wrapper chains to the real check, and resolves the test's
+  object (what to read) and state (expected value + operation).
+- **DoD STIG Windows 11 V2R8 list** -- 223 findings: 115 auto-converted to runnable
+  `Registry` findings (paths, OVAL operations mapped to engine operators, CAT I/II/III
+  mapped to severity), and 108 emitted as `manual` (carrying their real V-ID and
+  fixtext) for checks that need human verification or use OVAL test types with no
+  handler (WMI, NTFS effective rights, SID membership, cert-store enumeration).
+- **`manual` as a first-class finding type.** The engine now treats a `manual` method
+  or operator as Skipped, surfacing the remediation fixtext as the detail -- so manual
+  STIG rules appear in the report instead of being dropped or falsely passed. Schema
+  operator enum extended with `manual`.
+
+### Notes
+- Non-registry but mappable STIG checks (audit policy, account/lockout policy, user
+  rights -- ~83 findings) are currently emitted as `manual`; extracting their OVAL
+  args into runnable findings for the existing handlers is a planned follow-up.
+- The Win11 STIG list and the importer are validated structurally and through the
+  engine; the registry findings have not yet been run elevated on live Windows.
+
 ## [0.5.1]
 
 QA and security-audit hardening. No new features -- correctness and safety fixes to
