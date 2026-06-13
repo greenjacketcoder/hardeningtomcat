@@ -61,6 +61,15 @@
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set [System Access] $key = $val" }
         }
+        # Validate key/value before writing them into an INF -- a newline or section
+        # header in either could inject extra policy directives into the template.
+        # The integrity manifest already guards list content; this is defense in depth.
+        if ($key -notmatch '^[A-Za-z0-9_]+$') {
+            return @{ Changed = $false; Message = "Refused: unsafe account-policy key '$key'" }
+        }
+        if ("$val" -match '[\r\n\[\]]') {
+            return @{ Changed = $false; Message = "Refused: unsafe value for $key (contains newline/bracket)" }
+        }
         $tmpInf = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
         $tmpDb  = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.sdb" -f (Get-Date))
         # Minimal security template applying just this one System Access key.
@@ -73,11 +82,21 @@ Revision=1
 [System Access]
 $key = $val
 "@
-        Set-Content -Path $tmpInf -Value $inf -Encoding Unicode
-        & secedit.exe /configure /db $tmpDb /cfg $tmpInf /areas SECURITYPOLICY /quiet 2>$null
-        Remove-Item $tmpInf,$tmpDb -Force -ErrorAction SilentlyContinue
+        $changed = $false; $msg = ""
+        try {
+            Set-Content -Path $tmpInf -Value $inf -Encoding Unicode
+            & secedit.exe /configure /db $tmpDb /cfg $tmpInf /areas SECURITYPOLICY /quiet 2>$null
+            if ($LASTEXITCODE -eq 0) {
+                $changed = $true; $msg = "[System Access] $key set to $val"
+            } else {
+                $msg = "secedit /configure failed (exit $LASTEXITCODE) for $key"
+                & $Context.Log $msg 'Error'
+            }
+        } finally {
+            Remove-Item $tmpInf,$tmpDb -Force -ErrorAction SilentlyContinue
+        }
         # Invalidate cached export so a re-Test reads fresh state.
         if ($Cache.ContainsKey('secedit')) { $Cache.Remove('secedit') }
-        @{ Changed = $true; Message = "[System Access] $key set to $val" }
+        @{ Changed = $changed; Message = $msg }
     }
 }

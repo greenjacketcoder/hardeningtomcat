@@ -1,4 +1,4 @@
-# Pre-Strike backup. Exports current system state so an apply can be rolled back.
+﻿# Pre-Strike backup. Exports current system state so an apply can be rolled back.
 # Called once, right before the Strike apply loop runs. Windows-only (no-ops elsewhere).
 
 function Invoke-HtPreStrikeBackup {
@@ -28,12 +28,19 @@ function Invoke-HtPreStrikeBackup {
 
     $ok = $true
 
-    # 1) Security policy (account policy, user rights, audit) via secedit export
+    # 1) Security policy (account policy, user rights, audit) via secedit export.
+    # External exes set $LASTEXITCODE rather than throwing, so check it AND verify the
+    # output file actually exists with content -- otherwise a silent failure would let
+    # the backup report success and Strike would proceed without a real safety net.
     try {
         $secPath = Join-Path $BackupDir 'secpol-backup.inf'
         & secedit.exe /export /cfg $secPath /quiet 2>$null
-        & $Context.Log "Backup: security policy -> $secPath"
-    } catch { $ok = $false; & $Context.Log "Backup: secedit export failed: $($_.Exception.Message)" 'Warn' }
+        if ($LASTEXITCODE -ne 0 -or -not (Test-Path $secPath) -or (Get-Item $secPath).Length -eq 0) {
+            $ok = $false; & $Context.Log "Backup: secedit export FAILED (exit $LASTEXITCODE or empty file)." 'Warn'
+        } else {
+            & $Context.Log "Backup: security policy -> $secPath"
+        }
+    } catch { $ok = $false; & $Context.Log "Backup: secedit export threw: $($_.Exception.Message)" 'Warn' }
 
     # 2) Registry hives most affected by hardening (HKLM\SOFTWARE and \SYSTEM policies)
     foreach ($hive in @(
@@ -43,16 +50,26 @@ function Invoke-HtPreStrikeBackup {
         try {
             $regFile = Join-Path $BackupDir $hive.File
             & reg.exe export $hive.Key $regFile /y 2>$null | Out-Null
-            & $Context.Log "Backup: $($hive.Key) -> $regFile"
-        } catch { $ok = $false; & $Context.Log "Backup: reg export $($hive.Key) failed" 'Warn' }
+            # reg.exe returns non-zero if the key is absent; that's not fatal to the
+            # overall backup (the key may legitimately not exist), but log it honestly.
+            if ($LASTEXITCODE -ne 0) {
+                & $Context.Log "Backup: reg export $($hive.Key) returned exit $LASTEXITCODE (key may not exist)." 'Warn'
+            } else {
+                & $Context.Log "Backup: $($hive.Key) -> $regFile"
+            }
+        } catch { $ok = $false; & $Context.Log "Backup: reg export $($hive.Key) threw" 'Warn' }
     }
 
     # 3) Audit policy snapshot
     try {
         $audPath = Join-Path $BackupDir 'auditpol-backup.csv'
         & auditpol.exe /backup /file:$audPath 2>$null | Out-Null
-        & $Context.Log "Backup: audit policy -> $audPath"
-    } catch { & $Context.Log "Backup: auditpol backup failed" 'Warn' }
+        if ($LASTEXITCODE -ne 0 -or -not (Test-Path $audPath) -or (Get-Item $audPath).Length -eq 0) {
+            $ok = $false; & $Context.Log "Backup: auditpol backup FAILED (exit $LASTEXITCODE or empty file)." 'Warn'
+        } else {
+            & $Context.Log "Backup: audit policy -> $audPath"
+        }
+    } catch { $ok = $false; & $Context.Log "Backup: auditpol backup threw" 'Warn' }
 
     [pscustomobject]@{ Dir = $BackupDir; Complete = $ok }
 }
