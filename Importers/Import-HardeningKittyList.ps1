@@ -63,6 +63,7 @@ foreach ($r in $rows) {
     $args = @{}
     switch ($r.Method) {
         'Registry'        { $args = @{ path = $r.RegistryPath; name = $r.RegistryItem } }
+        'RegistryList'    { $args = @{ path = $r.RegistryPath; item = $r.RegistryItem } }
         'accesschk'       { $args = @{ privilege = $r.MethodArgument } }
         'service'         { $args = @{ name = $r.MethodArgument } }
         'auditpol'        { $args = @{ subcategory = $r.MethodArgument } }  # CIS uses GUID; see note

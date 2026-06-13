@@ -491,7 +491,7 @@ function New-HtResult {
     # shows the registry path / subcategory / key -- not just an opaque finding name.
     $checked = switch ($Finding.method) {
         'Registry'        { "$($Finding.args.path)\$($Finding.args.name)" }
-        'RegistryList'    { "$($Finding.args.path)\$($Finding.args.name)" }
+        'RegistryList'    { "$($Finding.args.path)\[list] $($Finding.args.item)" }
         'auditpol'        { "Audit subcategory: $($Finding.args.subcategory)" }
         'secedit'         { "Policy: $($Finding.args.key)" }
         'accountpolicy'   { "Account policy: $($Finding.name)" }
