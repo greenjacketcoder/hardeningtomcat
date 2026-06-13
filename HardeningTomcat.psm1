@@ -277,6 +277,10 @@ function Invoke-HardeningTomcat {
     # ---- Unified finding loop (drives both Test and Apply) ---------------------
     $results = New-Object System.Collections.Generic.List[object]
     $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0 }
+    $wouldChange = New-Object System.Collections.Generic.List[object]
+    # Detect dry-run once: -WhatIf sets $WhatIfPreference. We handle the dry-run summary
+    # ourselves rather than emitting PowerShell's per-finding 'What if:' chatter.
+    $isDryRun = ($Mode -eq 'Strike') -and ($WhatIfPreference -or $PSBoundParameters.ContainsKey('WhatIf'))
 
     $total = $findings.Count
     $i = 0
@@ -355,7 +359,16 @@ function Invoke-HardeningTomcat {
                 continue
             }
             $target = "$($finding.id) - $($finding.name)"
-            if ($PSCmdlet.ShouldProcess($target, "Apply recommendedValue '$($finding.recommendedValue)'")) {
+            if ($isDryRun) {
+                # Dry-run: collect what WOULD change for a concise end-of-run summary,
+                # instead of PowerShell's per-finding 'What if:' chatter (which we
+                # suppress by NOT calling ShouldProcess on this path).
+                $wouldChange.Add([pscustomobject]@{
+                    Id = $finding.id; Name = $finding.name
+                    Method = $finding.method; To = "$($finding.recommendedValue)"
+                })
+            }
+            elseif ($PSCmdlet.ShouldProcess($target, "Apply recommendedValue '$($finding.recommendedValue)'")) {
                 $ctxApply = $Context.Clone(); $ctxApply.WhatIf = $false
                 try {
                     $applyResult = & $handler.Apply $finding $Cache $ctxApply
@@ -364,10 +377,6 @@ function Invoke-HardeningTomcat {
                 } catch {
                     & $Context.Log "Apply failed for $target : $($_.Exception.Message)" 'Error'
                 }
-            } else {
-                # -WhatIf path: handler reports what it WOULD do
-                $ctxWhatIf = $Context.Clone(); $ctxWhatIf.WhatIf = $true
-                try { $wi = & $handler.Apply $finding $Cache $ctxWhatIf; & $Context.Log $wi.Message } catch {}
             }
         }
     }
@@ -453,11 +462,27 @@ function Invoke-HardeningTomcat {
     if ($summary.Medium -gt 0) { Write-Host ("  {0,-12}{1}" -f 'Medium:', $summary.Medium) -ForegroundColor DarkYellow }
     if ($summary.High   -gt 0) { Write-Host ("  {0,-12}{1}" -f 'High:',   $summary.High)   -ForegroundColor Red }
     if ($summary.Skipped -gt 0){ Write-Host ("  {0,-12}{1}" -f 'Skipped:',$summary.Skipped) -ForegroundColor DarkGray }
-    if ($Mode -eq 'Strike')    { Write-Host ("  {0,-12}{1}" -f 'Applied:',$summary.Applied) }
+    if ($isDryRun)             { Write-Host ("  {0,-12}{1}" -f 'Would chg:', $wouldChange.Count) -ForegroundColor Cyan }
+    elseif ($Mode -eq 'Strike') { Write-Host ("  {0,-12}{1}" -f 'Applied:',  $summary.Applied) }
     Write-Host ""
     Write-Host ("  {0,-12}{1}" -f 'Score:',    "$($summary.Score)  ($($summary.Percent)%)") -ForegroundColor $passColor
     Write-Host ("  {0,-12}{1:N1}s" -f 'Duration:', $summary.Duration)
     Write-Host ""
+
+    # Dry-run detail: only when asked, list what WOULD change (otherwise just the count
+    # above). Keeps -WhatIf output to a one-line count by default instead of per-finding.
+    if ($isDryRun -and $wouldChange.Count -gt 0) {
+        if ($ShowDetails) {
+            Write-Host "  Would change ($($wouldChange.Count)):" -ForegroundColor Cyan
+            foreach ($w in $wouldChange) {
+                Write-Host ("    [{0}] {1} -> {2}" -f $w.Method, $w.Name, $w.To) -ForegroundColor DarkGray
+            }
+            Write-Host ""
+        } else {
+            Write-Host "  (re-run with -ShowDetails to list each change, or -Report for a CSV)" -ForegroundColor DarkGray
+            Write-Host ""
+        }
+    }
 
     # Return the structured object only when asked (-PassThru), so interactive runs
     # don't dump a raw @{...} hashtable to the console after the formatted summary.
