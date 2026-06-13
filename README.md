@@ -198,42 +198,95 @@ findings.
 
 ## Signing
 
-Develop unsigned under `RemoteSigned` (or `Set-ExecutionPolicy -Scope Process Bypass`) while
-iterating. Once the code is stable:
+### Threat model: what protects code vs. data
+
+Two distinct integrity controls, because two distinct things can be tampered with:
+
+- **The handlers/engine (code).** The real danger isn't a wrong value in a list -- it's a
+  handler quietly edited to pass every check, so the audit lies. A finding-list manifest
+  cannot catch this. **Code signing does:** under `AllSigned`, a modified handler fails its
+  signature and won't load. This is the strongest reason to sign this particular tool.
+- **The finding lists (data).** A poisoned list could recommend insecure values. The SHA256
+  manifest (`lists/manifest.sha256`) ensures a list hasn't changed since you vetted it; a
+  **signed file catalog** (`HardeningTomcat.cat`, produced by `Sign-Module.ps1`) gives the
+  lists and manifest a real, verifiable signature (a plain text manifest can't carry one
+  itself). `_Integrity.ps1` verifies the catalog when present and hard-fails on a mismatch.
+
+Neither control alone is enough; signing covers the code, the catalog/manifest covers the data.
+
+**Upstream trust.** The CIS/STIG lists are derived from HardeningKitty's published CSVs. The
+manifest guarantees a list is unchanged *after* you vet it -- it does not prove the upstream
+values were correct to begin with. Spot-check critical recommendations against the official
+CIS Benchmark PDF or DISA STIG before trusting a list in Strike.
+
+### Execution policy (signing only helps if enforced)
+
+Signing buys nothing under `Bypass` -- the signatures are decorative. After signing, set a
+signature-enforcing policy (elevated, per machine):
 
 ```powershell
-# one-time cert (elevated)
+Set-ExecutionPolicy AllSigned       # strictest: every script must be validly signed
+# or at minimum:
+Set-ExecutionPolicy RemoteSigned    # local scripts run; downloaded scripts must be signed
+```
+
+For extra defense-in-depth independent of the OS policy, run with `-RequireSignedHandlers`,
+which makes the engine itself verify every handler's signature before loading it and abort
+on any unsigned or invalidly-signed file.
+
+### Signing (do this last, once the code has stabilized)
+
+Develop unsigned under `RemoteSigned` (or `Set-ExecutionPolicy -Scope Process Bypass`) while
+iterating -- every edit invalidates a signature, so signing mid-development just creates churn.
+When stable:
+
+```powershell
+# one-time cert (elevated). NonExportable = the private signing key can't be copied off
+# this machine, so it can't be stolen and used to sign malicious code in your name.
 New-SelfSignedCertificate -Subject "CN=Alex HardeningTomcat Signing" `
-  -Type CodeSigningCert -CertStoreLocation Cert:\CurrentUser\My -NotAfter (Get-Date).AddYears(5)
-# trust it: export .cer, Import-Certificate into Cert:\CurrentUser\Root and \TrustedPublisher
-# then sign the whole tree:
+  -Type CodeSigningCert -KeySpec Signature -KeyExportPolicy NonExportable `
+  -CertStoreLocation Cert:\CurrentUser\My -NotAfter (Get-Date).AddYears(5)
+
+# trust it: export the PUBLIC cert (.cer has no private key) into Root + TrustedPublisher
+$c = Get-ChildItem Cert:\CurrentUser\My -CodeSigningCert | Where-Object Subject -eq "CN=Alex HardeningTomcat Signing"
+Export-Certificate -Cert $c -FilePath "$env:USERPROFILE\ht-signing.cer"
+Import-Certificate -FilePath "$env:USERPROFILE\ht-signing.cer" -CertStoreLocation Cert:\CurrentUser\Root
+Import-Certificate -FilePath "$env:USERPROFILE\ht-signing.cer" -CertStoreLocation Cert:\CurrentUser\TrustedPublisher
+
+# then sign the whole tree + create the signed list catalog:
 .\Sign-Module.ps1 -CertSubject "CN=Alex HardeningTomcat Signing"
 ```
 
 Under `AllSigned`, **every** `.ps1` must be signed (the engine dot-sources handlers at
-runtime), which is why `Sign-Module.ps1` globs the entire tree. The integrity check is already
-signature-aware: if `lists/manifest.sha256` is signed, a broken signature is a hard failure in
-all modes; signing it is the last step that closes the manifest-tampering gap.
+runtime), which is why `Sign-Module.ps1` globs the entire tree. It also builds and signs
+`HardeningTomcat.cat` over `lists/`, which is what gives the finding lists and manifest a
+verifiable signature. A self-signed cert is only trusted on machines where you've imported
+it (the steps above); for distribution to others you'd need a CA-issued cert.
 
 ## Status
 
 **Implemented and exercised on a live Windows 11 system (Recon):**
-- Engine: unified loop, 8 operators, scoring, schema validation, OS auto-detect, progress
-  display (custom ASCII bar / native fallback), CSV report.
-- 5 of 21 methods: Registry, service, auditpol, secedit, accesschk.
+- Engine: unified loop, 10 operators, scoring, schema validation, OS auto-detect, progress
+  display (custom ASCII bar / native fallback), CSV report, optional signed-handler enforcement.
+- 10 handlers: Registry, RegistryList, service, auditpol, secedit, accesschk, accountpolicy,
+  localaccount, MpPreferenceAsr, ProcessmitigationApplication -- covering every method used by
+  real CIS, Microsoft, and DoD STIG benchmarks.
 - Microsoft SCT import for Windows 11 (23H2/24H2/25H2) and Server 2016/2019/2022/2025, with
   role-splitting for server baselines (12 lists total).
-- Finding-list integrity (SHA256 manifest; signature-aware).
+- CIS import with L1/L2 levels (6 lists) and DoD STIG import (Win10 v2r1, 393 findings).
+- Finding-list integrity (SHA256 manifest + signed-catalog verification when present).
 - Pre-Strike backup + Strike safety gates.
 
 **Implemented but not yet validated on a live system:**
-- The Apply paths (Registry/service/auditpol/secedit) -- structurally complete, never executed
-  against a real machine. Test on a snapshot before trusting.
+- The Apply paths (Registry/service/auditpol/secedit) -- structurally complete, only the Win11
+  Strike has run on real hardware. Test on a snapshot before trusting.
+- The newest handlers (accountpolicy, localaccount, MpPreferenceAsr,
+  ProcessmitigationApplication, RegistryList) -- validated structurally and via the engine, but
+  not yet against live Windows data.
 
-**Not yet built:**
-- 16 of 21 methods still to port (RegistryList, CimInstance, Mp* Defender family, BitLocker,
-  Processmitigation, bcdedit, FirewallRule, ScheduledTask, WindowsOptionalFeature,
-  accountpolicy, localaccount, LanguageMode, …).
-- CIS importer (for L1/L2 levels) -- planned.
-- accesschk Apply (user-rights write) -- read-only for now.
+**Not yet built / deferred:**
+- The ~11 remaining theoretical methods (CimInstance, BitLocker, Processmitigation, bcdedit,
+  FirewallRule, ScheduledTask, WindowsOptionalFeature, LanguageMode, …) appear almost only in
+  HardeningKitty's personal demo list, not real benchmarks -- build on demand if ever needed.
+- Apply for accesschk/accountpolicy/localaccount/ProcessmitigationApplication -- read-only in beta.
 - Actual code-signing run (do last, once iteration settles).
