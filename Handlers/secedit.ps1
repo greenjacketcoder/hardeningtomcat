@@ -31,7 +31,7 @@
         } else {
             & $Context.Log "secedit: export FAILED -- policy findings will be Skipped, not passed." 'Warn'
         }
-        Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+        Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
         $Cache['secedit']    = $table
         $Cache['secedit_ok'] = $exportOk
         & $Context.Log "secedit prefetch: export $(if($exportOk){'OK'}else{'FAILED'}), cached $($table.Count) keys."
@@ -93,7 +93,7 @@ $key = $val
                 & $Context.Log $msg 'Error'
             }
         } finally {
-            Remove-Item $tmpInf,$tmpDb -Force -ErrorAction SilentlyContinue
+            Remove-Item $tmpInf,$tmpDb -Force -WhatIf:$false -ErrorAction SilentlyContinue
         }
         # Invalidate cached export so a re-Test reads fresh state.
         if ($Cache.ContainsKey('secedit')) { $Cache.Remove('secedit') }

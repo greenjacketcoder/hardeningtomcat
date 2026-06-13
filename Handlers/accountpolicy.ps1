@@ -1,4 +1,4 @@
-# accountpolicy handler -- password & lockout policy ([System Access] in secedit export).
+﻿# accountpolicy handler -- password & lockout policy ([System Access] in secedit export).
 # CIS finding names map to specific secedit keys. Reads via the SAME secedit export the
 # secedit handler caches (or its own if run alone). Mostly the same source as 'secedit',
 # but keyed by the CIS account-policy name rather than a raw key in args.
@@ -40,7 +40,7 @@ $script:HtAccountPolicyMap = @{
             } else {
                 & $Context.Log "accountpolicy: secedit export FAILED -- findings will Skip, not pass." 'Warn'
             }
-            Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+            Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
             $Cache['secedit'] = $table; $Cache['secedit_ok'] = $ok
         }
         & $Context.Log "accountpolicy prefetch: using secedit export ($($Cache['secedit'].Count) keys)."

@@ -41,7 +41,7 @@
         }
 
         # Always clean up the security-policy dump (contains sensitive SID assignments).
-        Remove-Item $infPath -Force -ErrorAction SilentlyContinue
+        Remove-Item $infPath -Force -WhatIf:$false -ErrorAction SilentlyContinue
 
         $Cache['userrights']    = $rights
         $Cache['userrights_ok'] = $exportOk

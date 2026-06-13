@@ -114,6 +114,13 @@ function Invoke-HardeningTomcat {
         Write-Warning "Strike mode applies changes to THIS system. Ensure you have a backup/snapshot."
     }
 
+    # Pre-load CimCmdlets now (with WhatIf forced off) so its alias registration doesn't
+    # later auto-trigger inside a -WhatIf scope and spray "What if: Set Alias" lines when
+    # a handler first calls Get-CimInstance. Windows-only; harmless if already loaded.
+    if ($PSVersionTable.PSVersion.Major -lt 6 -or $IsWindows) {
+        try { Import-Module CimCmdlets -ErrorAction SilentlyContinue -WhatIf:$false } catch {}
+    }
+
     # ---- Load handlers ---------------------------------------------------------
     # Optional defense-in-depth: verify Authenticode signatures before dot-sourcing.
     $verifySig = {
