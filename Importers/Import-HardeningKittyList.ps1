@@ -11,7 +11,7 @@
 param(
     [Parameter(Mandatory)][string] $CsvPath,
     [Parameter(Mandatory)][string] $ListName,
-    [string] $OutDir = (Join-Path (Split-Path $PSScriptRoot -Parent) 'lists/cis'),
+    [string] $OutDir,
     # Optional L1 reference CSV. When $CsvPath is a combined L1+L2 list, findings whose ID
     # appears in this L1 file are tagged level 1; the rest are level 2. This produces the
     # correct PER-FINDING level (the filename alone only tells you the file's scope).
@@ -19,6 +19,14 @@ param(
 )
 
 if (-not (Test-Path $CsvPath)) { throw "CSV not found: $CsvPath" }
+# Auto-route output by benchmark family unless an explicit -OutDir is given.
+if (-not $OutDir) {
+    $listsRoot = Join-Path (Split-Path $PSScriptRoot -Parent) 'lists'
+    $sub = if ($CsvPath -match 'stig' -or $ListName -match 'STIG') { 'stig' }
+           elseif ($CsvPath -match 'bsi' -or $ListName -match 'BSI') { 'bsi' }
+           else { 'cis' }
+    $OutDir = Join-Path $listsRoot $sub
+}
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
 # Map CIS account-policy finding names -> secedit [System Access] keys. Baking the key
@@ -59,6 +67,12 @@ if ($Level1RefCsv) {
 $rows = Import-Csv -Path $CsvPath
 $findings = New-Object System.Collections.Generic.List[object]
 
+# Track IDs to keep them unique. STIG benchmarks reuse one V-ID across many settings
+# (e.g. one requirement covers ~30 process-mitigation properties), which the engine's
+# duplicate-id check rejects. We append -2, -3, ... to repeats and keep the original
+# STIG ID in a separate 'sourceId' field so the report still shows the real ID.
+$idCounts = @{}
+
 foreach ($r in $rows) {
     $args = @{}
     switch ($r.Method) {
@@ -77,11 +91,21 @@ foreach ($r in $rows) {
         }
         'localaccount'    { $args = @{ rid = $r.MethodArgument } }
         'MpPreferenceAsr' { $args = @{ ruleId = $r.MethodArgument } }
+        'ProcessmitigationApplication' { $args = @{ target = $r.MethodArgument } }
         default           { $args = @{ raw = $r.MethodArgument } }
     }
     $sev = if ($r.Severity) { $r.Severity } else { 'Medium' }
+    # Make the ID unique: first occurrence keeps the raw ID; repeats get -2, -3, ...
+    $rawId = $r.ID
+    if ($idCounts.ContainsKey($rawId)) {
+        $idCounts[$rawId]++
+        $uniqueId = "$rawId-$($idCounts[$rawId])"
+    } else {
+        $idCounts[$rawId] = 1
+        $uniqueId = $rawId
+    }
     $obj = [ordered]@{
-        id = $r.ID; name = $r.Name; category = $r.Category; method = $r.Method
+        id = $uniqueId; sourceId = $rawId; name = $r.Name; category = $r.Category; method = $r.Method
         args = $args; operator = $r.Operator
         recommendedValue = $r.RecommendedValue; defaultValue = $r.DefaultValue
         severity = $sev

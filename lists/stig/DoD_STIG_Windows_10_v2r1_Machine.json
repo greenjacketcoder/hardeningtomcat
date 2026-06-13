@@ -1,0 +1,5642 @@
+{
+  "listName": "DoD STIG Windows 10 v2r1 Machine",
+  "version": "2026.06.12",
+  "source": "Derived from HardeningKitty finding list (Apache-2.0): finding_list_dod_microsoft_windows_10_stig_v2r1_machine.csv",
+  "level": null,
+  "findings": [
+    {
+      "id": "V-63415",
+      "sourceId": "V-63415",
+      "name": "Length of password history maintained",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "PasswordHistorySize"
+      },
+      "operator": "=",
+      "recommendedValue": "24",
+      "defaultValue": "None",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63419",
+      "sourceId": "V-63419",
+      "name": "Maximum password age",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "MaximumPasswordAge"
+      },
+      "operator": "=",
+      "recommendedValue": "60",
+      "defaultValue": "42",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63421",
+      "sourceId": "V-63421",
+      "name": "Minimum password age",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "MinimumPasswordAge"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63423",
+      "sourceId": "V-63423",
+      "name": "Minimum password length",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "MinimumPasswordLength"
+      },
+      "operator": "=",
+      "recommendedValue": "14",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63427",
+      "sourceId": "V-63427",
+      "name": "Password must meet complexity requirements",
+      "category": "Account Policies",
+      "method": "secedit",
+      "args": {
+        "key": "PasswordComplexity"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63429",
+      "sourceId": "V-63429",
+      "name": "Store passwords using reversible encryption",
+      "category": "Account Policies",
+      "method": "secedit",
+      "args": {
+        "key": "ClearTextPassword"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63405",
+      "sourceId": "V-63405",
+      "name": "Account lockout duration",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "LockoutDuration"
+      },
+      "operator": "=",
+      "recommendedValue": "15",
+      "defaultValue": "30",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63409",
+      "sourceId": "V-63409",
+      "name": "Account lockout threshold",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "LockoutBadCount"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "Never",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63413",
+      "sourceId": "V-63413",
+      "name": "Reset account lockout counter",
+      "category": "Account Policies",
+      "method": "accountpolicy",
+      "args": {
+        "key": "ResetLockoutCount"
+      },
+      "operator": "=",
+      "recommendedValue": "15",
+      "defaultValue": "30",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63843",
+      "sourceId": "V-63843",
+      "name": "Access Credential Manager as a trusted caller",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTrustedCredManAccessPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63845",
+      "sourceId": "V-63845",
+      "name": "Access this computer from the network",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeNetworkLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Remote Desktop Users;BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Users;BUILTIN\\Administrators;Everyone",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63847",
+      "sourceId": "V-63847",
+      "name": "Act as part of the operating system",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTcbPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High"
+    },
+    {
+      "id": "V-63851",
+      "sourceId": "V-63851",
+      "name": "Allow log on locally",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeInteractiveLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Users;BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Users;BUILTIN\\Administrators;COMPUTERNAME\\Guest",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63853",
+      "sourceId": "V-63853",
+      "name": "Back up files and directories",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeBackupPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators;BUILTIN\\Backup Operators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63855",
+      "sourceId": "V-63855",
+      "name": "Change the system time",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSystemTimePrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators;NT AUTHORITY\\LOCAL SERVICE;NT SERVICE\\autotimesvc",
+      "defaultValue": "BUILTIN\\Administrators;NT AUTHORITY\\LOCAL SERVICE",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63857",
+      "sourceId": "V-63857",
+      "name": "Create a pagefile",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePagefilePrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63859",
+      "sourceId": "V-63859",
+      "name": "Create a token object",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateTokenPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High"
+    },
+    {
+      "id": "V-63861",
+      "sourceId": "V-63861",
+      "name": "Create global objects",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateGlobalPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
+      "defaultValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63863",
+      "sourceId": "V-63863",
+      "name": "Create permanent shared objects",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreatePermanentPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63865",
+      "sourceId": "V-63865",
+      "name": "Create symbolic links",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeCreateSymbolicLinkPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63869",
+      "sourceId": "V-63869",
+      "name": "Debug programs",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDebugPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "High"
+    },
+    {
+      "id": "V-63871",
+      "sourceId": "V-63871",
+      "name": "Deny access to this computer from the network",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyNetworkLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "Guest;NT AUTHORITY\\Local account;Domain Admins;Enterprise Admins",
+      "defaultValue": "COMPUTERNAME\\Guest",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63873",
+      "sourceId": "V-63873",
+      "name": "Deny log on as a batch job",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyBatchLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "Domain Admins;Enterprise Admins",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63875",
+      "sourceId": "V-63875",
+      "name": "Deny log on as a service",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyServiceLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "Domain Admins;Enterprise Admins",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63877",
+      "sourceId": "V-63877",
+      "name": "Deny log on locally",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyInteractiveLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Guests;Domain Admins;Enterprise Admins",
+      "defaultValue": "BUILTIN\\Guests",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63879",
+      "sourceId": "V-63879",
+      "name": "Deny log on through Remote Desktop Services",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeDenyRemoteInteractiveLogonRight"
+      },
+      "operator": "=",
+      "recommendedValue": "NT AUTHORITY\\Local account;BUILTIN\\Guests;Domain Admins;Enterprise Admins",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63881",
+      "sourceId": "V-63881",
+      "name": "Enable computer and user accounts to be trusted for delegation",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeEnableDelegationPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63883",
+      "sourceId": "V-63883",
+      "name": "Force shutdown from a remote system",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRemoteShutdownPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63889",
+      "sourceId": "V-63889",
+      "name": "Impersonate a client after authentication",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeImpersonatePrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
+      "defaultValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63917",
+      "sourceId": "V-63917",
+      "name": "Load and unload device drivers",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLoadDriverPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63925",
+      "sourceId": "V-63925",
+      "name": "Lock pages in memory",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeLockMemoryPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63927",
+      "sourceId": "V-63927",
+      "name": "Manage auditing and security log",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSecurityPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63931",
+      "sourceId": "V-63931",
+      "name": "Modify firmware environment values",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeSystemEnvironmentPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63933",
+      "sourceId": "V-63933",
+      "name": "Perform volume maintenance tasks",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeManageVolumePrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63935",
+      "sourceId": "V-63935",
+      "name": "Profile single process",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeProfileSingleProcessPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63939",
+      "sourceId": "V-63939",
+      "name": "Restore files and directories",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeRestorePrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63941",
+      "sourceId": "V-63941",
+      "name": "Take ownership of files or other objects",
+      "category": "User Rights Assignment",
+      "method": "accesschk",
+      "args": {
+        "privilege": "SeTakeOwnershipPrivilege"
+      },
+      "operator": "=",
+      "recommendedValue": "BUILTIN\\Administrators",
+      "defaultValue": "BUILTIN\\Administrators",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63601",
+      "sourceId": "V-63601",
+      "name": "Accounts: Administrator account status",
+      "category": "Security Options",
+      "method": "localaccount",
+      "args": {
+        "rid": "500"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "False",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63611",
+      "sourceId": "V-63611",
+      "name": "Accounts: Guest account status",
+      "category": "Security Options",
+      "method": "localaccount",
+      "args": {
+        "rid": "501"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "False",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63617",
+      "sourceId": "V-63617",
+      "name": "Accounts: Limit local account use of blank passwords to console logon only",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "LimitBlankPasswordUse",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63619",
+      "sourceId": "V-63619",
+      "name": "Accounts: Rename administrator account",
+      "category": "Security Options",
+      "method": "localaccount",
+      "args": {
+        "rid": "500"
+      },
+      "operator": "=",
+      "recommendedValue": "X_Admin",
+      "defaultValue": "Administrator",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63625",
+      "sourceId": "V-63625",
+      "name": "Accounts: Rename guest account",
+      "category": "Security Options",
+      "method": "localaccount",
+      "args": {
+        "rid": "501"
+      },
+      "operator": "=",
+      "recommendedValue": "Visitor",
+      "defaultValue": "Guest",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71761",
+      "sourceId": "V-71761",
+      "name": "Audit: Force audit policy subcategory settings to override audit policy category settings",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "SCENoApplyLegacyAuditPolicy",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63639",
+      "sourceId": "V-63639",
+      "name": "Domain member: Digitally encrypt or sign secure channel data (always)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RequireSignOrSeal",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63643",
+      "sourceId": "V-63643",
+      "name": "Domain member: Digitally encrypt secure channel data (when possible)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "SealSecureChannel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63647",
+      "sourceId": "V-63647",
+      "name": "Domain member: Digitally sign secure channel data (when possible)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "SignSecureChannel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63653",
+      "sourceId": "V-63653",
+      "name": "Domain member: Disable machine account password changes",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "DisablePasswordChange",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63661",
+      "sourceId": "V-63661",
+      "name": "Domain member: Maximum machine account password age",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "MaximumPasswordAge",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "30",
+      "defaultValue": "30",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63665",
+      "sourceId": "V-63665",
+      "name": "Domain member: Require strong (Windows 2000 or later) session key",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RequireStrongKey",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63669",
+      "sourceId": "V-63669",
+      "name": "Interactive logon: Machine inactivity limit",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "InactivityTimeoutSecs",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "900",
+      "defaultValue": "900",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63675",
+      "sourceId": "V-63675",
+      "name": "Interactive logon: Message text for users attempting to log on",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "LegalNoticeText",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "You are accessing a U.S. Government (USG) Information System (IS) that is provided for USG-authorized use only., By using this IS (which includes any device attached to this IS), you consent to the following conditions:, -The USG routinely intercepts and monitors communications on this IS for purposes including, but not limited to, penetration testing, COMSEC monitoring, network operations and defense, personnel misconduct (PM), law enforcement (LE), and counterintelligence (CI) investigations., -At any time, the USG may inspect and seize data stored on this IS., -Communications using, or data stored on, this IS are not private, are subject to routine monitoring, interception, and search, and may be disclosed or used for any USG-authorized purpose., -This IS includes security measures (e.g., authentication and access controls) to protect USG interests--not for your personal benefit or privacy., -Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See User Agreement for details.",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63681",
+      "sourceId": "V-63681",
+      "name": "Interactive logon: Message title for users attempting to log on",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "LegalNoticeCaption",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "US Department of Defense Warning Statement",
+      "defaultValue": "",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63687",
+      "sourceId": "V-63687",
+      "name": "Interactive logon: Number of previous logons to cache (in case domain controller is not available)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "CachedLogonsCount",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
+      },
+      "operator": "=",
+      "recommendedValue": "10",
+      "defaultValue": "10",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63697",
+      "sourceId": "V-63697",
+      "name": "Interactive logon: Smart card removal behavior",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "ScRemoveOption",
+        "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63703",
+      "sourceId": "V-63703",
+      "name": "Microsoft network client: Digitally sign communications (always)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RequireSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63711",
+      "sourceId": "V-63711",
+      "name": "Microsoft network client: Send unencrypted password to third-party SMB servers",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EnablePlainTextPassword",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63719",
+      "sourceId": "V-63719",
+      "name": "Microsoft network server: Digitally sign communications (always)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RequireSecuritySignature",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63739",
+      "sourceId": "V-63739",
+      "name": "Network access: Allow anonymous SID/Name translation",
+      "category": "Security Options",
+      "method": "secedit",
+      "args": {
+        "key": "LSAAnonymousNameLookup"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63745",
+      "sourceId": "V-63745",
+      "name": "Network access: Do not allow anonymous enumeration of SAM accounts",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RestrictAnonymousSAM",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-63749",
+      "sourceId": "V-63749",
+      "name": "Network access: Do not allow anonymous enumeration of SAM accounts and shares",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RestrictAnonymous",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63755",
+      "sourceId": "V-63755",
+      "name": "Network access: Let Everyone permissions apply to anonymous users",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EveryoneIncludesAnonymous",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63759",
+      "sourceId": "V-63759",
+      "name": "Network access: Restrict anonymous access to Named Pipes and Shares",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RestrictNullSessAccess",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanManServer\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-71769",
+      "sourceId": "V-71769",
+      "name": "Network access: Restrict clients allowed to make remote calls to SAM",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "RestrictRemoteSAM",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "O:BAG:BAD:(A;;RC;;;BA)",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63765",
+      "sourceId": "V-63765",
+      "name": "Network security: Allow LocalSystem NULL session fallback",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "allownullsessionfallback",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63767",
+      "sourceId": "V-63767",
+      "name": "Network security: Allow PKU2U authentication requests to this computer to use online identities",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "AllowOnlineID",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\pku2u"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63795",
+      "sourceId": "V-63795",
+      "name": "Network security: Configure encryption types allowed for Kerberos",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "SupportedEncryptionTypes",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "2147483640",
+      "defaultValue": "2147483644",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63797",
+      "sourceId": "V-63797",
+      "name": "Network security: Do not store LAN Manager hash value on next password change",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "NoLMHash",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-63801",
+      "sourceId": "V-63801",
+      "name": "Network security: LAN Manager authentication level",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "LmCompatibilityLevel",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "3",
+      "severity": "High"
+    },
+    {
+      "id": "V-63803",
+      "sourceId": "V-63803",
+      "name": "Network security: LDAP client signing requirements",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "LDAPClientIntegrity",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LDAP"
+      },
+      "operator": ">=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63805",
+      "sourceId": "V-63805",
+      "name": "Network security: Minimum session security for NTLM SSP based (including secure RPC) clients",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "NTLMMinClientSec",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "536870912",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63807",
+      "sourceId": "V-63807",
+      "name": "Network security: Minimum session security for NTLM SSP based (including secure RPC) servers",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "NTLMMinServerSec",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa\\MSV1_0"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "536870912",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63811",
+      "sourceId": "V-63811",
+      "name": "System cryptography: Use FIPS compliant algorithms for encryption, hashing, and signing",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "Enabled",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220943",
+      "sourceId": "V-220943",
+      "name": "System objects: Strengthen default permissions of internal system objects (e.g. Symbolic Links)",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "ProtectionMode",
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Session Manager"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63817",
+      "sourceId": "V-63817",
+      "name": "User Account Control: Admin Approval Mode for the Built-in Administrator account",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "FilterAdministratorToken",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63819",
+      "sourceId": "V-63819",
+      "name": "User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "ConsentPromptBehaviorAdmin",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "5",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63821",
+      "sourceId": "V-63821",
+      "name": "User Account Control: Behavior of the elevation prompt for standard users",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "ConsentPromptBehaviorUser",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63825",
+      "sourceId": "V-63825",
+      "name": "User Account Control: Detect application installations and prompt for elevation",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EnableInstallerDetection",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63827",
+      "sourceId": "V-63827",
+      "name": "User Account Control: Only elevate UIAccess applications that are installed in secure locations",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EnableSecureUIAPaths",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63829",
+      "sourceId": "V-63829",
+      "name": "User Account Control: Run all administrators in Admin Approval Mode",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EnableLUA",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63831",
+      "sourceId": "V-63831",
+      "name": "User Account Control: Virtualize file and registry write failures to per-user locations",
+      "category": "Security Options",
+      "method": "Registry",
+      "args": {
+        "name": "EnableVirtualization",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74719",
+      "sourceId": "V-74719",
+      "name": "Secondary Logon (seclogon)",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "name": "Start",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\seclogon"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "3",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74719-2",
+      "sourceId": "V-74719",
+      "name": "Secondary Logon (seclogon) (Service Startup type)",
+      "category": "System Services",
+      "method": "service",
+      "args": {
+        "name": "seclogon"
+      },
+      "operator": "=",
+      "recommendedValue": "Disabled",
+      "defaultValue": "Manual",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63431 / V-63435",
+      "sourceId": "V-63431 / V-63435",
+      "name": "Credential Validation",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE923F-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63445",
+      "sourceId": "V-63445",
+      "name": "Security Group Management",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9237-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63447 / V-63449",
+      "sourceId": "V-63447 / V-63449",
+      "name": "User Account Management",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9235-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63451",
+      "sourceId": "V-63451",
+      "name": "Plug and Play Events",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0cce9248-69ae-11d9-bed3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63453",
+      "sourceId": "V-63453",
+      "name": "Process Creation",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE922B-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71759",
+      "sourceId": "V-71759",
+      "name": "Account Lockout",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9217-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Failure",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63457",
+      "sourceId": "V-63457",
+      "name": "Group Membership",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0cce9249-69ae-11d9-bed3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63459",
+      "sourceId": "V-63459",
+      "name": "Logoff",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9216-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63463 / V-63467",
+      "sourceId": "V-63463 / V-63467",
+      "name": "Logon",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9215-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "Success and Failure",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99541 / V-99543",
+      "sourceId": "V-99541 / V-99543",
+      "name": "Other Logon/Logoff Events",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE921C-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63469",
+      "sourceId": "V-63469",
+      "name": "Special Logon",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE921B-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99545",
+      "sourceId": "V-99545",
+      "name": "Detailed File Share",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9244-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74721 / V-75027",
+      "sourceId": "V-74721 / V-75027",
+      "name": "File Share",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9224-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74409 / V-74411",
+      "sourceId": "V-74409 / V-74411",
+      "name": "Other Object Access Events",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9227-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63471 / V-63473",
+      "sourceId": "V-63471 / V-63473",
+      "name": "Removable Storage",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9245-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63479",
+      "sourceId": "V-63479",
+      "name": "Audit Policy Change",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE922F-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63481",
+      "sourceId": "V-63481",
+      "name": "Authentication Policy Change",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9230-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71761-2",
+      "sourceId": "V-71761",
+      "name": "Authorization Policy Change",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9231-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99547 / V-99549",
+      "sourceId": "V-99547 / V-99549",
+      "name": "MPSSVC Rule-Level Policy Change",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9232-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99553",
+      "sourceId": "V-99553",
+      "name": "Other Policy Change Events",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9234-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63483 / V-63487",
+      "sourceId": "V-63483 / V-63487",
+      "name": "Sensitive Privilege Use",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9228-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63491",
+      "sourceId": "V-63491",
+      "name": "IPsec Driver",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9213-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Failure",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63499 / V-63503",
+      "sourceId": "V-63499 / V-63503",
+      "name": "Other System Events",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9214-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "Success and Failure",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63507",
+      "sourceId": "V-63507",
+      "name": "Security State Change",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9210-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "Success",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63513",
+      "sourceId": "V-63513",
+      "name": "Security System Extension",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9211-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "contains",
+      "recommendedValue": "Success",
+      "defaultValue": "No Auditing",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63515 / V-63517",
+      "sourceId": "V-63515 / V-63517",
+      "name": "System Integrity",
+      "category": "Advanced Audit Policy Configuration",
+      "method": "auditpol",
+      "args": {
+        "subcategory": "{0CCE9212-69AE-11D9-BED3-505054503030}"
+      },
+      "operator": "=",
+      "recommendedValue": "Success and Failure",
+      "defaultValue": "Success and Failure",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63545",
+      "sourceId": "V-63545",
+      "name": "Personalization: Prevent enabling lock screen camera",
+      "category": "Administrative Templates: Control Panel",
+      "method": "Registry",
+      "args": {
+        "name": "NoLockScreenCamera",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63549",
+      "sourceId": "V-63549",
+      "name": "Personalization: Prevent enabling lock screen slide show",
+      "category": "Administrative Templates: Control Panel",
+      "method": "Registry",
+      "args": {
+        "name": "NoLockScreenSlideshow",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Personalization"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63597",
+      "sourceId": "V-63597",
+      "name": "Apply UAC restrictions to local accounts on network logons",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": "LocalAccountTokenFilterPolicy",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74725",
+      "sourceId": "V-74725",
+      "name": "Configure SMB v1 client driver",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": "Start",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\MrxSmb10"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74723",
+      "sourceId": "V-74723",
+      "name": "Configure SMB v1 server",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": "SMB1",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-68849",
+      "sourceId": "V-68849",
+      "name": "Enable Structured Exception Handling Overwrite Protection (SEHOP)",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": "DisableExceptionChainValidation",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-72329",
+      "sourceId": "V-72329",
+      "name": "Remove \"Run As Different User\" from context menus (batfile)",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": " SuppressionPolicy",
+        "path": "HKLM:\\SOFTWARE\\Classes\\batfile\\shell\\runasuser"
+      },
+      "operator": "=",
+      "recommendedValue": "1000",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-72329-2",
+      "sourceId": "V-72329",
+      "name": "Remove \"Run As Different User\" from context menus (cmdfile)",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": " SuppressionPolicy",
+        "path": "HKLM:\\SOFTWARE\\Classes\\cmdfile\\shell\\runasuser"
+      },
+      "operator": "=",
+      "recommendedValue": "1000",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-72329-3",
+      "sourceId": "V-72329",
+      "name": "Remove \"Run As Different User\" from context menus (exefile)",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": " SuppressionPolicy",
+        "path": "HKLM:\\SOFTWARE\\Classes\\exefile\\shell\\runasuser"
+      },
+      "operator": "=",
+      "recommendedValue": "1000",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-72329-4",
+      "sourceId": "V-72329",
+      "name": "Remove \"Run As Different User\" from context menus (mscfile)",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": " SuppressionPolicy",
+        "path": "HKLM:\\SOFTWARE\\Classes\\mscfile\\shell\\runasuser"
+      },
+      "operator": "=",
+      "recommendedValue": "1000",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71763",
+      "sourceId": "V-71763",
+      "name": "WDigest Authentication",
+      "category": "MS Security Guide",
+      "method": "Registry",
+      "args": {
+        "name": "UseLogonCredential",
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63555",
+      "sourceId": "V-63555",
+      "name": "MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)",
+      "category": "MSS (Legacy)",
+      "method": "Registry",
+      "args": {
+        "name": "DisableIPSourceRouting",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip6\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63559",
+      "sourceId": "V-63559",
+      "name": "MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)",
+      "category": "MSS (Legacy)",
+      "method": "Registry",
+      "args": {
+        "name": "DisableIPSourceRouting",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63563",
+      "sourceId": "V-63563",
+      "name": "MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes",
+      "category": "MSS (Legacy)",
+      "method": "Registry",
+      "args": {
+        "name": "EnableICMPRedirect",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63567",
+      "sourceId": "V-63567",
+      "name": "MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers",
+      "category": "MSS (Legacy)",
+      "method": "Registry",
+      "args": {
+        "name": "NoNameReleaseOnDemand",
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netbt\\Parameters"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63569",
+      "sourceId": "V-63569",
+      "name": "Lanman Workstation: Enable insecure guest logons",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "AllowInsecureGuestAuth",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\LanmanWorkstation"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71765",
+      "sourceId": "V-71765",
+      "name": "Network Connections: Prohibit use of Internet Connection Sharing on your DNS domain network",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "NC_ShowSharedAccessUI",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Network Connections"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63577",
+      "sourceId": "V-63577",
+      "name": "Network Provider: Hardened UNC Paths (NETLOGON)",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "\\\\*\\NETLOGON",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
+      },
+      "operator": "=",
+      "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63577-2",
+      "sourceId": "V-63577",
+      "name": "Network Provider: Hardened UNC Paths (SYSVOL)",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "\\\\*\\SYSVOL",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths"
+      },
+      "operator": "=",
+      "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74413",
+      "sourceId": "V-74413",
+      "name": "SSL Configuration Settings: ECC Curve Order",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "EccCurves",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Cryptography\\Configuration\\SSL\\00010002"
+      },
+      "operator": "=",
+      "recommendedValue": "NistP384;NistP256",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71765-2",
+      "sourceId": "V-71765",
+      "name": "Windows Connection Manager: Prohibit connection to non-domain networks when connected to domain authenticated network",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "fBlockNonDomain",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63591",
+      "sourceId": "V-63591",
+      "name": "WLAN Settings: Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services",
+      "category": "Administrative Templates: Network",
+      "method": "Registry",
+      "args": {
+        "name": "AutoConnectAllowedOEM",
+        "path": "HKLM:\\Software\\Microsoft\\wcmsvc\\wifinetworkmanager\\config"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-68817",
+      "sourceId": "V-68817",
+      "name": "Audit Process Creation: Include command line in process creation events",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "ProcessCreationIncludeCmdLine_Enabled",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74699",
+      "sourceId": "V-74699",
+      "name": "Credentials Delegation: Remote host allows delegation of non-exportable credentials",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "AllowProtectedCreds",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CredentialsDelegation"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63595",
+      "sourceId": "V-63595",
+      "name": "Device Guard: Turn On Virtualization Based Security (Policy)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "EnableVirtualizationBasedSecurity",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63595-2",
+      "sourceId": "V-63595",
+      "name": "Device Guard: Select Platform Security Level (Policy)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "RequirePlatformSecurityFeatures",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63603",
+      "sourceId": "V-63603",
+      "name": "Device Guard: Virtualization Based Protection of Code Integrity (Policy)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "HypervisorEnforcedCodeIntegrity",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low"
+    },
+    {
+      "id": "V-77083",
+      "sourceId": "V-77083",
+      "name": "Device Guard: Require UEFI Memory Attributes Table (Policy)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "HVCIMATRequired",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63599",
+      "sourceId": "V-63599",
+      "name": "Device Guard: Credential Guard Configuration (Policy)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "LsaCfgFlags",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High"
+    },
+    {
+      "id": "V-63607",
+      "sourceId": "V-63607",
+      "name": "Early Launch Antimalware: Boot-Start Driver Initialization Policy",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DriverLoadPolicy",
+        "path": "HKLM:\\System\\CurrentControlSet\\Policies\\EarlyLaunch"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63609",
+      "sourceId": "V-63609",
+      "name": "Group Policy: Do not apply during periodic background processing",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "NoGPOListChanges",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63609-2",
+      "sourceId": "V-63609",
+      "name": "Group Policy: Process even if the Group Policy objects have not changed",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "NoBackgroundPolicy",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Group Policy\\{35378EAC-683F-11D2-A89A-00C04FBBCFA2}"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63615",
+      "sourceId": "V-63615",
+      "name": "Internet Communication Management: Internet Communication settings: Turn off downloading of print drivers over HTTP",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DisableWebPnPDownload",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63621",
+      "sourceId": "V-63621",
+      "name": "Internet Communication Management: Internet Communication settings: Turn off Internet download for Web publishing and online ordering wizards",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "NoWebServices",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63623",
+      "sourceId": "V-63623",
+      "name": "Internet Communication Management: Internet Communication settings: Turn off printing over HTTP",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DisableHTTPPrinting",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99557",
+      "sourceId": "V-99557",
+      "name": "Kernel DMA Protection: Enumeration policy for external devices incompatible with Kernel DMA Protection",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DeviceEnumerationPolicy",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Kernel DMA Protection"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "2",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63629",
+      "sourceId": "V-63629",
+      "name": "Logon: Do not display network selection UI",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DontDisplayNetworkSelectionUI",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63633",
+      "sourceId": "V-63633",
+      "name": "Logon: Enumerate local users on domain-joined computers",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "EnumerateLocalUsers",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99559",
+      "sourceId": "V-99559",
+      "name": "Logon: Turn on convenience PIN sign-in",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "AllowDomainPINLogon",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63721",
+      "sourceId": "V-63721",
+      "name": "PIN Complexity: Minimum PIN length",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "MinimumPINLength",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\PassportForWork\\PINComplexity"
+      },
+      "operator": "=",
+      "recommendedValue": "6",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63645",
+      "sourceId": "V-63645",
+      "name": "Sleep Settings: Require a password when a computer wakes (on battery)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "DCSettingIndex",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63649",
+      "sourceId": "V-63649",
+      "name": "Sleep Settings: Require a password when a computer wakes (plugged in)",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "ACSettingIndex",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63651",
+      "sourceId": "V-63651",
+      "name": "Remote Assistance: Configure Solicited Remote Assistance",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "fAllowToGetHelp",
+        "path": "HKLM:\\Software\\policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-63657",
+      "sourceId": "V-63657",
+      "name": "Remote Procedure Call: Restrict Unauthenticated RPC clients",
+      "category": "Administrative Templates: System",
+      "method": "Registry",
+      "args": {
+        "name": "RestrictRemoteClients",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Rpc"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94719",
+      "sourceId": "V-94719",
+      "name": "App Privacy: Let Windows apps activate with voice while the system is locked",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "LetAppsActivateWithVoiceAboveLock",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63659",
+      "sourceId": "V-63659",
+      "name": "App runtime: Allow Microsoft accounts to be optional",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MSAOptional",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63663",
+      "sourceId": "V-63663",
+      "name": "Application Compatibility: Turn off Inventory Collector",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisableInventory",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63667",
+      "sourceId": "V-63667",
+      "name": "AutoPlay Policies: Disallow Autoplay for non-volume devices",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "NoAutoplayfornonVolume",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63671",
+      "sourceId": "V-63671",
+      "name": "AutoPlay Policies: Set the default behavior for AutoRun",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "NoAutorun",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63673",
+      "sourceId": "V-63673",
+      "name": "AutoPlay Policies: Turn off Autoplay",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "NoDriveTypeAutoRun",
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer"
+      },
+      "operator": "=",
+      "recommendedValue": "255",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63677",
+      "sourceId": "V-63677",
+      "name": "Biometrics: Facial Features: Configure enhanced anti-spoofing",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "EnhancedAntiSpoofing",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Biometrics\\FacialFeatures"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94861",
+      "sourceId": "V-94861",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Configure minimum PIN length for startup",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MinimumPIN",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "6",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94859",
+      "sourceId": "V-94859",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Allow BitLocker without a compatible TPM",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "EnableBDEWithNoTPM",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94859-2",
+      "sourceId": "V-94859",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Configure TPM startup",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "UseTPM",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94859-3",
+      "sourceId": "V-94859",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Configure TPM startup PIN",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "UseTPMPIN",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94859-4",
+      "sourceId": "V-94859",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Configure TPM startup key",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "UseTPMKey",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-94859-5",
+      "sourceId": "V-94859",
+      "name": "BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Configure TPM startup key and PIN",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "UseTPMKeyPIN",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\FVE"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71771",
+      "sourceId": "V-71771",
+      "name": "Cloud Content: Turn off Microsoft consumer experiences",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisableWindowsConsumerFeatures",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CloudContent"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Low"
+    },
+    {
+      "id": "V-63679",
+      "sourceId": "V-63679",
+      "name": "Credential User Interface: Enumerate administrator accounts on elevation",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "EnumerateAdministrators",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63683",
+      "sourceId": "V-63683",
+      "name": "Data Collection and Preview Builds: Allow Diagnostic Data",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowTelemetry",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\DataCollection"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "2",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-65681",
+      "sourceId": "V-65681",
+      "name": "Delivery Optimization: Download Mode",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DODownloadMode",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeliveryOptimization"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63519",
+      "sourceId": "V-63519",
+      "name": "Event Log Service: Application: Specify the maximum log file size (KB)",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Application"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "4096",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63523",
+      "sourceId": "V-63523",
+      "name": "Event Log Service: Security: Specify the maximum log file size (KB)",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\Security"
+      },
+      "operator": ">=",
+      "recommendedValue": "1024000",
+      "defaultValue": "4096",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63527",
+      "sourceId": "V-63527",
+      "name": "Event Log Service: System: Specify the maximum log file size (KB)",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MaxSize",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\EventLog\\System"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "4096",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63709",
+      "sourceId": "V-63709",
+      "name": "Configure Password Manager",
+      "category": "Microsoft Edge",
+      "method": "Registry",
+      "args": {
+        "name": "FormSuggest Passwords",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\MicrosoftEdge\\Main"
+      },
+      "operator": "=",
+      "recommendedValue": "no",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63701",
+      "sourceId": "V-63701",
+      "name": "Prevent bypassing Microsoft Defender SmartScreen prompts for files",
+      "category": "Microsoft Edge",
+      "method": "Registry",
+      "args": {
+        "name": "PreventOverrideAppRepUnknown",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\MicrosoftEdge\\PhishingFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-82139",
+      "sourceId": "V-82139",
+      "name": "Prevent certificate error overrides",
+      "category": "Microsoft Edge",
+      "method": "Registry",
+      "args": {
+        "name": "PreventCertErrorOverrides",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\MicrosoftEdge\\Internet Settings"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63713",
+      "sourceId": "V-63713",
+      "name": "Configure Windows Defender SmartScreen",
+      "category": "Microsoft Edge",
+      "method": "Registry",
+      "args": {
+        "name": "EnabledV9",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\MicrosoftEdge\\PhishingFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63699",
+      "sourceId": "V-63699",
+      "name": "Prevent bypassing Microsoft Defender SmartScreen prompts for sites",
+      "category": "Microsoft Edge",
+      "method": "Registry",
+      "args": {
+        "name": "PreventOverride",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\MicrosoftEdge\\PhishingFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63729",
+      "sourceId": "V-63729",
+      "name": "Remote Desktop Connection Client: Do not allow passwords to be saved",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisablePasswordSaving",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63731",
+      "sourceId": "V-63731",
+      "name": "Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "fDisableCdm",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63733",
+      "sourceId": "V-63733",
+      "name": "Remote Desktop Session Host: Security: Always prompt for password upon connection",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "fPromptForPassword",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63737",
+      "sourceId": "V-63737",
+      "name": "Remote Desktop Session Host: Security: Require secure RPC communication",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "fEncryptRPCTraffic",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63741",
+      "sourceId": "V-63741",
+      "name": "Remote Desktop Session Host: Security: Set client connection encryption level",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "MinEncryptionLevel",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63743",
+      "sourceId": "V-63743",
+      "name": "RSS Feeds: Prevent downloading of enclosures",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisableEnclosureDownload",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63751",
+      "sourceId": "V-63751",
+      "name": "Search: Allow indexing of encrypted files",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowIndexingEncryptedStoresOrItems",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235",
+      "sourceId": "V-77235",
+      "name": "Use a common set of exploit protection settings",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "Registry",
+      "args": {
+        "name": "ExploitProtectionSettings",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender ExploitGuard\\Exploit Protection"
+      },
+      "operator": "!=",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-2",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-3",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Override Relocate Images (ASLR) (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/ASLR/OverrideForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-4",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-5",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-6",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-7",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-8",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-9",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77235-10",
+      "sourceId": "V-77235",
+      "name": "Exploit protection: ImageLoad: Override Block Remote Images (ONEDRIVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "ONEDRIVE.EXE/ImageLoad/OverrideBlockRemoteImageLoads"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77205",
+      "sourceId": "V-77205",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (firefox.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "firefox.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77205-2",
+      "sourceId": "V-77205",
+      "name": "Exploit protection: Force randomization for images (ASLR) (firefox.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "firefox.exe/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-2",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-3",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-4",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-5",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-6",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-7",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-8",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: ImageLoad: Override Block Remote Images (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/ImageLoad/OverrideBlockRemoteImageLoads"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77209-9",
+      "sourceId": "V-77209",
+      "name": "Exploit protection: Child Process: Override Child Process (fltldr.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "fltldr.exe/ChildProcess/OverrideChildProcess"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-2",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Force randomization for images (ASLR) (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-3",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-4",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-5",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-6",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-7",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-8",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-9",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: ImageLoad: Override Block Remote Images (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/ImageLoad/OverrideBlockRemoteImageLoads"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77213-10",
+      "sourceId": "V-77213",
+      "name": "Exploit protection: Child Process: Override Child Process (GROOVE.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "GROOVE.EXE/ChildProcess/OverrideChildProcess"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-2",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Force randomization for images (ASLR) (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-3",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-4",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-5",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-6",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-7",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77189-8",
+      "sourceId": "V-77189",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (Acrobat.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "Acrobat.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-2",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Force randomization for images (ASLR) (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-3",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-4",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-5",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-6",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-7",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77191-8",
+      "sourceId": "V-77191",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (AcroRd32.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "AcroRd32.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77195",
+      "sourceId": "V-77195",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (chrome.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "chrome.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-2",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Force randomization for images (ASLR) (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-3",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-4",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-5",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-6",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-7",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77201-8",
+      "sourceId": "V-77201",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (EXCEL.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "EXCEL.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-2",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Force randomization for images (ASLR) (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-3",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-4",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-5",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-6",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-7",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77217-8",
+      "sourceId": "V-77217",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (iexplore.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "iexplore.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-2",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Force randomization for images (ASLR) (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-3",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-4",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-5",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-6",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-7",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77221-8",
+      "sourceId": "V-77221",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (INFOPATH.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "INFOPATH.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-2",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-3",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-4",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-5",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-6",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-7",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (java.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "java.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-8",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-9",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-10",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-11",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-12",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-13",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-14",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (javaw.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaw.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-15",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-16",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-17",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-18",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-19",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-20",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77223-21",
+      "sourceId": "V-77223",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (javaws.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "javaws.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-2",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Force randomization for images (ASLR) (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-3",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-4",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-5",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-6",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-7",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77227-8",
+      "sourceId": "V-77227",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (LYNC.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "LYNC.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-2",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Force randomization for images (ASLR) (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-3",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-4",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-5",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-6",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-7",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77231-8",
+      "sourceId": "V-77231",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (MSACCESS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSACCESS.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-2",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Force randomization for images (ASLR) (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-3",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-4",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-5",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-6",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-7",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77233-8",
+      "sourceId": "V-77233",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (MSPUB.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "MSPUB.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-2",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-3",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-4",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-5",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-6",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77239-7",
+      "sourceId": "V-77239",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (OIS.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OIS.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-2",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Force randomization for images (ASLR) (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-3",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-4",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-5",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-6",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-7",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77243-8",
+      "sourceId": "V-77243",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (OUTLOOK.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "OUTLOOK.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-2",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-3",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-4",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-5",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-6",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77245-7",
+      "sourceId": "V-77245",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (plugin-container.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "plugin-container.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-2",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Force randomization for images (ASLR) (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-3",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-4",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-5",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-6",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-7",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77247-8",
+      "sourceId": "V-77247",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (POWERPNT.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "POWERPNT.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-2",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Force randomization for images (ASLR) (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-3",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable Export AddressFilter (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-4",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-5",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-6",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-7",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77249-8",
+      "sourceId": "V-77249",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (PPTVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "PPTVIEW.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-2",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Force randomization for images (ASLR) (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-3",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable Export AddressFilter (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-4",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-5",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-6",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-7",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77255-8",
+      "sourceId": "V-77255",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (VISIO.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VISIO.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-2",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Force randomization for images (ASLR) (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-3",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable Export AddressFilter (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-4",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-5",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-6",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-7",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-220898-8",
+      "sourceId": "V-220898",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (VPREVIEW.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "VPREVIEW.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-2",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Force randomization for images (ASLR) (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/ASLR/ForceRelocateImages"
+      },
+      "operator": "=",
+      "recommendedValue": "ON",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-3",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-4",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-5",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-6",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-7",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77263-8",
+      "sourceId": "V-77263",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (WINWORD.EXE)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "WINWORD.EXE/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-2",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-3",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-4",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-5",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-6",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77267-7",
+      "sourceId": "V-77267",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (wmplayer.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wmplayer.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Override Data Execution Prevention (DEP) (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/DEP/OverrideDEP"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-2",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableExportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-3",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable Export Address Filter Plus (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableExportAddressFilterPlus"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-4",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable Import Address Filter (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableImportAddressFilter"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-5",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable ROP Stack Pivot (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableRopStackPivot"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-6",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable ROP Caller Check (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableRopCallerCheck"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-77269-7",
+      "sourceId": "V-77269",
+      "name": "Exploit protection: Payload: Override Enable ROP Sim Exec (wordpad.exe)",
+      "category": "Microsoft Defender Exploit Guard",
+      "method": "ProcessmitigationApplication",
+      "args": {
+        "target": "wordpad.exe/Payload/OverrideEnableRopSimExec"
+      },
+      "operator": "=",
+      "recommendedValue": "False",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63685",
+      "sourceId": "V-63685",
+      "name": "File Explorer: Configure Windows Defender SmartScreen",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "EnableSmartScreen",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63685-2",
+      "sourceId": "V-63685",
+      "name": "File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "ShellSmartScreenLevel",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "Block",
+      "defaultValue": "Warn",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-74417",
+      "sourceId": "V-74417",
+      "name": "Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowGameDVR",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\GameDVR"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63717",
+      "sourceId": "V-63717",
+      "name": "Windows Hello for Business: Use a hardware security device",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "RequireSecurityDevice",
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\PassportForWork"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-99561",
+      "sourceId": "V-99561",
+      "name": "Windows Ink Workspace: Allow Windows Ink Workspace",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowWindowsInkWorkspace",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63321",
+      "sourceId": "V-63321",
+      "name": "Windows Installer: Allow user control over installs",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "EnableUserControl",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63325",
+      "sourceId": "V-63325",
+      "name": "Windows Installer: Always install with elevated privileges",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AlwaysInstallElevated",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "0",
+      "severity": "High"
+    },
+    {
+      "id": "V-63333",
+      "sourceId": "V-63333",
+      "name": "Windows Logon Options: Sign-in and lock last interactive user automatically after a restart",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisableAutomaticRestartSignOn",
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-68819",
+      "sourceId": "V-68819",
+      "name": "Turn on PowerShell Script Block Logging",
+      "category": "PowerShell",
+      "method": "Registry",
+      "args": {
+        "name": "EnableScriptBlockLogging",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-230220",
+      "sourceId": "V-230220",
+      "name": "Turn on PowerShell Transcription",
+      "category": "PowerShell",
+      "method": "Registry",
+      "args": {
+        "name": "EnableTranscripting",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63335",
+      "sourceId": "V-63335",
+      "name": "WinRM Client: Allow Basic authentication",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowBasic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-63339",
+      "sourceId": "V-63339",
+      "name": "WinRM Client: Allow unencrypted traffic",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowUnencryptedTraffic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-71763-2",
+      "sourceId": "V-71763",
+      "name": "WinRM Client: Disallow Digest authentication",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowDigest",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63347",
+      "sourceId": "V-63347",
+      "name": "WinRM Service: Allow Basic authentication",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowBasic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "High"
+    },
+    {
+      "id": "V-63369",
+      "sourceId": "V-63369",
+      "name": "WinRM Service: Allow unencrypted traffic",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "AllowUnencryptedTraffic",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "1",
+      "severity": "Medium"
+    },
+    {
+      "id": "V-63375",
+      "sourceId": "V-63375",
+      "name": "WinRM Service: Disallow WinRM from storing RunAs credentials",
+      "category": "Administrative Templates: Windows Components",
+      "method": "Registry",
+      "args": {
+        "name": "DisableRunAs",
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "0",
+      "severity": "Medium"
+    }
+  ]
+}

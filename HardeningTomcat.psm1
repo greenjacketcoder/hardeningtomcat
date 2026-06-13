@@ -499,6 +499,7 @@ function New-HtResult {
         'accesschk'       { "User right: $($Finding.args.privilege)" }
         'localaccount'    { "Local account RID: $($Finding.args.rid)" }
         'MpPreferenceAsr' { "ASR rule: $($Finding.args.ruleId)" }
+        'ProcessmitigationApplication' { "Exploit protection: $($Finding.args.target)" }
         default           { $Finding.method }
     }
     [pscustomobject]@{
