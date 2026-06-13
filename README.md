@@ -66,6 +66,8 @@ HardeningTomcat/
 │   ├── RegistryPolParser.ps1   parses the binary registry.pol format
 │   ├── GptTmplInfParser.ps1    parses GptTmpl.inf (account policy / security options)
 │   ├── AuditCsvParser.ps1      parses audit.csv (advanced audit policy)
+│   ├── Import-HardeningKittyList.ps1  converts HardeningKitty CSV lists (CIS/STIG) to JSON
+│   ├── Import-DisaStigScap.ps1        parses authoritative DISA SCAP (XCCDF+OVAL) benchmarks
 │   ├── Regenerate-AllBaselines.ps1    rebuilds every list in one pass
 │   ├── Update-ListManifest.ps1        (re)generates lists/manifest.sha256
 │   └── tests/                  synthetic sample for parser validation
@@ -214,7 +216,8 @@ Two distinct integrity controls, because two distinct things can be tampered wit
 
 Neither control alone is enough; signing covers the code, the catalog/manifest covers the data.
 
-**Upstream trust.** The CIS/STIG lists are derived from HardeningKitty's published CSVs. The
+**Upstream trust.** The CIS lists and the Win10 STIG are derived from HardeningKitty's
+published CSVs; the Win11 STIG is parsed from the authoritative DISA SCAP benchmark. The
 manifest guarantees a list is unchanged *after* you vet it -- it does not prove the upstream
 values were correct to begin with. Spot-check critical recommendations against the official
 CIS Benchmark PDF or DISA STIG before trusting a list in Strike.
@@ -273,7 +276,9 @@ it (the steps above); for distribution to others you'd need a CA-issued cert.
   real CIS, Microsoft, and DoD STIG benchmarks.
 - Microsoft SCT import for Windows 11 (23H2/24H2/25H2) and Server 2016/2019/2022/2025, with
   role-splitting for server baselines (12 lists total).
-- CIS import with L1/L2 levels (6 lists) and DoD STIG import (Win10 v2r1, 393 findings).
+- CIS import with L1/L2 levels (6 lists), DoD STIG import from HardeningKitty CSV (Win10
+  v2r1, 393 findings), and a DISA SCAP importer for authoritative STIG content (Win11
+  V2R8, 223 findings; 115 auto-converted, 108 manual).
 - Finding-list integrity (SHA256 manifest + signed-catalog verification when present).
 - Pre-Strike backup + Strike safety gates.
 
