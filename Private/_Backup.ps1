@@ -7,7 +7,17 @@ function Invoke-HtPreStrikeBackup {
     if (-not $BackupDir) {
         $BackupDir = Join-Path (Get-Location) ("hardeningtomcat_backup_{0}_{1:yyyyMMdd-HHmmss}" -f $env:COMPUTERNAME, (Get-Date))
     }
-    New-Item -ItemType Directory -Path $BackupDir -Force | Out-Null
+    # A backup is a safety operation, never a simulated one. Force all backup file ops
+    # to run for real even when the caller's scope has $WhatIfPreference set (the engine
+    # toggles ShouldProcess per-finding for Strike dry-runs, which otherwise leaks here
+    # and turns the directory creation into a no-op -- then Get-Acl fails on a dir that
+    # was never created).
+    $WhatIfPreference = $false
+    New-Item -ItemType Directory -Path $BackupDir -Force -WhatIf:$false | Out-Null
+    if (-not (Test-Path $BackupDir)) {
+        & $Context.Log "Backup: could not create backup directory $BackupDir" 'Warn'
+        return [pscustomobject]@{ Complete = $false; Path = $BackupDir }
+    }
 
     # Restrict ACLs: these files contain full security policy (user rights, SIDs,
     # account policy). Lock the backup dir to SYSTEM + Administrators only, removing
