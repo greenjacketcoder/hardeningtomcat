@@ -1,4 +1,4 @@
-# ProcessmitigationApplication handler -- per-application Exploit Protection settings
+﻿# ProcessmitigationApplication handler -- per-application Exploit Protection settings
 # (Windows Defender Exploit Guard / process mitigations), read via Get-ProcessMitigation.
 #
 # args.target = '<PROCESS>/<Category>/<Property>', e.g. 'ONEDRIVE.EXE/DEP/OverrideDEP'.
@@ -52,14 +52,21 @@
         $proc = $parts[0]; $category = $parts[1]; $property = $parts[2]
 
         $mit = $Cache['procmit'][$proc]
+        # Distinguish "no data for this process at all" (app likely not installed) from
+        # "process has mitigation data but this specific property is unset". Both are
+        # genuine findings if the STIG expects a value -- we do NOT suppress them to a
+        # pass -- but the Note makes the report interpretable rather than a bare blank.
         if (-not $mit) {
-            # No mitigation object for this process = nothing overridden = setting at default.
-            return [pscustomobject]@{ Result = ''; Found = $false }
+            return [pscustomobject]@{ Result = ''; Found = $false; Note = "no mitigation data for $proc (app may not be installed)" }
         }
         $catObj = $mit.$category
-        if (-not $catObj) { return [pscustomobject]@{ Result = ''; Found = $false } }
+        if (-not $catObj) {
+            return [pscustomobject]@{ Result = ''; Found = $false; Note = "$proc has no $category mitigations configured" }
+        }
         $val = $catObj.$property
-        if ($null -eq $val) { return [pscustomobject]@{ Result = ''; Found = $false } }
+        if ($null -eq $val) {
+            return [pscustomobject]@{ Result = ''; Found = $false; Note = "$proc $category/$property not set" }
+        }
         # Normalize the mitigation enum/bool to a string the operators can compare.
         return [pscustomobject]@{ Result = "$val"; Found = $true }
     }

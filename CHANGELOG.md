@@ -8,6 +8,39 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.6.1]
+
+Live-Windows validation of the CIS and STIG paths, plus report-clarity fixes.
+
+### Validated on live Windows 11 (elevated)
+- **CIS Windows 11 25H2 L1-L2** (591 findings, 0 skipped) and **DoD STIG Win11 V2R8**
+  (115 registry findings; 108 manual correctly Skipped) ran fully elevated on real
+  hardware. This closes the gap noted in 0.4.0/0.6.0: the CIS and STIG paths are no
+  longer structurally-validated-only.
+- **All ten handlers confirmed reading real system state**, including the five that had
+  never run on live Windows: accountpolicy (password age/lockout), localaccount (Guest
+  status, account names), MpPreferenceAsr (ASR actions), ProcessmitigationApplication
+  (Exploit Protection ON/OFF values), and RegistryList.
+- `manual` findings confirmed reporting as Skipped with their fixtext.
+
+### Fixed
+- **Malformed Detail string.** Finding detail read `Result=, Recommended=X` when the
+  observed value was empty. Now reads `Observed=(not set), Recommended=X` -- and the
+  label is `Observed=` (the value read) rather than the confusing `Result=` (which
+  collides with the pass/fail Result column).
+- **Opaque process-mitigation results.** When `Get-ProcessMitigation` has no data for a
+  target, the handler now attaches a Note distinguishing "no data for this process (app
+  may not be installed)" from "process exists but this property is unset." These remain
+  genuine findings (not suppressed to pass -- an unset mitigation the STIG requires is
+  real non-compliance), but the report is now interpretable instead of a bare blank.
+
+### Still open (road to 1.0)
+- Strike (apply) path validated only for the Microsoft baseline; needs a snapshotted-VM
+  apply run across CIS/other handlers.
+- The ~83 mappable-but-manual STIG findings (audit/account/user-rights) remain `manual`
+  by deliberate deferral.
+- Code signing not yet run.
+
 ## [0.6.0]
 
 Authoritative DISA Windows 11 STIG support via a SCAP (XCCDF + OVAL) importer.
