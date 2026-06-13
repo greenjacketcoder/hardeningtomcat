@@ -1,5 +1,5 @@
 # HardeningTomcat finding-list integrity manifest
-# Generated: 2026-06-12 22:49:45  Format: <sha256>  <relative path>
+# Generated: 2026-06-13 10:53:28  Format: <sha256>  <relative path>
 e811181e4b11f55bf435b54dbe63512b56082bca9a929548a0e4de477893c8fc  cis/CIS_Windows_11_25H2_L1-L2.json
 eb7743607529cb072fc7c9e5d20bbe506760615c319a8e65565dabd08cb1966a  cis/CIS_Windows_11_25H2_L1.json
 8a61af848247d7369b66c38c48a096c4b1438312635568e49785d387aedea70c  cis/CIS_Windows_Server_2016_L1.json
@@ -19,3 +19,4 @@ b6bed08b3f754a7278b323c6c97e484a4e4b8cce290de361f9e89c8f38d9f4af  microsoft/Micr
 484451845b49ee3558027cc9b7f9541a2d5af26e6a77c6f5440fbbbb90fc9d0c  microsoft/Microsoft_Windows_Server_2025_-_Member_Server.json
 ef3e06941a652976b2d040c0165024644edf6583d8f8d7b7b0a6c9eeb3aa2aef  sample_machine.json
 86a5323eaf845e3dc366c5f91001ca0f1717b13cf4104761a7a7a6e0382415fd  stig/DoD_STIG_Windows_10_v2r1_Machine.json
+a37a164a13dd5d7b0b19f5049f7b1dc632d7d0e291c046a11214060478a2558b  stig/DoD_STIG_Windows_11_V2R8.json

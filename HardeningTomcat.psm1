@@ -191,7 +191,7 @@ function Invoke-HardeningTomcat {
     if (-not $list.findings) { throw "Finding list contains no 'findings' array." }
 
     # ---- Validate findings up front (fail fast with ALL problems) --------------
-    $validOps = @('=','!=','<=','>=','<','>','<=!0','contains','=|0','set=')
+    $validOps = @('=','!=','<=','>=','<','>','<=!0','contains','=|0','set=','manual')
     $validSev = @('Low','Medium','High')
     $problems = New-Object System.Collections.Generic.List[string]
     $seenIds  = @{}
@@ -289,6 +289,15 @@ function Invoke-HardeningTomcat {
         # Throttled to every 5th finding (and the last) to limit redraw overhead.
         if ($i -eq $total -or ($i % 5) -eq 0) {
             Write-HtProgress -Activity "HardeningTomcat $Mode" -Current $i -Total $total -Stats $stats
+        }
+        # --- manual findings: no automated check exists (e.g. STIG rules that require
+        # human verification, or OVAL test types with no handler). Report as Skipped
+        # with the remediation text so they surface in the report rather than being
+        # dropped or falsely passed. ---
+        if ($finding.method -eq 'manual' -or $finding.operator -eq 'manual') {
+            $detail = if ($finding.fixText) { "Manual check: $($finding.fixText)" } else { 'Manual verification required' }
+            $results.Add((New-HtResult $finding 'Skipped' $detail))
+            $stats.Skipped++; continue
         }
         $handler = $Handlers[$finding.method]
 

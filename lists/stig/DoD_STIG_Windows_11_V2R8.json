@@ -1,0 +1,3524 @@
+{
+  "listName": "DoD STIG Windows 11 V2R8",
+  "version": "2026.06.13",
+  "source": "Derived from authoritative DISA SCAP benchmark: U_MS_Windows_11_V2R8_STIG_SCAP_1-3_Benchmark.xml",
+  "findings": [
+    {
+      "id": "WN11-00-000005",
+      "sourceId": "WN11-00-000005",
+      "name": "Domain-joined systems must use Windows 11 Enterprise Edition 64-bit version.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+        "name": "EditionId"
+      },
+      "operator": "=",
+      "recommendedValue": "Enterprise",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Use Windows 11 Enterprise 64-bit version for domain-joined systems."
+    },
+    {
+      "id": "WN11-00-000030",
+      "sourceId": "WN11-00-000030",
+      "name": "Windows 11 information systems must use BitLocker to encrypt all disks to protect the confidentiality and integrity of all information at rest.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Enable full disk encryption on all information systems (including SIPRNet) using BitLocker.\n\nBitLocker, included in Windows, can be enabled in the Control Panel under \"BitLocker Drive Encryption\" as well as other management tools.\n\nNote: An alternate encryption application may be used in lieu of BitLocker providing it is configured for full disk encryption and satisfies the pre-boot authentication requirements (WN11-00-000031 and WN11-00-000032)."
+    },
+    {
+      "id": "WN11-00-000031",
+      "sourceId": "WN11-00-000031",
+      "name": "Windows 11 systems must use a BitLocker PIN for pre-boot authentication.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\FVE",
+        "name": "UseAdvancedStartup"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> BitLocker Drive Encryption >> Operating System Drives \"Require additional authentication at startup\" to \"Enabled\" with \"Configure TPM Startup PIN:\" set to \"Require startup PIN with TPM\" or with \"Configure TPM startup key and PIN:\" set to \"Require startup key and PIN with TPM\".\n\nIf Network Unlock is active, select \"Configure TPM startup PIN:\" and set to \"Require startup PIN with TPM\".\n\n If Network Unlock is not active, select \"Configure TPM startup key and PIN:\" and set to \"Require startup key and PIN with TPM\"."
+    },
+    {
+      "id": "WN11-00-000032",
+      "sourceId": "WN11-00-000032",
+      "name": "Windows 11 systems must use a BitLocker PIN with a minimum length of six digits for pre-boot authentication.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\FVE",
+        "name": "MinimumPIN"
+      },
+      "operator": ">=",
+      "recommendedValue": "6",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> BitLocker Drive Encryption >> Operating System Drives \"Configure minimum PIN length for startup\" to \"Enabled\" with \"Minimum characters:\" set to \"6\" or greater."
+    },
+    {
+      "id": "WN11-00-000040",
+      "sourceId": "WN11-00-000040",
+      "name": "Windows 11 systems must be maintained at a supported servicing level.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion",
+        "name": "CurrentVersion"
+      },
+      "operator": ">=",
+      "recommendedValue": "6.3",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Update systems on the Semi-Annual Channel to \"Microsoft Windows 11 Version 22H2 (OS Build 22621.380)\" or greater."
+    },
+    {
+      "id": "WN11-00-000050",
+      "sourceId": "WN11-00-000050",
+      "name": "Local volumes must be formatted using NTFS.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Format all local volumes to use NTFS."
+    },
+    {
+      "id": "WN11-00-000100",
+      "sourceId": "WN11-00-000100",
+      "name": "Internet Information System (IIS) or its subcomponents must not be installed on a workstation.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Uninstall \"Internet Information Services\" or \"Internet Information Services Hostable Web Core\" from the system."
+    },
+    {
+      "id": "WN11-00-000110",
+      "sourceId": "WN11-00-000110",
+      "name": "Simple TCP/IP Services must not be installed on the system.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Uninstall \"Simple TCPIP Services (i.e. echo, daytime etc.)\" from the system.\n\nRun \"Programs and Features\".\nSelect \"Turn Windows Features on or off\".\nDe-select \"Simple TCPIP Services (i.e. echo, daytime etc.)\"."
+    },
+    {
+      "id": "WN11-00-000115",
+      "sourceId": "WN11-00-000115",
+      "name": "The Telnet Client must not be installed on the system.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Uninstall \"Telnet Client\" from the system.\n\nRun \"Programs and Features\".\nSelect \"Turn Windows Features on or off\".\n\nDe-select \"Telnet Client\"."
+    },
+    {
+      "id": "WN11-00-000120",
+      "sourceId": "WN11-00-000120",
+      "name": "The TFTP Client must not be installed on the system.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Uninstall \"TFTP Client\" from the system.\n\nRun \"Programs and Features\".\nSelect \"Turn Windows Features on or off\".\nDe-select \"TFTP Client\"."
+    },
+    {
+      "id": "WN11-00-000150",
+      "sourceId": "WN11-00-000150",
+      "name": "Structured Exception Handling Overwrite Protection (SEHOP) must be enabled.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\kernel",
+        "name": "DisableExceptionChainValidation"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"Enable Structured Exception Handling Overwrite Protection (SEHOP)\" to \"Enabled\".\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-00-000155",
+      "sourceId": "WN11-00-000155",
+      "name": "The Windows PowerShell 2.0 feature must be disabled on the system.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Disable \"Windows PowerShell 2.0\" on the system.\n\nRun \"Windows PowerShell\" with elevated privileges (run as administrator).\nEnter the following:\nDisable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowerShellV2Root\n\nThis command must disable both \"MicrosoftWindowsPowerShellV2Root\" and \"MicrosoftWindowsPowerShellV2\", which correspond to \"Windows PowerShell 2.0\" and \"Windows PowerShell 2.0 Engine\" respectively in \"Turn Windows features on or off\".\n\nAlternately:\nSearch for \"Features\".\nSelect \"Turn Windows features on or off\".\nDe-select \"Windows PowerShell 2.0\"."
+    },
+    {
+      "id": "WN11-00-000160",
+      "sourceId": "WN11-00-000160",
+      "name": "The Server Message Block (SMB) v1 protocol must be disabled on the system.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Disable the SMBv1 protocol.\n\nRun \"Windows PowerShell\" with elevated privileges (run as administrator).\n\nEnter the following:\nDisable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol\n\nAlternately:\nSearch for \"Features\".\n\nSelect \"Turn Windows features on or off\".\n\nDe-select \"SMB 1.0/CIFS File Sharing Support\"."
+    },
+    {
+      "id": "WN11-00-000165",
+      "sourceId": "WN11-00-000165",
+      "name": "The Server Message Block (SMB) v1 protocol must be disabled on the SMB server.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"Configure SMBv1 Server\" to \"Disabled\".\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories, respectively.  \n\nThe system must be restarted for the change to take effect."
+    },
+    {
+      "id": "WN11-00-000170",
+      "sourceId": "WN11-00-000170",
+      "name": "The Server Message Block (SMB) v1 protocol must be disabled on the SMB client.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"Configure SMBv1 client driver\" to \"Enabled\" with \"Disable driver (recommended)\" selected for \"Configure MrxSmb10 driver\".\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories, respectively.  \n\nThe system must be restarted for the changes to take effect."
+    },
+    {
+      "id": "WN11-00-000175",
+      "sourceId": "WN11-00-000175",
+      "name": "The Secondary Logon service must be disabled on Windows 11.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the \"Secondary Logon\" service \"Startup Type\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-AC-000005",
+      "sourceId": "WN11-AC-000005",
+      "name": "Windows 11 account lockout duration must be configured to 15 minutes or greater.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "lockoutpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> \"Account lockout duration\" to \"15\" minutes or greater.\n\nA value of \"0\" is also acceptable, requiring an administrator to unlock the account."
+    },
+    {
+      "id": "WN11-AC-000010",
+      "sourceId": "WN11-AC-000010",
+      "name": "The number of allowed bad logon attempts must be configured to three or less.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "lockoutpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> \"Account lockout threshold\" to \"3\" or less invalid logon attempts (excluding \"0\" which is unacceptable)."
+    },
+    {
+      "id": "WN11-AC-000015",
+      "sourceId": "WN11-AC-000015",
+      "name": "The period of time before the bad logon counter is reset must be configured to 15 minutes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "lockoutpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Account Lockout Policy >> \"Reset account lockout counter after\" to \"15\" minutes."
+    },
+    {
+      "id": "WN11-AC-000020",
+      "sourceId": "WN11-AC-000020",
+      "name": "The password history must be configured to 24 passwords remembered.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Enforce password history\" to \"24\" passwords remembered."
+    },
+    {
+      "id": "WN11-AC-000025",
+      "sourceId": "WN11-AC-000025",
+      "name": "The maximum password age must be configured to 60 days or less.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Maximum Password Age\" to \"60\" days or less (excluding \"0\" which is unacceptable)."
+    },
+    {
+      "id": "WN11-AC-000030",
+      "sourceId": "WN11-AC-000030",
+      "name": "The minimum password age must be configured to at least 1 day.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Minimum Password Age\" to at least \"1\" day."
+    },
+    {
+      "id": "WN11-AC-000035",
+      "sourceId": "WN11-AC-000035",
+      "name": "Passwords must, at a minimum, be 14 characters.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Minimum password length\" to \"14\" characters."
+    },
+    {
+      "id": "WN11-AC-000040",
+      "sourceId": "WN11-AC-000040",
+      "name": "The built-in Microsoft password complexity filter must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Password must meet complexity requirements\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-AC-000045",
+      "sourceId": "WN11-AC-000045",
+      "name": "Reversible password encryption must be disabled.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accountpolicy",
+        "ovalType": "passwordpolicy_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Account Policies >> Password Policy >> \"Store passwords using reversible encryption\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-AU-000005",
+      "sourceId": "WN11-AU-000005",
+      "name": "The system must be configured to audit Account Logon - Credential Validation failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Account Logon >> \"Audit Credential Validation\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000010",
+      "sourceId": "WN11-AU-000010",
+      "name": "The system must be configured to audit Account Logon - Credential Validation successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Account Logon >> \"Audit Credential Validation\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000030",
+      "sourceId": "WN11-AU-000030",
+      "name": "The system must be configured to audit Account Management - Security Group Management successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Account Management >> \"Audit Security Group Management\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000035",
+      "sourceId": "WN11-AU-000035",
+      "name": "The system must be configured to audit Account Management - User Account Management failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Account Management >> \"Audit User Account Management\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000040",
+      "sourceId": "WN11-AU-000040",
+      "name": "The system must be configured to audit Account Management - User Account Management successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Account Management >> \"Audit User Account Management\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000045",
+      "sourceId": "WN11-AU-000045",
+      "name": "The system must be configured to audit Detailed Tracking - PNP Activity successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Computer Configuration >> Windows Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Detailed Tracking >> \"Audit PNP Activity\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000050",
+      "sourceId": "WN11-AU-000050",
+      "name": "The system must be configured to audit Detailed Tracking - Process Creation successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Detailed Tracking >> \"Audit Process Creation\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000054",
+      "sourceId": "WN11-AU-000054",
+      "name": "The system must be configured to audit Logon/Logoff - Account Lockout failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Account Lockout\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000060",
+      "sourceId": "WN11-AU-000060",
+      "name": "The system must be configured to audit Logon/Logoff - Group Membership successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Group Membership\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000065",
+      "sourceId": "WN11-AU-000065",
+      "name": "The system must be configured to audit Logon/Logoff - Logoff successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Logoff\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000070",
+      "sourceId": "WN11-AU-000070",
+      "name": "The system must be configured to audit Logon/Logoff - Logon failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Logon\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000075",
+      "sourceId": "WN11-AU-000075",
+      "name": "The system must be configured to audit Logon/Logoff - Logon successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Logon\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000080",
+      "sourceId": "WN11-AU-000080",
+      "name": "The system must be configured to audit Logon/Logoff - Special Logon successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Special Logon\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000081",
+      "sourceId": "WN11-AU-000081",
+      "name": "Windows 11 must be configured to audit Object Access - File Share failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit File Share\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000082",
+      "sourceId": "WN11-AU-000082",
+      "name": "Windows 11 must be configured to audit Object Access - File Share successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit File Share\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000083",
+      "sourceId": "WN11-AU-000083",
+      "name": "Windows 11 must be configured to audit Object Access - Other Object Access Events successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Other Object Access Events\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000084",
+      "sourceId": "WN11-AU-000084",
+      "name": "Windows 11 must be configured to audit Object Access - Other Object Access Events failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Other Object Access Events\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000085",
+      "sourceId": "WN11-AU-000085",
+      "name": "The system must be configured to audit Object Access - Removable Storage failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Removable Storage\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000090",
+      "sourceId": "WN11-AU-000090",
+      "name": "The system must be configured to audit Object Access - Removable Storage successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Removable Storage\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000100",
+      "sourceId": "WN11-AU-000100",
+      "name": "The system must be configured to audit Policy Change - Audit Policy Change successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change >> \"Audit Policy Change\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000105",
+      "sourceId": "WN11-AU-000105",
+      "name": "The system must be configured to audit Policy Change - Authentication Policy Change successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change >> \"Audit Authentication Policy Change\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000107",
+      "sourceId": "WN11-AU-000107",
+      "name": "The system must be configured to audit Policy Change - Authorization Policy Change successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change >> \"Audit Authorization Policy Change\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000110",
+      "sourceId": "WN11-AU-000110",
+      "name": "The system must be configured to audit Privilege Use - Sensitive Privilege Use failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Privilege Use >> \"Audit Sensitive Privilege Use\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000115",
+      "sourceId": "WN11-AU-000115",
+      "name": "The system must be configured to audit Privilege Use - Sensitive Privilege Use successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Privilege Use >> \"Audit Sensitive Privilege Use\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000120",
+      "sourceId": "WN11-AU-000120",
+      "name": "The system must be configured to audit System - IPsec Driver failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit IPsec Driver\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000130",
+      "sourceId": "WN11-AU-000130",
+      "name": "The system must be configured to audit System - Other System Events successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit Other System Events\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000135",
+      "sourceId": "WN11-AU-000135",
+      "name": "The system must be configured to audit System - Other System Events failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit Other System Events\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000140",
+      "sourceId": "WN11-AU-000140",
+      "name": "The system must be configured to audit System - Security State Change successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit Security State Change\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000150",
+      "sourceId": "WN11-AU-000150",
+      "name": "The system must be configured to audit System - Security System Extension successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit Security System Extension\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000155",
+      "sourceId": "WN11-AU-000155",
+      "name": "The system must be configured to audit System - System Integrity failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit System Integrity\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000160",
+      "sourceId": "WN11-AU-000160",
+      "name": "The system must be configured to audit System - System Integrity successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> System >> \"Audit System Integrity\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000500",
+      "sourceId": "WN11-AU-000500",
+      "name": "The Application event log size must be configured to 32768 KB or greater.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Application",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "If the system is configured to send audit records directly to an audit server, this is NA. This must be documented with the ISSO.\n\nConfigure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Event Log Service >> Application >> \"Specify the maximum log file size (KB)\" to \"Enabled\" with a \"Maximum Log Size (KB)\" of \"32768\" or greater."
+    },
+    {
+      "id": "WN11-AU-000505",
+      "sourceId": "WN11-AU-000505",
+      "name": "The security event log size must be configured to a value that holds at least one week's worth of audit records.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\Security",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "5120000",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Event Log Service >> Security >> \"Specify the maximum log file size (KB)\" to \"Enabled\" with a \"Maximum Log Size (KB)\" of a value that will contain one week of audit records or greater.\n\nIf the system is configured to send audit records directly to an audit server, this must be documented with the ISSO."
+    },
+    {
+      "id": "WN11-AU-000510",
+      "sourceId": "WN11-AU-000510",
+      "name": "The System event log size must be configured to 32768 KB or greater.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\EventLog\\System",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "If the system is configured to send audit records directly to an audit server, this is NA. This must be documented with the ISSO.\n\nConfigure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Event Log Service >> System >> \"Specify the maximum log file size (KB)\" to \"Enabled\" with a \"Maximum Log Size (KB)\" of \"32768\" or greater."
+    },
+    {
+      "id": "WN11-AU-000515",
+      "sourceId": "WN11-AU-000515",
+      "name": "Windows 11 permissions for the Application event log must prevent access by non-privileged accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Ensure the permissions on the Application event log (Application.evtx) are configured to prevent standard user accounts or groups from having access. The default permissions listed below satisfy this requirement.\n\nEventlog - Full Control\nSYSTEM - Full Control\nAdministrators - Full Control\n\nThe default location is the \"%SystemRoot%\\SYSTEM32\\WINEVT\\LOGS\" directory.\n\nIf the location of the logs has been changed, when adding Eventlog to the permissions, it must be entered as \"NT Service\\Eventlog\"."
+    },
+    {
+      "id": "WN11-AU-000520",
+      "sourceId": "WN11-AU-000520",
+      "name": "Windows 11 permissions for the Security event log must prevent access by non-privileged accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Ensure the permissions on the Security event log (Security.evtx) are configured to prevent standard user accounts or groups from having access. The default permissions listed below satisfy this requirement.\n\nEventlog - Full Control\nSYSTEM - Full Control\nAdministrators - Full Control\n\nThe default location is the \"%SystemRoot%\\SYSTEM32\\WINEVT\\LOGS\" directory.\n\nIf the location of the logs has been changed, when adding Eventlog to the permissions, it must be entered as \"NT Service\\Eventlog\"."
+    },
+    {
+      "id": "WN11-AU-000525",
+      "sourceId": "WN11-AU-000525",
+      "name": "Windows 11 permissions for the System event log must prevent access by non-privileged accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Ensure the permissions on the System event log (System.evtx) are configured to prevent standard user accounts or groups from having access. The default permissions listed below satisfy this requirement.\n\nEventlog - Full Control\nSYSTEM - Full Control\nAdministrators - Full Control\n\nThe default location is the \"%SystemRoot%\\SYSTEM32\\WINEVT\\LOGS\" directory.\n\nIf the location of the logs has been changed, when adding Eventlog to the permissions, it must be entered as \"NT Service\\Eventlog\"."
+    },
+    {
+      "id": "WN11-AU-000555",
+      "sourceId": "WN11-AU-000555",
+      "name": "Windows 11 must be configured to audit Other Policy Change Events Failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change>> \"Audit Other Policy Change Events\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000560",
+      "sourceId": "WN11-AU-000560",
+      "name": "Windows 11 must be configured to audit other Logon/Logoff Events Successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Other Logon/Logoff Events\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000565",
+      "sourceId": "WN11-AU-000565",
+      "name": "Windows 11 must be configured to audit other Logon/Logoff Events Failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Logon/Logoff >> \"Audit Other Logon/Logoff Events\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000570",
+      "sourceId": "WN11-AU-000570",
+      "name": "Windows 11 must be configured to audit Detailed File Share Failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> Audit Detailed File Share\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000575",
+      "sourceId": "WN11-AU-000575",
+      "name": "Windows 11 must be configured to audit MPSSVC Rule-Level Policy Change Successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change >> Audit MPSSVC Rule-Level Policy Change\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000580",
+      "sourceId": "WN11-AU-000580",
+      "name": "Windows 11 must be configured to audit MPSSVC Rule-Level Policy Change Failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Policy Change >> Audit MPSSVC Rule-Level Policy Change\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-CC-000010",
+      "sourceId": "WN11-CC-000010",
+      "name": "The display of slide shows on the lock screen must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoLockScreenSlideshow"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Control Panel >> Personalization >> \"Prevent enabling lock screen slide show\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000020",
+      "sourceId": "WN11-CC-000020",
+      "name": "IPv6 source routing must be configured to highest protection.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+        "name": "DisableIPSourceRouting"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MSS (Legacy) >> \"MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)\" to \"Highest protection, source routing is completely disabled\".\n\nThis policy setting requires the installation of the MSS-Legacy custom templates included with the STIG package. \"MSS-Legacy.admx\" and \"MSS-Legacy.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000025",
+      "sourceId": "WN11-CC-000025",
+      "name": "The system must be configured to prevent IP source routing.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+        "name": "DisableIPSourceRouting"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MSS (Legacy) >> \"MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)\" to \"Highest protection, source routing is completely disabled\".\n\nThis policy setting requires the installation of the MSS-Legacy custom templates included with the STIG package. \"MSS-Legacy.admx\" and \"MSS-Legacy.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000030",
+      "sourceId": "WN11-CC-000030",
+      "name": "The system must be configured to prevent Internet Control Message Protocol (ICMP) redirects from overriding Open Shortest Path First (OSPF) generated routes.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+        "name": "EnableICMPRedirect"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MSS (Legacy) >> \"MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes\" to \"Disabled\".\n\nThis policy setting requires the installation of the MSS-Legacy custom templates included with the STIG package. \"MSS-Legacy.admx\" and \"MSS-Legacy.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000035",
+      "sourceId": "WN11-CC-000035",
+      "name": "The system must be configured to ignore NetBIOS name release requests except from WINS servers.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netbt\\Parameters",
+        "name": "NoNameReleaseOnDemand"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MSS (Legacy) >> \"MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers\" to \"Enabled\".\n\nThis policy setting requires the installation of the MSS-Legacy custom templates included with the STIG package. \"MSS-Legacy.admx\" and \"MSS-Legacy.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000037",
+      "sourceId": "WN11-CC-000037",
+      "name": "Local administrator accounts must have their privileged token filtered to prevent elevated privileges from being used over the network on domain systems.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "LocalAccountTokenFilterPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"Apply UAC restrictions to local accounts on network logons\" to \"Enabled\".\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000038",
+      "sourceId": "WN11-CC-000038",
+      "name": "WDigest Authentication must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\Wdigest",
+        "name": "UseLogonCredential"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"WDigest Authentication (disabling may require KB2871997)\" to \"Disabled\".\n\nThe patch referenced in the policy title is not required for Windows 11.\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000039",
+      "sourceId": "WN11-CC-000039",
+      "name": "Run as different user must be removed from context menus.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Classes\\batfile\\shell\\runasuser",
+        "name": "SuppressionPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "4096",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> MS Security Guide >> \"Remove \"Run as Different User\" from context menus\" to \"Enabled\".\n\nThis policy setting requires the installation of the SecGuide custom templates included with the STIG package. \"SecGuide.admx\" and \"SecGuide.adml\" must be copied to the \\Windows\\PolicyDefinitions and \\Windows\\PolicyDefinitions\\en-US directories respectively."
+    },
+    {
+      "id": "WN11-CC-000040",
+      "sourceId": "WN11-CC-000040",
+      "name": "Insecure logons to an SMB server must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "AllowInsecureGuestAuth"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Network >> Lanman Workstation >> \"Enable insecure guest logons\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000044",
+      "sourceId": "WN11-CC-000044",
+      "name": "Internet connection sharing must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Network Connections",
+        "name": "NC_ShowSharedAccessUI"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Network >> Network Connections >> \"Prohibit use of Internet Connection Sharing on your DNS domain network\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000050",
+      "sourceId": "WN11-CC-000050",
+      "name": "Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\\\*\\SYSVOL and \\\\*\\NETLOGON shares.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+        "name": "\\\\*\\SYSVOL"
+      },
+      "operator": "=",
+      "recommendedValue": "(^| *, *)RequireMutualAuthentication=1( *, *|$)",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Network >> Network Provider >> \"Hardened UNC Paths\" to \"Enabled\" with at least the following configured in \"Hardened UNC Paths:\" (click the \"Show\" button to display).\n\nValue Name: \\\\*\\SYSVOL\nValue: RequireMutualAuthentication=1, RequireIntegrity=1\n\nValue Name: \\\\*\\NETLOGON\nValue: RequireMutualAuthentication=1, RequireIntegrity=1"
+    },
+    {
+      "id": "WN11-CC-000055",
+      "sourceId": "WN11-CC-000055",
+      "name": "Simultaneous connections to the internet or a Windows domain must be limited.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy",
+        "name": "fMinimizeConnections"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior for \"Minimize the number of simultaneous connections to the Internet or a Windows Domain\" is \"Enabled\".\n\nIf this needs to be corrected, configure the policy value for Computer Configuration >> Administrative Templates >> Network >> Windows Connection Manager >> \"Minimize the number of simultaneous connections to the Internet or a Windows Domain\" to \"Enabled\".  Under \"Options\", set \"Minimize Policy Options\" to \"3 = Prevent Wi-Fi When on Ethernet\"."
+    },
+    {
+      "id": "WN11-CC-000060",
+      "sourceId": "WN11-CC-000060",
+      "name": "Connections to non-domain networks when connected to a domain authenticated network must be blocked.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy\\",
+        "name": "fBlockNonDomain"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Network >> Windows Connection Manager >> \"Prohibit connection to non-domain networks when connected to domain authenticated network\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000065",
+      "sourceId": "WN11-CC-000065",
+      "name": "Wi-Fi Sense must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\WcmSvc\\wifinetworkmanager\\config",
+        "name": "AutoConnectAllowedOEM"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Network >> WLAN Service >> WLAN Settings>> \"Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000066",
+      "sourceId": "WN11-CC-000066",
+      "name": "Command line data must be included in process creation events.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit",
+        "name": "ProcessCreationIncludeCmdLine_Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Audit Process Creation >> \"Include command line in process creation events\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000068",
+      "sourceId": "WN11-CC-000068",
+      "name": "Windows 11 must be configured to enable Remote host allows delegation of non-exportable credentials.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CredentialsDelegation",
+        "name": "AllowProtectedCreds"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Credentials Delegation >> \"Remote host allows delegation of non-exportable credentials\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000085",
+      "sourceId": "WN11-CC-000085",
+      "name": "Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Policies\\EarlyLaunch",
+        "name": "DriverLoadPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Ensure that Early Launch Antimalware - Boot-Start Driver Initialization policy is set to enforce \"Good, unknown and bad but critical\" (preventing \"bad\").\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> System >> Early Launch Antimalware >> \"Boot-Start Driver Initialization Policy\" to \"Enabled with \"Good, unknown and bad but critical\" selected."
+    },
+    {
+      "id": "WN11-CC-000090",
+      "sourceId": "WN11-CC-000090",
+      "name": "Group Policy objects must be reprocessed even if they have not changed.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Group Policy >> \"Configure registry policy processing\" to \"Enabled\" and select the option \"Process even if the Group Policy objects have not changed\"."
+    },
+    {
+      "id": "WN11-CC-000100",
+      "sourceId": "WN11-CC-000100",
+      "name": "Downloading print driver packages over HTTP must be prevented.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "DisableWebPnPDownload"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Internet Communication Management >> Internet Communication settings >> \"Turn off downloading of print drivers over HTTP\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000105",
+      "sourceId": "WN11-CC-000105",
+      "name": "Web publishing and online ordering wizards must be prevented from downloading a list of providers.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoWebServices"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Internet Communication Management >> Internet Communication settings >> \"Turn off Internet download for Web publishing and online ordering wizards\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000110",
+      "sourceId": "WN11-CC-000110",
+      "name": "Printing over HTTP must be prevented.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "DisableHTTPPrinting"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Internet Communication Management >> Internet Communication settings >> \"Turn off printing over HTTP\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000115",
+      "sourceId": "WN11-CC-000115",
+      "name": "Systems must at least attempt device authentication using certificates.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+        "name": "DevicePKInitEnabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "This requirement is applicable to domain-joined systems, for standalone systems this is NA.\n\nThe default behavior for \"Support device authentication using certificate\" is \"Automatic\".\n\nTo correct this, configured the policy value for Computer Configuration >> Administrative Templates >> System >> Kerberos >> \"Support device authentication using certificate\" to \"Not Configured or \"Enabled\" with either option selected in \"Device authentication behavior using certificate:\"."
+    },
+    {
+      "id": "WN11-CC-000120",
+      "sourceId": "WN11-CC-000120",
+      "name": "The network selection user interface (UI) must not be displayed on the logon screen.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "DontDisplayNetworkSelectionUI"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Logon >> \"Do not display network selection UI\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000130",
+      "sourceId": "WN11-CC-000130",
+      "name": "Local users on domain-joined computers must not be enumerated.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
+        "name": "EnumerateLocalUsers"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "This requirement is applicable to domain-joined systems, for standalone systems this is NA.\n\nConfigure the policy value for Computer Configuration >> Administrative Templates >> System >> Logon >> \"Enumerate local users on domain-joined computers\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000145",
+      "sourceId": "WN11-CC-000145",
+      "name": "Users must be prompted for a password on resume from sleep (on battery).",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+        "name": "DCSettingIndex"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Power Management >> Sleep Settings >> \"Require a password when a computer wakes (on battery)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000150",
+      "sourceId": "WN11-CC-000150",
+      "name": "The user must be prompted for a password on resume from sleep (plugged in).",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+        "name": "ACSettingIndex"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Power Management >> Sleep Settings >> \"Require a password when a computer wakes (plugged in)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000155",
+      "sourceId": "WN11-CC-000155",
+      "name": "Solicited Remote Assistance must not be allowed.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fAllowToGetHelp"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Remote Assistance >> \"Configure Solicited Remote Assistance\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000165",
+      "sourceId": "WN11-CC-000165",
+      "name": "Unauthenticated RPC clients must be restricted from connecting to the RPC server.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Rpc",
+        "name": "RestrictRemoteClients"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Remote Procedure Call >> \"Restrict Unauthenticated RPC clients\" to \"Enabled\" and \"Authenticated\"."
+    },
+    {
+      "id": "WN11-CC-000170",
+      "sourceId": "WN11-CC-000170",
+      "name": "The setting to allow Microsoft accounts to be optional for modern style apps must be enabled.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "MSAOptional"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> App Runtime >> \"Allow Microsoft accounts to be optional\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000175",
+      "sourceId": "WN11-CC-000175",
+      "name": "The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppCompat",
+        "name": "DisableInventory"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Application Compatibility >> \"Turn off Inventory Collector\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000180",
+      "sourceId": "WN11-CC-000180",
+      "name": "Autoplay must be turned off for non-volume devices.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoAutoplayfornonVolume"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> AutoPlay Policies >> \"Disallow Autoplay for non-volume devices\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000185",
+      "sourceId": "WN11-CC-000185",
+      "name": "The default autorun behavior must be configured to prevent autorun commands.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoAutorun"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> AutoPlay Policies >> \"Set the default behavior for AutoRun\" to \"Enabled:Do not execute any autorun commands\"."
+    },
+    {
+      "id": "WN11-CC-000190",
+      "sourceId": "WN11-CC-000190",
+      "name": "Autoplay must be disabled for all drives.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoDriveTypeAutoRun"
+      },
+      "operator": "=",
+      "recommendedValue": "255",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> AutoPlay Policies >> \"Turn off AutoPlay\" to \"Enabled:All Drives\"."
+    },
+    {
+      "id": "WN11-CC-000195",
+      "sourceId": "WN11-CC-000195",
+      "name": "Enhanced anti-spoofing for facial recognition must be enabled on Windows 11.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Biometrics\\FacialFeatures",
+        "name": "EnhancedAntiSpoofing"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Biometrics >> Facial Features >> \"Configure enhanced anti-spoofing\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000197",
+      "sourceId": "WN11-CC-000197",
+      "name": "Microsoft consumer experiences must be turned off.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableWindowsConsumerFeatures"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Cloud Content >> \"Turn off Microsoft consumer experiences\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000200",
+      "sourceId": "WN11-CC-000200",
+      "name": "Administrator accounts must not be enumerated during elevation.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI",
+        "name": "EnumerateAdministrators"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Credential User Interface >> \"Enumerate administrator accounts on elevation\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000205",
+      "sourceId": "WN11-CC-000205",
+      "name": "Windows Telemetry must not be configured to Full.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "AllowTelemetry"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Data Collection and Preview Builds >> \"Allow Diagnostic Data\" to \"Enabled\" with \"Send required diagnostic data\" selected in \"Options:\"."
+    },
+    {
+      "id": "WN11-CC-000206",
+      "sourceId": "WN11-CC-000206",
+      "name": "Windows Update must not obtain updates from other PCs on the internet.",
+      "category": "DoD STIG (low)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Delivery Optimization >> \"Download Mode\" to \"Enabled\" with any option except \"Internet\" selected.\n\nAcceptable selections include:\nBypass (100)\nGroup (2)\nHTTP only (0)\nLAN (1)\nSimple (99)\n\n."
+    },
+    {
+      "id": "WN11-CC-000210",
+      "sourceId": "WN11-CC-000210",
+      "name": "The Microsoft Defender SmartScreen for Explorer must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
+        "name": "EnableSmartScreen"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> File Explorer >> \"Configure Windows Defender SmartScreen\" to \"Enabled\" with \"Warn and prevent bypass\" selected. \n\nWindows 11 includes duplicate policies for this setting. It can also be configured under Computer Configuration >> Administrative Templates >> Windows Components >> Windows Defender SmartScreen >> Explorer."
+    },
+    {
+      "id": "WN11-CC-000215",
+      "sourceId": "WN11-CC-000215",
+      "name": "Explorer Data Execution Prevention must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoDataExecutionPrevention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior is for data execution prevention to be turned on for file explorer.\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> File Explorer >> \"Turn off Data Execution Prevention for Explorer\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000220",
+      "sourceId": "WN11-CC-000220",
+      "name": "File Explorer heap termination on corruption must be disabled.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoHeapTerminationOnCorruption"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "The default behavior is for File Explorer heap termination on corruption to be enabled.\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> File Explorer >> \"Turn off heap termination on corruption\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000225",
+      "sourceId": "WN11-CC-000225",
+      "name": "File Explorer shell protocol must run in protected mode.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "PreXPSP2ShellProtocolBehavior"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior is for shell protected mode to be turned on for file explorer.\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> File Explorer >> \"Turn off shell protocol protected mode\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000252",
+      "sourceId": "WN11-CC-000252",
+      "name": "Windows 11 must be configured to disable Windows Game Recording and Broadcasting.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\GameDVR",
+        "name": "AllowGameDVR"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Game Recording and Broadcasting >> \"Enables or disables Windows Game Recording and Broadcasting\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000255",
+      "sourceId": "WN11-CC-000255",
+      "name": "The use of a hardware security device with Windows Hello for Business must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\PassportForWork",
+        "name": "RequireSecurityDevice"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Hello for Business >> \"Use a hardware security device\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000260",
+      "sourceId": "WN11-CC-000260",
+      "name": "Windows 11 must be configured to require a minimum pin length of six characters or greater.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\PassportForWork\\PINComplexity",
+        "name": "MinimumPINLength"
+      },
+      "operator": ">=",
+      "recommendedValue": "6",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> PIN Complexity >> \"Minimum PIN length\" to \"6\" or greater."
+    },
+    {
+      "id": "WN11-CC-000270",
+      "sourceId": "WN11-CC-000270",
+      "name": "Passwords must not be saved in the Remote Desktop Client.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "DisablePasswordSaving"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Remote Desktop Services >> Remote Desktop Connection Client >> \"Do not allow passwords to be saved\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000275",
+      "sourceId": "WN11-CC-000275",
+      "name": "Local drives must be prevented from sharing with Remote Desktop Session Hosts.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fDisableCdm"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Remote Desktop Services >> Remote Desktop Session Host >> Device and Resource Redirection >> \"Do not allow drive redirection\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000280",
+      "sourceId": "WN11-CC-000280",
+      "name": "Remote Desktop Services must always prompt a client for passwords upon connection.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fPromptForPassword"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Remote Desktop Services >> Remote Desktop Session Host >> Security >> \"Always prompt for password upon connection\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000285",
+      "sourceId": "WN11-CC-000285",
+      "name": "The Remote Desktop Session Host must require secure RPC communications.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fEncryptRPCTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Remote Desktop Services >> Remote Desktop Session Host >> Security \"Require secure RPC communication\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000290",
+      "sourceId": "WN11-CC-000290",
+      "name": "Remote Desktop Services must be configured with the client connection encryption set to the required level.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "MinEncryptionLevel"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Remote Desktop Services >> Remote Desktop Session Host >> Security >> \"Set client connection encryption level\" to \"Enabled\" and \"High Level\"."
+    },
+    {
+      "id": "WN11-CC-000295",
+      "sourceId": "WN11-CC-000295",
+      "name": "Attachments must be prevented from being downloaded from RSS feeds.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Feeds",
+        "name": "DisableEnclosureDownload"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> RSS Feeds >> \"Prevent downloading of enclosures\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000300",
+      "sourceId": "WN11-CC-000300",
+      "name": "Basic authentication for RSS feeds over HTTP must not be used.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Internet Explorer\\Feeds",
+        "name": "AllowBasicAuthInClear"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior is for the Windows RSS platform to not use Basic authentication over HTTP connections.\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> RSS Feeds >> \"Turn on Basic feed authentication over HTTP\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000305",
+      "sourceId": "WN11-CC-000305",
+      "name": "Indexing of encrypted files must be turned off.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search",
+        "name": "AllowIndexingEncryptedStoresOrItems"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Search >> \"Allow indexing of encrypted files\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000310",
+      "sourceId": "WN11-CC-000310",
+      "name": "Users must be prevented from changing installation options.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer",
+        "name": "EnableUserControl"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Installer >> \"Allow user control over installs\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000315",
+      "sourceId": "WN11-CC-000315",
+      "name": "The Windows Installer feature \"Always install with elevated privileges\" must be disabled.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer",
+        "name": "AlwaysInstallElevated"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Installer >> \"Always install with elevated privileges\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000320",
+      "sourceId": "WN11-CC-000320",
+      "name": "Users must be notified if a web-based program attempts to install software.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\Installer",
+        "name": "SafeForScripting"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior is for Internet Explorer to warn users and select whether to allow or refuse installation when a web-based program attempts to install software on the system.\n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Installer >> \"Prevent Internet Explorer security prompt for Windows Installer scripts\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000325",
+      "sourceId": "WN11-CC-000325",
+      "name": "Automatically signing in the last interactive user after a system-initiated restart must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "DisableAutomaticRestartSignOn"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Logon Options >> \"Sign-in last interactive user automatically after a system-initiated restart\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000326",
+      "sourceId": "WN11-CC-000326",
+      "name": "PowerShell script block logging must be enabled on Windows 11.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\ScriptBlockLogging",
+        "name": "EnableScriptBlockLogging"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows PowerShell >> \"Turn on PowerShell Script Block Logging\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000327",
+      "sourceId": "WN11-CC-000327",
+      "name": "PowerShell Transcription must be enabled on Windows 11.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\PowerShell\\Transcription",
+        "name": "EnableTranscripting"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows PowerShell >> \"Turn on PowerShell Transcription\" to \"Enabled\".\n\nSpecify the Transcript output directory to point to a Central Log Server or another secure location to prevent user access."
+    },
+    {
+      "id": "WN11-CC-000330",
+      "sourceId": "WN11-CC-000330",
+      "name": "The Windows Remote Management (WinRM) client must not use Basic authentication.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowBasic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Client >> \"Allow Basic authentication\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000335",
+      "sourceId": "WN11-CC-000335",
+      "name": "The Windows Remote Management (WinRM) client must not allow unencrypted traffic.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowUnencryptedTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Client >> \"Allow unencrypted traffic\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000345",
+      "sourceId": "WN11-CC-000345",
+      "name": "The Windows Remote Management (WinRM) service must not use Basic authentication.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "AllowBasic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Service >> \"Allow Basic authentication\" to \"Disabled\".\n\nSeverity Override Guidance: The AO can allow the severity override if they have reviewed the overall protection. This would only be allowed temporarily for implementation as documented and approved. \n....\nAllowing Basic authentication to be used for the sole creation of Office 365 DoD tenants.\n....\nA documented mechanism and or script that can disable Basic authentication once administration completes. \n....\nUse of a Privileged Access Workstation (PAW) and adherence to the Clean Source principle for administration."
+    },
+    {
+      "id": "WN11-CC-000350",
+      "sourceId": "WN11-CC-000350",
+      "name": "The Windows Remote Management (WinRM) service must not allow unencrypted traffic.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "AllowUnencryptedTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Service >> \"Allow unencrypted traffic\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000355",
+      "sourceId": "WN11-CC-000355",
+      "name": "The Windows Remote Management (WinRM) service must not store RunAs credentials.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "DisableRunAs"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Service >> \"Disallow WinRM from storing RunAs credentials\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000360",
+      "sourceId": "WN11-CC-000360",
+      "name": "The Windows Remote Management (WinRM) client must not use Digest authentication.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowDigest"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Remote Management (WinRM) >> WinRM Client >> \"Disallow Digest authentication\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-CC-000365",
+      "sourceId": "WN11-CC-000365",
+      "name": "Windows 11 must be configured to prevent Windows apps from being activated by voice while the system is locked.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppPrivacy",
+        "name": "LetAppsActivateWithVoice"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> App Privacy >> \"Let Windows apps activate with voice while the system is locked\" to \"Enabled\" with Default for all Apps: set to Force Deny. \n\nThe requirement is NA if the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> App Privacy >> \"Let Windows apps activate with voice\" is configured to \"Enabled\" with Default for all Apps: set to Force Deny."
+    },
+    {
+      "id": "WN11-CC-000370",
+      "sourceId": "WN11-CC-000370",
+      "name": "The convenience PIN for Windows 11 must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\System",
+        "name": "AllowDomainPINLogon"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Disable the convenience PIN sign-in. \n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> System >> Logon >> Set \"Turn on convenience PIN sign-in\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-CC-000385",
+      "sourceId": "WN11-CC-000385",
+      "name": "Windows Ink Workspace must be configured to disallow access above the lock.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\WindowsInkWorkspace",
+        "name": "AllowWindowsInkWorkspace"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Disable the convenience PIN sign-in. \n\nTo correct this, configure the policy value for Computer Configuration >> Administrative Templates >> Windows Components >> Windows Ink Workspace >> Set \"Allow Windows Ink Workspace\" to \"Enabled and set Options \"On, but disallow access above lock\"."
+    },
+    {
+      "id": "WN11-CC-000390",
+      "sourceId": "WN11-CC-000390",
+      "name": "Windows 11 must be configured to prevent users from receiving suggestions for third-party or additional applications.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableThirdPartySuggestions"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for User Configuration >> Administrative Templates. >> Windows Components >> Cloud Content >> \"Do not suggest third-party content in Windows spotlight\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-EP-000310",
+      "sourceId": "WN11-EP-000310",
+      "name": "Windows 11 Kernel (Direct Memory Access) DMA Protection must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Kernel DMA Protection",
+        "name": "DeviceEnumerationPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Administrative Templates >> System >> Kernel DMA Protection >> \"Enumeration policy for external devices incompatible with Kernel DMA Protection\" to \"Enabled\" with \"Enumeration Policy\" set to \"Block All\"."
+    },
+    {
+      "id": "WN11-PK-000005",
+      "sourceId": "WN11-PK-000005",
+      "name": "The DoD Root CA certificates must be installed in the Trusted Root Store.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Install the DoD Root CA certificates.\nDoD Root CA 3\nDoD Root CA 4\nDoD Root CA 5                                               \nDoD Root CA 6\n\nThe InstallRoot tool is available on Cyber Exchange at https://cyber.mil/pki-pke/tools-configuration-files. PKI can be found at https://crl.gds.disa.mil/."
+    },
+    {
+      "id": "WN11-PK-000010",
+      "sourceId": "WN11-PK-000010",
+      "name": "The External Root CA certificates must be installed in the Trusted Root Store on unclassified systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Install the ECA Root CA certificates on unclassified systems.\n\nECA Root CA 4\n\nThe InstallRoot tool is available on Cyber Exchange at https://cyber.mil/pki-pke/tools-configuration-files. PKI can be found at https://crl.gds.disa.mil/."
+    },
+    {
+      "id": "WN11-PK-000015",
+      "sourceId": "WN11-PK-000015",
+      "name": "The DoD Interoperability Root CA cross-certificates must be installed in the Untrusted Certificates Store on unclassified systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Install the DoD Interoperability Root CA cross-certificates on unclassified systems.  \n                                           \nIssued To - Issued By - Thumbprint\nDoD Root CA 3 - DoD Interoperability Root CA 2 - 49CBE933151872E17C8EAE7F0ABA97FB610F6477\n\nThe certificates can be installed using the InstallRoot tool. The tool and user guide are available on Cyber Exchange at https://cyber.mil/pki-pke/tools-configuration-files. Certificate bundles published by the PKI can be found at https://crl.gds.disa.mil/."
+    },
+    {
+      "id": "WN11-PK-000020",
+      "sourceId": "WN11-PK-000020",
+      "name": "The US DOD CCEB Interoperability Root CA cross-certificates must be installed in the Untrusted Certificates Store on unclassified systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Install the US DOD CCEB Interoperability Root CA cross-certificate on unclassified systems.\n\nIssued To - Issued By - Thumbprint\n9B74964506C7ED9138070D08D5F8B969866560C8\nNotAfter: 7/18/2025 9:56:22 AM                                         \nIssued To: DOD Root CA 6\nIssued By: US DOD CCEB Interoperability Root CA 2\nThumbprint: D471CA32F7A692CE6CBB6196BD3377FE4DBCD106\nNotAfter: 7/18/2026 \n\nThe certificates can be installed using the InstallRoot tool. The tool and user guide are available on Cyber Exchange at https://cyber.mil/pki-pke/tools-configuration-files. Certificate bundles published by the PKI can be found at https://crl.gds.disa.mil/."
+    },
+    {
+      "id": "WN11-SO-000010",
+      "sourceId": "WN11-SO-000010",
+      "name": "The built-in guest account must be disabled.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Accounts: Guest account status\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000015",
+      "sourceId": "WN11-SO-000015",
+      "name": "Local accounts with blank passwords must be restricted to prevent access from the network.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "LimitBlankPasswordUse"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Accounts: Limit local account use of blank passwords to console logon only\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000020",
+      "sourceId": "WN11-SO-000020",
+      "name": "The built-in administrator account must be renamed.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Accounts: Rename administrator account\" to a name other than \"Administrator\"."
+    },
+    {
+      "id": "WN11-SO-000025",
+      "sourceId": "WN11-SO-000025",
+      "name": "The built-in guest account must be renamed.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Accounts: Rename guest account\" to a name other than \"Guest\"."
+    },
+    {
+      "id": "WN11-SO-000030",
+      "sourceId": "WN11-SO-000030",
+      "name": "Audit policy using subcategories must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "SCENoApplyLegacyAuditPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Audit: Force audit policy subcategory settings (Windows Vista or later) to override audit policy category settings\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000035",
+      "sourceId": "WN11-SO-000035",
+      "name": "Outgoing secure channel traffic must be encrypted or signed.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "RequireSignOrSeal"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Digitally encrypt or sign secure channel data (always)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000040",
+      "sourceId": "WN11-SO-000040",
+      "name": "Outgoing secure channel traffic must be encrypted.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "SealSecureChannel"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Digitally encrypt secure channel data (when possible)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000045",
+      "sourceId": "WN11-SO-000045",
+      "name": "Outgoing secure channel traffic must be signed.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "SignSecureChannel"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Digitally sign secure channel data (when possible)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000050",
+      "sourceId": "WN11-SO-000050",
+      "name": "The computer account password must not be prevented from being reset.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "DisablePasswordChange"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Disable machine account password changes\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000055",
+      "sourceId": "WN11-SO-000055",
+      "name": "The maximum age for machine account passwords must be configured to 30 days or less.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "MaximumPasswordAge"
+      },
+      "operator": ">",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "This is the default configuration for this setting (30 days).\n\nConfigure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Maximum machine account password age\" to \"30\" or less (excluding 0 which is unacceptable)."
+    },
+    {
+      "id": "WN11-SO-000060",
+      "sourceId": "WN11-SO-000060",
+      "name": "The system must be configured to require a strong session key.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Netlogon\\Parameters",
+        "name": "RequireStrongKey"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Domain member: Require strong (Windows 2000 or Later) session key\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000070",
+      "sourceId": "WN11-SO-000070",
+      "name": "The machine inactivity limit must be set to 15 minutes, locking the system with the screensaver.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "InactivityTimeoutSecs"
+      },
+      "operator": "<=",
+      "recommendedValue": "900",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Interactive logon: Machine inactivity limit\" to \"900\" seconds\" or less, excluding \"0\" which is effectively disabled."
+    },
+    {
+      "id": "WN11-SO-000085",
+      "sourceId": "WN11-SO-000085",
+      "name": "Caching of logon credentials must be limited.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+        "name": "CachedLogonsCount"
+      },
+      "operator": "<=",
+      "recommendedValue": "10",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "This is the default configuration for this setting (10 logons to cache).\n\nConfigure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Interactive logon: Number of previous logons to cache (in case domain controller is not available)\" to \"10\" logons or less.\n\nThis setting only applies to domain-joined systems, however, it is configured by default on all systems."
+    },
+    {
+      "id": "WN11-SO-000095",
+      "sourceId": "WN11-SO-000095",
+      "name": "The Smart Card removal option must be configured to Force Logoff or Lock Workstation.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+        "name": "SCRemoveOption"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Interactive logon: Smart card removal behavior\" to \"Lock Workstation\" or \"Force Logoff\"."
+    },
+    {
+      "id": "WN11-SO-000100",
+      "sourceId": "WN11-SO-000100",
+      "name": "The Windows SMB client must be configured to always perform SMB packet signing.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+        "name": "RequireSecuritySignature"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Microsoft network client: Digitally sign communications (always)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000110",
+      "sourceId": "WN11-SO-000110",
+      "name": "Unencrypted passwords must not be sent to third-party SMB Servers.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+        "name": "EnablePlainTextPassword"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Microsoft network client: Send unencrypted password to third-party SMB servers\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000120",
+      "sourceId": "WN11-SO-000120",
+      "name": "The Windows SMB server must be configured to always perform SMB packet signing.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+        "name": "RequireSecuritySignature"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Microsoft network server: Digitally sign communications (always)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000145",
+      "sourceId": "WN11-SO-000145",
+      "name": "Anonymous enumeration of SAM accounts must not be allowed.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
+        "name": "RestrictAnonymousSAM"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network access: Do not allow anonymous enumeration of SAM accounts\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000150",
+      "sourceId": "WN11-SO-000150",
+      "name": "Anonymous enumeration of shares must be restricted.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "restrictanonymous"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network access: Do not allow anonymous enumeration of SAM accounts and shares\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000160",
+      "sourceId": "WN11-SO-000160",
+      "name": "The system must be configured to prevent anonymous users from having the same rights as the Everyone group.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "EveryoneIncludesAnonymous"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network access: Let Everyone permissions apply to anonymous users\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000165",
+      "sourceId": "WN11-SO-000165",
+      "name": "Anonymous access to Named Pipes and Shares must be restricted.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+        "name": "restrictnullsessaccess"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network access: Restrict anonymous access to Named Pipes and Shares\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000167",
+      "sourceId": "WN11-SO-000167",
+      "name": "Remote calls to the Security Account Manager (SAM) must be restricted to Administrators.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "RestrictRemoteSAM"
+      },
+      "operator": "=",
+      "recommendedValue": "O:BAG:BAD:(A;;RC;;;BA)",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Navigate to the policy Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network access: Restrict clients allowed to make remote calls to SAM\".\n\nSelect \"Edit Security\" to configure the \"Security descriptor:\".\n\nAdd \"Administrators\" in \"Group or user names:\" if it is not already listed (this is the default).\n\nSelect \"Administrators\" in \"Group or user names:\".\n\nSelect \"Allow\" for \"Remote Access\" in \"Permissions for \"Administrators\".\n\nClick \"OK\".\n\nThe \"Security descriptor:\" must be populated with \"O:BAG:BAD:(A;;RC;;;BA) for the policy to be enforced."
+    },
+    {
+      "id": "WN11-SO-000180",
+      "sourceId": "WN11-SO-000180",
+      "name": "NTLM must be prevented from falling back to a Null session.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\LSA\\MSV1_0",
+        "name": "allownullsessionfallback"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Allow LocalSystem NULL session fallback\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000185",
+      "sourceId": "WN11-SO-000185",
+      "name": "PKU2U authentication using online identities must be prevented.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\LSA\\pku2u",
+        "name": "AllowOnlineID"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Allow PKU2U authentication requests to this computer to use online identities\" to \"Disabled\"."
+    },
+    {
+      "id": "WN11-SO-000190",
+      "sourceId": "WN11-SO-000190",
+      "name": "Kerberos encryption types must be configured to prevent the use of DES and RC4 encryption suites.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Kerberos\\Parameters",
+        "name": "SupportedEncryptionTypes"
+      },
+      "operator": "=",
+      "recommendedValue": "2147483640",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Configure encryption types allowed for Kerberos\" to \"Enabled\" with only the following selected:\n\nAES128_HMAC_SHA1\nAES256_HMAC_SHA1\nFuture encryption types"
+    },
+    {
+      "id": "WN11-SO-000195",
+      "sourceId": "WN11-SO-000195",
+      "name": "The system must be configured to prevent the storage of the LAN Manager hash of passwords.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa",
+        "name": "NoLMHash"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Do not store LAN Manager hash value on next password change\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000205",
+      "sourceId": "WN11-SO-000205",
+      "name": "The LanMan authentication level must be set to send NTLMv2 response only, and to refuse LM and NTLM.",
+      "category": "DoD STIG (high)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "LmCompatibilityLevel"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: LAN Manager authentication level\" to \"Send NTLMv2 response only. Refuse LM & NTLM\"."
+    },
+    {
+      "id": "WN11-SO-000210",
+      "sourceId": "WN11-SO-000210",
+      "name": "The system must be configured to the required LDAP client signing level.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LDAP",
+        "name": "LDAPClientIntegrity"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: LDAP client signing requirements\" to \"Negotiate signing\" at a minimum."
+    },
+    {
+      "id": "WN11-SO-000215",
+      "sourceId": "WN11-SO-000215",
+      "name": "The system must be configured to meet the minimum session security requirement for NTLM SSP based clients.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+        "name": "NTLMMinClientSec"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Minimum session security for NTLM SSP based (including secure RPC) clients\" to \"Require NTLMv2 session security\" and \"Require 128-bit encryption\" (all options selected)."
+    },
+    {
+      "id": "WN11-SO-000220",
+      "sourceId": "WN11-SO-000220",
+      "name": "The system must be configured to meet the minimum session security requirement for NTLM SSP based servers.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+        "name": "NTLMMinServerSec"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"Network security: Minimum session security for NTLM SSP based (including secure RPC) servers\" to \"Require NTLMv2 session security\" and \"Require 128-bit encryption\" (all options selected)."
+    },
+    {
+      "id": "WN11-SO-000230",
+      "sourceId": "WN11-SO-000230",
+      "name": "The system must be configured to use FIPS-compliant algorithms for encryption, hashing, and signing.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FIPSAlgorithmPolicy",
+        "name": "Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"System cryptography: Use FIPS compliant algorithms for encryption, hashing, and signing\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000240",
+      "sourceId": "WN11-SO-000240",
+      "name": "The default permissions of global system objects must be increased.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager",
+        "name": "ProtectionMode"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"System objects: Strengthen default permissions of internal system objects (e.g. Symbolic links)\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000245",
+      "sourceId": "WN11-SO-000245",
+      "name": "User Account Control approval mode for the built-in Administrator must be enabled.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "FilterAdministratorToken"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Admin Approval Mode for the Built-in Administrator account\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000250",
+      "sourceId": "WN11-SO-000250",
+      "name": "User Account Control must prompt administrators for consent on the secure desktop.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "ConsentPromptBehaviorAdmin"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode\" to \"Prompt for consent on the secure desktop\"."
+    },
+    {
+      "id": "WN11-SO-000251",
+      "sourceId": "WN11-SO-000251",
+      "name": "Windows 11 must use multifactor authentication for local and network access to privileged and nonprivileged accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "ovalType": "registry_test",
+        "note": "cert-store or pattern check",
+        "intendedMethod": "Registry"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "For nondomain joined systems, configuring Windows Hello for sign-on options would be suggested based on the organization's needs and capabilities."
+    },
+    {
+      "id": "WN11-SO-000255",
+      "sourceId": "WN11-SO-000255",
+      "name": "User Account Control must automatically deny elevation requests for standard users.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "ConsentPromptBehaviorUser"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Behavior of the elevation prompt for standard users\" to \"Automatically deny elevation requests\"."
+    },
+    {
+      "id": "WN11-SO-000260",
+      "sourceId": "WN11-SO-000260",
+      "name": "User Account Control must be configured to detect application installations and prompt for elevation.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableInstallerDetection"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Detect application installations and prompt for elevation\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000265",
+      "sourceId": "WN11-SO-000265",
+      "name": "User Account Control must only elevate UIAccess applications that are installed in secure locations.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableSecureUIAPaths"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Only elevate UIAccess applications that are installed in secure locations\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000270",
+      "sourceId": "WN11-SO-000270",
+      "name": "User Account Control must run all administrators in Admin Approval Mode, enabling UAC.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableLUA"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Run all administrators in Admin Approval Mode\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-SO-000275",
+      "sourceId": "WN11-SO-000275",
+      "name": "User Account Control must virtualize file and registry write failures to per-user locations.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableVirtualization"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> Security Options >> \"User Account Control: Virtualize file and registry write failures to per-user locations\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-UC-000015",
+      "sourceId": "WN11-UC-000015",
+      "name": "Toast notifications to the lock screen must be turned off.",
+      "category": "DoD STIG (low)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows\\CurrentVersion\\PushNotifications",
+        "name": "NoToastApplicationNotificationOnLockScreen"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "Configure the policy value for User Configuration >> Administrative Templates >> Start Menu and Taskbar >> Notifications >> \"Turn off toast notifications on the lock screen\" to \"Enabled\"."
+    },
+    {
+      "id": "WN11-UC-000020",
+      "sourceId": "WN11-UC-000020",
+      "name": "Zone information must be preserved when saving attachments.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Attachments",
+        "name": "SaveZoneInformation"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "The default behavior is for Windows to mark file attachments with their zone information.\n\nTo correct this, configure the policy value for User Configuration >> Administrative Templates >> Windows Components >> Attachment Manager >> \"Do not preserve zone information in file attachments\" to \"Not Configured\" or \"Disabled\"."
+    },
+    {
+      "id": "WN11-UR-000005",
+      "sourceId": "WN11-UR-000005",
+      "name": "The \"Access Credential Manager as a trusted caller\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Access Credential Manager as a trusted caller\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000010",
+      "sourceId": "WN11-UR-000010",
+      "name": "The \"Access this computer from the network\" user right must only be assigned to the Administrators and Remote Desktop Users groups.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Access this computer from the network\" to only include the following groups or accounts:\n\nAdministrators  \nRemote Desktop Users"
+    },
+    {
+      "id": "WN11-UR-000015",
+      "sourceId": "WN11-UR-000015",
+      "name": "The \"Act as part of the operating system\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Act as part of the operating system\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000025",
+      "sourceId": "WN11-UR-000025",
+      "name": "The \"Allow log on locally\" user right must only be assigned to the Administrators and Users groups.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Allow log on locally\" to only include the following groups or accounts:\n\nAdministrators\nUsers"
+    },
+    {
+      "id": "WN11-UR-000030",
+      "sourceId": "WN11-UR-000030",
+      "name": "The \"Back up files and directories\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Back up files and directories\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000035",
+      "sourceId": "WN11-UR-000035",
+      "name": "The \"Change the system time\" user right must only be assigned to Administrators and Local Service.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Change the system time\" to only include the following groups or accounts:\n\nAdministrators\nLOCAL SERVICE"
+    },
+    {
+      "id": "WN11-UR-000040",
+      "sourceId": "WN11-UR-000040",
+      "name": "The \"Create a pagefile\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Create a pagefile\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000045",
+      "sourceId": "WN11-UR-000045",
+      "name": "The \"Create a token object\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Create a token object\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000050",
+      "sourceId": "WN11-UR-000050",
+      "name": "The \"Create global objects\" user right must only be assigned to Administrators, Service, Local Service, and Network Service.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Create global objects\" to only include the following groups or accounts:\n\nAdministrators\nLOCAL SERVICE\nNETWORK SERVICE\nSERVICE"
+    },
+    {
+      "id": "WN11-UR-000055",
+      "sourceId": "WN11-UR-000055",
+      "name": "The \"Create permanent shared objects\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Create permanent shared objects\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000060",
+      "sourceId": "WN11-UR-000060",
+      "name": "The \"Create symbolic links\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Create symbolic links\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000065",
+      "sourceId": "WN11-UR-000065",
+      "name": "The \"Debug programs\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (high)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Debug programs\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000070",
+      "sourceId": "WN11-UR-000070",
+      "name": "The \"Deny access to this computer from the network\" user right on workstations must be configured to prevent access from highly privileged domain accounts and local accounts on domain systems and unauthenticated access on all systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Deny access to this computer from the network\" to include the following:\n\nDomain Systems Only:\nEnterprise Admins group\nDomain Admins group\nLocal account (see Note below)\n\nAll Systems:\nGuests group\n\nPrivileged Access Workstations (PAWs) dedicated to the management of Active Directory are exempt from denying the Enterprise Admins and Domain Admins groups. (See the Windows Privileged Access Workstation STIG for PAW requirements.)\n\nNote: \"Local account\" is a built-in security group used to assign user rights and permissions to all local accounts."
+    },
+    {
+      "id": "WN11-UR-000075",
+      "sourceId": "WN11-UR-000075",
+      "name": "The \"Deny log on as a batch job\" user right on domain-joined workstations must be configured to prevent access from highly privileged domain accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "This requirement is applicable to domain-joined systems, for standalone systems this is NA.\n\nConfigure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Deny log on as a batch job\" to include the following:\n\nDomain Systems Only:\nEnterprise Admin Group\nDomain Admin Group"
+    },
+    {
+      "id": "WN11-UR-000080",
+      "sourceId": "WN11-UR-000080",
+      "name": "The \"Deny log on as a service\" user right on Windows 11 domain-joined workstations must be configured to prevent access from highly privileged domain accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "This requirement is applicable to domain-joined systems, for standalone systems this is NA.\n\nConfigure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Deny log on as a service\" to include the following:\n\nDomain Systems Only:\nEnterprise Admins Group\nDomain Admins Group"
+    },
+    {
+      "id": "WN11-UR-000085",
+      "sourceId": "WN11-UR-000085",
+      "name": "The \"Deny log on locally\" user right on workstations must be configured to prevent access from highly privileged domain accounts on domain systems and unauthenticated access on all systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Deny log on locally\" to include the following:\n\nDomain Systems Only:\nEnterprise Admins Group\nDomain Admins Group\n\nPrivileged Access Workstations (PAWs) dedicated to the management of Active Directory are exempt from denying the Enterprise Admins and Domain Admins groups. (See the Windows Privileged Access Workstation STIG for PAW requirements.)\n\nAll Systems:\nGuests Group"
+    },
+    {
+      "id": "WN11-UR-000090",
+      "sourceId": "WN11-UR-000090",
+      "name": "The \"Deny log on through Remote Desktop Services\" user right on Windows 11 workstations must be configured to prevent access from highly privileged domain accounts and local accounts on domain systems and unauthenticated access on all systems.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Deny log on through Remote Desktop Services\" to include the following:\n\nIf Remote Desktop Services is not used by the organization, assign the Everyone group this right to prevent all access.\n\nDomain Systems Only:\nEnterprise Admins group\nDomain Admins group\nLocal account (see Note below)\n\nAll Systems:\nGuests group\n\nPrivileged Access Workstations (PAWs) dedicated to the management of Active Directory are exempt from denying the Enterprise Admins and Domain Admins groups. (See the Windows Privileged Access Workstation STIG for PAW requirements.)\n\nNote: \"Local account\" is a built-in security group used to assign user rights and permissions to all local accounts."
+    },
+    {
+      "id": "WN11-UR-000095",
+      "sourceId": "WN11-UR-000095",
+      "name": "The \"Enable computer and user accounts to be trusted for delegation\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Enable computer and user accounts to be trusted for delegation\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000100",
+      "sourceId": "WN11-UR-000100",
+      "name": "The \"Force shutdown from a remote system\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Force shutdown from a remote system\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000110",
+      "sourceId": "WN11-UR-000110",
+      "name": "The \"Impersonate a client after authentication\" user right must only be assigned to Administrators, Service, Local Service, and Network Service.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Impersonate a client after authentication\" to only include the following groups or accounts:\n\nAdministrators\nLOCAL SERVICE\nNETWORK SERVICE\nRESTRICTED SERVICES\\PrintSpoolerService\nSERVICE"
+    },
+    {
+      "id": "WN11-UR-000120",
+      "sourceId": "WN11-UR-000120",
+      "name": "The \"Load and unload device drivers\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Load and unload device drivers\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000125",
+      "sourceId": "WN11-UR-000125",
+      "name": "The \"Lock pages in memory\" user right must not be assigned to any groups or accounts.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Lock pages in memory\" to be defined but containing no entries (blank)."
+    },
+    {
+      "id": "WN11-UR-000130",
+      "sourceId": "WN11-UR-000130",
+      "name": "The \"Manage auditing and security log\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Manage auditing and security log\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000140",
+      "sourceId": "WN11-UR-000140",
+      "name": "The \"Modify firmware environment values\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Modify firmware environment values\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000145",
+      "sourceId": "WN11-UR-000145",
+      "name": "The \"Perform volume maintenance tasks\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Perform volume maintenance tasks\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000150",
+      "sourceId": "WN11-UR-000150",
+      "name": "The \"Profile single process\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Profile single process\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000160",
+      "sourceId": "WN11-UR-000160",
+      "name": "The \"Restore files and directories\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Restore files and directories\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-UR-000165",
+      "sourceId": "WN11-UR-000165",
+      "name": "The \"Take ownership of files or other objects\" user right must only be assigned to the Administrators group.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "accesschk",
+        "ovalType": "accesstoken_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Local Policies >> User Rights Assignment >> \"Take ownership of files or other objects\" to only include the following groups or accounts:\n\nAdministrators"
+    },
+    {
+      "id": "WN11-CC-000391",
+      "sourceId": "WN11-CC-000391",
+      "name": "Internet Explorer must be disabled for Windows 11.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "For Windows 11 semi-annual channel, remove or disable the IE11 application. \n\nTo disable IE11 as a standalone browser:\n\nSet the policy value for \"Computer Configuration/Administrative Templates/Windows Components/Internet Explorer/Disable Internet Explorer 11 as a standalone browser\" to \"Enabled\" with the option value set to \"Never\"."
+    },
+    {
+      "id": "WN11-AU-000585",
+      "sourceId": "WN11-AU-000585",
+      "name": "Windows 11 must have command line process auditing events enabled for failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Go to Computer Configuration >> Windows Settings >>Security Settings>> Advanced Audit Policy Configuration >> System Audit Policies >> Detailed Tracking >> Set \"Audit Process Creation\" to \"Failure\"."
+    },
+    {
+      "id": "WN11-AU-000581",
+      "sourceId": "WN11-AU-000581",
+      "name": "Windows 11 must be configured to audit file system failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit File System\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000582",
+      "sourceId": "WN11-AU-000582",
+      "name": "Windows 11 must be configured to audit file system successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit File System\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000583",
+      "sourceId": "WN11-AU-000583",
+      "name": "Windows 11 must be configured to audit handle manipulation failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Handle Manipulation\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000584",
+      "sourceId": "WN11-AU-000584",
+      "name": "Windows 11 must be configured to audit handle manipulation successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Handle Manipulation\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000589",
+      "sourceId": "WN11-AU-000589",
+      "name": "Windows 11 must be configured to audit registry failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Registry\" with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-AU-000586",
+      "sourceId": "WN11-AU-000586",
+      "name": "Windows 11 must be configured to audit registry successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Object Access >> \"Audit Registry\" with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000587",
+      "sourceId": "WN11-AU-000587",
+      "name": "Windows 11 must be configured to audit sensitive privilege use successes.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Privilege Use >> Audit Sensitive Privilege Use with \"Success\" selected."
+    },
+    {
+      "id": "WN11-AU-000588",
+      "sourceId": "WN11-AU-000588",
+      "name": "Windows 11 must be configured to audit sensitive privilege use failures.",
+      "category": "DoD STIG (medium)",
+      "method": "manual",
+      "args": {
+        "intendedMethod": "auditpol",
+        "ovalType": "auditeventpolicysubcategories_test"
+      },
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the policy value for Computer Configuration >> Windows Settings >> Security Settings >> Advanced Audit Policy Configuration >> System Audit Policies >> Privilege Use >> Audit Sensitive Privilege Use with \"Failure\" selected."
+    },
+    {
+      "id": "WN11-00-000126",
+      "sourceId": "WN11-00-000126",
+      "name": "Windows 11 systems must block consumer account user authentication.",
+      "category": "DoD STIG (medium)",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MicrosoftAccount",
+        "name": "DisableUserAuth"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "Configure the following Group Policy:\nComputer Configuration >> Administrative Templates >> Windows Components >> Microsoft Account \"block all consumer Microsoft account user authentication\" to \"Enabled\".\n\nFor systems managed by Intune, apply the DOD Windows 11 STIG Settings Catalog (or equivalent Intune policy) found in the Intune policy package available on cyber.mil.\nSteps to create an Intune policy:\n1. Sign in to the Intune admin center >> Devices >> Configuration >> Create >> New Policy.\n2. Platform: Windows 10 and later. Profile type: Settings Catalog, then click \"Create\".\n3. Basics: Provide a Name and Description of the profile, then click \"Next\".\n4. Configuration settings: Click \"+ Add settings\" and search for consumer under the Settings picker. Under the Administrative Templates\\Windows Components\\Microsoft account category, check the box next to \"Block all consumer Microsoft account user authentication\". Click the Enabled radio button, then click \"Next\".\n5. Scope tags: (optional), then click \"Next\".\n6. Assignments: Assign the policy to Entra security groups that contain the target users or devices, then click \"Next\".\n7. Review + create: Review the deployment summary, then click \"Create\"."
+    }
+  ]
+}
