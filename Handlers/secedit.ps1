@@ -15,9 +15,11 @@
         param($Findings, $Cache, $Context)
         $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secedit_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
         $exportOk = $false
+        $exitCode = $null
         try {
             & secedit.exe /export /cfg $tmp /quiet 2>$null
-            if ($LASTEXITCODE -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $exportOk = $true }
+            $exitCode = $LASTEXITCODE
+            if ($exitCode -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $exportOk = $true }
         } catch {
             & $Context.Log "secedit: export threw: $($_.Exception.Message)" 'Warn'
         }
@@ -28,8 +30,14 @@
                     $table[$matches[1].Trim()] = $matches[2].Trim()
                 }
             }
+        } elseif ($exitCode -eq 2) {
+            # secedit exit 2 = "Not enough memory resources" -- a system/scesrv resource
+            # condition, NOT a problem with the finding. Surface it clearly so a confusing
+            # low Passed count is explained, and the user knows to free memory / reboot.
+            $Cache['secedit_err'] = 'secedit could not run: the system reported insufficient memory resources (scesrv). Free memory or reboot, then re-run. Policy findings were skipped, not failed.'
+            & $Context.Log $Cache['secedit_err'] 'Error'
         } else {
-            & $Context.Log "secedit: export FAILED -- policy findings will be Skipped, not passed." 'Warn'
+            & $Context.Log "secedit: export FAILED (exit $exitCode) -- policy findings will be Skipped, not passed." 'Warn'
         }
         Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
         $Cache['secedit']    = $table
@@ -41,6 +49,7 @@
         param($Finding, $Cache, $Context)
         # If the export failed, we don't know the state -- do NOT claim compliant.
         if (-not $Cache['secedit_ok']) {
+            if ($Cache['secedit_err']) { throw $Cache['secedit_err'] }
             throw "secedit export unavailable; cannot evaluate $($Finding.args.key)"
         }
         $table = $Cache['secedit']
