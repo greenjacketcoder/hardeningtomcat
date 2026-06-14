@@ -27,18 +27,22 @@ $script:HtAccountPolicyMap = @{
         # Reuse the secedit handler's cache if present; otherwise export ourselves.
         if (-not $Cache.ContainsKey('secedit') -or -not $Cache['secedit_ok']) {
             $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_acctpol_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
-            $ok = $false
+            $ok = $false; $ec = $null
             try {
                 & secedit.exe /export /areas SECURITYPOLICY /cfg $tmp /quiet 2>$null
-                if ($LASTEXITCODE -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $ok = $true }
+                $ec = $LASTEXITCODE
+                if ($ec -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $ok = $true }
             } catch { & $Context.Log "accountpolicy: export threw: $($_.Exception.Message)" 'Warn' }
             $table = @{}
             if ($ok) {
                 foreach ($line in (Get-Content $tmp -Encoding Unicode)) {
                     if ($line -match '^\s*([^=\[]+?)\s*=\s*(.+?)\s*$') { $table[$matches[1].Trim()] = $matches[2].Trim() }
                 }
+            } elseif ($ec -eq 2) {
+                $Cache['secedit_err'] = 'secedit could not run: the system reported insufficient memory resources (scesrv). Free memory or reboot, then re-run. Policy findings were skipped, not failed.'
+                & $Context.Log $Cache['secedit_err'] 'Error'
             } else {
-                & $Context.Log "accountpolicy: secedit export FAILED -- findings will Skip, not pass." 'Warn'
+                & $Context.Log "accountpolicy: secedit export FAILED (exit $ec) -- findings will Skip, not pass." 'Warn'
             }
             Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
             $Cache['secedit'] = $table; $Cache['secedit_ok'] = $ok
@@ -48,7 +52,10 @@ $script:HtAccountPolicyMap = @{
 
     Test = {
         param($Finding, $Cache, $Context)
-        if (-not $Cache['secedit_ok']) { throw "secedit export unavailable; cannot evaluate $($Finding.name)" }
+        if (-not $Cache['secedit_ok']) {
+            if ($Cache['secedit_err']) { throw $Cache['secedit_err'] }
+            throw "secedit export unavailable; cannot evaluate $($Finding.name)"
+        }
         # Resolve the key: explicit args.key wins, else map by finding name.
         $key = if ($Finding.args.key) { $Finding.args.key } else { $script:HtAccountPolicyMap[$Finding.name] }
         if (-not $key) { throw "no account-policy key mapping for '$($Finding.name)'" }
