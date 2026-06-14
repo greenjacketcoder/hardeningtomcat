@@ -60,9 +60,10 @@
         [pscustomobject]@{ Result = $null; Found = $false }
     }
 
-    # Apply a [System Access] account-policy setting by writing a minimal INF and
-    # running secedit /configure. Only account-policy keys are supported here;
-    # registry-backed security options go through the Registry handler instead.
+    # Apply does NOT run secedit per finding (that spawns the heavy Security
+    # Configuration Engine once per setting and can exhaust scesrv). Instead it
+    # ACCUMULATES validated key/value pairs; FlushApply writes them all in ONE
+    # secedit /configure at the end of the run. Much gentler on the system.
     Apply = {
         param($Finding, $Cache, $Context)
         $key = $Finding.args.key
@@ -70,18 +71,32 @@
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set [System Access] $key = $val" }
         }
-        # Validate key/value before writing them into an INF -- a newline or section
-        # header in either could inject extra policy directives into the template.
-        # The integrity manifest already guards list content; this is defense in depth.
+        # Validate key/value -- a newline or section header could inject extra policy
+        # directives into the INF. (Integrity manifest already guards list content;
+        # this is defense in depth.)
         if ($key -notmatch '^[A-Za-z0-9_]+$') {
             return @{ Changed = $false; Message = "Refused: unsafe account-policy key '$key'" }
         }
         if ("$val" -match '[\r\n\[\]]') {
             return @{ Changed = $false; Message = "Refused: unsafe value for $key (contains newline/bracket)" }
         }
-        $tmpInf = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
-        $tmpDb  = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_apply_{0:yyyyMMddHHmmssfff}.sdb" -f (Get-Date))
-        # Minimal security template applying just this one System Access key.
+        if (-not $Cache.ContainsKey('secedit_pending')) { $Cache['secedit_pending'] = @{} }
+        $Cache['secedit_pending'][$key] = $val
+        # Not yet written -- counted when FlushApply runs. Changed=$false here so we
+        # don't double-count; the flush reports the real applied total.
+        @{ Changed = $false; Message = "[System Access] $key queued = $val (batched)" }
+    }
+
+    # Write ALL queued [System Access] settings in a single secedit /configure.
+    FlushApply = {
+        param($Cache, $Context)
+        $pending = $Cache['secedit_pending']
+        if (-not $pending -or $pending.Count -eq 0) { return @{ Applied = 0 } }
+
+        $tmpInf = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_applyall_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
+        $tmpDb  = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_applyall_{0:yyyyMMddHHmmssfff}.sdb" -f (Get-Date))
+        $lines = foreach ($k in $pending.Keys) { "$k = $($pending[$k])" }
+        $body  = $lines -join "`r`n"
         $inf = @"
 [Unicode]
 Unicode=yes
@@ -89,23 +104,27 @@ Unicode=yes
 signature="`$CHICAGO`$"
 Revision=1
 [System Access]
-$key = $val
+$body
 "@
-        $changed = $false; $msg = ""
+        $applied = 0; $msg = ""
         try {
-            Set-Content -Path $tmpInf -Value $inf -Encoding Unicode
+            Set-Content -Path $tmpInf -Value $inf -Encoding Unicode -WhatIf:$false
             & secedit.exe /configure /db $tmpDb /cfg $tmpInf /areas SECURITYPOLICY /quiet 2>$null
             if ($LASTEXITCODE -eq 0) {
-                $changed = $true; $msg = "[System Access] $key set to $val"
+                $applied = $pending.Count
+                $msg = "applied $applied account-policy setting(s) in one pass"
+            } elseif ($LASTEXITCODE -eq 2) {
+                $msg = "secedit /configure could not run (insufficient system resources/scesrv). $($pending.Count) setting(s) NOT applied; free memory or reboot and re-run."
+                & $Context.Log $msg 'Error'
             } else {
-                $msg = "secedit /configure failed (exit $LASTEXITCODE) for $key"
+                $msg = "secedit /configure failed (exit $LASTEXITCODE); $($pending.Count) setting(s) not applied"
                 & $Context.Log $msg 'Error'
             }
         } finally {
             Remove-Item $tmpInf,$tmpDb -Force -WhatIf:$false -ErrorAction SilentlyContinue
         }
-        # Invalidate cached export so a re-Test reads fresh state.
+        $Cache['secedit_pending'] = @{}
         if ($Cache.ContainsKey('secedit')) { $Cache.Remove('secedit') }
-        @{ Changed = $changed; Message = $msg }
+        @{ Applied = $applied; Message = $msg }
     }
 }

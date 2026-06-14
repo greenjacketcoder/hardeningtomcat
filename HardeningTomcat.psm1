@@ -387,6 +387,27 @@ function Invoke-HardeningTomcat {
             }
         }
     }
+
+    # ---- Batched apply flush (Strike, non-dry-run) -----------------------------
+    # Some handlers (e.g. secedit) accumulate their changes during the loop and apply
+    # them in ONE operation here, instead of spawning a heavy external process per
+    # finding. This is gentler on the system (one secedit /configure, not dozens) and
+    # avoids exhausting the Security Configuration Engine (scesrv) on repeated calls.
+    if ($Mode -eq 'Strike' -and -not $isDryRun) {
+        foreach ($hName in $Handlers.Keys) {
+            $h = $Handlers[$hName]
+            if ($h.FlushApply) {
+                try {
+                    $flush = & $h.FlushApply $Cache $Context
+                    if ($flush -and $flush.Applied) { $stats.Applied += [int]$flush.Applied }
+                    if ($flush -and $flush.Message) { & $Context.Log "FlushApply ($hName): $($flush.Message)" }
+                } catch {
+                    & $Context.Log "FlushApply ($hName) failed: $($_.Exception.Message)" 'Error'
+                }
+            }
+        }
+    }
+
     Write-HtProgress -Activity "HardeningTomcat $Mode" -Current $total -Total $total -Stats $stats -Complete   # clear the progress bar
 
     # ---- Scoring ---------------------------------------------------------------
