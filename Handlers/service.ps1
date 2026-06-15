@@ -1,4 +1,4 @@
-# Service handler - checks/sets a Windows service start type.
+﻿# Service handler - checks/sets a Windows service start type.
 # args: { "name": "ServiceName" }
 # recommendedValue: one of Boot|System|Automatic|Manual|Disabled (matches Get-Service StartType)
 
@@ -20,7 +20,14 @@
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set service '$name' StartType=$val" }
         }
-        Set-Service -Name $name -StartupType $val -ErrorAction Stop
+        # A service that isn't installed is already effectively disabled -- treat as a
+        # benign no-op (Changed=$false), not an error. CIS lists target services that
+        # don't exist on every SKU (e.g. Browser/bowser, irmon), so this is expected.
+        $svc = Get-Service -Name $name -ErrorAction SilentlyContinue
+        if (-not $svc) {
+            return @{ Changed = $false; Message = "Service '$name' not installed; nothing to disable (compliant)" }
+        }
+        Set-Service -Name $name -StartupType $val -ErrorAction Stop -WhatIf:$false
         @{ Changed = $true; Message = "Service '$name' StartType set to $val" }
     }
 

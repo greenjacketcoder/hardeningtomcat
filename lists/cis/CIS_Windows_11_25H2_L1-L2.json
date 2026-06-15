@@ -1058,7 +1058,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Low",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.8.1",
@@ -1073,7 +1074,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.8.2",
@@ -1118,7 +1120,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.9.3",
@@ -1207,7 +1210,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.10.5",
@@ -1297,7 +1301,8 @@
       "recommendedValue": "O:BAG:BAD:(A;;RC;;;BA)",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.10.11",
@@ -1342,7 +1347,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.2",
@@ -1357,7 +1363,8 @@
       "recommendedValue": "0",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.3",
@@ -1372,7 +1379,8 @@
       "recommendedValue": "0",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.4",
@@ -1387,7 +1395,8 @@
       "recommendedValue": "2147483640",
       "defaultValue": "2147483644",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.6",
@@ -1402,7 +1411,8 @@
       "recommendedValue": "5",
       "defaultValue": "3",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.7",
@@ -1417,7 +1427,8 @@
       "recommendedValue": "1 or 2",
       "defaultValue": "1",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.8",
@@ -1432,7 +1443,8 @@
       "recommendedValue": "1",
       "defaultValue": "1",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.9",
@@ -1447,7 +1459,8 @@
       "recommendedValue": "537395200",
       "defaultValue": "536870912",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.10",
@@ -1462,7 +1475,8 @@
       "recommendedValue": "537395200",
       "defaultValue": "536870912",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.11",
@@ -1477,7 +1491,8 @@
       "recommendedValue": "2",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.11.12",
@@ -1492,7 +1507,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "2.3.14.1",
@@ -2223,7 +2239,8 @@
       "recommendedValue": "Disabled",
       "defaultValue": "Manual",
       "severity": "Medium",
-      "level": 2
+      "level": 2,
+      "highImpact": true
     },
     {
       "id": "5.21.1",
@@ -2252,7 +2269,8 @@
       "recommendedValue": "Disabled",
       "defaultValue": "Manual",
       "severity": "Medium",
-      "level": 2
+      "level": 2,
+      "highImpact": true
     },
     {
       "id": "5.22.1",
@@ -2281,7 +2299,8 @@
       "recommendedValue": "Disabled",
       "defaultValue": "Manual",
       "severity": "Medium",
-      "level": 2
+      "level": 2,
+      "highImpact": true
     },
     {
       "id": "5.23.1",
@@ -2339,7 +2358,8 @@
       "recommendedValue": "Disabled",
       "defaultValue": "Disabled",
       "severity": "Medium",
-      "level": 2
+      "level": 2,
+      "highImpact": true
     },
     {
       "id": "5.25.1",
@@ -2397,7 +2417,8 @@
       "recommendedValue": "Disabled",
       "defaultValue": "Automatic",
       "severity": "Medium",
-      "level": 2
+      "level": 2,
+      "highImpact": true
     },
     {
       "id": "5.27.1",
@@ -4992,7 +5013,8 @@
       "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.2",
@@ -5007,7 +5029,8 @@
       "recommendedValue": "3",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.3",
@@ -5022,7 +5045,8 @@
       "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.4",
@@ -5037,7 +5061,8 @@
       "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.5",
@@ -5052,7 +5077,8 @@
       "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.6",
@@ -5067,7 +5093,8 @@
       "recommendedValue": "1",
       "defaultValue": "0",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.5.7",
@@ -5082,7 +5109,8 @@
       "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium",
-      "level": 1
+      "level": 1,
+      "highImpact": true
     },
     {
       "id": "18.9.7.2",
