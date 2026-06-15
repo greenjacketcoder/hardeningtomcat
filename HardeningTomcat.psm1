@@ -214,7 +214,7 @@ function Invoke-HardeningTomcat {
     if (-not $list.findings) { throw "Finding list contains no 'findings' array." }
 
     # ---- Validate findings up front (fail fast with ALL problems) --------------
-    $validOps = @('=','!=','<=','>=','<','>','<=!0','contains','=|0','set=','manual')
+    $validOps = @('=','!=','<=','>=','<','>','<=!0','contains','=|0','=or','set=','manual')
     $validSev = @('Low','Medium','High')
     $problems = New-Object System.Collections.Generic.List[string]
     $seenIds  = @{}
@@ -647,6 +647,15 @@ function Test-HtOperator {
     param([string]$Operator, [string]$Observed, [string]$Recommended)
     switch ($Operator) {
         '='    { return ([string]$Observed -eq $Recommended) }
+        '=or'  {
+            # CIS sometimes lists several acceptable values as "X or Y" (e.g. "2 or 1").
+            # Either value is compliant. Split on 'or' and pass if the observed value
+            # matches any of them. The Registry apply path resolves the same prose to
+            # the first listed value when writing.
+            $opts = $Recommended -split '\s+or\s+' | ForEach-Object { $_.Trim() }
+            foreach ($o in $opts) { if ([string]$Observed -eq $o) { return $true } }
+            return $false
+        }
         '!='   { return ([string]$Observed -ne $Recommended) }
         '<='   { try { return ([int]$Observed -le [int]$Recommended) } catch { return $false } }
         '>='   { try { return ([int]$Observed -ge [int]$Recommended) } catch { return $false } }

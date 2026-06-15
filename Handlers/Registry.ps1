@@ -1,4 +1,4 @@
-# Registry handler
+﻿# Registry handler
 # args: { "path": "HKLM:\\...", "name": "ValueName", "type": "DWord" (optional) }
 #
 # If args.type is absent (the usual case for CIS/HardeningKitty lists, which don't
@@ -23,6 +23,15 @@
         $a = $Finding.args
         $name = $a.name
         $val  = $Finding.recommendedValue
+
+        # --- Strip wrapping double-quotes -----------------------------------------
+        # Some imported values arrived wrapped in literal quotes (e.g. ScRemoveOption
+        # = "1", RestrictRemoteSAM = "O:BAG..."), an artifact of the INF/GptTmpl
+        # source quoting. Writing the quotes into the registry is wrong; strip a
+        # single matched pair. (XML/AppLocker payloads start with '<' and are left as-is.)
+        if ($val -is [string] -and $val.Length -ge 2 -and $val[0] -eq '"' -and $val[-1] -eq '"' -and $val -notmatch '^"?<') {
+            $val = $val.Substring(1, $val.Length - 2)
+        }
 
         # --- Resolve "X or Y" recommended values to a single value ---------------
         # CIS phrases some recommendations as "256 or 287" / "1 or 2"; the importer

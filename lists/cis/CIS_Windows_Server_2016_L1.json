@@ -4752,7 +4752,7 @@
         "name": "BruteForceProtectionConfiguredState",
         "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Remediation\\BehavioralNetwork Blocks\\Brute Force Protection"
       },
-      "operator": "=",
+      "operator": "=or",
       "recommendedValue": "2 or 1",
       "defaultValue": "",
       "severity": "Medium",

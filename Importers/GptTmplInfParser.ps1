@@ -1,4 +1,4 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
     Parses a GptTmpl.inf security template (from a GPO backup / SCT baseline) into records.
@@ -27,10 +27,16 @@ function ConvertFrom-GptTmplInf {
         if (-not $t -or $t.StartsWith(';')) { continue }
         if ($t -match '^\[(.+)\]$') { $section = $matches[1]; continue }
         if ($t -match '^(.+?)\s*=\s*(.*)$') {
+            $val = $matches[2].Trim()
+            # INF string values are wrapped in double-quotes (e.g. ="1"). Strip a single
+            # matched pair so the stored value is the bare content, not "1" with quotes.
+            if ($val.Length -ge 2 -and $val[0] -eq '"' -and $val[-1] -eq '"') {
+                $val = $val.Substring(1, $val.Length - 2)
+            }
             $records.Add([pscustomobject]@{
                 Section = $section
                 Key     = $matches[1].Trim()
-                Value   = $matches[2].Trim()
+                Value   = $val
             })
         }
     }

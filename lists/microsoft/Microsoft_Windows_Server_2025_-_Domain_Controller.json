@@ -4362,7 +4362,7 @@
         "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
-      "recommendedValue": "\"1\"",
+      "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium"
     },

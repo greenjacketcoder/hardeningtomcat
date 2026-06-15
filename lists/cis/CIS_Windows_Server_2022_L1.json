@@ -4824,7 +4824,7 @@
         "name": "BruteForceProtectionConfiguredState",
         "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows Defender\\Remediation\\BehavioralNetwork Blocks\\Brute Force Protection"
       },
-      "operator": "=",
+      "operator": "=or",
       "recommendedValue": "2 or 1",
       "defaultValue": "",
       "severity": "Medium",
@@ -5454,7 +5454,7 @@
         "name": "DisableProxyAuthenticationSchemes",
         "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Internet Settings"
       },
-      "operator": "=",
+      "operator": "=or",
       "recommendedValue": "256 or 287",
       "defaultValue": "1",
       "severity": "Medium",

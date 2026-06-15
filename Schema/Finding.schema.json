@@ -42,7 +42,7 @@
         "operator": {
           "type": "string",
           "description": "Comparison between observed result and recommendedValue",
-          "enum": ["=", "!=", "<=", ">=", "<", ">", "<=!0", "contains", "=|0", "set=", "manual"]
+          "enum": ["=", "!=", "<=", ">=", "<", ">", "<=!0", "contains", "=|0", "=or", "set=", "manual"]
         },
         "recommendedValue": {
           "description": "Target value. String or number; coerced per operator.",
