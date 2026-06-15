@@ -8,6 +8,84 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.7.0]
+
+Strike (apply) path hardened, debugged, and made safe to run -- driven by an extended
+live-VM Strike campaign that surfaced (and fixed) the real reasons a full CIS apply could
+brick a machine, silently no-op, or report false failures.
+
+### Added
+- **`-ExcludeHighImpact` switch.** Skips findings flagged `highImpact` in the list: the
+  boot/lockout/remote-access class that can render a machine unbootable or unreachable
+  (VBS / Credential Guard, the NTLM/Kerberos auth cluster, required SMB signing, and
+  RDP/WinRM/RemoteRegistry/LanmanServer service disables). 120 findings tagged across the
+  CIS lists (28 in Win11 L1-L2). Recommended for a first Strike on any machine you can't
+  easily recover; apply the excluded settings deliberately, one area at a time, afterward.
+- **`=or` comparison operator.** CIS expresses some settings as "either value is
+  acceptable" (e.g. `2 or 1`, `256 or 287`). The operator passes if the observed value
+  matches any listed option, preserving that intent. 16 registry findings retagged from
+  `=` to `=or`.
+- **Crash-resilient diagnostic logging (`-Log`).** Each line is flushed to disk atomically,
+  so the log's final line survives even a hard brick; every apply is logged *before* it
+  runs with the exact registry path/key/value, so the last line names the setting being
+  written at the moment of any failure. Adds a session header (mode/list/host/level) and
+  millisecond timestamps. This is what turned a long-standing "mysterious brick" into a
+  concrete, fixable bug list.
+- **Batched secedit apply (`FlushApply` engine hook).** secedit changes are queued during
+  the run and written in a single `secedit /configure` at the end, instead of one heavy
+  Security Configuration Engine (scesrv) invocation per finding -- dramatically reducing
+  resource demand. Handlers can now expose a generic `FlushApply` for end-of-run batching.
+
+### Fixed
+- **Registry values were all written as String (REG_SZ).** Settings Windows reads as
+  DWORDs (the large majority) were being written as strings, so they silently took no
+  effect -- the root cause of the long-running "Strike applied N but Passed never moved"
+  mystery. Type is now inferred at apply time exactly as HardeningKitty does: numeric ->
+  DWord, named exceptions (ScRemoveOption, AutoAdminLogon, etc.) -> String, multi-string
+  items (Machine, NullSessionPipes/Shares, EccCurves) -> MultiString.
+- **"X or Y" values written/compared as literal prose.** On apply, the value `256 or 287`
+  was written verbatim; on audit, observed `2` was compared against the literal string
+  `2 or 1` and always failed. Apply now resolves to the first (preferred) listed value;
+  audit uses the new `=or` operator. (16 findings, both sides.)
+- **Literal quote-wrapped values (18 Microsoft-list findings).** `ScRemoveOption = "1"`
+  and `RestrictRemoteSAM = "O:BAG..."` carried INF-style wrapping quotes that would have
+  been written into the registry. Fixed at the data level, defensively in the Registry
+  handler, and at the root cause in `GptTmplInfParser` (INF string values are quoted).
+- **Pre-Strike backup was failing and blocking every real Strike.** `SupportsShouldProcess`
+  propagated `-WhatIf` into the backup's own `New-Item`, so the backup directory was only
+  simulated and the subsequent `Get-Acl` failed. Backup operations now force
+  `-WhatIf:$false` and guard directory existence.
+- **secedit/scesrv "Not enough memory resources" (exit 2)** is now detected and surfaced
+  as a clear, actionable message (free memory / reboot, then re-run) instead of a generic
+  skip. Policy findings are still skipped, never falsely passed.
+- **Absent services are a benign no-op.** A service that isn't installed (e.g. Browser,
+  irmon -- present in CIS lists but not on every SKU) is reported as compliant rather than
+  logged as an apply error.
+- **`-WhatIf` output noise.** Dry-run now shows a one-line "would change N" count by
+  default (full itemized list with `-ShowDetails`), and the spurious "What if: Set Alias"
+  / per-finding cleanup chatter is suppressed.
+
+### QA
+- Scanned all 6,981 findings across the 20 lists for malformed values. Confirmed as *not*
+  bugs (left as-is): 678 numeric registry value-names (legitimate IE-zone names),
+  `Success and Failure` audit values (the correct auditpol value), AppLocker XML payloads,
+  and 42 empty values (LegalNotice text/caption, NullSession pipes/shares -- empty *is* the
+  hardened state).
+
+### Validated on live Windows 11 (elevated)
+- A full CIS Win11 25H2 L1-L2 Strike runs start-to-finish with per-apply logging; the
+  diagnostic log proved the engine itself does not hang or crash mid-apply (any brick is
+  the applied settings taking effect on reboot, e.g. VBS on a VM -- now fenced behind
+  `-ExcludeHighImpact`).
+
+### Still open (road to 1.0)
+- End-to-end Strike verification on a clean, adequately-provisioned VM using
+  `-ExcludeHighImpact` (apply -> gpupdate/reboot -> re-Recon should now show Passed rise,
+  with the registry-type fix making applies effective).
+- The ~83 mappable-but-manual STIG findings (audit/account/user-rights) remain `manual`
+  by deliberate deferral.
+- Code signing not yet run.
+
 ## [0.6.1]
 
 Live-Windows validation of the CIS and STIG paths, plus report-clarity fixes.
