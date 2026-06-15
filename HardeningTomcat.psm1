@@ -86,9 +86,14 @@ function Invoke-HardeningTomcat {
         PSVersion = $PSVersionTable.PSVersion.Major
         Log       = {
             param($Text, $Level = 'Info')
-            $stamp = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss')
+            $stamp = (Get-Date -Format 'yyyy-MM-dd HH:mm:ss.fff')
             Write-Verbose "[$stamp][$Level] $Text"
-            if ($script:LogEnabled) { Add-Content -Path $script:LogPath -Value "[$stamp][$Level] $Text" }
+            if ($script:LogEnabled) {
+                # AppendAllText opens, writes, and CLOSES the file each call -- so the
+                # line is on disk immediately. Critical when diagnosing a crash/brick:
+                # the LAST line in the log is the last thing the tool did before dying.
+                try { [System.IO.File]::AppendAllText($script:LogPath, "[$stamp][$Level] $Text`r`n") } catch {}
+            }
         }
     }
 
@@ -97,6 +102,9 @@ function Invoke-HardeningTomcat {
     if ($Log) {
         $script:LogPath = if ($LogFile) { $LogFile } `
             else { Join-Path (Get-Location) ("hardeningtomcat_log_{0:yyyyMMdd-HHmmss}.txt" -f $script:StartTime) }
+        & $Context.Log "===== HardeningTomcat session start ====="
+        & $Context.Log "Mode=$Mode List=$FindingList Level=$Level Force=$Force WhatIf=$($PSBoundParameters.ContainsKey('WhatIf'))"
+        & $Context.Log "Host=$env:COMPUTERNAME Admin=$IsAdmin PSVersion=$($PSVersionTable.PSVersion)"
     }
 
     # ---- Strike safety gate ----------------------------------------------------
@@ -377,12 +385,22 @@ function Invoke-HardeningTomcat {
             }
             elseif ($PSCmdlet.ShouldProcess($target, "Apply recommendedValue '$($finding.recommendedValue)'")) {
                 $ctxApply = $Context.Clone(); $ctxApply.WhatIf = $false
+                # Log BEFORE applying, with the registry path / key being written, so if
+                # this specific apply hangs or bricks the machine, the log's final line
+                # names the exact culprit. This is the diagnostic for "which setting".
+                $tgtDetail = switch ($finding.method) {
+                    'Registry' { "$($finding.args.path)\$($finding.args.name) = $($finding.recommendedValue)" }
+                    'service'  { "service $($finding.args.name) -> $($finding.recommendedValue)" }
+                    'secedit'  { "[System Access] $($finding.args.key) = $($finding.recommendedValue) (queued)" }
+                    default    { "$($finding.method) = $($finding.recommendedValue)" }
+                }
+                & $Context.Log "APPLYING $($finding.id) [$($finding.method)] $tgtDetail"
                 try {
                     $applyResult = & $handler.Apply $finding $Cache $ctxApply
                     if ($applyResult.Changed) { $stats.Applied++ }
-                    & $Context.Log "Applied $target : $($applyResult.Message)"
+                    & $Context.Log "  -> done $($finding.id): $($applyResult.Message)"
                 } catch {
-                    & $Context.Log "Apply failed for $target : $($_.Exception.Message)" 'Error'
+                    & $Context.Log "  -> FAILED $($finding.id): $($_.Exception.Message)" 'Error'
                 }
             }
         }
