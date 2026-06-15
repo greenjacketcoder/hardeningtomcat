@@ -61,7 +61,15 @@ function Invoke-HardeningTomcat {
         # a Valid Authenticode signature or the run aborts -- independent of the OS
         # execution policy. Off by default so unsigned development still works; turn on
         # once the tree is signed for belt-and-suspenders protection on top of AllSigned.
-        [switch] $RequireSignedHandlers
+        [switch] $RequireSignedHandlers,
+
+        # Skip findings flagged highImpact=true in the list. These are settings known to
+        # risk bricking boot, locking out logon, or cutting remote access (e.g. VBS/
+        # Credential Guard, the NTLM/Kerberos auth cluster, SMB signing required, RDP/
+        # remote-management service disables). Recommended for Strike on machines you
+        # can't easily recover, or when applying a baseline for the first time. Apply
+        # the excluded settings deliberately, one area at a time, after the rest is stable.
+        [switch] $ExcludeHighImpact
     )
 
     $ModuleRoot = $PSScriptRoot
@@ -235,6 +243,15 @@ function Invoke-HardeningTomcat {
 
     $findings = $list.findings
     if ($Filter) { $findings = $findings | Where-Object $Filter }
+    if ($ExcludeHighImpact) {
+        $before = @($findings).Count
+        $findings = $findings | Where-Object { -not $_.highImpact }
+        $skipped = $before - @($findings).Count
+        & $Context.Log "ExcludeHighImpact: skipped $skipped high-impact finding(s) (VBS/auth/remote-access lockout class)."
+        if ($skipped -gt 0) {
+            Write-Host "  -ExcludeHighImpact: skipping $skipped high-impact finding(s) (boot/lockout/remote-access risk)." -ForegroundColor Yellow
+        }
+    }
     if ($Level) {
         # L1 -> only level-1 findings; L2 -> level 1 and 2. Findings with no level
         # field are always kept (Microsoft lists have no levels to filter on).
