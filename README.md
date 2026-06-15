@@ -106,6 +106,7 @@ Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\cis\CIS_Windows_11_25H2
 | `-Filter {…}` | Scriptblock over findings, e.g. `-Filter { $_.severity -eq 'High' }`. |
 | `-BackupDir <path>` | Override the pre-Strike backup location. |
 | `-SkipBackupCheck` | Let Strike proceed even if the pre-Strike backup fails (use only with a VM snapshot). |
+| `-ExcludeHighImpact` | Skip findings flagged high-impact -- the boot/lockout/remote-access class (VBS/Credential Guard, NTLM/Kerberos auth, required SMB signing, RDP/WinRM/remote-mgmt service disables). Strongly recommended for a first Strike on a machine you can't easily recover. |
 | `-RequireSignedHandlers` | Verify every handler's Authenticode signature before loading; abort if any is unsigned. |
 | `-PassThru` | Return the `{Summary; Results}` object for scripting (off by default). |
 
@@ -114,7 +115,11 @@ Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\cis\CIS_Windows_11_25H2
 1. **Recon** (elevated) -- see where the machine stands. Sanity-check a few findings.
 2. **`-WhatIf` Strike** -- review what would change (`-ShowDetails` for the full list).
 3. **Snapshot the VM.**
-4. **Real Strike** -- apply, then re-Recon to confirm findings flip to Passed.
+4. **Real Strike, with `-ExcludeHighImpact` first** -- apply the safe majority, then re-Recon
+   to confirm findings flip to Passed. The high-impact settings (VBS, the NTLM/Kerberos auth
+   cluster, SMB signing, RDP/remote-mgmt disables) can render a machine unbootable or
+   unreachable; apply them separately and deliberately, one area at a time, after the rest is
+   stable and verified.
 5. **Roll back** the snapshot.
 
 ### Strike safety gates
