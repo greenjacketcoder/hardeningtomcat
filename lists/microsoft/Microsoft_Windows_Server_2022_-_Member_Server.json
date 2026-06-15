@@ -3702,7 +3702,7 @@
         "path": "HKLM:\\System\\CurrentControlSet\\Control\\Lsa"
       },
       "operator": "=",
-      "recommendedValue": "\"O:BAG:BAD:(A;;RC;;;BA)\"",
+      "recommendedValue": "O:BAG:BAD:(A;;RC;;;BA)",
       "defaultValue": "",
       "severity": "Medium"
     },
@@ -4092,7 +4092,7 @@
         "path": "HKLM:\\Software\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon"
       },
       "operator": "=",
-      "recommendedValue": "\"1\"",
+      "recommendedValue": "1",
       "defaultValue": "",
       "severity": "Medium"
     },
