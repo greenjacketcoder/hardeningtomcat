@@ -8,6 +8,45 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.7.1]
+
+Root-cause hardening of the value fixes from 0.7.0, plus documentation, so the
+corrections survive list regeneration rather than living only in the committed JSON.
+
+### Fixed
+- **CIS list converter now normalizes "X or Y" values at import.**
+  `Import-HardeningKittyList` detects registry recommended values phrased as
+  "either acceptable" (e.g. `1 or 2`, `2 or 1`, `256 or 287`) and emits the `=or`
+  operator instead of `=`. In 0.7.0 the JSON lists were patched directly, but the
+  source CIS CSVs still carry these values with operator `=`, so regenerating any
+  CIS list would have silently reintroduced the false-failure bug. The converter is
+  the origin of the data, so fixing it there makes regeneration correct. (The
+  GptTmpl.inf quote-stripping fix from 0.7.0 already closed the equivalent root cause
+  on the Microsoft import path.)
+
+### Documentation
+- README: documented the `-ExcludeHighImpact` switch in the switches table and folded
+  it into the recommended apply order as the safe first Strike. The high-impact class
+  (VBS/Credential Guard, the NTLM/Kerberos auth cluster, required SMB signing, and
+  RDP/WinRM/remote-management service disables) can render a machine unbootable or
+  unreachable and should be applied separately and deliberately, after the rest is
+  stable.
+
+### Audited (no changes needed)
+- Swept all 20 lists (6,981 findings) for the value-shape problems fixed in 0.7.0.
+  All 6 CIS lists: 0 mis-operatored "X or Y" values, 0 quote-wrapped values,
+  highImpact tags present. Both STIG lists (Win10 v2r1 CSV, Win11 V2R8 SCAP): clean of
+  both problems -- the DoD benchmarks and the DISA SCAP/OVAL importer never produced
+  "X or Y" prose or INF-style quoting, so no STIG-side fix was required. The
+  registry-type inference and quote-stripping live in the Registry handler, so they
+  protect every list regardless of source.
+
+### Note on validation status
+- Live end-to-end Strike validation (apply -> reboot -> re-Recon with Passed rising,
+  no brick) has been performed for **CIS Windows 11 25H2 L1 with `-ExcludeHighImpact`**
+  on real Windows 11. The other CIS lists and the STIG lists are confirmed structurally
+  correct but are not yet live-Strike-validated; that remains a per-OS exercise on a VM.
+
 ## [0.7.0]
 
 Strike (apply) path hardened, debugged, and made safe to run -- driven by an extended
