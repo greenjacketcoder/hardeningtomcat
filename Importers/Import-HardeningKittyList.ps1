@@ -1,4 +1,4 @@
-# Import-HardeningKittyList.ps1
+﻿# Import-HardeningKittyList.ps1
 # Converts a HardeningKitty finding-list CSV into a HardeningTomcat JSON list.
 # Source lists (incl. their CIS L1/L2 variants) are Apache-2.0; derived lists carry an
 # attribution note. The level is inferred from the source filename (_level1 / _level1_level2).
@@ -95,6 +95,17 @@ foreach ($r in $rows) {
         default           { $args = @{ raw = $r.MethodArgument } }
     }
     $sev = if ($r.Severity) { $r.Severity } else { 'Medium' }
+    # Normalize "X or Y" recommended values (CIS lists some settings as "either
+    # acceptable", e.g. "1 or 2", "256 or 287"). With operator '=' these produce false
+    # failures on audit (observed never equals the literal prose) and write garbage on
+    # apply. Switch such Registry findings to the '=or' operator, which passes if the
+    # observed value matches any listed option; the Registry apply path resolves the
+    # same prose to the first listed value when writing. (Root-cause fix so regenerated
+    # lists are correct, not just the committed JSON.)
+    $thisOp = $r.Operator
+    if ($r.Method -eq 'Registry' -and $r.RecommendedValue -match '^\s*[\w-]+\s+or\s+[\w-]+' -and $thisOp -eq '=') {
+        $thisOp = '=or'
+    }
     # Make the ID unique: first occurrence keeps the raw ID; repeats get -2, -3, ...
     $rawId = $r.ID
     if ($idCounts.ContainsKey($rawId)) {
@@ -106,7 +117,7 @@ foreach ($r in $rows) {
     }
     $obj = [ordered]@{
         id = $uniqueId; sourceId = $rawId; name = $r.Name; category = $r.Category; method = $r.Method
-        args = $args; operator = $r.Operator
+        args = $args; operator = $thisOp
         recommendedValue = $r.RecommendedValue; defaultValue = $r.DefaultValue
         severity = $sev
     }
