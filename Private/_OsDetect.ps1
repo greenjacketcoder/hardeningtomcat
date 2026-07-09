@@ -7,7 +7,8 @@ function Get-HtOsIdentity {
       Output: @{ Product='Windows 11'|'Windows 10'|'Windows Server 2022'...; Release='24H2'|''; Role='machine' }
     #>
     $os = $null
-    try { $os = Get-CimInstance -ClassName Win32_OperatingSystem -ErrorAction Stop } catch {}
+    try { $os = Get-CimInstance -ClassName Win32_OperatingSystem -ErrorAction Stop }
+    catch { Write-Verbose "OS detect: Win32_OperatingSystem query failed ($($_.Exception.Message)); falling back to empty caption." }
     $caption = if ($os) { $os.Caption } else { '' }   # e.g. "Microsoft Windows 11 Pro"
     $build   = if ($os) { [int]($os.BuildNumber) } else { 0 }
 
@@ -17,7 +18,7 @@ function Get-HtOsIdentity {
         $cv = Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -ErrorAction Stop
         if ($cv.DisplayVersion) { $release = $cv.DisplayVersion }      # "24H2"
         elseif ($cv.ReleaseId)  { $release = $cv.ReleaseId }
-    } catch {}
+    } catch { Write-Verbose "OS detect: CurrentVersion registry read failed ($($_.Exception.Message)); release stays ''." }
 
     # Product family
     $product =
@@ -52,7 +53,8 @@ function Resolve-HtDefaultList {
     $best = $null; $bestScore = 0
     foreach ($c in $candidates) {
         $hay = "$($c.BaseName)"
-        try { $hay += ' ' + (Get-Content $c.FullName -Raw | ConvertFrom-Json).listName } catch {}
+        try { $hay += ' ' + (Get-Content $c.FullName -Raw | ConvertFrom-Json).listName }
+        catch { Write-Verbose "OS detect: could not read listName from $($c.Name); scoring on filename only." }
         $score = 0
         # Product family tokens
         switch -Regex ($os.Product) {

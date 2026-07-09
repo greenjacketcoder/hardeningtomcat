@@ -31,7 +31,14 @@ function Test-HtListIntegrity {
     $catPath = Join-Path $ModuleRoot 'HardeningTomcat.cat'
     if (Test-Path $catPath) {
         $catSig = $null
-        try { $catSig = Get-AuthenticodeSignature -FilePath $catPath -ErrorAction SilentlyContinue } catch {}
+        try { $catSig = Get-AuthenticodeSignature -FilePath $catPath -ErrorAction Stop } catch {
+            # FAIL CLOSED: if the catalog's signature cannot even be READ, treat that the
+            # same as an invalid signature. Swallowing the error here would silently skip
+            # the tamper check -- an integrity gate must not fail open.
+            $result.Status = 'manifest-tampered'
+            $result.Message = "Could not read the signed catalog's signature ($($_.Exception.Message)). Failing closed: refusing to trust lists/manifest."
+            return $result
+        }
         if ($catSig -and $catSig.Status -ne 'Valid') {
             $result.Status = 'manifest-tampered'
             $result.Message = "The signed file catalog's signature is invalid ($($catSig.Status)). The lists or manifest may have been altered."

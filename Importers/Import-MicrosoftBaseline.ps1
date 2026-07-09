@@ -91,7 +91,7 @@ $scanRoots = $resolution.Folders
 
 $findings = New-Object System.Collections.Generic.List[object]
 $idSeed = 10000
-function Next-Id { $script:idSeed++; "$script:idSeed" }
+function Get-NextId { $script:idSeed++; "$script:idSeed" }
 
 # Map a registry.pol REG type to a HardeningTomcat args.type
 function Get-HtRegType($typeName) {
@@ -119,7 +119,7 @@ foreach ($pol in $polFiles) {
         # A '**del.' value name or DELVALS marker means "delete" -- skip for an audit baseline.
         if ($r.ValueName -match '^\*\*del') { continue }
         $findings.Add([pscustomobject]@{
-            id   = Next-Id
+            id   = Get-NextId
             name = "$($r.Key)\$($r.ValueName)"
             category = 'Registry (MS baseline)'
             method = 'Registry'
@@ -143,7 +143,7 @@ foreach ($inf in $infFiles) {
             'System Access' {
                 # password/lockout policy -> secedit findings (handler reads args.key)
                 $findings.Add([pscustomobject]@{
-                    id = Next-Id; name = "System Access: $($r.Key)"
+                    id = Get-NextId; name = "System Access: $($r.Key)"
                     category = 'Account Policy (MS baseline)'; method = 'secedit'
                     args = @{ key = $r.Key }
                     operator = '='; recommendedValue = "$($r.Value)"; defaultValue = ''
@@ -163,7 +163,7 @@ foreach ($inf in $infFiles) {
                     $parent = if ($idx -ge 0) { $fullKey.Substring(0, $idx) } else { '' }
                     $tn = @{1='REG_SZ';2='REG_EXPAND_SZ';3='REG_BINARY';4='REG_DWORD';7='REG_MULTI_SZ';11='REG_QWORD'}[$regType]
                     $findings.Add([pscustomobject]@{
-                        id = Next-Id; name = "$fullKey"
+                        id = Get-NextId; name = "$fullKey"
                         category = 'Security Options (MS baseline)'; method = 'Registry'
                         args = @{ path = "$hive\$parent"; name = $leaf; type = (Get-HtRegType $tn) }
                         operator = '='; recommendedValue = "$regData"; defaultValue = ''
@@ -175,7 +175,7 @@ foreach ($inf in $infFiles) {
                 # User-rights assignments -> accesschk findings.
                 # Key = privilege (SeShutdownPrivilege), Value = comma-separated *SID list.
                 $findings.Add([pscustomobject]@{
-                    id = Next-Id; name = "User Right: $($r.Key)"
+                    id = Get-NextId; name = "User Right: $($r.Key)"
                     category = 'User Rights (MS baseline)'; method = 'accesschk'
                     args = @{ privilege = $r.Key }
                     operator = 'set='; recommendedValue = "$($r.Value)"; defaultValue = ''
@@ -195,7 +195,7 @@ foreach ($ac in $auditFiles) {
     catch { Write-Warning "Skipping $($ac.FullName): $($_.Exception.Message)"; continue }
     foreach ($r in $recs) {
         $findings.Add([pscustomobject]@{
-            id = Next-Id; name = "Audit: $($r.Subcategory)"
+            id = Get-NextId; name = "Audit: $($r.Subcategory)"
             category = 'Audit Policy (MS baseline)'; method = 'auditpol'
             args = @{ subcategory = $r.Subcategory }
             operator = '='; recommendedValue = "$($r.Setting)"; defaultValue = 'No Auditing'

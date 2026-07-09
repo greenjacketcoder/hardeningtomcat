@@ -1,0 +1,15 @@
+# Pin all text files to LF at checkout, on every platform.
+#
+# WHY THIS MATTERS (do not remove):
+# 1. lists/manifest.sha256 holds SHA-256 hashes of the list files' exact bytes.
+#    With git's default autocrlf=true on Windows, JSON lists are checked out with
+#    CRLF endings, every hash mismatches, and the integrity gate reports every
+#    list as potentially tampered (and blocks Strike) on a fresh Windows clone.
+# 2. Authenticode signatures (Sign-Module.ps1 / HardeningTomcat.cat) are equally
+#    byte-sensitive: a checkout that rewrites line endings invalidates them.
+# PowerShell 5.1+ runs LF-only scripts fine, so LF everywhere is safe.
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.cat binary

@@ -1,6 +1,6 @@
 @{
     RootModule        = 'HardeningTomcat.psm1'
-    ModuleVersion     = '0.7.1'
+    ModuleVersion     = '0.7.2'
     GUID              = '8f3a1c2e-4b5d-4e6f-9a0b-1c2d3e4f5a6b'
     Author            = 'Alex'
     Description       = 'Modular, handler-based Windows configuration audit & hardening engine (beta). Inspired by HardeningKitty, rebuilt with a pluggable handler architecture and a unified audit/apply loop.'

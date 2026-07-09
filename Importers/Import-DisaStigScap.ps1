@@ -22,6 +22,8 @@
         -ListName "DoD STIG Windows 11 V2R8"
 #>
 [CmdletBinding()]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', 'ACCTFIELD2KEY', Justification = 'Staged mapping (OVAL account-policy fields -> secedit keys) for the planned conversion of the ~83 mappable-but-manual STIG findings; kept so the derived mapping knowledge is not lost.')]
+[Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification = 'Internal helpers Resolve-TestRefs / Get-RegistryArgs return sets; the plural is the accurate name and these are not exported cmdlets.')]
 param(
     [Parameter(Mandatory)][string] $ScapXml,
     [Parameter(Mandatory)][string] $ListName,

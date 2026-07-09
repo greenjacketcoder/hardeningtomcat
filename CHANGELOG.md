@@ -8,6 +8,47 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.7.2]
+
+Code-quality QA pass: the full codebase run through PSScriptAnalyzer 1.25 (the
+standard PowerShell linter), 160 findings triaged to zero, plus one genuine
+portability bug found by the pass's live smoke test on a fresh Windows clone.
+
+### Fixed
+- **Integrity gate no longer fails open.** If reading the signed catalog's
+  Authenticode signature threw an exception, the empty catch swallowed it and the
+  tamper check was silently skipped. An unreadable signature is now treated the same
+  as an invalid one: fail closed, refuse to trust lists/manifest.
+- **Line-ending portability (.gitattributes).** On a fresh Windows clone with git's
+  default `autocrlf=true`, the JSON lists checked out with CRLF endings, every hash
+  mismatched the LF-based `lists/manifest.sha256`, and the integrity gate flagged
+  every list as potentially tampered (blocking Strike). All text files are now pinned
+  to LF at checkout. This also protects future Authenticode signatures, which are
+  equally byte-sensitive -- it needed to land before code signing.
+- **`$args` shadowing in the CIS converter.** `Import-HardeningKittyList` assigned to
+  the PowerShell automatic variable `$args` (renamed to `$fargs`, matching the
+  convention used everywhere else). Worked in practice but fragile under
+  StrictMode/refactoring. Converter output verified byte-identical in behavior
+  (args shapes, `=or` normalization) after the rename.
+- **`Next-Id` renamed `Get-NextId`** in the Microsoft importer (approved-verb rule).
+
+### Changed
+- Intentional best-effort catch blocks (OS detection probes, log-write protection,
+  CimCmdlets preload) now emit `Write-Verbose` diagnostics instead of being fully
+  silent, so failures are traceable with `-Verbose` without changing behavior.
+- `New-HtResult` and the DISA importer's staged `ACCTFIELD2KEY` mapping carry
+  documented suppression attributes (object factory / staged-for-deferred-work), so
+  a clean analyzer run stays meaningful.
+
+### Added
+- **`PSScriptAnalyzerSettings.psd1`** committed to the repo, encoding the two
+  reviewed-and-accepted deviations with rationale: `PSAvoidUsingWriteHost` (the
+  colored console output IS the product's UI; the pipeline carries `-PassThru`)
+  and `PSReviewUnusedParameter` (handler scriptblocks declare the fixed
+  `param($Finding, $Cache, $Context)` contract even when a parameter is unused).
+  `Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\PSScriptAnalyzerSettings.psd1`
+  now reports zero findings.
+
 ## [0.7.1]
 
 Root-cause hardening of the value fixes from 0.7.0, plus documentation, so the

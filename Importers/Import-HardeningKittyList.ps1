@@ -74,25 +74,27 @@ $findings = New-Object System.Collections.Generic.List[object]
 $idCounts = @{}
 
 foreach ($r in $rows) {
-    $args = @{}
+    # NOTE: named $fargs (finding args), not $args -- $args is a PowerShell automatic
+    # variable and assigning to it is fragile (breaks under StrictMode/refactoring).
+    $fargs = @{}
     switch ($r.Method) {
-        'Registry'        { $args = @{ path = $r.RegistryPath; name = $r.RegistryItem } }
-        'RegistryList'    { $args = @{ path = $r.RegistryPath; item = $r.RegistryItem } }
-        'accesschk'       { $args = @{ privilege = $r.MethodArgument } }
-        'service'         { $args = @{ name = $r.MethodArgument } }
-        'auditpol'        { $args = @{ subcategory = $r.MethodArgument } }  # CIS uses GUID; see note
-        'secedit'         { $args = @{ key = ($r.MethodArgument -replace '^System Access\\','') } }
+        'Registry'        { $fargs = @{ path = $r.RegistryPath; name = $r.RegistryItem } }
+        'RegistryList'    { $fargs = @{ path = $r.RegistryPath; item = $r.RegistryItem } }
+        'accesschk'       { $fargs = @{ privilege = $r.MethodArgument } }
+        'service'         { $fargs = @{ name = $r.MethodArgument } }
+        'auditpol'        { $fargs = @{ subcategory = $r.MethodArgument } }  # CIS uses GUID; see note
+        'secedit'         { $fargs = @{ key = ($r.MethodArgument -replace '^System Access\\','') } }
         'accountpolicy'   {
             # Resolve the secedit key now (case-insensitive) so the handler doesn't
             # depend on exact runtime name matching. Falls back to empty if unknown.
             $k = $acctPolicyKeys[$r.Name.Trim().ToLower()]
-            $args = @{ key = $k }
+            $fargs = @{ key = $k }
             if (-not $k) { Write-Warning "No account-policy key mapping for '$($r.Name)' (id $($r.ID)) -- will Skip at runtime." }
         }
-        'localaccount'    { $args = @{ rid = $r.MethodArgument } }
-        'MpPreferenceAsr' { $args = @{ ruleId = $r.MethodArgument } }
-        'ProcessmitigationApplication' { $args = @{ target = $r.MethodArgument } }
-        default           { $args = @{ raw = $r.MethodArgument } }
+        'localaccount'    { $fargs = @{ rid = $r.MethodArgument } }
+        'MpPreferenceAsr' { $fargs = @{ ruleId = $r.MethodArgument } }
+        'ProcessmitigationApplication' { $fargs = @{ target = $r.MethodArgument } }
+        default           { $fargs = @{ raw = $r.MethodArgument } }
     }
     $sev = if ($r.Severity) { $r.Severity } else { 'Medium' }
     # Normalize "X or Y" recommended values (CIS lists some settings as "either
@@ -117,7 +119,7 @@ foreach ($r in $rows) {
     }
     $obj = [ordered]@{
         id = $uniqueId; sourceId = $rawId; name = $r.Name; category = $r.Category; method = $r.Method
-        args = $args; operator = $thisOp
+        args = $fargs; operator = $thisOp
         recommendedValue = $r.RecommendedValue; defaultValue = $r.DefaultValue
         severity = $sev
     }

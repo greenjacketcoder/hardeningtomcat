@@ -100,7 +100,10 @@ function Invoke-HardeningTomcat {
                 # AppendAllText opens, writes, and CLOSES the file each call -- so the
                 # line is on disk immediately. Critical when diagnosing a crash/brick:
                 # the LAST line in the log is the last thing the tool did before dying.
-                try { [System.IO.File]::AppendAllText($script:LogPath, "[$stamp][$Level] $Text`r`n") } catch {}
+                # Logging must never take down a run: on write failure, note it via the
+                # verbose stream (visible with -Verbose) and keep going.
+                try { [System.IO.File]::AppendAllText($script:LogPath, "[$stamp][$Level] $Text`r`n") }
+                catch { Write-Verbose "Log write to $script:LogPath failed: $($_.Exception.Message)" }
             }
         }
     }
@@ -134,7 +137,8 @@ function Invoke-HardeningTomcat {
     # later auto-trigger inside a -WhatIf scope and spray "What if: Set Alias" lines when
     # a handler first calls Get-CimInstance. Windows-only; harmless if already loaded.
     if ($PSVersionTable.PSVersion.Major -lt 6 -or $IsWindows) {
-        try { Import-Module CimCmdlets -ErrorAction SilentlyContinue -WhatIf:$false } catch {}
+        try { Import-Module CimCmdlets -ErrorAction SilentlyContinue -WhatIf:$false }
+        catch { Write-Verbose "CimCmdlets preload failed ($($_.Exception.Message)); continuing -- handlers load it on demand." }
     }
 
     # ---- Load handlers ---------------------------------------------------------
@@ -603,6 +607,9 @@ function Write-HtProgress {
 
 
 function New-HtResult {
+    # Pure object factory: builds the per-finding result record for the report. It
+    # changes no system state, so ShouldProcess does not apply despite the New- verb.
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification = 'Object factory only; no state change.')]
     param(
         $Finding,
         [string]$Status,
