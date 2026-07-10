@@ -68,6 +68,14 @@ CSS/JS, opens offline): score tiles, a result-distribution chart, failures by
 category, and a filterable table of every finding — what was checked, the
 observed value, the recommended value, and the operator used to compare them.
 
+Prefer data over charts? Add `-Report` (alongside or instead of `-ReportHtml`)
+to also write a per-finding **CSV** — same rows, machine-readable, ideal for
+Excel filtering, diffing two audits, or feeding a script:
+
+```powershell
+Invoke-HardeningTomcat -Mode Recon -Report -ReportHtml
+```
+
 ## What you built
 
 A scored compliance picture of your machine against an authoritative baseline,

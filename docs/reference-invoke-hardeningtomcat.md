@@ -77,6 +77,18 @@ The engine owns all comparison semantics (handlers only observe):
 | `set=` | Order-independent set equality for SID lists; account names are resolved to SIDs on both sides. Two empty sets are equal. |
 | `manual` | Not evaluated — reported Skipped with the finding's remediation text. |
 
+## Report outputs
+
+- **CSV (`-Report`)** — one row per finding with columns `ID`, `Category`,
+  `Name`, `Method`, `Checked`, `Observed`, `Recommended`, `Operator`,
+  `Severity`, `Level`, `Result`, `Detail`, `Hostname` (UTF-8, identical to the
+  `Results` records below). Auto-named
+  `hardeningtomcat_report_<HOST>_<list>_<timestamp>.csv` unless `-ReportFile`
+  is given.
+- **HTML (`-ReportHtml`)** — the same findings rendered as a self-contained
+  page (score tiles, charts, filterable table). Both can be produced in one run.
+- **Log (`-Log`)** — line-flushed execution trace, separate from the reports.
+
 ## -PassThru output
 
 ```powershell
