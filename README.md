@@ -45,6 +45,18 @@ systems (analysis on other languages may be incorrect).
 
 Per-version history and current implementation status live in [CHANGELOG.md](CHANGELOG.md).
 
+## Documentation
+
+| Doc | For |
+|---|---|
+| [Tutorial: your first audit](docs/tutorial-first-audit.md) | Zero to a scored HTML report in 3 steps (read-only) |
+| [How to run a safe Strike](docs/howto-safe-strike.md) | The apply workflow, every safety gate, backup contents, and **undoing changes with the undo journal** |
+| [How to write a custom handler](docs/howto-write-a-handler.md) | Adding a new check method in one file ([contract](Handlers/_CONTRACT.md)) |
+| [Invoke-HardeningTomcat reference](docs/reference-invoke-hardeningtomcat.md) | Every parameter, gate, result status, operator, and the -PassThru shape |
+| [Finding list format](docs/reference-finding-list-format.md) | The typed JSON schema, validation rules, and integrity model |
+| [Why the engine is built this way](docs/explanation-architecture.md) | Handler registry, one-loop design, honest failure — with trade-offs |
+| [Importers](Importers/README.md) | Generating lists from Microsoft SCT / CIS / STIG sources |
+
 ## The three modes
 
 | Mode | What it does | Changes the system? |
