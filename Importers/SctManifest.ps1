@@ -25,7 +25,17 @@ function Get-SctGpoManifest {
         return $null
     }
 
-    [xml]$xml = Get-Content $manifestPath -Raw
+    # XXE-safe load (see Import-DisaStigScap.ps1): [xml] on .NET Framework resolves
+    # external entities/DTDs by default. A hostile SCT manifest.xml could exfiltrate
+    # local files. Load through an XmlReader that prohibits DTDs and uses no resolver.
+    $xmlSettings = New-Object System.Xml.XmlReaderSettings
+    $xmlSettings.DtdProcessing = [System.Xml.DtdProcessing]::Prohibit
+    $xmlSettings.XmlResolver   = $null
+    $xmlReader = [System.Xml.XmlReader]::Create($manifestPath, $xmlSettings)
+    try {
+        $xml = New-Object System.Xml.XmlDocument
+        $xml.Load($xmlReader)
+    } finally { $xmlReader.Dispose() }
     # Namespace-agnostic: grab all BackupInst regardless of default xmlns.
     $insts = $xml.GetElementsByTagName('BackupInst')
     $gpos = foreach ($inst in $insts) {

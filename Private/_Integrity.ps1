@@ -4,8 +4,15 @@
 
 function Test-HtListIntegrity {
     param(
-        [string] $FindingList,   # path to the list being used
-        [string] $ModuleRoot
+        [string] $FindingList,   # path to the list being used (used for its NAME only)
+        [string] $ModuleRoot,
+        # SHA256 (lowercase hex) of the EXACT in-memory buffer the engine will parse.
+        # TOCTOU defense: the caller reads the file's bytes once, hashes THAT buffer, and
+        # passes the hash here so integrity verification and JSON parsing operate on the
+        # same bytes -- never re-opening the path (which a racing writer could swap between
+        # the hash and the parse). When omitted (e.g. standalone/test callers), we fall
+        # back to hashing the path directly.
+        [string] $ActualHash
     )
     $manifestPath = Join-Path $ModuleRoot 'lists/manifest.sha256'
     $result = [pscustomobject]@{
@@ -71,7 +78,13 @@ function Test-HtListIntegrity {
         }
     }
 
-    $actual = (Get-FileHash -Path $FindingList -Algorithm SHA256).Hash.ToLower()
+    # Use the caller's in-memory-buffer hash when provided (TOCTOU-safe); otherwise fall
+    # back to hashing the path directly (standalone/test callers).
+    if ($ActualHash) {
+        $actual = $ActualHash.ToLower()
+    } else {
+        $actual = (Get-FileHash -Path $FindingList -Algorithm SHA256).Hash.ToLower()
+    }
     $result.Actual = $actual
 
     # Match by hash directly -- path-independent, so a list is trusted wherever it sits
@@ -83,17 +96,26 @@ function Test-HtListIntegrity {
     }
 
     if ($known.ContainsKey($actual)) {
-        # The hash matched a manifest entry, but also require the FILE NAME to match the
-        # recorded one: hash-only matching would let any trusted list's content stand in
-        # for any other (e.g. a Domain Controller list swapped into the Win11 file would
-        # still read "verified" -- and then be applied to the wrong system).
-        $recordedLeaf = Split-Path $known[$actual] -Leaf
-        $actualLeaf   = Split-Path $FindingList -Leaf
-        if ($recordedLeaf -and $actualLeaf -and ($recordedLeaf -ne $actualLeaf)) {
+        # The hash matched a manifest entry, but also require the RECORDED PATH to match:
+        # hash-only matching would let any trusted list's content stand in for any other
+        # (e.g. a Domain Controller list swapped into the Win11 file would still read
+        # "verified" -- and then be applied to the wrong system). Compare the FULL relative
+        # path the manifest records (relative to lists/), not just the filename leaf: two
+        # lists in different subdirectories (lists/cis/win11.json vs lists/stig/win11.json)
+        # can share a leaf, and leaf-only matching would let one masquerade as the other.
+        $recordedRel = ($known[$actual] -replace '\\','/').TrimStart('/')
+        $listsRootN  = (Join-Path $ModuleRoot 'lists') -replace '\\','/'
+        $actualFull  = try { (Resolve-Path -LiteralPath $FindingList -ErrorAction Stop).Path } catch { $FindingList }
+        $actualRel   = (($actualFull -replace '\\','/') -replace [regex]::Escape($listsRootN), '').TrimStart('/')
+        # If the list lives outside lists/ we cannot form a relative path; fall back to the
+        # leaf comparison in that case rather than failing a legitimately-relocated list.
+        $recordedCmp = if ($actualRel -match '/') { $recordedRel } else { Split-Path $recordedRel -Leaf }
+        $actualCmp   = if ($actualRel -match '/') { $actualRel }   else { Split-Path $actualFull -Leaf }
+        if ($recordedCmp -and $actualCmp -and ($recordedCmp -ne $actualCmp)) {
             $result.Status = 'not-listed'
-            $result.Message = "List content matches manifest entry '$($known[$actual])' but the file is named " +
-                              "'$actualLeaf' -- a trusted list's content appears under a different name. " +
-                              "If this rename is intentional, re-run Update-ListManifest.ps1."
+            $result.Message = "List content matches manifest entry '$($known[$actual])' but the file resolves to " +
+                              "'$actualCmp' -- a trusted list's content appears under a different path/name. " +
+                              "If this relocation is intentional, re-run Update-ListManifest.ps1."
             return $result
         }
         $result.Status = 'verified'

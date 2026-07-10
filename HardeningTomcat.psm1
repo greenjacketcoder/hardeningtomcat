@@ -211,8 +211,24 @@ function Invoke-HardeningTomcat {
     }
     if (-not (Test-Path $FindingList)) { throw "Finding list not found: $FindingList" }
 
+    # ---- Read the list ONCE into memory (TOCTOU defense) -----------------------
+    # Read the file's raw bytes a single time, hash THOSE bytes, and decode THOSE bytes
+    # to the JSON text we parse. Integrity verification and parsing then operate on the
+    # exact same buffer -- a process racing to swap the file between a hash and a separate
+    # parse read cannot present verified content to the hasher and malicious content to
+    # the parser. (StreamReader with BOM detection strips a leading BOM that would
+    # otherwise make ConvertFrom-Json choke on PS 5.1.)
+    try { $listBytes = [System.IO.File]::ReadAllBytes($FindingList) }
+    catch { throw "Could not read finding list: $($_.Exception.Message)" }
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+    try { $listHash = ([System.BitConverter]::ToString($sha256.ComputeHash($listBytes)) -replace '-','').ToLower() }
+    finally { $sha256.Dispose() }
+    $ms = New-Object System.IO.MemoryStream(,$listBytes)
+    $reader = New-Object System.IO.StreamReader($ms, $true)
+    try { $listRaw = $reader.ReadToEnd() } finally { $reader.Dispose(); $ms.Dispose() }
+
     # ---- Integrity check (defense against tampered lists) ----------------------
-    $integrity = Test-HtListIntegrity -FindingList $FindingList -ModuleRoot $ModuleRoot
+    $integrity = Test-HtListIntegrity -FindingList $FindingList -ModuleRoot $ModuleRoot -ActualHash $listHash
     switch ($integrity.Status) {
         'verified' { & $Context.Log $integrity.Message }
         'manifest-tampered' {
@@ -241,7 +257,8 @@ function Invoke-HardeningTomcat {
     }
 
     # ---- Load & validate finding list -----------------------------------------
-    $listRaw = Get-Content -Path $FindingList -Raw
+    # $listRaw was read+hashed above from a single in-memory buffer (TOCTOU-safe); parse
+    # that same buffer -- do NOT re-open $FindingList here.
     try { $list = $listRaw | ConvertFrom-Json }
     catch { throw "Finding list is not valid JSON: $($_.Exception.Message)" }
     if (-not $list.findings) { throw "Finding list contains no 'findings' array." }
@@ -268,6 +285,13 @@ function Invoke-HardeningTomcat {
         # method would write the literal prose to the system.
         if ($f.operator -eq '=or' -and $f.method -ne 'Registry') {
             $problems.Add("$label uses operator '=or' with method '$($f.method)' -- '=or' is only supported for Registry findings")
+        }
+        # Reject wildcard characters in registry paths. The registry provider glob-expands
+        # *, ?, and [...]; New-Item (no -LiteralPath) would otherwise let a single Strike
+        # finding fan a WRITE across every matching key. Registry reads already use
+        # -LiteralPath, but this closes the write path at the source.
+        if ($f.method -in 'Registry','RegistryList' -and $f.args -and $f.args.path -match '[*?\[\]]') {
+            $problems.Add("$label ($($f.method)) has a wildcard character (* ? [ ]) in args.path '$($f.args.path)' -- registry paths must be literal")
         }
         if ($f.severity -and $f.severity -notin $validSev) { $problems.Add("$label has invalid severity '$($f.severity)'") }
         if ($f.id) {
@@ -776,11 +800,19 @@ function Test-HtOperator {
         '!='   { return ([string]$Observed -ne $Recommended) }
         # int64, not int32: registry baselines legitimately use values >= 2^31
         # (e.g. 4294967295); an [int] cast would throw and turn them into false failures.
-        '<='   { try { return ([int64]$Observed -le [int64]$Recommended) } catch { return $false } }
-        '>='   { try { return ([int64]$Observed -ge [int64]$Recommended) } catch { return $false } }
-        '<'    { try { return ([int64]$Observed -lt [int64]$Recommended) } catch { return $false } }
-        '>'    { try { return ([int64]$Observed -gt [int64]$Recommended) } catch { return $false } }
-        '<=!0' { try { return ([int64]$Observed -le [int64]$Recommended -and [int64]$Observed -ne 0) } catch { return $false } }
+        #
+        # Empty-guard (CRITICAL): in Windows PowerShell 5.1 [int64]'' returns 0 WITHOUT
+        # throwing, so the try/catch below does NOT protect against an empty observation.
+        # An absent registry key is graded with an empty $Observed (engine substitutes an
+        # empty defaultValue); without this guard, [int64]'' -> 0 makes '0 <= 30' etc. a
+        # false PASS -- reporting an unconfigured control (e.g. LAPS PasswordAgeDays) as
+        # compliant. Reject empty/whitespace observations before the numeric cast so an
+        # unreadable/absent value can never masquerade as the integer 0.
+        '<='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -le [int64]$Recommended) } catch { return $false } }
+        '>='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -ge [int64]$Recommended) } catch { return $false } }
+        '<'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -lt [int64]$Recommended) } catch { return $false } }
+        '>'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -gt [int64]$Recommended) } catch { return $false } }
+        '<=!0' { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -le [int64]$Recommended -and [int64]$Observed -ne 0) } catch { return $false } }
         'contains' {
             # An empty recommended substring would match everything -- treat as non-match
             # (a security tool must not report a pass it cannot actually justify).

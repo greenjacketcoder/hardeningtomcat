@@ -34,7 +34,19 @@ if (-not (Test-Path $ScapXml)) { throw "SCAP XML not found: $ScapXml" }
 if (-not $OutDir) { $OutDir = Join-Path (Split-Path $PSScriptRoot -Parent) 'lists/stig' }
 New-Item -ItemType Directory -Path $OutDir -Force | Out-Null
 
-[xml]$doc = Get-Content -LiteralPath $ScapXml -Raw
+# XXE-safe load: on Windows PowerShell 5.1 (.NET Framework) the [xml] accelerator's
+# XmlDocument resolves external entities/DTDs by default, so a hostile SCAP file could
+# exfiltrate local files or trigger SSRF. Load through an XmlReader that PROHIBITS DTDs
+# and uses no resolver (also defeats billion-laughs). SCAP/XCCDF carries no DTD, so
+# Prohibit is the strictest safe setting.
+$xmlSettings = New-Object System.Xml.XmlReaderSettings
+$xmlSettings.DtdProcessing = [System.Xml.DtdProcessing]::Prohibit
+$xmlSettings.XmlResolver   = $null
+$xmlReader = [System.Xml.XmlReader]::Create($ScapXml, $xmlSettings)
+try {
+    $doc = New-Object System.Xml.XmlDocument
+    $doc.Load($xmlReader)
+} finally { $xmlReader.Dispose() }
 
 # Namespace manager
 $nsm = New-Object System.Xml.XmlNamespaceManager($doc.NameTable)

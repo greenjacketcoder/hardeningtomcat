@@ -42,8 +42,12 @@
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set $($a.path)\$name = $val ($type)" }
         }
-        if (-not (Test-Path $a.path)) { New-Item -Path $a.path -Force -WhatIf:$false | Out-Null }
-        New-ItemProperty -Path $a.path -Name $name -Value $val -PropertyType $type -Force -WhatIf:$false | Out-Null
+        # -LiteralPath where supported: args.path is semi-trusted list data; -Path would
+        # glob-expand *, ?, [...] and fan this WRITE across every matching key. (New-Item
+        # has no -LiteralPath; the engine also rejects wildcard registry paths at list
+        # load, so a wildcard never reaches this New-Item in the first place.)
+        if (-not (Test-Path -LiteralPath $a.path)) { New-Item -Path $a.path -Force -WhatIf:$false | Out-Null }
+        New-ItemProperty -LiteralPath $a.path -Name $name -Value $val -PropertyType $type -Force -WhatIf:$false | Out-Null
         @{ Changed = $true; Message = "Set $($a.path)\$name = $val ($type)" }
     }
 }

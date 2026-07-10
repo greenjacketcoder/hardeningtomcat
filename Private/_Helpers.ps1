@@ -21,7 +21,11 @@ function Get-HtRegistryValue {
         $Path = $Path -replace '(?<!:)/', '\'
     }
     try {
-        $item = Get-ItemProperty -Path $Path -Name $Name -ErrorAction Stop
+        # -LiteralPath, not -Path: a finding's args.path is semi-trusted list data. -Path
+        # glob-expands *, ?, and [...], so a wildcard path would read (and, in the Apply
+        # handler, WRITE) across every matching key -- turning one finding into a broad
+        # blast radius. -LiteralPath binds the path exactly as written.
+        $item = Get-ItemProperty -LiteralPath $Path -Name $Name -ErrorAction Stop
         return @{ Found = $true; Result = $item.$Name }
     } catch {
         # ONE generic catch with an explicit -is check, NOT typed catch blocks:

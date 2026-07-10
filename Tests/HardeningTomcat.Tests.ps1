@@ -47,6 +47,20 @@ Describe 'Test-HtOperator' {
         It '<=!0 passes nonzero within bound'  { (Test-Op '<=!0' '5' '10') | Should Be $true }
     }
 
+    Context 'empty/absent observation must NOT coerce to 0 (LAPS false-pass regression)' {
+        # Windows PowerShell 5.1: [int64]'' == 0 without throwing. An absent registry key is
+        # graded with an empty Observed; before the guard, '' -> 0 made <=/>= a false PASS
+        # (e.g. LAPS PasswordAgeDays <= 30 "passed" while unconfigured). Every numeric
+        # operator must FAIL an empty/whitespace observation, never treat it as 0.
+        It '<= fails on empty observed (was false-pass 0<=30)' { (Test-Op '<=' '' '30') | Should Be $false }
+        It '>= fails on empty observed'                        { (Test-Op '>=' '' '0')  | Should Be $false }
+        It '<  fails on empty observed'                        { (Test-Op '<'  '' '30') | Should Be $false }
+        It '>  fails on empty observed'                        { (Test-Op '>'  '' '0')  | Should Be $false }
+        It '<=!0 fails on empty observed'                      { (Test-Op '<=!0' '' '30') | Should Be $false }
+        It '<= fails on whitespace-only observed'              { (Test-Op '<=' '   ' '30') | Should Be $false }
+        It 'real zero still evaluates normally (0 <= 30 passes)' { (Test-Op '<=' '0' '30') | Should Be $true }
+    }
+
     Context "'contains'" {
         It 'empty needle never passes (no unjustifiable pass)' { (Test-Op 'contains' 'anything' '') | Should Be $false }
         It 'passes on substring' { (Test-Op 'contains' 'abcdef' 'cde') | Should Be $true }
@@ -150,7 +164,7 @@ Describe 'Test-HtListIntegrity' {
         Copy-Item $listPath $swapped
         $r = Test-HtListIntegrity -FindingList $swapped -ModuleRoot $fixRoot
         $r.Status | Should Be 'not-listed'
-        $r.Message | Should Match 'different name'
+        $r.Message | Should Match 'different path/name'
     }
     It 'reports no-manifest when the manifest is absent' {
         $bareRoot = Join-Path $env:TEMP ("ht-pester-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))

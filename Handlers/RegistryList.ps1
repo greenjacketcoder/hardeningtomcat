@@ -20,7 +20,9 @@
         # Read every value under the key; collect their data as strings.
         $values = @()
         try {
-            $props = Get-ItemProperty -Path $path -ErrorAction Stop
+            # -LiteralPath: args.path is semi-trusted; -Path would glob-expand and read
+            # across every matching key. Bind the path exactly as written.
+            $props = Get-ItemProperty -LiteralPath $path -ErrorAction Stop
             foreach ($p in $props.PSObject.Properties) {
                 if ($p.Name -in 'PSPath','PSParentPath','PSChildName','PSDrive','PSProvider') { continue }
                 $values += "$($p.Value)"

@@ -8,6 +8,58 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.10.0]
+
+### Fixed
+- **Numeric false-pass on absent settings (correctness bug in a security audit).**
+  In Windows PowerShell 5.1, `[int64]''` returns `0` *without throwing*, so the
+  `try/catch` guarding the numeric operators (`<=`, `>=`, `<`, `>`, `<=!0`) never
+  fired for an empty observation. An absent registry key is graded with an empty
+  observed value, so `'' -> 0` made thresholds like `0 <= 30` a false **Passed** --
+  e.g. LAPS `PasswordAgeDays` (`18.9.26.6`) reported compliant while LAPS was
+  entirely unconfigured, even as its sibling `PasswordLength` (`>= 15`) correctly
+  Failed the same state. Each numeric operator now rejects an empty/whitespace
+  observation before the cast (`HardeningTomcat.psm1` `Test-HtOperator`). Verified
+  live: `18.9.26.6` now Fails alongside `18.9.26.5`. Regression tests added.
+
+### Security
+- **TOCTOU in the list-integrity gate (HIGH).** The engine hashed the finding-list
+  file and then re-opened the same path to parse the JSON that drives Strike's
+  writes -- a process racing the file between the two reads could present verified
+  content to the hasher and different content to the parser. The engine now reads
+  the file's bytes **once** into memory, hashes that buffer, and parses the same
+  buffer (`HardeningTomcat.psm1`; `Test-HtListIntegrity` gains an `-ActualHash`
+  parameter in `Private/_Integrity.ps1`).
+- **XXE in the SCAP and SCT-manifest importers (HIGH).** `[xml]` on .NET Framework
+  resolves external entities/DTDs by default, so a hostile SCAP benchmark or GPO
+  `manifest.xml` could exfiltrate local files or trigger SSRF. Both importers now
+  load through an `XmlReader` with `DtdProcessing = Prohibit` and `XmlResolver =
+  $null` (`Importers/Import-DisaStigScap.ps1`, `Importers/SctManifest.ps1`).
+- **Registry path wildcard expansion (MEDIUM).** `args.path` (semi-trusted list
+  data) was passed to `-Path`, which glob-expands `*`, `?`, `[...]` -- one finding
+  could fan a Strike **write** across every matching key. Registry reads now use
+  `-LiteralPath` (`Private/_Helpers.ps1`, `Handlers/Registry.ps1`,
+  `Handlers/RegistryList.ps1`), and the engine rejects wildcard characters in
+  `Registry`/`RegistryList` paths at list load (closing the `New-Item` path, which
+  has no `-LiteralPath`).
+- **Manifest identity matched by filename leaf only (MEDIUM).** Two lists sharing a
+  filename in different subdirectories (e.g. `cis/win11.json` vs `stig/win11.json`)
+  could masquerade for each other. Verification now compares the full path relative
+  to `lists/` (`Private/_Integrity.ps1`).
+- **`registry.pol` parser trusted an unbounded size field (LOW).** A malformed/
+  hostile `registry.pol` with a bogus record size would throw an opaque
+  out-of-range error mid-parse; the parser now bounds-checks the size against the
+  remaining buffer and fails fast with a clear message
+  (`Importers/RegistryPolParser.ps1`).
+
+### Changed
+- **HTML report design refresh + tinted status chips.** Deeper surface palette with
+  soft-shadowed rounded cards, larger score hero, zebra-striped/hover table,
+  monospace value cells, and new mobile + print stylesheets. Status chips are now
+  tinted per result (the CSS variants are wired to the row status; color still
+  never carries meaning alone -- every chip keeps its status dot and text label).
+  Template remains pure ASCII. `docs/example-report.html` regenerated.
+
 ## [0.9.0]
 
 ### Added

@@ -107,6 +107,13 @@ function ConvertFrom-RegistryPol {
         $size = [BitConverter]::ToUInt32($Bytes, $ref.Value); $ref.Value += 4
         & $expectChar $ref ';'
 
+        # Bounds-check the attacker-influenced size field before slicing. A malformed/hostile
+        # registry.pol can carry a bogus $size larger than the remaining buffer; slicing on it
+        # would throw a confusing out-of-range error deep in the parse. Fail fast with a clear
+        # message instead (the caller skips the file on a parse error).
+        if ($size -gt ($Bytes.Length - $ref.Value)) {
+            throw "registry.pol record has size $size exceeding remaining buffer $($Bytes.Length - $ref.Value) at offset $($ref.Value) -- file is malformed or truncated."
+        }
         $rawData = if ($size -gt 0) { $Bytes[$ref.Value..($ref.Value + $size - 1)] } else { @() }
         $ref.Value += $size
         & $expectChar $ref ']'
