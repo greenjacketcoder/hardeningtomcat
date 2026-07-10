@@ -106,5 +106,4 @@ requires the signed catalog from `Sign-Module.ps1`.
 ## Related
 
 - [Importers](../Importers/README.md) — generating lists from Microsoft SCT / CIS / STIG sources
-- [How to write a custom handler](howto-write-a-handler.md) — adding a new `method`
 - [Invoke-HardeningTomcat reference](reference-invoke-hardeningtomcat.md)
