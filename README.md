@@ -110,6 +110,7 @@ Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\cis\CIS_Windows_11_25H2
 | `-FindingList <path>` | The list to use. Required for Strike (never auto-selected). |
 | `-Level 1\|2` | CIS level filter: `1` runs L1 only, `2` runs L1+L2. Lists without levels ignore it. |
 | `-Report` | Write a per-finding CSV (auto-named, or use `-ReportFile`). |
+| `-ReportHtml` | Write a self-contained HTML report (auto-named, or use `-ReportHtmlFile`): score tiles, result-distribution and failed-by-category charts, and a filterable findings table. Inline CSS/JS -- opens offline, no external dependencies. |
 | `-ShowDetails` | List each failed/skipped finding (and each would-change item in `-WhatIf`). Off by default. |
 | `-Force` | Required for Strike. Without it, apply mode refuses to run. |
 | `-WhatIf` | Strike dry-run: report what would change, write nothing. |

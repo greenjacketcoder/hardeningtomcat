@@ -13,3 +13,4 @@ hardeningtomcat_backup_*/
 *.cer
 *.pvk
 *.snk
+.gstack/

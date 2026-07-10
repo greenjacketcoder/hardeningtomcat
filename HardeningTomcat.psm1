@@ -32,6 +32,12 @@ function Invoke-HardeningTomcat {
         [switch] $Report,
         [string] $ReportFile,
 
+        # Self-contained HTML report: summary tiles, result-distribution and
+        # failed-by-category charts, and a filterable findings table. Inline CSS/JS,
+        # no network dependency -- opens offline and archives next to the CSV.
+        [switch] $ReportHtml,
+        [string] $ReportHtmlFile,
+
         # Required guard for Strike. Without it, apply mode refuses to run.
         [switch] $Force,
 
@@ -561,6 +567,22 @@ function Invoke-HardeningTomcat {
             else { Join-Path (Get-Location) ("hardeningtomcat_report_{0}_{1}_{2:yyyyMMdd-HHmmss}.csv" -f $env:COMPUTERNAME, $safeList, $script:StartTime) }
         $results | Export-Csv -Path $reportPath -NoTypeInformation -Encoding UTF8
         & $Context.Log "Report written: $reportPath"
+    }
+    if ($ReportHtml) {
+        $safeListH = ($list.listName -replace '[^\w\-]', '_')
+        $htmlPath = if ($ReportHtmlFile) { $ReportHtmlFile } `
+            else { Join-Path (Get-Location) ("hardeningtomcat_report_{0}_{1}_{2:yyyyMMdd-HHmmss}.html" -f $env:COMPUTERNAME, $safeListH, $script:StartTime) }
+        Export-HtHtmlReport -Summary $summary -Results $results -Path $htmlPath -Meta @{
+            list      = $list.listName
+            host      = $script:HtHostname
+            mode      = $Mode
+            level     = if ($Level) { "L$Level" } else { '' }
+            generated = ('{0:yyyy-MM-dd HH:mm:ss}' -f $script:StartTime)
+            duration  = [math]::Round($summary.Duration, 1)
+            version   = "$((Import-PowerShellDataFile (Join-Path $ModuleRoot 'HardeningTomcat.psd1')).ModuleVersion)"
+        }
+        & $Context.Log "HTML report written: $htmlPath"
+        Write-Host "HTML report: $htmlPath" -ForegroundColor Cyan
     }
 
     # ---- Console: failures summary -------------------------------------------

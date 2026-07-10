@@ -8,6 +8,23 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.9.0]
+
+### Added
+- **`-ReportHtml` / `-ReportHtmlFile`: self-contained HTML report (v0.1).**
+  One .html file with inline CSS/JS (no CDN, opens offline/air-gapped): a KPI row
+  (score hero with meter, passed/failed/skipped tiles, Applied+failures on Strike),
+  a result-distribution stacked bar in the fixed status palette (every status
+  paired with its text label -- color never carries meaning alone), a
+  failed-findings-by-category bar chart (single sequential hue, top 12 + Other),
+  and a filterable findings table (result/severity/method dropdowns + free-text
+  search) that serves as the accessibility fallback for every chart number.
+  Light/dark follows the OS via prefers-color-scheme; hover tooltips on chart
+  marks. Rendered and visually verified in both modes via headless Chrome.
+  Implementation: `Private/_HtmlReport.ps1` (Export-HtHtmlReport); the template is
+  pure ASCII (typographic chars via String.fromCharCode) because PS 5.1 reads
+  BOM-less .ps1 files as ANSI and would mojibake UTF-8 literals.
+
 ## [0.8.0]
 
 Full external code-review remediation: every finding from the whole-module review
