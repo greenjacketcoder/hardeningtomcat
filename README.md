@@ -1,10 +1,31 @@
 # HardeningTomcat (beta)
 
 ```
-          ____
-       __/ o.o\__     recon . survey . strike
-   ~~ |  TOMCAT  |>==>
-       \__\___/__/     Windows hardening, locked on
+                                       :
+                                     `=S+-                                     ```
+                                     :-sSS+                               `:=cSs
+                                     -*SSs#+ `::                ``` `:-=*s##S*-
+                                     +%#@SSS`:``::::`   ``:::-:::--+cS#%#c=
+                                     =#%%SSs-`::``-::--:-::::-=+c#%%#s+:
+                                 ```:=cS#Ss#+*c:``+--+` `-+cS#%%#S*:
+                                 :::-+SSsss#:::::`:+sc*sS#%@%Sc=
+                               `:`:=cscc#c*#: -=-=cS%%@@%##+:
+                               ::--*ccc+cS+S- `*ss*=s@S+:`:
+                              -::+--:`+==++=-=*csc=*sS#:
+                            ::--`--`:=+s*+c***++*sS+**S*:-```
+                         :::` :=sSSSc+s*****+-::css#SS#c `::::::```
+                      `:::`:=*cS%@%sSc*+s==-::::`sSS@%%=````
+                   `::`:-+sS%@@%%S++*s#c*c`:::::`*%cc*%-
+                  ``:=*S%%%#Sc+:   `::s%s#+ ::`++:=#sS#`
+              ``:-*s#@@#s*-`        =*sc###+:-=*:   ---
+            :-*s#%%Sc=:           ```+#s*c%s    +    ```
+         -+s###s+:              `:`:`  c###-     +
+     `:cSSs*-                 `:``       `        +
+       ::                   `:`
+                           ``
+
+                          recon . survey . strike
+                        Windows hardening, locked on
 ```
 
 ## What it is
