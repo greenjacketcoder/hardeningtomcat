@@ -102,6 +102,5 @@ finding list (typed JSON)          Handlers/*.ps1 (one per method)
 
 ## Related
 
-- [Handler contract](../Handlers/_CONTRACT.md) — the exact shape this design enforces
 - [Invoke-HardeningTomcat reference](reference-invoke-hardeningtomcat.md) — the gates and operators
 - [Finding list format](reference-finding-list-format.md) — the typed JSON that feeds it
