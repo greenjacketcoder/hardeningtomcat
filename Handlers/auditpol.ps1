@@ -62,15 +62,26 @@
 
     Apply = {
         param($Finding, $Cache, $Context)
-        $sub = $Finding.args.subcategory
+        $sub = "$($Finding.args.subcategory)"
         $val = $Finding.recommendedValue
+        # The subcategory comes from list data (semi-trusted input). Constrain it to the
+        # characters real subcategory names and GUIDs use, so a tampered value cannot
+        # smuggle extra arguments into the command line -- same guard class as secedit's.
+        if ($sub -notmatch '^[\w\s{}/()-]+$') {
+            throw "Refused: audit subcategory '$sub' contains unexpected characters"
+        }
         # Map the human setting to auditpol flags
         $success = if ($val -match 'Success') { 'enable' } else { 'disable' }
         $failure = if ($val -match 'Failure') { 'enable' } else { 'disable' }
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set audit '$sub' to $val" }
         }
-        & auditpol.exe /set /subcategory:"$sub" /success:$success /failure:$failure | Out-Null
+        & auditpol.exe /set /subcategory:"$sub" /success:$success /failure:$failure 2>$null | Out-Null
+        # auditpol reports failure via exit code, not an exception. Unchecked, a failed
+        # set (policy locked by GPO, bad subcategory) would count as Applied.
+        if ($LASTEXITCODE -ne 0) {
+            throw "auditpol /set failed (exit $LASTEXITCODE) for subcategory '$sub'"
+        }
         @{ Changed = $true; Message = "Audit '$sub' set to $val" }
     }
 }

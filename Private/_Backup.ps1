@@ -1,5 +1,16 @@
-﻿# Pre-Strike backup. Exports current system state so an apply can be rolled back.
-# Called once, right before the Strike apply loop runs. Windows-only (no-ops elsewhere).
+﻿# Pre-Strike backup. Called once, right before the Strike apply loop runs.
+#
+# WHAT THIS COVERS (be honest -- these exports alone cannot restore everything):
+#   - security policy (secedit INF export: account policy, user rights, audit)
+#   - audit policy (auditpol /backup CSV, restorable with auditpol /restore)
+#   - the two registry subtrees hardening touches most (SOFTWARE\Policies, Control\Lsa)
+#   - service start types (CSV snapshot)
+#   - Defender preferences incl. ASR rules (CliXml snapshot, best-effort)
+# Registry findings OUTSIDE the exported subtrees are NOT covered by these dumps.
+# The per-finding UNDO JOURNAL (undo-journal.jsonl, written by the engine into this
+# same directory during the apply loop) is the complete record: it captures the
+# pre-change observed value of EVERY finding Strike applies, for every handler.
+# Windows-only (no-ops elsewhere).
 
 function Invoke-HtPreStrikeBackup {
     param([string] $BackupDir, $Context)
@@ -16,7 +27,8 @@ function Invoke-HtPreStrikeBackup {
     New-Item -ItemType Directory -Path $BackupDir -Force -WhatIf:$false | Out-Null
     if (-not (Test-Path $BackupDir)) {
         & $Context.Log "Backup: could not create backup directory $BackupDir" 'Warn'
-        return [pscustomobject]@{ Complete = $false; Path = $BackupDir }
+        # NB: property must be named Dir -- the engine reads $backup.Dir for its messages.
+        return [pscustomobject]@{ Complete = $false; Dir = $BackupDir }
     }
 
     # Restrict ACLs: these files contain full security policy (user rights, SIDs,
@@ -80,6 +92,28 @@ function Invoke-HtPreStrikeBackup {
             & $Context.Log "Backup: audit policy -> $audPath"
         }
     } catch { $ok = $false; & $Context.Log "Backup: auditpol backup threw" 'Warn' }
+
+    # 4) Service start types. The service handler changes these during Strike and the
+    # registry subtree exports above do not cover HKLM\SYSTEM\CurrentControlSet\Services.
+    try {
+        $svcPath = Join-Path $BackupDir 'services-starttype.csv'
+        Get-Service -ErrorAction Stop | Select-Object Name, StartType, Status |
+            Export-Csv -Path $svcPath -NoTypeInformation -Encoding UTF8
+        & $Context.Log "Backup: service start types -> $svcPath"
+    } catch { $ok = $false; & $Context.Log "Backup: service snapshot FAILED: $($_.Exception.Message)" 'Warn' }
+
+    # 5) Defender preferences (ASR rules, the MpPreferenceAsr handler's target).
+    # Best-effort: Defender may legitimately be absent/disabled on this SKU, and in that
+    # case the ASR applies would no-op too -- so absence does not fail the backup.
+    try {
+        if (Get-Command Get-MpPreference -ErrorAction SilentlyContinue) {
+            $mpPath = Join-Path $BackupDir 'defender-preferences.xml'
+            Get-MpPreference -ErrorAction Stop | Export-Clixml -Path $mpPath
+            & $Context.Log "Backup: Defender preferences -> $mpPath"
+        } else {
+            & $Context.Log "Backup: Get-MpPreference unavailable; Defender snapshot skipped." 'Warn'
+        }
+    } catch { & $Context.Log "Backup: Defender snapshot failed (non-fatal): $($_.Exception.Message)" 'Warn' }
 
     [pscustomobject]@{ Dir = $BackupDir; Complete = $ok }
 }

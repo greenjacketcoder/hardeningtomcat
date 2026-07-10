@@ -31,5 +31,8 @@
         @{ Changed = $true; Message = "Service '$name' StartType set to $val" }
     }
 
-    RequiresAdmin = $true
+    # Reading a StartType needs no elevation -- gating the Test on admin would
+    # needlessly Skip ~40 findings in a non-admin Recon. Only the APPLY needs admin.
+    RequiresAdmin = $false
+    RequiresAdminForApply = $true
 }

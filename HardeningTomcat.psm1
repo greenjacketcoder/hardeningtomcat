@@ -87,6 +87,19 @@ function Invoke-HardeningTomcat {
         $IsAdmin = $false   # not Windows, or identity unavailable
     }
 
+    # 32-bit PowerShell on 64-bit Windows sees the WOW6432Node registry view: audits
+    # would silently read -- and Strike would WRITE -- the wrong keys for hundreds of
+    # HKLM\SOFTWARE findings. Refuse to apply from a redirected view; warn for reads.
+    if ([Environment]::Is64BitOperatingSystem -and -not [Environment]::Is64BitProcess) {
+        if ($Mode -eq 'Strike') {
+            throw "This is a 32-bit PowerShell process on 64-bit Windows: registry access is " +
+                  "redirected to the WOW6432Node view, so hardening values would be written to " +
+                  "the wrong keys. Re-run from a 64-bit PowerShell."
+        }
+        Write-Warning ("32-bit PowerShell on 64-bit Windows: registry reads are redirected " +
+            "(WOW6432Node), so results for HKLM\SOFTWARE findings will be wrong. Use a 64-bit PowerShell.")
+    }
+
     $Context = @{
         Mode      = $Mode
         IsAdmin   = $IsAdmin
@@ -114,7 +127,7 @@ function Invoke-HardeningTomcat {
         $script:LogPath = if ($LogFile) { $LogFile } `
             else { Join-Path (Get-Location) ("hardeningtomcat_log_{0:yyyyMMdd-HHmmss}.txt" -f $script:StartTime) }
         & $Context.Log "===== HardeningTomcat session start ====="
-        & $Context.Log "Mode=$Mode List=$FindingList Level=$Level Force=$Force WhatIf=$($PSBoundParameters.ContainsKey('WhatIf'))"
+        & $Context.Log "Mode=$Mode List=$FindingList Level=$Level Force=$Force WhatIf=$WhatIfPreference"
         & $Context.Log "Host=$env:COMPUTERNAME Admin=$IsAdmin PSVersion=$($PSVersionTable.PSVersion)"
     }
 
@@ -210,6 +223,16 @@ function Invoke-HardeningTomcat {
             & $Context.Log "Integrity ($($integrity.Status)): $($integrity.Message)" 'Warn'
         }
     }
+    # Be honest about what the gate can and cannot do: without a SIGNED catalog
+    # (HardeningTomcat.cat from Sign-Module.ps1), manifest.sha256 is plain text that
+    # anyone who can edit a list can also regenerate -- it detects accidental
+    # corruption, not deliberate tampering.
+    if ($Mode -eq 'Strike' -and -not $integrity.CatalogPresent) {
+        Write-Warning ("Integrity manifest is NOT signed (no HardeningTomcat.cat): list verification " +
+            "protects against accidental corruption only, not deliberate tampering. Run Sign-Module.ps1 " +
+            "to produce a signed catalog for tamper resistance.")
+        & $Context.Log "Strike with unsigned integrity manifest (corruption detection only)." 'Warn'
+    }
 
     # ---- Load & validate finding list -----------------------------------------
     $listRaw = Get-Content -Path $FindingList -Raw
@@ -234,6 +257,12 @@ function Invoke-HardeningTomcat {
             }
         }
         if ($f.operator -and $f.operator -notin $validOps) { $problems.Add("$label has invalid operator '$($f.operator)'") }
+        # '=or' is Registry-only: its apply path resolves the "X or Y" prose to the first
+        # value, and only the Registry handler implements that resolution. Any other
+        # method would write the literal prose to the system.
+        if ($f.operator -eq '=or' -and $f.method -ne 'Registry') {
+            $problems.Add("$label uses operator '=or' with method '$($f.method)' -- '=or' is only supported for Registry findings")
+        }
         if ($f.severity -and $f.severity -notin $validSev) { $problems.Add("$label has invalid severity '$($f.severity)'") }
         if ($f.id) {
             if ($seenIds.ContainsKey("$($f.id)")) { $problems.Add("duplicate id '$($f.id)'") }
@@ -294,7 +323,14 @@ function Invoke-HardeningTomcat {
         }
     }
 
+    # Detect dry-run ONCE, before the backup: -WhatIf sets $WhatIfPreference to $true;
+    # an explicit -WhatIf:$false must run for real (checking ContainsKey('WhatIf') would
+    # wrongly treat it as a dry-run). We handle the dry-run summary ourselves rather
+    # than emitting PowerShell's per-finding 'What if:' chatter.
+    $isDryRun = ($Mode -eq 'Strike') -and $WhatIfPreference
+
     # ---- Pre-Strike backup (export current state so apply is recoverable) ------
+    $undoJournalPath = $null
     if ($Mode -eq 'Strike') {
         $backup = Invoke-HtPreStrikeBackup -BackupDir $BackupDir -Context $Context
         if ($backup.Complete) {
@@ -308,15 +344,21 @@ function Invoke-HardeningTomcat {
                   "Applying changes without a recoverable backup is unsafe. Resolve the backup failure, " +
                   "or re-run with -SkipBackupCheck if you have another safety net (e.g. a VM snapshot)."
         }
+        # Per-finding undo journal: before every apply, the pre-change observed value is
+        # appended here (JSONL, one record per applied finding). Unlike the subtree
+        # exports above -- which cannot cover every path Strike touches -- the journal
+        # records EXACTLY what changed and what it was before, for every handler.
+        if (-not $isDryRun) {
+            $undoJournalPath = Join-Path $backup.Dir 'undo-journal.jsonl'
+            & $Context.Log "Undo journal: $undoJournalPath"
+        }
     }
 
     # ---- Unified finding loop (drives both Test and Apply) ---------------------
     $results = New-Object System.Collections.Generic.List[object]
-    $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0 }
+    $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0; ApplyFailed = 0 }
     $wouldChange = New-Object System.Collections.Generic.List[object]
-    # Detect dry-run once: -WhatIf sets $WhatIfPreference. We handle the dry-run summary
-    # ourselves rather than emitting PowerShell's per-finding 'What if:' chatter.
-    $isDryRun = ($Mode -eq 'Strike') -and ($WhatIfPreference -or $PSBoundParameters.ContainsKey('WhatIf'))
+    $script:HtUndoWarned = $false
 
     $total = $findings.Count
     $i = 0
@@ -363,7 +405,11 @@ function Invoke-HardeningTomcat {
             $stats.Skipped++; continue
         }
 
-        $observed = if ($obs.Found) { [string]$obs.Result } else { [string]$finding.defaultValue }
+        # Normalize the observed value for comparison. Multi-string (REG_MULTI_SZ)
+        # results arrive as ARRAYS; lists store the expected value ';'-separated, so a
+        # naive [string] cast would space-join and make every multi-string finding
+        # false-fail forever (elements like 'Server Applications' contain spaces).
+        $observed = if ($obs.Found) { ConvertTo-HtObservedString $obs.Result } else { ConvertTo-HtObservedString $finding.defaultValue }
         # For the human-readable Detail string, show empty/absent values clearly.
         $observedDisp = if ([string]::IsNullOrEmpty($observed)) { '(not set)' } else { $observed }
         $obsNote = if ($obs.PSObject.Properties.Name -contains 'Note' -and $obs.Note) { " [$($obs.Note)]" } else { '' }
@@ -394,6 +440,13 @@ function Invoke-HardeningTomcat {
                 & $Context.Log "ID $($finding.id): method '$($finding.method)' is read-only; cannot apply." 'Warn'
                 continue
             }
+            # Some handlers can READ without elevation but need admin to WRITE
+            # (e.g. service start types). Skip the apply honestly instead of letting
+            # it throw per-finding.
+            if ($handler.RequiresAdminForApply -and -not $IsAdmin) {
+                & $Context.Log "ID $($finding.id): apply requires elevation; session not admin." 'Warn'
+                continue
+            }
             $target = "$($finding.id) - $($finding.name)"
             if ($isDryRun) {
                 # Dry-run: collect what WOULD change for a concise end-of-run summary,
@@ -416,12 +469,39 @@ function Invoke-HardeningTomcat {
                     default    { "$($finding.method) = $($finding.recommendedValue)" }
                 }
                 & $Context.Log "APPLYING $($finding.id) [$($finding.method)] $tgtDetail"
+                # Undo journal: record the pre-change value BEFORE applying, so every
+                # change Strike makes is individually reversible from the backup dir.
+                if ($undoJournalPath) {
+                    $undoRec = [ordered]@{
+                        ts = (Get-Date -Format 'o'); id = "$($finding.id)"; method = $finding.method
+                        args = $finding.args; found = [bool]$obs.Found; observed = $observed
+                        recommended = "$($finding.recommendedValue)"
+                    }
+                    try {
+                        [System.IO.File]::AppendAllText($undoJournalPath,
+                            (([pscustomobject]$undoRec | ConvertTo-Json -Compress -Depth 5) + "`r`n"))
+                    } catch {
+                        & $Context.Log "Undo journal write failed: $($_.Exception.Message)" 'Warn'
+                        if (-not $script:HtUndoWarned) {
+                            $script:HtUndoWarned = $true
+                            Write-Warning "Undo journal write failed ($($_.Exception.Message)). Applies continue (the pre-Strike backup still exists), but per-finding rollback data is incomplete."
+                        }
+                    }
+                }
                 try {
                     $applyResult = & $handler.Apply $finding $Cache $ctxApply
                     if ($applyResult.Changed) { $stats.Applied++ }
                     & $Context.Log "  -> done $($finding.id): $($applyResult.Message)"
                 } catch {
+                    # Apply failures must be VISIBLE, not just in the verbose/log stream:
+                    # a run where every apply throws must not end with a green summary.
+                    $stats.ApplyFailed++
                     & $Context.Log "  -> FAILED $($finding.id): $($_.Exception.Message)" 'Error'
+                    if ($stats.ApplyFailed -le 3) {
+                        Write-Warning "Apply failed for $($finding.id) ($($finding.name)): $($_.Exception.Message)"
+                    } elseif ($stats.ApplyFailed -eq 4) {
+                        Write-Warning "Further apply failures suppressed on console; the summary shows the total (full detail with -Log)."
+                    }
                 }
             }
         }
@@ -441,7 +521,9 @@ function Invoke-HardeningTomcat {
                     if ($flush -and $flush.Applied) { $stats.Applied += [int]$flush.Applied }
                     if ($flush -and $flush.Message) { & $Context.Log "FlushApply ($hName): $($flush.Message)" }
                 } catch {
+                    $stats.ApplyFailed++
                     & $Context.Log "FlushApply ($hName) failed: $($_.Exception.Message)" 'Error'
+                    Write-Warning "Batched apply (FlushApply, $hName) failed: $($_.Exception.Message)"
                 }
             }
         }
@@ -466,6 +548,7 @@ function Invoke-HardeningTomcat {
         High      = $stats.High
         Skipped   = $stats.Skipped
         Applied   = $stats.Applied
+        ApplyFailed = $stats.ApplyFailed
         Score     = "$earned / $max"
         Percent   = $pct
         Duration  = (New-TimeSpan -Start $script:StartTime -End (Get-Date)).TotalSeconds
@@ -530,7 +613,12 @@ function Invoke-HardeningTomcat {
     if ($summary.High   -gt 0) { Write-Host ("  {0,-12}{1}" -f 'High:',   $summary.High)   -ForegroundColor Red }
     if ($summary.Skipped -gt 0){ Write-Host ("  {0,-12}{1}" -f 'Skipped:',$summary.Skipped) -ForegroundColor DarkGray }
     if ($isDryRun)             { Write-Host ("  {0,-12}{1}" -f 'Would chg:', $wouldChange.Count) -ForegroundColor Cyan }
-    elseif ($Mode -eq 'Strike') { Write-Host ("  {0,-12}{1}" -f 'Applied:',  $summary.Applied) }
+    elseif ($Mode -eq 'Strike') {
+        Write-Host ("  {0,-12}{1}" -f 'Applied:',  $summary.Applied)
+        if ($summary.ApplyFailed -gt 0) {
+            Write-Host ("  {0,-12}{1}" -f 'Apply FAILED:', $summary.ApplyFailed) -ForegroundColor Red
+        }
+    }
     Write-Host ""
     Write-Host ("  {0,-12}{1}" -f 'Score:',    "$($summary.Score)  ($($summary.Percent)%)") -ForegroundColor $passColor
     Write-Host ("  {0,-12}{1:N1}s" -f 'Duration:', $summary.Duration)
@@ -664,11 +752,13 @@ function Test-HtOperator {
             return $false
         }
         '!='   { return ([string]$Observed -ne $Recommended) }
-        '<='   { try { return ([int]$Observed -le [int]$Recommended) } catch { return $false } }
-        '>='   { try { return ([int]$Observed -ge [int]$Recommended) } catch { return $false } }
-        '<'    { try { return ([int]$Observed -lt [int]$Recommended) } catch { return $false } }
-        '>'    { try { return ([int]$Observed -gt [int]$Recommended) } catch { return $false } }
-        '<=!0' { try { return ([int]$Observed -le [int]$Recommended -and [int]$Observed -ne 0) } catch { return $false } }
+        # int64, not int32: registry baselines legitimately use values >= 2^31
+        # (e.g. 4294967295); an [int] cast would throw and turn them into false failures.
+        '<='   { try { return ([int64]$Observed -le [int64]$Recommended) } catch { return $false } }
+        '>='   { try { return ([int64]$Observed -ge [int64]$Recommended) } catch { return $false } }
+        '<'    { try { return ([int64]$Observed -lt [int64]$Recommended) } catch { return $false } }
+        '>'    { try { return ([int64]$Observed -gt [int64]$Recommended) } catch { return $false } }
+        '<=!0' { try { return ([int64]$Observed -le [int64]$Recommended -and [int64]$Observed -ne 0) } catch { return $false } }
         'contains' {
             # An empty recommended substring would match everything -- treat as non-match
             # (a security tool must not report a pass it cannot actually justify).

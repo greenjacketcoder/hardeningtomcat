@@ -125,7 +125,10 @@ foreach ($pol in $polFiles) {
             method = 'Registry'
             args = @{ path = "$hive\$($r.Key)"; name = $r.ValueName; type = (Get-HtRegType $r.TypeName) }
             operator = '='
-            recommendedValue = "$($r.Data)"
+            # REG_MULTI_SZ parses to an ARRAY; the list convention (and what the engine
+            # compares against) is ';'-separated. A bare "$()" would SPACE-join, which
+            # can never match and is ambiguous (elements may contain spaces).
+            recommendedValue = $(if ($r.Data -is [array]) { $r.Data -join ';' } else { "$($r.Data)" })
             defaultValue = ''
             severity = $DefaultSeverity
         })

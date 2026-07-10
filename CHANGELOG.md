@@ -8,6 +8,103 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.8.0]
+
+Full external code-review remediation: every finding from the whole-module review
+(2 critical, 6 important, 10+ minor) fixed in one pass, plus the module's first
+automated test suite. 49 Pester tests green, PSScriptAnalyzer still at zero.
+
+### Fixed
+- **Multi-string (REG_MULTI_SZ) findings can now pass (CRITICAL).** The engine
+  coerced observed values with a bare `[string]` cast, which SPACE-joins arrays --
+  but lists store multi-string values `;`-separated (e.g. `netlogon;samr;lsarpc`),
+  so every CIS multi-string finding (`Machine`, `NullSessionPipes`, ...) false-failed
+  on every Recon and Strike re-applied it every run. Observed arrays now join on `;`
+  via the shared `ConvertTo-HtObservedString`; `Import-MicrosoftBaseline` emits the
+  same convention for future REG_MULTI_SZ imports (current Microsoft lists carry
+  none, so no regeneration needed).
+- **PS 5.1 JIT typed-catch mis-match in `Get-HtRegistryValue`.** Found while fixing
+  the access-denied conflation below: once a hot function is JIT-compiled (~16
+  invocations), Windows PowerShell 5.1 routes every exception into the first typed
+  catch clause -- on a full-list run, hundreds of missing-key reads were suddenly
+  reported as access denied. Replaced typed catches with one generic catch + runtime
+  `-is` checks, which are immune. (Live-verified: a full CIS L1 Recon now skips
+  exactly the 3 genuinely non-admin-unreadable keys.)
+- **Access denied is no longer conflated with value-absent.** `Get-HtRegistryValue`
+  caught ALL exceptions as `Found=$false`, so an unreadable key was graded
+  confidently against `defaultValue` instead of Skipped -- violating the handler
+  contract's honest-failure rule. Access denied now rethrows and the engine skips.
+- **auditpol Apply no longer reports success unconditionally.** It ignored
+  `$LASTEXITCODE` and returned `Changed=$true` always (same bug class fixed for
+  secedit in 0.5.1); a failed set now throws and is counted/surfaced. The
+  subcategory (list data) is also validated against a safe character set before
+  being placed on the command line, mirroring secedit's injection guard.
+- **Backup-failure path returned the wrong property name** (`Path` instead of
+  `Dir`), so the engine's "backup failed" message printed an empty directory.
+- **`-WhatIf:$false` was treated as a dry-run.** Dry-run detection keyed on
+  `ContainsKey('WhatIf')`; it now uses `$WhatIfPreference`, so an explicit
+  `-WhatIf:$false` Strikes for real (it failed safe, but wrongly).
+- **Integer operators use int64.** `[int]` casts threw on legitimate values
+  >= 2^31 (e.g. `4294967295`) and turned them into false failures.
+- **STIG importer no longer silently under-checks multi-test rules.** A definition
+  whose criteria ANDs several OVAL tests emitted only the FIRST test -- a machine
+  failing only the second read compliant. AND-logic definitions whose tests all
+  resolve to concrete registry checks now emit one finding per test (suffixed ids,
+  `[check k/N]` names); OR-logic or partially-resolvable definitions honestly fall
+  back to `manual`. (The shipped Win11 STIG list predates this fix; it corrects on
+  next regeneration from the SCAP source.)
+
+### Added
+- **Per-finding undo journal.** During a real Strike, the engine appends each
+  finding's PRE-change observed value to `undo-journal.jsonl` in the backup
+  directory before applying it -- unlike the subtree exports, this covers every
+  change from every handler, making each apply individually reversible (and paving
+  the way for a future `-Rollback`).
+- **Pre-Strike backup now also snapshots service start types** (CSV) **and Defender
+  preferences/ASR rules** (CliXml, best-effort) -- previously none of the 43 service
+  or 13 ASR changes were captured anywhere. The backup header and README now state
+  coverage honestly instead of implying full-machine restore.
+- **Apply failures are visible.** Failed applies were logged only to the verbose/log
+  stream; a run where every apply threw still ended with a green-looking summary.
+  They now surface as console warnings (first 3 + count), an `ApplyFailed` summary
+  field, and a red `Apply FAILED:` line.
+- **First automated test suite** (`Tests/HardeningTomcat.Tests.ps1`, Pester
+  3.4-compatible, 49 tests): operator semantics (`=or`, int64 numerics, `set=`,
+  `contains`, `=|0`), value normalization (multi-string join, quote-strip, "X or Y"
+  resolution), registry read edge cases, the integrity gate's verified/tampered/
+  content-swap/no-manifest matrix, the registry.pol parser (using the previously
+  orphaned `sample_registry.pol` fixture), and shipped-list data invariants.
+- **`RequiresAdminForApply` handler contract key.** The service handler's Test needs
+  no elevation; a non-admin Recon now grades ~43 service findings instead of
+  skipping them, while Strike still skips their applies cleanly when not admin.
+- **32-bit-process guard.** A 32-bit PowerShell on 64-bit Windows reads/writes the
+  WOW6432Node registry view; Recon now warns and Strike refuses.
+- **`localaccount` findings accept an explicit `args.check`** (`enabled` | `name`),
+  falling back to the English name heuristic for existing lists.
+
+### Changed
+- **Integrity gate hardening.** A present-but-unverifiable signed catalog
+  (`Test-FileCatalog` throwing) now FAILS CLOSED as `manifest-tampered` instead of
+  falling through to the plain hash check. Hash matches additionally require the
+  file NAME to match the manifest entry, closing the content-swap hole (a trusted
+  DC list renamed to the Win11 file no longer verifies). Strike without a signed
+  catalog warns explicitly that the unsigned manifest detects corruption, not
+  tampering; README updated to match.
+- **Shared value normalization.** Quote-stripping and "X or Y" resolution moved from
+  the Registry handler into `Resolve-HtApplyValue` (Private/_Helpers.ps1) so the
+  audit and apply paths can never disagree about what a value means -- the asymmetry
+  that produced both the 0.7.0 DWord bug and the multi-string bug.
+- **List validation** now rejects `=or` on non-Registry findings (only the Registry
+  apply path resolves the prose; anywhere else would write it literally).
+- `Regenerate-AllBaselines.ps1` takes `-BaseDir` (defaulting under the current
+  user's Downloads) instead of a hardcoded macOS path.
+- README: `Strike -WhatIf` wording now states precisely that the backup directory
+  and temp exports are still created ("writes nothing to system configuration");
+  "schema-validated" corrected to "structurally validated".
+- PSSA settings: documented third accepted deviation
+  (`PSAvoidUsingPositionalParameters`, new in recent PSSA versions -- fires only on
+  two internal fixed-signature helpers).
+
 ## [0.7.2]
 
 Code-quality QA pass: the full codebase run through PSScriptAnalyzer 1.25 (the

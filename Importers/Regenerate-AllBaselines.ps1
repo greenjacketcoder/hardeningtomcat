@@ -2,9 +2,14 @@
 # Regenerates every HardeningTomcat baseline list from the local SCT downloads in one pass.
 # Run after importer changes (e.g. the accesschk handler) so all lists stay current & complete.
 #
-# Edit $BaseDir if your Microsoft Baselines folder lives elsewhere.
+# Pass -BaseDir if your Microsoft Baselines folder lives elsewhere.
 
-$BaseDir = "/Users/alex/Downloads/Microsoft Baselines"
+param(
+    [string] $BaseDir = (Join-Path ([Environment]::GetFolderPath('UserProfile')) 'Downloads\Microsoft Baselines')
+)
+if (-not (Test-Path $BaseDir)) {
+    throw "Microsoft Baselines folder not found: $BaseDir -- pass -BaseDir with the folder holding the unzipped SCT baselines."
+}
 $Importer = Join-Path $PSScriptRoot 'Import-MicrosoftBaseline.ps1'
 
 # Client baselines (single role -> Client preset, machine scope)

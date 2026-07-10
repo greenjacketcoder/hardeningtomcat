@@ -133,6 +133,37 @@ function Get-RegistryStateValue {
     @{ value = $val.'#text'; op = (Convert-Operation $val.operation) }
 }
 
+# Resolve one OVAL test to a concrete Registry check, or $null if it can't be one
+# (non-registry type, pattern/cert-store path, or no literal expected value).
+function Resolve-RegistryTestCheck {
+    param($Test)
+    if ($TYPE2METHOD[$Test.LocalName] -ne 'Registry') { return $null }
+    $ra = Get-RegistryArgs $Test
+    # Cert-store subkey enumerations and regex/pattern paths (e.g. smartcard readers,
+    # DoD Root CA presence) have no single value name -- not auto-convertible.
+    $isPattern = $ra -and ($ra.path -match '[\\^$.|?*+()\[\]]' -and $ra.path -notmatch '^HK[A-Z]+:\\[\w\\ .-]+$')
+    if (-not ($ra -and $ra.name) -or $isPattern) { return $null }
+    $sv = Get-RegistryStateValue $Test
+    if (-not ("$($sv.value)".Trim())) { return $null }
+    @{ args = $ra; op = $sv.op; rec = $sv.value }
+}
+
+# Does this definition (or any definition it extends) use OR logic in its criteria?
+# 'A OR B' cannot be decomposed into independent all-must-pass findings.
+function Test-DefUsesOrLogic {
+    param([string]$DefId, [System.Collections.Generic.HashSet[string]]$Seen)
+    if (-not $Seen) { $Seen = [System.Collections.Generic.HashSet[string]]::new() }
+    if (-not $Seen.Add($DefId)) { return $false }
+    $d = $script:defs[$DefId]; if (-not $d) { return $false }
+    foreach ($crit in $d.SelectNodes('.//od:criteria', $script:nsm)) {
+        if ("$($crit.operator)" -eq 'OR') { return $true }
+    }
+    foreach ($ext in $d.SelectNodes('.//od:criteria/od:extend_definition', $script:nsm)) {
+        if (Test-DefUsesOrLogic -DefId $ext.definition_ref -Seen $Seen) { return $true }
+    }
+    return $false
+}
+
 # Build findings ----------------------------------------------------------------
 $findings = New-Object System.Collections.Generic.List[object]
 $idCounts = @{}
@@ -153,30 +184,22 @@ foreach ($r in $bench.SelectNodes('.//xccdf:Rule', $nsm)) {
 
     $chk = $r.SelectSingleNode('.//xccdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]', $nsm)
     $method = 'manual'; $fargs = @{}; $op = 'manual'; $rec = ''
+    $extraChecks = @()   # additional findings when a definition ANDs several registry tests
+    $nameSuffix = ''
     if ($chk) {
         $ref = $chk.SelectSingleNode('./xccdf:check-content-ref', $nsm)
         $trefs = @(if ($ref) { Resolve-TestRefs -DefId $ref.name } else { @() })
-        if (@($trefs).Count -gt 0 -and $script:tests[$trefs[0]]) {
+        if (@($trefs).Count -eq 1 -and $script:tests[$trefs[0]]) {
             $t = $script:tests[$trefs[0]]
             $typ = $t.LocalName
             $m = $TYPE2METHOD[$typ]
             if ($m -eq 'Registry') {
-                $ra = Get-RegistryArgs $t
-                # Only a usable Registry finding if it resolves to a concrete single value.
-                # Cert-store subkey enumerations and regex/pattern paths (e.g. smartcard
-                # readers, DoD Root CA presence) have no single value name -- those stay
-                # manual so they surface with their fixtext instead of as broken checks.
-                $isPattern = $ra -and ($ra.path -match '[\\^$.|?*+()\[\]]' -and $ra.path -notmatch '^HK[A-Z]+:\\[\w\\ .-]+$')
-                if ($ra -and $ra.name -and -not $isPattern) {
-                    $sv = Get-RegistryStateValue $t
-                    if ("$($sv.value)".Trim()) {
-                        $method='Registry'; $fargs=$ra; $op=$sv.op; $rec=$sv.value
-                    } else {
-                        $fargs=@{ intendedMethod='Registry'; ovalType=$typ; note='no literal expected value' }
-                    }
-                } else {
-                    $fargs=@{ intendedMethod='Registry'; ovalType=$typ; note='cert-store or pattern check' }
-                }
+                # Only a usable Registry finding if it resolves to a concrete single value;
+                # cert-store/pattern checks and no-literal-value states stay manual so they
+                # surface with their fixtext instead of as broken checks.
+                $p = Resolve-RegistryTestCheck $t
+                if ($p) { $method='Registry'; $fargs=$p.args; $op=$p.op; $rec=$p.rec }
+                else { $fargs=@{ intendedMethod='Registry'; ovalType=$typ; note='cert-store, pattern, or no-literal-value check' } }
             }
             # Non-registry mappable types are emitted as manual for now (handler arg
             # extraction for audit/accountpolicy/accesschk from OVAL is a later stage),
@@ -186,17 +209,58 @@ foreach ($r in $bench.SelectNodes('.//xccdf:Rule', $nsm)) {
                 $fargs=@{ intendedMethod = $m; ovalType = $typ }
             }
         }
+        elseif (@($trefs).Count -gt 1) {
+            # A definition with SEVERAL tests. Previously only the FIRST was emitted,
+            # silently under-checking 'A AND B' rules: a machine failing only B was
+            # reported compliant. AND-logic definitions whose tests ALL resolve to
+            # concrete registry checks now emit ONE FINDING PER TEST; anything else
+            # (OR logic, unresolvable sub-checks) honestly falls back to manual.
+            $hasOr = Test-DefUsesOrLogic -DefId $ref.name
+            $parts = @()
+            $allOk = -not $hasOr
+            if ($allOk) {
+                foreach ($tr in $trefs) {
+                    $t2 = $script:tests[$tr]
+                    $p = if ($t2) { Resolve-RegistryTestCheck $t2 } else { $null }
+                    if ($p) { $parts += , $p } else { $allOk = $false; break }
+                }
+            }
+            if ($allOk -and $parts.Count -gt 0) {
+                $method='Registry'; $fargs=$parts[0].args; $op=$parts[0].op; $rec=$parts[0].rec
+                if ($parts.Count -gt 1) {
+                    $extraChecks = $parts[1..($parts.Count - 1)]
+                    $nameSuffix = " [check 1/$($parts.Count)]"
+                }
+            } else {
+                $why = if ($hasOr) { 'OR logic' } else { 'not all sub-checks auto-convertible' }
+                $fargs = @{ note = "multi-criterion OVAL check ($(@($trefs).Count) tests; $why); requires human verification" }
+            }
+        }
     }
     if ($method -eq 'Registry') { $stats.Registry++ } else { $stats.manual++ }
 
     $obj = [ordered]@{
-        id = $uid; sourceId = $rawId; name = $title
+        id = $uid; sourceId = $rawId; name = "$title$nameSuffix"
         category = "DoD STIG ($($r.severity))"; method = $method
         args = $fargs; operator = $op
         recommendedValue = "$rec"; defaultValue = ''
         severity = $sev; fixText = $fixText
     }
     $findings.Add([pscustomobject]$obj)
+
+    # Sibling findings for the remaining AND'd sub-checks (same V-ID, suffixed ids).
+    $k = 1
+    foreach ($p in $extraChecks) {
+        $k++
+        $stats.Registry++
+        $findings.Add([pscustomobject]([ordered]@{
+            id = "$uid-t$k"; sourceId = $rawId; name = "$title [check $k/$(@($extraChecks).Count + 1)]"
+            category = "DoD STIG ($($r.severity))"; method = 'Registry'
+            args = $p.args; operator = $p.op
+            recommendedValue = "$($p.rec)"; defaultValue = ''
+            severity = $sev; fixText = $fixText
+        }))
+    }
 }
 
 $out = [ordered]@{

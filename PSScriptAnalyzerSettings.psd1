@@ -15,8 +15,16 @@
     #   contract  param($Finding, $Cache, $Context)  (see Handlers/_CONTRACT.md).
     #   Handlers that do not need every parameter still declare all three so the
     #   engine can invoke them uniformly; the "unused" parameters are the interface.
+    #
+    # - PSAvoidUsingPositionalParameters (newer PSSA versions): fires only on two
+    #   INTERNAL helpers with fixed, stable signatures -- New-HtResult (engine result
+    #   factory, called ~8x in one loop) and the tests' Test-Op wrapper (operator
+    #   table-tests, where positional '=or' '2' '1 or 2' reads like the truth table
+    #   it is). Named parameters at those call sites add noise, not safety; the
+    #   exported cmdlet surface uses named parameters throughout.
     ExcludeRules = @(
         'PSAvoidUsingWriteHost',
-        'PSReviewUnusedParameter'
+        'PSReviewUnusedParameter',
+        'PSAvoidUsingPositionalParameters'
     )
 }

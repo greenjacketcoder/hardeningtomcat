@@ -13,6 +13,9 @@ function Test-HtListIntegrity {
         Expected = $null
         Actual   = $null
         Message  = ''
+        # Whether a SIGNED catalog exists at all. Without one, the plain-text hash
+        # manifest only detects accidental corruption -- the engine warns Strike users.
+        CatalogPresent = (Test-Path (Join-Path $ModuleRoot 'HardeningTomcat.cat'))
     }
 
     if (-not (Test-Path $manifestPath)) {
@@ -56,9 +59,14 @@ function Test-HtListIntegrity {
                 }
                 $result | Add-Member -NotePropertyName CatalogVerified -NotePropertyValue $true -Force
             } catch {
-                # Test-FileCatalog threw; fall through to hash-manifest check rather than
-                # hard-failing, but record that catalog verification was inconclusive.
-                $result | Add-Member -NotePropertyName CatalogVerified -NotePropertyValue $false -Force
+                # FAIL CLOSED: a signed catalog is PRESENT but the files under lists/
+                # could not be confirmed against it. Falling through to the weaker
+                # plain-text hash check here would be a fail-open path in the exact
+                # component whose job is to not fail open.
+                $result.Status = 'manifest-tampered'
+                $result.Message = "File catalog verification could not complete ($($_.Exception.Message)). " +
+                                  "Failing closed: a signed catalog is present but lists/ cannot be confirmed against it."
+                return $result
             }
         }
     }
@@ -75,6 +83,19 @@ function Test-HtListIntegrity {
     }
 
     if ($known.ContainsKey($actual)) {
+        # The hash matched a manifest entry, but also require the FILE NAME to match the
+        # recorded one: hash-only matching would let any trusted list's content stand in
+        # for any other (e.g. a Domain Controller list swapped into the Win11 file would
+        # still read "verified" -- and then be applied to the wrong system).
+        $recordedLeaf = Split-Path $known[$actual] -Leaf
+        $actualLeaf   = Split-Path $FindingList -Leaf
+        if ($recordedLeaf -and $actualLeaf -and ($recordedLeaf -ne $actualLeaf)) {
+            $result.Status = 'not-listed'
+            $result.Message = "List content matches manifest entry '$($known[$actual])' but the file is named " +
+                              "'$actualLeaf' -- a trusted list's content appears under a different name. " +
+                              "If this rename is intentional, re-run Update-ListManifest.ps1."
+            return $result
+        }
         $result.Status = 'verified'
         $result.Expected = $actual
         $result.Message = "List integrity verified ($($known[$actual]))."

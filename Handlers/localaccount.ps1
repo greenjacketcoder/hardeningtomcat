@@ -40,8 +40,11 @@
             # Built-in account genuinely absent (e.g. Guest removed). Found=false.
             return [pscustomobject]@{ Result = $null; Found = $false }
         }
-        # Decide what to observe from the finding name.
-        if ($Finding.name -match 'status') {
+        # Decide what to observe: prefer an explicit args.check ('enabled' | 'name'),
+        # falling back to inferring from the (English) finding name for older lists.
+        $check = "$($Finding.args.check)"
+        if (-not $check) { $check = if ($Finding.name -match 'status') { 'enabled' } else { 'name' } }
+        if ($check -eq 'enabled') {
             # Enabled state as True/False (CIS phrases these as account status).
             $enabled = -not $acct.Disabled
             return [pscustomobject]@{ Result = "$enabled"; Found = $true }

@@ -33,8 +33,10 @@ Per-version history and current implementation status live in [CHANGELOG.md](CHA
 | **Strike** | Reads, compares, **and writes** the recommended values to fix failing settings. Gated behind `-Force`. | **Yes** |
 
 `-WhatIf` is a modifier on **Strike**, not a separate mode: it runs Strike's full logic
-(including the pre-Strike backup) but writes nothing -- it reports *what it would change*.
-So `Recon` and `Strike -WhatIf` both change nothing, but answer different questions:
+but writes **nothing to system configuration** -- it reports *what it would change*. (To
+prove the safety net works, the pre-Strike backup directory and the temporary policy
+exports are still created; no registry/policy/service setting is modified.) So `Recon`
+and `Strike -WhatIf` both leave configuration untouched, but answer different questions:
 Recon asks "is this compliant?"; `Strike -WhatIf` previews "if I enforced this, what exactly
 would get modified?"
 
@@ -67,8 +69,16 @@ recorded in `lists/manifest.sha256`; Strike refuses any list whose hash isn't in
 - **Honest failure reporting.** A setting that can't be read (export failed, not elevated) is
   reported **Skipped** -- never silently passed. Checks with no automated test are marked
   **manual** and reported Skipped with their remediation text.
-- **Schema-validated lists** (fail-fast at load) and **finding-list integrity** (SHA256
-  manifest; Strike refuses unlisted/tampered lists, Recon/Survey warn).
+- **Structurally validated lists** (required fields, operators, severities, duplicate ids --
+  fail-fast at load) and **finding-list integrity** (SHA256 manifest; Strike refuses
+  unlisted/tampered lists, Recon/Survey warn). Note the manifest alone detects *accidental
+  corruption*; **tamper resistance requires the signed catalog** produced by
+  `Sign-Module.ps1` (Strike warns when running without one).
+- **Recoverable Strikes.** Before applying, Strike exports security policy, audit policy,
+  the most-touched registry subtrees, service start types, and Defender preferences to a
+  backup directory -- and during the apply it appends every finding's **pre-change value
+  to an undo journal** (`undo-journal.jsonl`) in the same directory, so each change is
+  individually reversible.
 
 ## How to run it
 
