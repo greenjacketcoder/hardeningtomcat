@@ -93,6 +93,9 @@ Invoke-HardeningTomcat -Mode Recon -Report
 # ...or name a list explicitly:
 Invoke-HardeningTomcat -Mode Recon -FindingList .\lists\cis\CIS_Windows_11_25H2_L1-L2.json -Level 1 -Report
 
+# Same audit, plus a self-contained HTML report (charts + filterable findings table):
+Invoke-HardeningTomcat -Mode Recon -FindingList .\lists\cis\CIS_Windows_11_25H2_L1-L2.json -Level 1 -ReportHtml
+
 # Survey -- dump current values, no pass/fail.
 Invoke-HardeningTomcat -Mode Survey
 
@@ -110,7 +113,7 @@ Invoke-HardeningTomcat -Mode Strike -FindingList .\lists\cis\CIS_Windows_11_25H2
 | `-FindingList <path>` | The list to use. Required for Strike (never auto-selected). |
 | `-Level 1\|2` | CIS level filter: `1` runs L1 only, `2` runs L1+L2. Lists without levels ignore it. |
 | `-Report` | Write a per-finding CSV (auto-named, or use `-ReportFile`). |
-| `-ReportHtml` | Write a self-contained HTML report (auto-named, or use `-ReportHtmlFile`): score tiles, result-distribution and failed-by-category charts, and a filterable findings table. Inline CSS/JS -- opens offline, no external dependencies. |
+| `-ReportHtml` | Write a self-contained HTML report (auto-named, or use `-ReportHtmlFile`): score tiles, result-distribution and failed-by-category charts, and a filterable findings table. Inline CSS/JS -- opens offline, no external dependencies. See [docs/example-report.html](docs/example-report.html) for a sample built from synthetic demo data (download and open locally -- GitHub shows raw HTML as source). |
 | `-ShowDetails` | List each failed/skipped finding (and each would-change item in `-WhatIf`). Off by default. |
 | `-Force` | Required for Strike. Without it, apply mode refuses to run. |
 | `-WhatIf` | Strike dry-run: report what would change, write nothing. |
