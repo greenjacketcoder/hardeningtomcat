@@ -1,31 +1,36 @@
 # HardeningTomcat (beta)
 
-```
-                                       :
-                                     `=S+-                                     ```
-                                     :-sSS+                               `:=cSs
-                                     -*SSs#+ `::                ``` `:-=*s##S*-
-                                     +%#@SSS`:``::::`   ``:::-:::--+cS#%#c=
-                                     =#%%SSs-`::``-::--:-::::-=+c#%%#s+:
-                                 ```:=cS#Ss#+*c:``+--+` `-+cS#%%#S*:
-                                 :::-+SSsss#:::::`:+sc*sS#%@%Sc=
-                               `:`:=cscc#c*#: -=-=cS%%@@%##+:
-                               ::--*ccc+cS+S- `*ss*=s@S+:`:
-                              -::+--:`+==++=-=*csc=*sS#:
-                            ::--`--`:=+s*+c***++*sS+**S*:-```
-                         :::` :=sSSSc+s*****+-::css#SS#c `::::::```
-                      `:::`:=*cS%@%sSc*+s==-::::`sSS@%%=````
-                   `::`:-+sS%@@%%S++*s#c*c`:::::`*%cc*%-
-                  ``:=*S%%%#Sc+:   `::s%s#+ ::`++:=#sS#`
-              ``:-*s#@@#s*-`        =*sc###+:-=*:   ---
-            :-*s#%%Sc=:           ```+#s*c%s    +    ```
-         -+s###s+:              `:`:`  c###-     +
-     `:cSSs*-                 `:``       `        +
-       ::                   `:`
-                           ``
+[![CI](https://github.com/greenjacketcoder/hardeningtomcat/actions/workflows/ci.yml/badge.svg)](https://github.com/greenjacketcoder/hardeningtomcat/actions/workflows/ci.yml)
+![PowerShell 5.1 | 7+](https://img.shields.io/badge/PowerShell-5.1%20%7C%207%2B-5391FE?logo=powershell&logoColor=white)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+![Status: Beta](https://img.shields.io/badge/status-beta-orange)
 
-                          recon . survey . strike
-                        Windows hardening, locked on
+```
+                                  :
+                                `=S+-                                     ```
+                                :-sSS+                               `:=cSs
+                                -*SSs#+ `::                ``` `:-=*s##S*-
+                                +%#@SSS`:``::::`   ``:::-:::--+cS#%#c=
+                                =#%%SSs-`::``-::--:-::::-=+c#%%#s+:
+                            ```:=cS#Ss#+*c:``+--+` `-+cS#%%#S*:
+                            :::-+SSsss#:::::`:+sc*sS#%@%Sc=
+                          `:`:=cscc#c*#: -=-=cS%%@@%##+:
+                          ::--*ccc+cS+S- `*ss*=s@S+:`:
+                         -::+--:`+==++=-=*csc=*sS#:
+                       ::--`--`:=+s*+c***++*sS+**S*:-```
+                    :::` :=sSSSc+s*****+-::css#SS#c `::::::```
+                 `:::`:=*cS%@%sSc*+s==-::::`sSS@%%=````
+              `::`:-+sS%@@%%S++*s#c*c`:::::`*%cc*%-
+             ``:=*S%%%#Sc+:   `::s%s#+ ::`++:=#sS#`
+         ``:-*s#@@#s*-`        =*sc###+:-=*:   ---
+       :-*s#%%Sc=:           ```+#s*c%s    +    ```
+    -+s###s+:              `:`:`  c###-     +
+`:cSSs*-                 `:``       `        +
+  ::                   `:`
+                      ``
+
+                     recon . survey . strike
+                   Windows hardening, locked on
 ```
 
 ## What it is
