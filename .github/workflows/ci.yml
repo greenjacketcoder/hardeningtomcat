@@ -13,11 +13,13 @@ jobs:
       fail-fast: false
       matrix:
         shell: [powershell, pwsh]
+    defaults:
+      run:
+        shell: ${{ matrix.shell }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Install Pester + PSScriptAnalyzer
-        shell: ${{ matrix.shell }}
         run: |
           Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
@@ -25,14 +27,12 @@ jobs:
           Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
 
       - name: PSScriptAnalyzer
-        shell: ${{ matrix.shell }}
         run: |
           $results = Invoke-ScriptAnalyzer -Path . -Recurse -Settings .\PSScriptAnalyzerSettings.psd1
           $results | Format-Table -AutoSize
           if ($results | Where-Object Severity -eq 'Error') { throw "PSScriptAnalyzer errors found" }
 
       - name: Pester tests
-        shell: ${{ matrix.shell }}
         run: |
           Import-Module Pester -MinimumVersion 5.0
           Invoke-Pester -Path .\Tests -CI
