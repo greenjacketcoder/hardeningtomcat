@@ -1,4 +1,3 @@
-cat > .github/workflows/ci.yml << 'EOF'
 name: CI
 
 on:
@@ -37,4 +36,3 @@ jobs:
         run: |
           Import-Module Pester -MinimumVersion 5.0
           Invoke-Pester -Path .\Tests -CI
-EOF
