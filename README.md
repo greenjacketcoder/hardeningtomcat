@@ -196,6 +196,20 @@ sources**, not hand-authored, via the scripts in `Importers/`:
   *(Windows 11 23H2/24H2/25H2; Server 2016/2019/2022/2025.)*
 - **CIS Benchmarks** — converted from HardeningKitty's published CSV lists (Apache-2.0,
   with attribution), carrying CIS L1/L2 levels. *(Windows 11 25H2; Server 2016/2019/2022.)*
+- **CIS Intune Benchmarks** — parsed directly from the CIS benchmark PDFs.
+  *(Intune for Windows 11 v5.0.0; Intune for Office v1.1.0. BitLocker (BL) profile
+  findings are not included.)*
+
+  > **The Intune lists are audit-only — use Recon/Survey, never Strike.** These
+  > benchmarks assume enforcement through Intune configuration profiles. Many findings
+  > read MDM-managed state (`HKLM\SOFTWARE\Microsoft\PolicyManager\current`), which the
+  > Policy CSP owns — writing those keys locally fights the MDM stack and is not a real
+  > remediation (the next Intune sync can overwrite it). Remediate through the Settings
+  > Catalog paths carried in each manual finding's `fixText` and each recommendation's
+  > Remediation section. The Office list is `scope: user` — run it as the target user
+  > (non-elevated is fine); an elevated session under a different account reads the
+  > wrong HKCU hive. All four lists set `autoSelect: false`, so Recon/Survey never
+  > pick them automatically — name them explicitly with `-FindingList`.
 - **DoD STIG** — two routes: the HardeningKitty Win10 CSV, and a parser for the
   **authoritative DISA SCAP benchmark** (XCCDF + OVAL) for Windows 11.
 

@@ -3,6 +3,7 @@
   "version": "2026.07.16",
   "source": "Parsed from CIS Microsoft Intune for Windows 11 Benchmark v5.0.0 (PDF)",
   "scope": "machine",
+  "autoSelect": false,
   "level": 2,
   "findings": [
     {
