@@ -1,0 +1,4468 @@
+{
+  "listName": "CIS Intune Windows 11 L1",
+  "version": "2026.07.16",
+  "source": "Parsed from CIS Microsoft Intune for Windows 11 Benchmark v5.0.0 (PDF)",
+  "scope": "machine",
+  "level": 1,
+  "findings": [
+    {
+      "id": "1.1",
+      "name": "Ensure 'Allow Cortana Above Lock' is set to 'Block'",
+      "category": "Above Lock",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\AboveLock",
+        "name": "AllowCortanaAboveLock"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "1.2",
+      "name": "Ensure 'Allow Toasts' is set to 'Block'",
+      "category": "Above Lock",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\AboveLock",
+        "name": "AllowToasts"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "4.1.3.1",
+      "name": "Ensure 'Prevent enabling lock screen camera' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoLockScreenCamera"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "4.1.3.2",
+      "name": "Ensure 'Prevent enabling lock screen slide show' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Personalization",
+        "name": "NoLockScreenSlideshow"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "4.4.1",
+      "name": "Ensure 'Apply UAC restrictions to local accounts on network logons' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "LocalAccountTokenFilterPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.4.2",
+      "name": "Ensure 'Configure SMB v1 client driver' is set to 'Enabled: Disable driver (recommended)'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\mrxsmb10",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Windows 7 and Windows 8.0: Enabled: Manual start",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.4.3",
+      "name": "Ensure 'Configure SMB v1 server' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanServer\\Parameters",
+        "name": "SMB1"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Windows 10 R1703 and older: Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.4.4",
+      "name": "Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SessionManager\\kernel",
+        "name": "DisableExceptionChainValidation"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled for 32-bit processes",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.4.5",
+      "name": "Ensure 'WDigest Authentication' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\SecurityProviders\\WDigest",
+        "name": "UseLogonCredential"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "On Windows 8.0 and older: Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.1",
+      "name": "Ensure 'MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+        "name": "AutoAdminLogon"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.2",
+      "name": "Ensure 'MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip6\\Parameters",
+        "name": "DisableIPSourceRouting"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "No additional protection, source routed packets are allowed",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.3",
+      "name": "Ensure 'MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+        "name": "DisableIPSourceRouting"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "Medium, source routed packets ignored when IP forwarding is enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.5",
+      "name": "Ensure 'MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters",
+        "name": "EnableICMPRedirect"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.7",
+      "name": "Ensure 'MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\NetBT\\Parameters",
+        "name": "NoNameReleaseOnDemand"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.5.9",
+      "name": "Ensure 'MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Session Manager",
+        "name": "SafeDllSearchMode"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "4.5.12",
+      "name": "Ensure 'MSS: (WarningLevel) Percentage threshold for the security event log at which the system will generate a warning' is set to 'Enabled: 90% or less'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Eventlog\\Security",
+        "name": "WarningLevel"
+      },
+      "operator": "=",
+      "recommendedValue": "90",
+      "defaultValue": "0%",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.4.1",
+      "name": "Ensure 'Turn off multicast name resolution' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\DNSClient",
+        "name": "EnableMulticast"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.9.1",
+      "name": "Ensure 'Prohibit installation and configuration of Network Bridge on your DNS domain network' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnections",
+        "name": "NC_AllowNetBridge_NLA"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.9.2",
+      "name": "Ensure 'Prohibit use of Internet Connection Sharing on your DNS domain network' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnections",
+        "name": "NC_ShowSharedAccessUI"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.9.3",
+      "name": "Ensure 'Require domain users to elevate when setting a network's location' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkConnections",
+        "name": "NC_StdDomainUserSetLocation"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.11.1",
+      "name": "Ensure 'Hardened UNC Paths' is set to 'Enabled, with \"Require Mutual Authentication\", \"Require Integrity\", and \u201cRequire Privacy\u201d set for all NETLOGON and SYSVOL shares'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+        "name": "\\\\*\\NETLOGON"
+      },
+      "operator": "=",
+      "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1,
+      "note": "Value name literally contains \\\\*\\ (it names a UNC path, not a wildcard); the engine only rejects wildcards in args.path. Exact-string REG_SZ match. Benchmark notes 100% Intune-managed environments without NETLOGON/SYSVOL shares need an exception."
+    },
+    {
+      "id": "4.6.11.1-2",
+      "sourceId": "4.6.11.1",
+      "name": "Ensure 'Hardened UNC Paths' is set for all SYSVOL shares",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkProvider\\HardenedPaths",
+        "name": "\\\\*\\SYSVOL"
+      },
+      "operator": "=",
+      "recommendedValue": "RequireMutualAuthentication=1, RequireIntegrity=1, RequirePrivacy=1",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1,
+      "note": "Companion to 4.6.11.1 (the one recommendation audits two registry values)."
+    },
+    {
+      "id": "4.6.18.1",
+      "name": "Ensure 'Minimize the number of simultaneous connections to the Internet or a Windows Domain' is set to 'Enabled: 3 = Prevent Wi-Fi when on Ethernet'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy",
+        "name": "fMinimizeConnections"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "Enabled: 1 = Minimize simultaneous connections",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.6.18.2",
+      "name": "Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WcmSvc\\GroupPolicy",
+        "name": "fBlockNonDomain"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.1",
+      "name": "Ensure 'Allow Print Spooler to accept client connections' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "RegisterSpoolerRemoteRpcEndPoint"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.2",
+      "name": "Ensure 'Configure Redirection Guard: Redirection Guard Options' is set to 'Enabled: Redirection Guard Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "RedirectionguardPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.3",
+      "name": "Ensure 'Configure RPC connection settings: Protocol to use for outgoing RPC connections' is set to 'Enabled: RPC over TCP'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+        "name": "RpcUseNamedPipeProtocol"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.4",
+      "name": "Ensure 'Configure RPC connection settings: Use authentication for outgoing RPC connections' is set to 'Enabled: Default'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+        "name": "RpcAuthentication"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.5",
+      "name": "Ensure 'Configure RPC listener settings: Authentication protocol to use for incoming RPC connections:' is set to 'Enabled: Negotiate' or higher",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+        "name": "ForceKerberosForRpc"
+      },
+      "operator": "=or",
+      "recommendedValue": "0 or 1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.6",
+      "name": "Ensure 'Configure RPC listener settings: Protocols to allow for incoming RPC connections' is set to 'Enabled: RPC over TCP'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+        "name": "RpcProtocols"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.7",
+      "name": "Ensure 'Configure RPC over TCP port: RPC over TCP port:' is set to 'Enabled: 0'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\RPC",
+        "name": "RpcTcpPort"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.8",
+      "name": "Ensure 'Limits print driver installation to Administrators' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
+        "name": "RestrictDriverInstallationToAdministrators"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.9",
+      "name": "Ensure 'Manage processing of Queue-specific files: Manage processing of Queue-Specific files' is set to 'Enabled: Limit Queue-specific files to Color profiles'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "CopyFilesPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.10",
+      "name": "Ensure 'Point and Print Restrictions: When installing drivers for a new connection' is set to 'Enabled: Show warning and elevation prompt'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
+        "name": "NoWarningNoElevationOnInstall"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.7.11",
+      "name": "Ensure 'Point and Print Restrictions: When updating drivers for an existing connection' is set to 'Enabled: Show warning and elevation prompt'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\Software\\Policies\\Microsoft\\Windows NT\\Printers\\PointAndPrint",
+        "name": "UpdatePromptSettings"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.4.1",
+      "name": "Ensure 'Include command line in process creation events' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\Audit",
+        "name": "ProcessCreationIncludeCmdLine_Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.5.1",
+      "name": "Ensure 'Encryption Oracle Remediation' is set to 'Enabled: Force Updated Clients'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System\\CredSSP\\Parameters",
+        "name": "AllowEncryptionOracle"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Without the May 2018 security update: Enabled: Vulnerable",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.5.2",
+      "name": "Ensure 'Remote host allows delegation of non-exportable credentials' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Credentials Delegation",
+        "name": "AllowProtectedCreds"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.10.9.2",
+      "name": "Ensure 'Prevent automatic download of applications associated with device metadata' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceMetadata",
+        "name": "PreventDeviceMetadataFromNetwork"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.13.1",
+      "name": "Ensure 'Boot-Start Driver Initialization Policy' is set to 'Enabled: Good, unknown and bad but critical'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Policies\\EarlyLaunch",
+        "name": "DriverLoadPolicy"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.19.1",
+      "name": "Ensure 'Continue experiences on this device' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "EnableCdp"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "The default behavior depends on the Windows edition",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.20.1.2",
+      "name": "Ensure 'Turn off downloading of print drivers over HTTP' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Printers",
+        "name": "DisableWebPnPDownload"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.20.1.5",
+      "name": "Ensure 'Turn off Internet download for Web publishing and online ordering wizards' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoWebServices"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.24.1",
+      "name": "Ensure 'Allow Custom SSPs and APs to be loaded into LSASS' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "AllowCustomSSPsAPs"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.1",
+      "name": "Ensure 'Block user from showing account details on sign-in' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "BlockUserFromShowingAccountDetailsOnSignin"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.2",
+      "name": "Ensure 'Do not display network selection UI' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "DontDisplayNetworkSelectionUI"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.3",
+      "name": "Ensure 'Do not enumerate connected users on domain- joined computers' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "DontEnumerateConnectedUsers"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.4",
+      "name": "Ensure 'Enumerate local users on domain-joined computers' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "EnumerateLocalUsers"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.5",
+      "name": "Ensure 'Turn off app notifications on the lock screen' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "DisableLockScreenAppNotifications"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.6",
+      "name": "Ensure 'Turn off picture password sign-in' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "BlockDomainPicturePassword"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.26.7",
+      "name": "Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "AllowDomainPINLogon"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.29.5.1",
+      "name": "Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+        "name": "DCSettingIndex"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.29.5.2",
+      "name": "Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Power\\PowerSettings\\0e796bdb-100d-47d6-a2d5-f7d2daa51f51",
+        "name": "ACSettingIndex"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.30.1",
+      "name": "Ensure 'Configure Offer Remote Assistance' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fAllowUnsolicited"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.30.2",
+      "name": "Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fAllowToGetHelp"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Users can turn on or turn off Solicited",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.31.1",
+      "name": "Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Rpc",
+        "name": "EnableAuthEpResolution"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.31.2",
+      "name": "Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Rpc",
+        "name": "RestrictRemoteClients"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled: Authenticated",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.44.1.1",
+      "name": "Ensure 'Enable Windows NTP Client' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\W32Time\\TimeProviders\\NtpClient",
+        "name": "Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.10.44.1.2",
+      "name": "Ensure 'Enable Windows NTP Server' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\W32Time\\TimeProviders\\NtpServer",
+        "name": "Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.3.1",
+      "name": "Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "MSAOptional"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.5.1",
+      "name": "Ensure 'Do not preserve zone information in file attachments (User)' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Disabled. Administrative Templates\\Windows Components\\Attachment Manager\\Do not preserve zone information in file attachments (User)",
+      "level": 1
+    },
+    {
+      "id": "4.11.5.2",
+      "name": "Ensure 'Notify antivirus programs when opening attachments (User)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Enabled. Administrative Templates\\Windows Components\\Attachment Manager\\Notify antivirus programs when opening attachments (User)",
+      "level": 1
+    },
+    {
+      "id": "4.11.6.1",
+      "name": "Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoAutoplayfornonVolume"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.6.2",
+      "name": "Ensure 'Set the default behavior for AutoRun' is set to 'Enabled: Do not execute any autorun commands'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoAutorun"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.6.3",
+      "name": "Ensure 'Turn off Autoplay' is set to 'Enabled: All drives'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "NoDriveTypeAutoRun"
+      },
+      "operator": "=",
+      "recommendedValue": "255",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.8.1",
+      "name": "Ensure 'Do not display the password reveal button' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CredUI",
+        "name": "DisablePasswordReveal"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.8.2",
+      "name": "Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\CredUI",
+        "name": "EnumerateAdministrators"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.8.3",
+      "name": "Ensure 'Prevent the use of security questions for local accounts' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "NoLocalPasswordResetQuestions"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Not Configured",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.10.1",
+      "name": "Ensure 'Enable App Installer Experimental Features' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppInstaller",
+        "name": "EnableExperimentalFeatures"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.10.2",
+      "name": "Ensure 'Enable App Installer Hash Override' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppInstaller",
+        "name": "EnableHashOverride"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.10.3",
+      "name": "Ensure 'Enable App Installer ms-appinstaller protocol' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\AppInstaller",
+        "name": "EnableMSAppInstallerProtocol"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.1.1",
+      "name": "Ensure 'Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Application",
+        "name": "Retention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.1.2",
+      "name": "Ensure 'Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Application",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.2.1",
+      "name": "Ensure 'Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Security",
+        "name": "Retention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.2.2",
+      "name": "Ensure 'Specify the maximum log file size (KB)' is set to 'Enabled: 196,608 or greater'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Security",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "196608",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.3.1",
+      "name": "Ensure 'Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Setup",
+        "name": "Retention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.3.2",
+      "name": "Ensure 'Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\Setup",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.4.1",
+      "name": "Ensure 'Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\System",
+        "name": "Retention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.15.4.2",
+      "name": "Ensure 'Specify the maximum log file size (KB)' is set to 'Enabled: 32,768 or greater'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Event Log\\System",
+        "name": "MaxSize"
+      },
+      "operator": ">=",
+      "recommendedValue": "32768",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.18.1",
+      "name": "Ensure 'Configure Windows Defender SmartScreen' is set to 'Enabled: Warn and prevent bypass'",
+      "category": "Administrative Templates",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Enabled: Warn and prevent bypass. Administrative Templates\\Windows Components\\File Explorer\\Configure Windows Defender SmartScreen",
+      "level": 1
+    },
+    {
+      "id": "4.11.18.2",
+      "name": "Ensure 'Turn off Data Execution Prevention for Explorer' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoDataExecutionPrevention"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.18.3",
+      "name": "Ensure 'Turn off heap termination on corruption' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Explorer",
+        "name": "NoHeapTerminationOnCorruption"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.18.4",
+      "name": "Ensure 'Turn off shell protocol protected mode' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer",
+        "name": "PreXPSP2ShellProtocolBehavior"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.27.1",
+      "name": "Ensure 'Block all consumer Microsoft account user authentication' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\MicrosoftAccount",
+        "name": "DisableUserAuth"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "4.11.30.1",
+      "name": "Ensure 'Prevent users from sharing files within their profile. (User)' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Enabled. Administrative Templates\\Windows Components\\Network Sharing\\Prevent users from sharing files within their profile. (User)",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.3.2",
+      "name": "Ensure 'Do not allow passwords to be saved' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "DisablePasswordSaving"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.3.2",
+      "name": "Ensure 'Do not allow drive redirection' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fDisableCdm"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.9.1",
+      "name": "Ensure 'Always prompt for password upon connection' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fPromptForPassword"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.9.2",
+      "name": "Ensure 'Require secure RPC communication' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "fEncryptRPCTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.9.3",
+      "name": "Ensure 'Require use of specific security layer for remote (RDP) connections' is set to 'Enabled: SSL'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "SecurityLayer"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "Negotiate",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.9.4",
+      "name": "Ensure 'Require user authentication for remote connections by using Network Level Authentication' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "UserAuthentication"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Windows 7 or older: Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.9.5",
+      "name": "Ensure 'Set client connection encryption level' is set to 'Enabled: High Level'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "MinEncryptionLevel"
+      },
+      "operator": "=",
+      "recommendedValue": "3",
+      "defaultValue": "Enabled: High Level",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.35.4.11.1",
+      "name": "Ensure 'Do not delete temp folders upon exit' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows NT\\Terminal Services",
+        "name": "DeleteTempDirsOnExit"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.36.1",
+      "name": "Ensure 'Prevent downloading of enclosures' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Internet Explorer\\Feeds",
+        "name": "DisableEnclosureDownload"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.41.1",
+      "name": "Ensure 'Turn off the offer to update to the latest version of Windows' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\WindowsStore",
+        "name": "DisableOSUpgrade"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.49.1",
+      "name": "Ensure 'Enable MPR notifications for the system' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableMPR"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.49.2",
+      "name": "Ensure 'Sign-in and lock last interactive user automatically after a restart' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "DisableAutomaticRestartSignOn"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.1.1",
+      "name": "Ensure 'Allow Basic authentication' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowBasic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.1.2",
+      "name": "Ensure 'Allow unencrypted traffic' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowUnencryptedTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.1.3",
+      "name": "Ensure 'Disallow Digest authentication' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Client",
+        "name": "AllowDigest"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.2.1",
+      "name": "Ensure 'Allow Basic authentication' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "AllowBasic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.2.3",
+      "name": "Ensure 'Allow unencrypted traffic' is set to 'Disabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "AllowUnencryptedTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "4.11.54.2.4",
+      "name": "Ensure 'Disallow WinRM from storing RunAs credentials' is set to 'Enabled'",
+      "category": "Administrative Templates",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WinRM\\Service",
+        "name": "DisableRunAs"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "6.1",
+      "name": "Ensure 'Account Logon Audit Credential Validation' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Account Logon Audit Credential Validation",
+      "level": 1
+    },
+    {
+      "id": "6.2",
+      "name": "Ensure 'Account Logon Logoff Audit Account Lockout' is set to include 'Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Failure. Auditing\\Account Logon Logoff Audit Account Lockout",
+      "level": 1
+    },
+    {
+      "id": "6.3",
+      "name": "Ensure 'Account Logon Logoff Audit Group Membership' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Account Logon Logoff Audit Group Membership",
+      "level": 1
+    },
+    {
+      "id": "6.4",
+      "name": "Ensure 'Account Logon Logoff Audit Logoff' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Account Logon Logoff Audit Logoff",
+      "level": 1
+    },
+    {
+      "id": "6.5",
+      "name": "Ensure 'Account Logon Logoff Audit Logon' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Account Logon Logoff Audit Logon",
+      "level": 1
+    },
+    {
+      "id": "6.6",
+      "name": "Ensure 'Account Management Audit Application Group Management' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Account Management Audit Application Group Management",
+      "level": 1
+    },
+    {
+      "id": "6.7",
+      "name": "Ensure 'Audit Authentication Policy Change' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Authentication Policy Change",
+      "level": 1
+    },
+    {
+      "id": "6.8",
+      "name": "Ensure 'Audit Authorization Policy Change' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Authorization Policy Change",
+      "level": 1
+    },
+    {
+      "id": "6.9",
+      "name": "Ensure 'Audit Changes to Audit Policy' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Changes to Audit Policy",
+      "level": 1
+    },
+    {
+      "id": "6.10",
+      "name": "Ensure 'Audit File Share Access' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Audit File Share Access",
+      "level": 1
+    },
+    {
+      "id": "6.11",
+      "name": "Ensure 'Audit Other Logon Logoff Events' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Audit Other Logon Logoff Events",
+      "level": 1
+    },
+    {
+      "id": "6.12",
+      "name": "Ensure 'Audit Security Group Management' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Security Group Management",
+      "level": 1
+    },
+    {
+      "id": "6.13",
+      "name": "Ensure 'Audit Security System Extension' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Security System Extension",
+      "level": 1
+    },
+    {
+      "id": "6.14",
+      "name": "Ensure 'Audit Special Logon' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Audit Special Logon",
+      "level": 1
+    },
+    {
+      "id": "6.15",
+      "name": "Ensure 'Audit User Account Management' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Audit User Account Management",
+      "level": 1
+    },
+    {
+      "id": "6.16",
+      "name": "Ensure 'Detailed Tracking Audit PNP Activity' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Detailed Tracking Audit PNP Activity",
+      "level": 1
+    },
+    {
+      "id": "6.17",
+      "name": "Ensure 'Detailed Tracking Audit Process Creation' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Detailed Tracking Audit Process Creation",
+      "level": 1
+    },
+    {
+      "id": "6.18",
+      "name": "Ensure 'Object Access Audit Detailed File Share' is set to include 'Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Failure. Auditing\\Object Access Audit Detailed File Share",
+      "level": 1
+    },
+    {
+      "id": "6.19",
+      "name": "Ensure 'Object Access Audit Other Object Access Events' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Object Access Audit Other Object Access Events",
+      "level": 1
+    },
+    {
+      "id": "6.20",
+      "name": "Ensure 'Object Access Audit Removable Storage' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Object Access Audit Removable Storage",
+      "level": 1
+    },
+    {
+      "id": "6.21",
+      "name": "Ensure 'Policy Change Audit MPSSVC Rule Level Policy Change' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\Policy Change Audit MPSSVC Rule Level Policy Change",
+      "level": 1
+    },
+    {
+      "id": "6.22",
+      "name": "Ensure 'Policy Change Audit Other Policy Change Events' is set to include 'Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Failure. Auditing\\Policy Change Audit Other Policy Change Events",
+      "level": 1
+    },
+    {
+      "id": "6.23",
+      "name": "Ensure 'Privilege Use Audit Sensitive Privilege Use' is set to 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\Privilege Use Audit Sensitive Privilege Use",
+      "level": 1
+    },
+    {
+      "id": "6.24",
+      "name": "Ensure 'System Audit I Psec Driver' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\System Audit I Psec Driver",
+      "level": 1
+    },
+    {
+      "id": "6.25",
+      "name": "Ensure 'System Audit Other System Events' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\System Audit Other System Events",
+      "level": 1
+    },
+    {
+      "id": "6.26",
+      "name": "Ensure 'System Audit Security State Change' is set to include 'Success'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success. Auditing\\System Audit Security State Change",
+      "level": 1
+    },
+    {
+      "id": "6.27",
+      "name": "Ensure 'System Audit System Integrity' is set to 'Success and Failure'",
+      "category": "Auditing",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Success and Failure. Auditing\\System Audit System Integrity",
+      "level": 1
+    },
+    {
+      "id": "15.1",
+      "name": "Ensure 'Config refresh' is set to 'Enabled'",
+      "category": "Config Refresh",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Enrollments\\{ProviderGUID}\\ConfigRefresh",
+        "name": "Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "15.2",
+      "name": "Ensure 'Refresh cadence' is set to '90' (or less)",
+      "category": "Config Refresh",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Enrollments\\{ProviderGUID}\\ConfigRefresh",
+        "name": "Cadence"
+      },
+      "operator": "<=",
+      "recommendedValue": "90",
+      "defaultValue": "90",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "22.1",
+      "name": "Ensure 'DO Download Mode' is NOT set to 'HTTP blended with Internet Peering'",
+      "category": "Delivery Optimization",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to any value other than HTTP blended with Internet Peering: Delivery Optimization\\DO Download Mode",
+      "level": 1
+    },
+    {
+      "id": "23.1",
+      "name": "Ensure 'Configure System Guard Launch' is set to 'Unmanaged Enables Secure Launch if supported by hardware'",
+      "category": "Device Guard",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+        "name": "ConfigureSystemGuardLaunch"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Not Configured",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "23.2",
+      "name": "Ensure 'Credential Guard' is set to 'Enabled with UEFI lock'",
+      "category": "Device Guard",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+        "name": "LsaCfgFlags"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "23.3",
+      "name": "Ensure 'Enable Virtualization Based Security' is set to 'Enable virtualization based security'",
+      "category": "Device Guard",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+        "name": "EnableVirtualizationBasedSecurity"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "23.4",
+      "name": "Ensure 'Require Platform Security Features' is set to 'Turns on VBS with Secure Boot' or higher",
+      "category": "Device Guard",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+        "name": "RequirePlatformSecurityFeatures"
+      },
+      "operator": "=or",
+      "recommendedValue": "1 or 3",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "33.1",
+      "name": "Ensure 'Allow Cortana' is set to 'Block'",
+      "category": "Experience",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Experience",
+        "name": "AllowCortana"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "33.2",
+      "name": "Ensure 'Allow Spotlight Collection (User)' is set to '0'",
+      "category": "Experience",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\(USERSID)\\Experience",
+        "name": "AllowSpotlightCollection"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "33.4",
+      "name": "Ensure 'Disable Consumer Account State Content' is set to 'Enabled'",
+      "category": "Experience",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\CloudContent",
+        "name": "DisableConsumerAccountStateContent"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "33.5",
+      "name": "Ensure 'Do not show feedback notifications' is set to 'Feedback notifications are disabled'",
+      "category": "Experience",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Experience",
+        "name": "DoNotShowFeedbackNotifications"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "37.1",
+      "name": "Ensure 'Enable Domain Network Firewall' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile",
+        "name": "EnableFirewall"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "On",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.2",
+      "name": "Ensure 'Enable Domain Network Firewall: Default Inbound Action for Domain Profile' is set to 'Block'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile",
+        "name": "DefaultInboundAction"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Block",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.3",
+      "name": "Ensure 'Enable Domain Network Firewall: Disable Inbound Notifications' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile",
+        "name": "DisableNotifications"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Yes",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "37.4",
+      "name": "Ensure 'Enable Domain Network Firewall: Enable Log Dropped Packets' is set to 'Yes: Enable Logging Of Dropped Packets'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile\\Logging",
+        "name": "LogDroppedPackets"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.5",
+      "name": "Ensure 'Enable Domain Network Firewall: Enable Log Success Connections' is set to 'Enable Logging Of Successful Connections'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile\\Logging",
+        "name": "LogSuccessfulConnections"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.6",
+      "name": "Ensure 'Enable Domain Network Firewall: Log File Path' is configured",
+      "category": "Firewall",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to <path>\\<filename>.log: Firewall\\Enable Domain Network Firewall: Log File Path",
+      "level": 1
+    },
+    {
+      "id": "37.7",
+      "name": "Ensure 'Enable Domain Network Firewall: Log Max File Size' is set to '16,384 KB or greater'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\DomainProfile\\Logging",
+        "name": "LogFileSize"
+      },
+      "operator": "=",
+      "recommendedValue": "16384",
+      "defaultValue": "4,096 KB",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.8",
+      "name": "Ensure 'Enable Private Network Firewall' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile",
+        "name": "EnableFirewall"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "On",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.9",
+      "name": "Ensure 'Enable Private Network Firewall: Default Inbound Action for Private Profile' is set to 'Block'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile",
+        "name": "DefaultInboundAction"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Block",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.10",
+      "name": "Ensure 'Enable Private Network Firewall: Disable Inbound Notifications' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile",
+        "name": "DisableNotifications"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Yes",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "37.11",
+      "name": "Ensure 'Enable Private Network Firewall: Enable Log Success Connections' is set to 'Enable Logging Of Successful Connections'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile\\Logging",
+        "name": "LogSuccessfulConnections"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.12",
+      "name": "Ensure 'Enable Private Network Firewall: Enable Log Dropped Packets' is set to 'Yes: Enable Logging Of Dropped Packets'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile\\Logging",
+        "name": "LogDroppedPackets"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.13",
+      "name": "Ensure 'Enable Private Network Firewall: Log File Path' is configured",
+      "category": "Firewall",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to <path>\\<filename>.log: Firewall\\Enable Private Network Firewall: Log File Path",
+      "level": 1
+    },
+    {
+      "id": "37.14",
+      "name": "Ensure 'Enable Private Network Firewall: Log Max File Size' is set to '16,384 KB or greater'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\StandardProfile\\Logging",
+        "name": "LogFileSize"
+      },
+      "operator": "=",
+      "recommendedValue": "16384",
+      "defaultValue": "1,024 KB",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.15",
+      "name": "Ensure 'Enable Public Network Firewall' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile",
+        "name": "EnableFirewall"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "On",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.16",
+      "name": "Ensure 'Enable Public Network Firewall: Allow Local Ipsec Policy Merge' is set to 'False'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile",
+        "name": "AllowLocalIPsecPolicyMerge"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Yes",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.17",
+      "name": "Ensure 'Enable Public Network Firewall: Allow Local Policy Merge' is set to 'False'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile",
+        "name": "AllowLocalPolicyMerge"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Yes",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.18",
+      "name": "Ensure 'Enable Public Network Firewall: Default Inbound Action for Public Profile' is set to 'Block'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile",
+        "name": "DefaultInboundAction"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Block",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.19",
+      "name": "Ensure 'Enable Public Network Firewall: Disable Inbound Notifications' is set to 'True'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile",
+        "name": "DisableNotifications"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Yes",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "37.20",
+      "name": "Ensure 'Enable Public Network Firewall: Enable Log Dropped Packets' is set to 'Yes: Enable Logging Of Dropped Packets'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile\\Logging",
+        "name": "LogDroppedPackets"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.21",
+      "name": "Ensure 'Enable Public Network Firewall: Enable Log Success Connections' is set to 'Enable Logging Of Successful Connections'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile\\Logging",
+        "name": "LogSuccessfulConnections"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "No",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "37.22",
+      "name": "Ensure 'Enable Public Network Firewall: Log File Path' is configured",
+      "category": "Firewall",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to <path>\\<filename>.log: Firewall\\Enable Public Network Firewall: Log File Path",
+      "level": 1
+    },
+    {
+      "id": "37.23",
+      "name": "Ensure 'Enable Public Network Firewall: Log Max File Size' is set to '16,384 KB or greater'",
+      "category": "Firewall",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SharedAccess\\Parameters\\FirewallPolicy\\Mdm\\PublicProfile\\Logging",
+        "name": "LogFileSize"
+      },
+      "operator": "=",
+      "recommendedValue": "16384",
+      "defaultValue": "4,096 KB",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.1",
+      "name": "Ensure 'Audit Client Does Not Support Encryption' is set to 'Enabled'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "AuditClientDoesNotSupportEncryption"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.2",
+      "name": "Ensure 'Audit Client Does Not Support Signing' is set to 'Enabled'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "AuditClientDoesNotSupportSigning"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.3",
+      "name": "Ensure 'Audit Insecure Guest Logon' is set to 'Enabled'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "AuditInsecureGuestLogon"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.4",
+      "name": "Ensure 'Auth Rate Limiter Delay In Ms' is set to '2000' or higher",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "InvalidAuthenticationDelayTimeInMs"
+      },
+      "operator": ">=",
+      "recommendedValue": "2000",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.5",
+      "name": "Ensure 'Enable Auth Rate Limiter' is set to 'Enabled'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "EnableAuthRateLimiter"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.6",
+      "name": "Ensure 'Enable Mailslots' is set to 'Disabled'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Bowser",
+        "name": "EnableMailslots"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "45.7",
+      "name": "Ensure 'Min Smb2 Dialect' is set to '3.1.1'",
+      "category": "Lanman Server",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanServer",
+        "name": "MinSmb2Dialect"
+      },
+      "operator": "=",
+      "recommendedValue": "785",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.1",
+      "name": "Ensure 'Audit Insecure Guest Logon' is set to 'Enabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "AuditInsecureGuestLogon"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.2",
+      "name": "Ensure 'Audit Server Does Not Support Encryption' is set to 'Enabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "AuditServerDoesNotSupportEncryption"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.3",
+      "name": "Ensure 'Audit Server Does Not Support Signing' is set to 'Enabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "AuditServerDoesNotSupportSigning"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.4",
+      "name": "Ensure 'Enable insecure guest logons' is set to 'Disabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "AllowInsecureGuestAuth"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Windows 10 R1703 or older: Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.5",
+      "name": "Ensure Enable Mailslots' is set to 'Disabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\NetworkProvider",
+        "name": "EnableMailslots"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.6",
+      "name": "Ensure 'Min Smb2 Dialect' is set to '3.1.1'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "MinSmb2Dialect"
+      },
+      "operator": "=",
+      "recommendedValue": "785",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "46.7",
+      "name": "Ensure 'Require Encryption' is set to 'Enabled'",
+      "category": "Lanman Workstation",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\LanmanWorkstation",
+        "name": "RequireEncryption"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.1",
+      "name": "Ensure 'Accounts: Enable Guest account status' is set to 'Disabled'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Disabled: Local Policies Security Options\\Accounts: Guest account status",
+      "level": 1
+    },
+    {
+      "id": "49.2",
+      "name": "Ensure 'Accounts: Limit local account use of blank passwords to console logon only' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "LimitBlankPasswordUse"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.3",
+      "name": "Configure 'Accounts: Rename administrator account'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path: Local Policies Security Options\\Accounts: Rename administrator account",
+      "level": 1
+    },
+    {
+      "id": "49.4",
+      "name": "Configure 'Accounts: Rename guest account'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path: Local Policies Security Options\\Accounts: Rename guest account",
+      "level": 1
+    },
+    {
+      "id": "49.6",
+      "name": "Ensure 'Interactive logon: Do not display last signed-in' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "DontDisplayLastUserName"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.8",
+      "name": "Ensure 'Interactive logon: Machine inactivity limit' is set to '900 or fewer second(s), but not 0'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "InactivityTimeoutSecs"
+      },
+      "operator": "<=!0",
+      "recommendedValue": "900",
+      "defaultValue": "0 seconds",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.9",
+      "name": "Configure 'Interactive logon: Message text for users attempting to log on'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to a value that is consistent with the security and operational requirements of your organization: Local Policies Security Options\\Interactive logon: Message text for users attempting to log on",
+      "level": 1
+    },
+    {
+      "id": "49.10",
+      "name": "Configure 'Interactive logon: Message title for users attempting to log on'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to a value that is consistent with the security and operational requirements of your organization: Local Policies Security Options\\Interactive logon: Message title for users attempting to log on",
+      "level": 1
+    },
+    {
+      "id": "49.11",
+      "name": "Ensure 'Interactive logon: Smart card removal behavior' is set to 'Lock Workstation' or higher",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon",
+        "name": "ScRemoveOption"
+      },
+      "operator": "=or",
+      "recommendedValue": "1 or 2 or 3",
+      "defaultValue": "No action",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.12",
+      "name": "Ensure 'Microsoft network client: Digitally sign communications (always)' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+        "name": "RequireSecuritySignature"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.13",
+      "name": "Ensure 'Microsoft network client: Send unencrypted password to third-party SMB servers' is set to 'Disabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanmanWorkstation\\Parameters",
+        "name": "EnablePlainTextPassword"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.14",
+      "name": "Ensure 'Microsoft network server: Digitally sign communications (always)' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+        "name": "RequireSecuritySignature"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.15",
+      "name": "Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "RestrictAnonymousSAM"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.16",
+      "name": "Ensure 'Network access: Do not allow anonymous enumeration of SAM accounts and shares' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "RestrictAnonymous"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.17",
+      "name": "Ensure 'Network access: Restrict anonymous access to Named Pipes and Shares' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LanManServer\\Parameters",
+        "name": "RestrictNullSessAccess"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.18",
+      "name": "Ensure 'Network access: Restrict clients allowed to make remote calls to SAM' is set to 'Administrators: Remote Access: Allow'",
+      "category": "Local Policies Security Options",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to Administrators: Remote Access: Allow: Local Policies Security Options\\Network access: Restrict clients allowed to make remote calls to SAM",
+      "level": 1
+    },
+    {
+      "id": "49.19",
+      "name": "Ensure 'Network security: Allow Local System to use computer identity for NTLM' is set to 'Allow'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "UseMachineId"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.20",
+      "name": "Ensure 'Network Security: Allow PKU2U authentication requests' is set to 'Block'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\pku2u",
+        "name": "AllowOnlineID"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "49.21",
+      "name": "Ensure 'Network security: LAN Manager authentication level' is set to 'Send NTLMv2 responses only. Refuse LM and NTLM'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa",
+        "name": "LmCompatibilityLevel"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "Send NTLMv2 response only",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.22",
+      "name": "Ensure 'Network Security Minimum Session Security For NTLMSSP Based Clients' is set to 'Require NTLM and 128-bit encryption'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+        "name": "NTLMMinClientSec"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "Require 128-bit encryption",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.23",
+      "name": "Ensure 'Network Security Minimum Session Security For NTLMSSP Based Servers' is set to 'Require NTLM and 128-bit encryption'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+        "name": "NTLMMinServerSec"
+      },
+      "operator": "=",
+      "recommendedValue": "537395200",
+      "defaultValue": "Require 128-bit encryption",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.24",
+      "name": "Ensure 'Network security: Restrict NTLM: Audit Incoming NTLM Traffic' is set to 'Enable auditing for all accounts'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\MSV1_0",
+        "name": "AuditReceivingNTLMTraffic"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.25",
+      "name": "Ensure 'User Account Control: Behavior of the elevation prompt for administrators' is set to 'Prompt for consent on the secure desktop' or higher",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "ConsentPromptBehaviorAdmin"
+      },
+      "operator": "=or",
+      "recommendedValue": "1 or 2",
+      "defaultValue": "Prompt for consent for non-Windows binaries",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.26",
+      "name": "Ensure 'User Account Control: Behavior of the elevation prompt for standard users' is set to 'Automatically deny elevation requests'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "ConsentPromptBehaviorUser"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Prompt for credentials",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.27",
+      "name": "Ensure 'User Account Control: Detect application installations and prompt for elevation' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableInstallerDetection"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.28",
+      "name": "Ensure 'User Account Control: Only elevate UIAccess applications that are installed in secure locations' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableSecureUIAPaths"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.29",
+      "name": "Ensure 'User Account Control: Use Admin Approval Mode' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "FilterAdministratorToken"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.30",
+      "name": "Ensure 'User Account Control: Switch to the secure desktop when prompting for elevation' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "PromptOnSecureDesktop"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.31",
+      "name": "Ensure 'User Account Control: Run all administrators in Admin Approval Mode' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableLUA"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "49.32",
+      "name": "Ensure 'User Account Control: Virtualize file and registry write failures to per-user locations' is set to 'Enabled'",
+      "category": "Local Policies Security Options",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",
+        "name": "EnableVirtualization"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "50.1",
+      "name": "Ensure 'Configure Lsa Protected Process' is set to 'Enabled with UEFI Lock...'",
+      "category": "Local Security Authority",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\System",
+        "name": "RunAsPPL"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Not configured",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "55.1",
+      "name": "Ensure 'Allow apps from the Microsoft app store to auto update' is set to 'Allowed'",
+      "category": "Microsoft App Store",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\ApplicationManagement",
+        "name": "AllowAppStoreAutoUpdate"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Not configured - 2",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "55.2",
+      "name": "Ensure 'Allow Game DVR' is set to 'Block'",
+      "category": "Microsoft App Store",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\ApplicationManagement",
+        "name": "AllowGameDVR"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "55.4",
+      "name": "Ensure 'Block Non Admin User Install' is set to 'Allow'",
+      "category": "Microsoft App Store",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\ApplicationManagement",
+        "name": "BlockNonAdminUserInstall"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "55.6",
+      "name": "Ensure 'MSI Allow user control over installs' is set to 'Disabled'",
+      "category": "Microsoft App Store",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer",
+        "name": "EnableUserControl"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "55.7",
+      "name": "Ensure 'MSI Always install with elevated privileges' is set to 'Disabled'",
+      "category": "Microsoft App Store",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer",
+        "name": "AlwaysInstallElevated"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "High",
+      "level": 1
+    },
+    {
+      "id": "69.2",
+      "name": "Ensure 'Allow Input Personalization' is set to 'Block'",
+      "category": "Privacy",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\InputPersonalization",
+        "name": "AllowInputPersonalization"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "69.4",
+      "name": "Ensure 'Let Apps Activate With Voice Above Lock' is set to 'Enabled: Force Deny'",
+      "category": "Privacy",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Privacy",
+        "name": "LetAppsActivateWithVoiceAboveLock"
+      },
+      "operator": "=",
+      "recommendedValue": "2",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "73.2",
+      "name": "Ensure 'Allow Indexing Encrypted Stores Or Items' is set to 'Block'",
+      "category": "Search",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Search",
+        "name": "AllowIndexingEncryptedStoresOrItems"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "73.3",
+      "name": "Ensure 'Allow Search To Use Location' is set to 'Block'",
+      "category": "Search",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Search",
+        "name": "AllowSearchToUseLocation"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "77.1.1",
+      "name": "Ensure 'Notify Malicious' is set to 'Enabled'",
+      "category": "Smart Screen",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+        "name": "NotifyMalicious"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "77.1.2",
+      "name": "Ensure 'Notify Password Reuse' is set to 'Enabled'",
+      "category": "Smart Screen",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+        "name": "NotifyPasswordReuse"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "77.1.3",
+      "name": "Ensure 'Notify Unsafe App' is set to 'Enabled'",
+      "category": "Smart Screen",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+        "name": "NotifyUnsafeApp"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "77.1.4",
+      "name": "Ensure 'Service Enabled' is set to 'Enabled'",
+      "category": "Smart Screen",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WTDS\\Components",
+        "name": "ServiceEnabled"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "80.1",
+      "name": "Ensure 'Enable Sudo' is set to 'Sudo is disabled'",
+      "category": "Sudo",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\Sudo",
+        "name": "Enabled"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "81.3",
+      "name": "Ensure 'Allow Telemetry' is set to 'Basic'",
+      "category": "System",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "AllowTelemetry_PolicyManager"
+      },
+      "operator": "=or",
+      "recommendedValue": "0 or 1",
+      "defaultValue": "Basic",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "81.6",
+      "name": "Ensure 'Enable OneSettings Auditing' is set to 'Enabled'",
+      "category": "System",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
+        "name": "EnableOneSettingsAuditing"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.3",
+      "name": "Ensure 'Computer Browser (Browser)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\Browser",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.7",
+      "name": "Ensure 'IIS Admin Service (IISADMIN)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\IISADMIN",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.8",
+      "name": "Ensure 'Infrared monitor service (irmon)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\irmon",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.10",
+      "name": "Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\LxssManager",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.11",
+      "name": "Ensure 'Microsoft FTP Service (FTPSVC)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\FTPSVC",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.13",
+      "name": "Ensure 'OpenSSH SSH Server (sshd)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\sshd",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.20",
+      "name": "Ensure 'Remote Procedure Call (RPC) Locator (RpcLocator)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\RpcLocator",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.22",
+      "name": "Ensure 'Routing and Remote Access (RemoteAccess)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\RemoteAccess",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.24",
+      "name": "Ensure 'Simple TCP/IP Services (simptcp)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\simptcp",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.26",
+      "name": "Ensure 'Special Administration Console Helper (sacsvr)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\sacsvr",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.27",
+      "name": "Ensure 'SSDP Discovery (SSDPSRV)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\SSDPSRV",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.28",
+      "name": "Ensure 'UPnP Device Host (upnphost)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\upnphost",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.29",
+      "name": "Ensure 'Web Management Service (WMSvc)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\WMSvc",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.32",
+      "name": "Ensure 'Windows Media Player Network Sharing Service (WMPNetworkSvc)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\WMPNetworkSvc",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.33",
+      "name": "Ensure 'Windows Mobile Hotspot Service (icssvc)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\icssvc",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.36",
+      "name": "Ensure 'World Wide Web Publishing Service (W3SVC)' is set to 'Disabled' or 'Not Installed'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\W3SVC",
+        "name": "Start"
+      },
+      "operator": "=|0",
+      "recommendedValue": "4",
+      "defaultValue": "",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.37",
+      "name": "Ensure 'Xbox Accessory Management Service (XboxGipSvc)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\XboxGipSvc",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Windows 10 R1703: Manual Windows 10 R1709 or newer: Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.38",
+      "name": "Ensure 'Xbox Live Auth Manager (XblAuthManager)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\XblAuthManager",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.39",
+      "name": "Ensure 'Xbox Live Game Save (XblGameSave)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\XblGameSave",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Windows 10 R1507 and R1511: Manual Windows 10 R1607 or newer: Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "82.40",
+      "name": "Ensure 'Xbox Live Networking Service (XboxNetApiSvc)' is set to 'Disabled'",
+      "category": "System Services",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SYSTEM\\CurrentControlSet\\Services\\XboxNetApiSvc",
+        "name": "Start"
+      },
+      "operator": "=",
+      "recommendedValue": "4",
+      "defaultValue": "Manual",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "90.1",
+      "name": "Ensure 'Access Credential Manager As Trusted Caller' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which represents No One. User Rights\\Access Credential Manager As Trusted Caller Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but this does not affect the policy setting from being applied properly to the system.",
+      "level": 1
+    },
+    {
+      "id": "90.2",
+      "name": "Ensure 'Access From Network' is set to 'Administrators, Remote Desktop Users'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 and *S-1-5-32-555 (Administrators, Remote Desktop Users). User Rights\\Access From Network Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.3",
+      "name": "Ensure 'Act As Part Of The Operating System' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Act As Part Of The Operating System Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.4",
+      "name": "Ensure 'Allow Local Log On' is set to 'Administrators, Users'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544, *S-1-5-32-545 (Administrators, Users). User Rights\\Allow Local Log On Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.5",
+      "name": "Ensure 'Backup Files And Directories' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Backup Files And Directories Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.6",
+      "name": "Ensure 'Change System Time' is set to 'Administrators, LOCAL SERVICE'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 and *S-1-5-19 (Administrators, LOCAL SERVICE). User Rights\\Change System Time Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.7",
+      "name": "Ensure 'Create Global Objects' is set to 'Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544, *S-1-5-19, *S-1-5-20 and *S-1-5-6 (Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE). User Rights\\Create Global Objects Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.8",
+      "name": "Ensure 'Create Page File' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Create Page File Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.9",
+      "name": "Ensure 'Create Permanent Shared Objects' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Create Permanent Shared Objects Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.10",
+      "name": "Ensure 'Create Symbolic Links' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Low",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators) and optionally *S-1-5-83-0 (NT VIRTUAL MACHINE\\Virtual Machines) User Rights\\Create Symbolic Links Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.11",
+      "name": "Ensure 'Create Token' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Create Token Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.12",
+      "name": "Ensure 'Debug Programs' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Debug Programs Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.13",
+      "name": "Ensure 'Deny Access From Network' to include 'Guests, Local account'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-546 and *S-1-5-113 (Guests, Local account). User Rights\\Deny Access From Network Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.14",
+      "name": "Ensure 'Deny Local Log On' to include 'Guests'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-546 (Guests). User Rights\\Deny Local Log On Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.15",
+      "name": "Ensure 'Deny Log On As Batch Job' to include 'Guests'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-546 (Guests). User Rights\\Deny Log On As Batch Job",
+      "level": 1
+    },
+    {
+      "id": "90.16",
+      "name": "Ensure 'Deny Log On As Service Job' to include 'Guests'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-546 (Guests). User Rights\\Deny Log On As Service Job",
+      "level": 1
+    },
+    {
+      "id": "90.17",
+      "name": "Ensure 'Deny Remote Desktop Services Log On' to include 'Guests, Local account'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-546 and *S-1-5-113 (Guests, Local account). User Rights\\Deny Remote Desktop Services Log On Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.18",
+      "name": "Ensure 'Enable Delegation' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Enable Delegation Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.19",
+      "name": "Ensure 'Generate Security Audits' is set to 'LOCAL SERVICE, NETWORK SERVICE, RESTRICTED SERVICES\\PrintSpoolerService'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-19, *S-1-5-20, and *S-1-5-99 (LOCAL SERVICE, NETWORK SERVICE). User Rights\\Generate security audits Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.20",
+      "name": "Ensure 'Impersonate Client' is set to 'Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE, RESTRICTED SERVICES\\PrintSpoolerService'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544, *S-1-5-19, *S-1-5-20, *S-1-5-6, and *S- 1-5-99 (Administrators, LOCAL SERVICE, NETWORK SERVICE, SERVICE, RESTRICTED SERVICES\\PrintSpoolerService). User Rights\\Impersonate Client Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.21",
+      "name": "Ensure 'Increase Scheduling Priority' is set to 'Administrators, Window Manager\\Window Manager Group'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 and *S-1-5-90-0 (Administrators, Window Manager\\Window Manager Group). User Rights\\Increase scheduling priority Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.22",
+      "name": "Ensure 'Load Unload Device Drivers' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Load Unload Device Drivers Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.23",
+      "name": "Ensure 'Lock Memory' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Lock Memory Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.25",
+      "name": "Ensure 'Manage auditing and security log' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Manage auditing and security log Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.26",
+      "name": "Ensure 'Manage Volume' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Manage Volume Note: Include only one User or Group per line in the Settings Catalog configuration screen. \\",
+      "level": 1
+    },
+    {
+      "id": "90.27",
+      "name": "Ensure 'Modify Firmware Environment' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Modify Firmware Environment Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.28",
+      "name": "Ensure 'Modify Object Label' is set to 'No One'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to (<![CDATA[]]>) which equals No One. User Rights\\Modify Object Label Note: Using (<![CDATA[]]>) to represent a blank value or No One is recommended by Microsoft. However, there is a known issue where an error occurs in Endpoint Manger (Intune) but does not affect the policy setting from being applied to the system properly.",
+      "level": 1
+    },
+    {
+      "id": "90.29",
+      "name": "Ensure 'Profile Single Process' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Profile single process Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.30",
+      "name": "Ensure 'Profile System Performance' is set to 'Administrators, NT SERVICE\\WdiServiceHost'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544, *S-1-5-80 (Administrators, NT SERVICE\\WdiServiceHost). User Rights\\Profile System Performance",
+      "level": 1
+    },
+    {
+      "id": "90.31",
+      "name": "Ensure 'Remote Shutdown' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Remote Shutdown Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.32",
+      "name": "Ensure 'Replace Process Level Token' is set to 'LOCAL SERVICE, NETWORK SERVICE'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-19, *S-1-5-20 (LOCAL SERVICE, NETWORK SERVICE). User Rights\\Replace Process Level Token",
+      "level": 1
+    },
+    {
+      "id": "90.33",
+      "name": "Ensure 'Restore Files And Directories' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Restore files and directories Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "90.34",
+      "name": "Ensure 'Shut Down The System' is set to 'Administrators, Users'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544, *S-1-5-32-545 (Administrators, Users). User Rights\\Shut Down The System",
+      "level": 1
+    },
+    {
+      "id": "90.35",
+      "name": "Ensure 'Take Ownership' is set to 'Administrators'",
+      "category": "User Rights",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration via configuration profiles, set the following Settings Catalog path to *S-1-5-32-544 (Administrators). User Rights\\Take Ownership Note: Include only one User or Group per line in the Settings Catalog configuration screen.",
+      "level": 1
+    },
+    {
+      "id": "91.1",
+      "name": "Ensure 'Hypervisor Enforced Code Integrity' is set to 'Enabled with UEFI lock'",
+      "category": "Virtualization Based Technology",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\DeviceGuard",
+        "name": "HypervisorEnforcedCodeIntegrity"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "91.2",
+      "name": "Ensure 'Require UEFI Memory Attributes Table' is set to 'Require UEFI Memory Attributes Table'",
+      "category": "Virtualization Based Technology",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\VirtualizationBasedTechnology",
+        "name": "RequireUEFIMemoryAttributesTable"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "94.1",
+      "name": "Ensure 'Allow Auto Connect To Wi Fi Sense Hotspots' is set to 'Block'",
+      "category": "Wi-Fi Settings",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Wifi",
+        "name": "AllowAutoConnectToWiFiSenseHotspots_ProviderSet"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "98.1",
+      "name": "Ensure 'Enable ESS with Supported Peripherals' is set to 'Enhanced sign-in security will be enabled...'",
+      "category": "Windows Hello For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\PassportForWork\\Biometrics",
+        "name": "EnableESSwithSupportedPeripherals"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Enabled: 1",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "98.2",
+      "name": "Ensure 'Facial Features Use Enhanced Anti Spoofing' is set to 'true'",
+      "category": "Windows Hello For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\PassportForWork\\Biometrics",
+        "name": "FacialFeaturesUseEnhancedAntiSpoofing"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Users are able to choose whether or not to use enhanced anti-spoofing on supported devices",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "98.3",
+      "name": "Ensure 'Minimum PIN Length' is set to '6 more character(s)'",
+      "category": "Windows Hello For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\PassportForWork\\\"Tenant-ID\"\\Device\\Policies\\PINComplexity",
+        "name": "MinimumPINLength"
+      },
+      "operator": ">=",
+      "recommendedValue": "6",
+      "defaultValue": "4",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "98.4",
+      "name": "Ensure 'Require Security Device' is set to 'true'",
+      "category": "Windows Hello For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\PassportForWork\\<Tenant-ID>\\Device\\Policies",
+        "name": "RequireSecurityDevice"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "false",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "99.2",
+      "name": "Ensure 'Allow Windows Ink Workspace' is set to 'Enabled: but the user can't access it above the lock screen' OR 'Disabled'",
+      "category": "Windows Ink Workspace",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\WindowsInkWorkspace",
+        "name": "AllowWindowsInkWorkspace"
+      },
+      "operator": "=or",
+      "recommendedValue": "0 or 1",
+      "defaultValue": "Enabled",
+      "severity": "Low",
+      "level": 1
+    },
+    {
+      "id": "102.1",
+      "name": "Ensure 'Allow Clipboard Redirection' is set to 'Not allowed'",
+      "category": "Windows Sandbox",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\WindowsSandbox",
+        "name": "AllowClipboardRedirection"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "102.2",
+      "name": "Ensure 'Allow Networking' is set to 'Not allowed'",
+      "category": "Windows Sandbox",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\WindowsSandbox",
+        "name": "AllowNetworking"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Enabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "104.1",
+      "name": "Ensure 'Allow Auto Update' is set to 'Enabled'",
+      "category": "Windows Update For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Update",
+        "name": "AllowAutoUpdate"
+      },
+      "operator": "=",
+      "recommendedValue": "5",
+      "defaultValue": "Enabled: 2 - Auto install and restart",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "104.2",
+      "name": "Ensure 'Defer Feature Updates Period in Days' is set to 'Enabled: 180 or more days'",
+      "category": "Windows Update For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Update",
+        "name": "DeferFeatureUpdatesPeriodInDays"
+      },
+      "operator": ">=",
+      "recommendedValue": "180",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "104.3",
+      "name": "Ensure 'Manage preview builds' is set to 'Disable Preview builds'",
+      "category": "Windows Update For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Update",
+        "name": "ManagePreviewBuilds"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "104.4",
+      "name": "Ensure 'Scheduled Install Day' is set to 'Every day'",
+      "category": "Windows Update For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\Update",
+        "name": "ScheduledInstallDay"
+      },
+      "operator": "=",
+      "recommendedValue": "0",
+      "defaultValue": "Not Defined",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "104.5",
+      "name": "Ensure 'Block \"Pause Updates\" ability' is set to 'Block'",
+      "category": "Windows Update For Business",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate",
+        "name": "SetDisablePauseUXAccess"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "105.1",
+      "name": "Ensure 'Require PIN For Pairing' is set to 'Enabled: Pairing ceremony for new devices will always require a PIN' OR 'All pairings will require PIN'",
+      "category": "Wireless Display",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\PolicyManager\\current\\device\\WirelessDisplay",
+        "name": "RequirePinForPairing"
+      },
+      "operator": "=or",
+      "recommendedValue": "1 or 2",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "106.1.1",
+      "name": "Ensure 'Device Health: BitLocker' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under Device Health, set BitLocker to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.1.2",
+      "name": "Ensure 'Device Health: Secure Boot' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under Device Health, set Secure Boot to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.1.3",
+      "name": "Ensure 'Device Health: Code integrity' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under Device Health, set Code integrity to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.2.1.1",
+      "name": "Ensure 'System Security: Device Security: Firewall' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under System Security\\Device Security, set Firewall to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.2.1.2",
+      "name": "Ensure 'System Security: Device Security: Trusted Platform Module (TPM)' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under System Security\\Device Security, set Trusted Platform Module (TPM) to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.2.1.3",
+      "name": "Ensure 'System Security: Device Security: Antivirus' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "High",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under System Security\\Device Security, set Antivirus to Require.",
+      "level": 1
+    },
+    {
+      "id": "106.2.1.4",
+      "name": "Ensure 'System Security: Device Security: Antispyware' is set to 'Require'",
+      "category": "Device Compliance Policy",
+      "method": "manual",
+      "args": {},
+      "operator": "manual",
+      "recommendedValue": "",
+      "defaultValue": "",
+      "severity": "Medium",
+      "fixText": "To establish the recommended configuration from Microsoft Intune Admin Center: 1. Navigate to Endpoint security > Compliance policies. 2. Create or edit a Compliance policy. 3. Under System Security\\Device Security, set Antispyware to Require.",
+      "level": 1
+    },
+    {
+      "id": "107.1",
+      "name": "Ensure 'Backup Directory' is set to 'Backup the password to Azure AD only'",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "BackupDirectory"
+      },
+      "operator": "=",
+      "recommendedValue": "1",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "107.2",
+      "name": "Ensure 'Password Age Days' is set to 'Configured: 30 or fewer'",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "PasswordAgeDays"
+      },
+      "operator": "=",
+      "recommendedValue": "30",
+      "defaultValue": "30 days",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "107.3",
+      "name": "Ensure 'Password Complexity' is set to 'Large letters + small letters + numbers + special characters' or higher",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "PasswordComplexity"
+      },
+      "operator": "=or",
+      "recommendedValue": "4 or 6 or 7 or 8",
+      "defaultValue": "Large letters + small letters + numbers + special characters",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "107.4",
+      "name": "Ensure 'Password Length' is set to 'Configured: 15 or more'",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "PasswordLength"
+      },
+      "operator": "=",
+      "recommendedValue": "15",
+      "defaultValue": "14 characters",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "107.5",
+      "name": "Ensure 'Post-authentication actions' is set to 'Reset the password and logoff the managed account' or higher",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "PostAuthenticationActions"
+      },
+      "operator": "=or",
+      "recommendedValue": "3 or 5",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    },
+    {
+      "id": "107.6",
+      "name": "Ensure 'Post Authentication Reset Delay' is set to 'Configured: 8 or fewer hours, but not 0'",
+      "category": "Windows LAPS",
+      "method": "Registry",
+      "args": {
+        "path": "HKLM:\\SOFTWARE\\Microsoft\\Policies\\LAPS",
+        "name": "PostAuthenticationResetDelay"
+      },
+      "operator": "<=!0",
+      "recommendedValue": "8",
+      "defaultValue": "Disabled",
+      "severity": "Medium",
+      "level": 1
+    }
+  ]
+}
