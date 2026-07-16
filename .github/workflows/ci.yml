@@ -21,9 +21,11 @@ jobs:
 
       - name: Install Pester + PSScriptAnalyzer
         run: |
-          Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force | Out-Null
+          if ($PSVersionTable.PSVersion.Major -lt 6) {
+            Install-PackageProvider -Name NuGet -Force | Out-Null
+          }
           Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-          Install-Module Pester -MinimumVersion 5.0 -Force -SkipPublisherCheck -Scope CurrentUser
+          Install-Module Pester -MaximumVersion 4.10.1 -Force -SkipPublisherCheck -Scope CurrentUser
           Install-Module PSScriptAnalyzer -Force -Scope CurrentUser
 
       - name: PSScriptAnalyzer
@@ -34,5 +36,5 @@ jobs:
 
       - name: Pester tests
         run: |
-          Import-Module Pester -MinimumVersion 5.0
-          Invoke-Pester -Path .\Tests -CI
+          Import-Module Pester -MaximumVersion 4.10.1
+          Invoke-Pester -Path .\Tests -EnableExit
