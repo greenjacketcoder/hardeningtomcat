@@ -43,7 +43,7 @@ jobs:
       - name: Compare Windows 11 version
         if: env.SKIP != 'true'
         run: |
-          LIVE=$(grep -oP 'Microsoft Intune for Windows 11 \(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
+          LIVE=$(grep -oP 'Microsoft Intune for Windows 11\s+\(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
           KNOWN=$(jq -r '.source' lists/cis/CIS_Intune_Windows_11_L1-L2.json | grep -oP 'v\K[0-9]+\.[0-9]+\.[0-9]+')
           echo "Live CIS version: $LIVE | Repo's imported version: $KNOWN"
           echo "WIN11_LIVE=$LIVE" >> "$GITHUB_ENV"
@@ -52,7 +52,7 @@ jobs:
       - name: Compare Office version
         if: env.SKIP != 'true'
         run: |
-          LIVE=$(grep -oP 'Microsoft Intune for Office \(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
+          LIVE=$(grep -oP 'Microsoft Intune for Office\s+\(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
           KNOWN=$(jq -r '.source' lists/cis/CIS_Intune_Office_L1-L2.json | grep -oP 'v\K[0-9]+\.[0-9]+\.[0-9]+')
           echo "Live CIS version: $LIVE | Repo's imported version: $KNOWN"
           echo "OFFICE_LIVE=$LIVE" >> "$GITHUB_ENV"
