@@ -53,8 +53,20 @@ function Resolve-HtDefaultList {
     $best = $null; $bestScore = 0
     foreach ($c in $candidates) {
         $hay = "$($c.BaseName)"
-        try { $hay += ' ' + (Get-Content $c.FullName -Raw | ConvertFrom-Json).listName }
+        $meta = $null
+        try { $meta = Get-Content $c.FullName -Raw | ConvertFrom-Json }
         catch { Write-Verbose "OS detect: could not read listName from $($c.Name); scoring on filename only." }
+        if ($meta) {
+            # Lists can opt out of auto-selection (autoSelect: false) -- e.g. the CIS
+            # Intune lists, which are audit-only and MDM-specific: an OS-match auto-pick
+            # on a non-Intune-managed machine would grade PolicyManager state that was
+            # never meant to be there. Such lists run only when named via -FindingList.
+            if ($meta.PSObject.Properties.Name -contains 'autoSelect' -and -not $meta.autoSelect) {
+                Write-Verbose "OS detect: '$($c.Name)' is autoSelect:false; excluded from auto-selection."
+                continue
+            }
+            $hay += ' ' + $meta.listName
+        }
         $score = 0
         # Product family tokens
         switch -Regex ($os.Product) {

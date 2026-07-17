@@ -1,5 +1,9 @@
 # HardeningTomcat finding-list integrity manifest
-# Generated: 2026-06-15 15:19:39  Format: <sha256>  <relative path>
+# Generated: 2026-07-16 21:16:53  Format: <sha256>  <relative path>
+f0483078128e92307449f32571aa25a58898e3171115915f1d4475e44fcdbf6d  cis/CIS_Intune_Office_L1-L2.json
+bce99db9c9c9ec5f43e373f91d09bb4f08a4e8c0af0dff99497bd8948eb41b8b  cis/CIS_Intune_Office_L1.json
+53ff9b6a70c68f93c7eb8061bea6de15da44a40b6094a0fd8f0e44fdcb046ccc  cis/CIS_Intune_Windows_11_L1-L2.json
+fb23e1df426ceda2b8774a97adf025f2b754a1eca29454cf4ae2a5f2a140295f  cis/CIS_Intune_Windows_11_L1.json
 8137a2bfefc86a60df52a4e16f163b9fe56bbb845d1c0103c8261129bd672baf  cis/CIS_Windows_11_25H2_L1-L2.json
 94b0f47edd70220d929d759553234a476a5447ffc027bdd5b64ebe067c7a4918  cis/CIS_Windows_11_25H2_L1.json
 d9d410a621b6733348698ac5e112e154e3b09ffd5b2c3fc6692ea2957b07aa85  cis/CIS_Windows_Server_2016_L1.json

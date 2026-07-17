@@ -8,6 +8,7 @@
     "listName":   { "type": "string", "description": "Human name, e.g. 'Windows Server 2022 Machine - CIS L1'" },
     "version":    { "type": "string", "description": "List version, independent of engine version" },
     "scope":      { "type": "string", "enum": ["machine", "user"], "description": "Whether findings need elevation (machine) or run as the user" },
+    "autoSelect": { "type": "boolean", "description": "When false, Recon/Survey OS auto-selection skips this list; it runs only when named explicitly via -FindingList. Absent means true." },
     "description":{ "type": "string" },
     "findings": {
       "type": "array",

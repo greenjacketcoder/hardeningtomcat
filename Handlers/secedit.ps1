@@ -13,36 +13,13 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secedit_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
-        $exportOk = $false
-        $exitCode = $null
-        try {
-            & secedit.exe /export /cfg $tmp /quiet 2>$null
-            $exitCode = $LASTEXITCODE
-            if ($exitCode -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $exportOk = $true }
-        } catch {
-            & $Context.Log "secedit: export threw: $($_.Exception.Message)" 'Warn'
-        }
-        $table = @{}
-        if ($exportOk) {
-            foreach ($line in (Get-Content -Path $tmp -Encoding Unicode)) {
-                if ($line -match '^\s*([^=\[]+?)\s*=\s*(.+?)\s*$') {
-                    $table[$matches[1].Trim()] = $matches[2].Trim()
-                }
-            }
-        } elseif ($exitCode -eq 2) {
-            # secedit exit 2 = "Not enough memory resources" -- a system/scesrv resource
-            # condition, NOT a problem with the finding. Surface it clearly so a confusing
-            # low Passed count is explained, and the user knows to free memory / reboot.
-            $Cache['secedit_err'] = 'secedit could not run: the system reported insufficient memory resources (scesrv). Free memory or reboot, then re-run. Policy findings were skipped, not failed.'
-            & $Context.Log $Cache['secedit_err'] 'Error'
-        } else {
-            & $Context.Log "secedit: export FAILED (exit $exitCode) -- policy findings will be Skipped, not passed." 'Warn'
-        }
-        Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
-        $Cache['secedit']    = $table
-        $Cache['secedit_ok'] = $exportOk
-        & $Context.Log "secedit prefetch: export $(if($exportOk){'OK'}else{'FAILED'}), cached $($table.Count) keys."
+        # One export for the whole run, via the shared helper (Private/_Helpers.ps1 --
+        # the same implementation backs accountpolicy and accesschk).
+        $exp = Get-HtSeceditExport -Context $Context
+        if ($exp.Error) { $Cache['secedit_err'] = $exp.Error }
+        $Cache['secedit']    = $exp.Flat
+        $Cache['secedit_ok'] = $exp.Ok
+        & $Context.Log "secedit prefetch: export $(if($exp.Ok){'OK'}else{'FAILED'}), cached $($exp.Flat.Count) keys."
     }
 
     Test = {

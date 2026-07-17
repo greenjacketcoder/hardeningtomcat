@@ -11,9 +11,15 @@
 $here       = Split-Path -Parent $MyInvocation.MyCommand.Path
 $moduleRoot = Split-Path -Parent $here
 
+# Portability: fixtures use $env:TEMP, which macOS/Linux pwsh do not set. Fall back to
+# the platform temp dir so the OS-independent Describes (integrity, auto-select, list
+# validation) run on a dev Mac too -- only the registry-backed tests are Windows-only.
+if (-not $env:TEMP) { $env:TEMP = [System.IO.Path]::GetTempPath() }
+
 # Dot-source the standalone pieces under test.
 . (Join-Path $moduleRoot 'Private\_Helpers.ps1')
 . (Join-Path $moduleRoot 'Private\_Integrity.ps1')
+. (Join-Path $moduleRoot 'Private\_OsDetect.ps1')
 . (Join-Path $moduleRoot 'Importers\RegistryPolParser.ps1')
 
 # Test-HtOperator is module-internal; import the module and call inside its scope.
@@ -29,6 +35,9 @@ Describe 'Test-HtOperator' {
         It 'passes on exact match' { (Test-Op '=' '1' '1') | Should Be $true }
         It 'fails on mismatch'     { (Test-Op '=' '2' '1') | Should Be $false }
         It '!= passes on mismatch' { (Test-Op '!=' '2' '1') | Should Be $true }
+        It 'string comparison is case-insensitive by design (pinned)' {
+            (Test-Op '=' 'Enterprise' 'ENTERPRISE') | Should Be $true
+        }
     }
 
     Context "'=or' (CIS 'X or Y' values)" {
@@ -133,6 +142,22 @@ Describe 'Get-HtRegistryValue' {
         $r = Get-HtRegistryValue -Path 'HKLM:\SOFTWARE\Microsoft/Windows NT/CurrentVersion' -Name 'CurrentBuild'
         $r.Found | Should Be $true
     }
+    It 'reads value names containing wildcard characters LITERALLY (Hardened UNC Paths class)' {
+        # Get-ItemProperty -Name treats the name as a wildcard pattern; the literal
+        # GetValueNames()/GetValue() read must find the real '\\*\NETLOGON' value AND
+        # must NOT report a pattern-only sibling match as Found.
+        $p = 'HKCU:\Software\HtPesterLiteral'
+        New-Item -Path $p -Force | Out-Null
+        try {
+            New-ItemProperty -Path $p -Name '\\*\NETLOGON' -Value 'RequireMutualAuthentication=1' -PropertyType String -Force | Out-Null
+            $r = Get-HtRegistryValue -Path $p -Name '\\*\NETLOGON'
+            $r.Found | Should Be $true
+            $r.Result | Should Match 'RequireMutualAuthentication'
+            # '\\*\SYSVOL' as a PATTERN would match the NETLOGON-adjacent name space;
+            # as a LITERAL it matches nothing -- Found must be false.
+            (Get-HtRegistryValue -Path $p -Name '\\*\SYSVOL').Found | Should Be $false
+        } finally { Remove-Item -Path $p -Recurse -Force -ErrorAction SilentlyContinue }
+    }
 }
 
 Describe 'Test-HtListIntegrity' {
@@ -223,5 +248,133 @@ Describe 'Finding-list data invariants' -Tag 'Data' {
             })
             $bad.Count | Should Be 0
         }
+    }
+    It 'every Registry finding carries non-empty args.path and args.name' {
+        foreach ($f in $listFiles) {
+            $d = Get-Content -Raw -Path $f.FullName | ConvertFrom-Json
+            $bad = @($d.findings | Where-Object {
+                $_.method -eq 'Registry' -and ((-not $_.args) -or (-not $_.args.path) -or (-not $_.args.name))
+            })
+            $bad.Count | Should Be 0
+        }
+    }
+    It 'no Registry/RegistryList finding carries wildcard characters in args.path' {
+        # The engine also rejects these at load; enforcing here means a bad list fails
+        # CI on push instead of failing the first user who runs it.
+        foreach ($f in $listFiles) {
+            $d = Get-Content -Raw -Path $f.FullName | ConvertFrom-Json
+            $bad = @($d.findings | Where-Object {
+                $_.method -in 'Registry','RegistryList' -and $_.args -and $_.args.path -match '[*?\[\]]'
+            })
+            $bad.Count | Should Be 0
+        }
+    }
+}
+
+Describe 'Resolve-HtDefaultList (auto-select)' {
+    # Fixture module root with a lists/cis folder we control. Get-HtOsIdentity is
+    # mocked so these tests run identically on any CI runner.
+    $osdRoot = Join-Path $env:TEMP ("ht-pester-osd-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+    $osdCis = Join-Path $osdRoot 'lists\cis'
+    New-Item -ItemType Directory -Path $osdCis -Force | Out-Null
+    '{"listName":"CIS Windows 11 25H2 L1","version":"1","findings":[{"id":"1"}]}' |
+        Set-Content -Path (Join-Path $osdCis 'CIS_Windows_11_25H2_L1.json') -Encoding Ascii
+    '{"listName":"CIS Intune Windows 11 L1","version":"1","autoSelect":false,"findings":[{"id":"1"}]}' |
+        Set-Content -Path (Join-Path $osdCis 'CIS_Intune_Windows_11_L1.json') -Encoding Ascii
+
+    Mock Get-HtOsIdentity { [pscustomobject]@{ Product = 'Windows 11'; Release = '25H2'; Build = 26200; Caption = 'Microsoft Windows 11 Enterprise' } }
+
+    It 'selects the OS-matched list (release bonus wins)' {
+        $r = Resolve-HtDefaultList -ModuleRoot $osdRoot
+        $r.Path | Should Match 'CIS_Windows_11_25H2_L1\.json$'
+    }
+    It 'a list without the autoSelect field remains eligible (legacy lists unaffected)' {
+        (Resolve-HtDefaultList -ModuleRoot $osdRoot).Path | Should Not Be $null
+    }
+    It 'never selects an autoSelect:false list, even as the only OS match' {
+        $soloRoot = Join-Path $env:TEMP ("ht-pester-osd-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+        $soloCis = Join-Path $soloRoot 'lists\cis'
+        New-Item -ItemType Directory -Path $soloCis -Force | Out-Null
+        Copy-Item (Join-Path $osdCis 'CIS_Intune_Windows_11_L1.json') $soloCis
+        try {
+            (Resolve-HtDefaultList -ModuleRoot $soloRoot).Path | Should Be $null
+        } finally { Remove-Item -Recurse -Force $soloRoot -ErrorAction SilentlyContinue }
+    }
+    It 'cleanup (fixture removal)' {
+        Remove-Item -Recurse -Force $osdRoot -ErrorAction SilentlyContinue
+        (Test-Path $osdRoot) | Should Be $false
+    }
+}
+
+Describe 'Invoke-HardeningTomcat engine (Recon end-to-end)' {
+    # The first test that exercises the unified loop rather than its pieces:
+    # real registry fixtures under HKCU (no elevation needed) + a fixture list.
+    $regRoot = 'HKCU:\Software\HtPesterTest'
+    New-Item -Path $regRoot -Force | Out-Null
+    New-ItemProperty -Path $regRoot -Name 'PassMe' -Value 1 -PropertyType DWord -Force | Out-Null
+    New-ItemProperty -Path $regRoot -Name 'FailMe' -Value 5 -PropertyType DWord -Force | Out-Null
+
+    $e2eList = Join-Path $env:TEMP ("ht-pester-e2e-{0}.json" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+    @'
+{"listName":"Pester E2E","version":"1","findings":[
+ {"id":"1","name":"passes on observed value","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"PassMe"},"operator":"=","recommendedValue":"1","severity":"Low"},
+ {"id":"2","name":"fails on observed value","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"FailMe"},"operator":"=","recommendedValue":"1","severity":"Medium"},
+ {"id":"3","name":"absent value grades against defaultValue","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"Missing"},"operator":"=","recommendedValue":"7","defaultValue":"7","severity":"Low"},
+ {"id":"4","name":"manual is skipped with fixText","method":"manual","args":{},"operator":"manual","recommendedValue":"","severity":"Low","fixText":"do it by hand"}
+]}
+'@ | Set-Content -Path $e2eList -Encoding Ascii
+
+    $run = Invoke-HardeningTomcat -Mode Recon -FindingList $e2eList -PassThru -WarningAction SilentlyContinue
+
+    It 'grades pass / fail / default-pass / manual-skip correctly' {
+        $run.Summary.Total   | Should Be 4
+        $run.Summary.Passed  | Should Be 2   # id 1 (observed) + id 3 (defaultValue path)
+        $run.Summary.Medium  | Should Be 1   # id 2
+        $run.Summary.Skipped | Should Be 1   # id 4 (manual)
+    }
+    It 'reports the observed value it actually read' {
+        ($run.Results | Where-Object ID -eq '2').Observed | Should Be '5'
+    }
+    It 'surfaces manual findings with their fixText' {
+        ($run.Results | Where-Object ID -eq '4').Detail | Should Match 'do it by hand'
+    }
+    It 'cleanup (registry + fixture removal)' {
+        Remove-Item -Path $regRoot -Recurse -Force -ErrorAction SilentlyContinue
+        Remove-Item $e2eList -Force -ErrorAction SilentlyContinue
+        (Test-Path $regRoot) | Should Be $false
+    }
+}
+
+Describe 'Load-time list validation (fail-fast)' {
+    $valDir = Join-Path $env:TEMP ("ht-pester-val-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+    New-Item -ItemType Directory -Path $valDir -Force | Out-Null
+
+    It 'rejects duplicate ids' {
+        $p = Join-Path $valDir 'dup.json'
+        '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"Registry","args":{"path":"HKCU:\\S","name":"x"},"operator":"=","recommendedValue":"1","severity":"Low"},{"id":"1","name":"b","method":"Registry","args":{"path":"HKCU:\\S","name":"y"},"operator":"=","recommendedValue":"1","severity":"Low"}]}' |
+            Set-Content -Path $p -Encoding Ascii
+        { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw 'duplicate id'
+    }
+    It 'rejects wildcard characters in Registry paths' {
+        $p = Join-Path $valDir 'wild.json'
+        '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"Registry","args":{"path":"HKLM:\\SOFTWARE\\Micro*soft","name":"x"},"operator":"=","recommendedValue":"1","severity":"Low"}]}' |
+            Set-Content -Path $p -Encoding Ascii
+        { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw 'wildcard'
+    }
+    It 'rejects unknown operators' {
+        $p = Join-Path $valDir 'op.json'
+        '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"Registry","args":{"path":"HKCU:\\S","name":"x"},"operator":"~=","recommendedValue":"1","severity":"Low"}]}' |
+            Set-Content -Path $p -Encoding Ascii
+        { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw 'invalid operator'
+    }
+    It "rejects '=or' outside the Registry method" {
+        $p = Join-Path $valDir 'eqor.json'
+        '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"service","args":{"name":"Spooler"},"operator":"=or","recommendedValue":"1 or 2","severity":"Low"}]}' |
+            Set-Content -Path $p -Encoding Ascii
+        { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw '=or'
+    }
+    It 'cleanup (fixture removal)' {
+        Remove-Item -Recurse -Force $valDir -ErrorAction SilentlyContinue
+        (Test-Path $valDir) | Should Be $false
     }
 }

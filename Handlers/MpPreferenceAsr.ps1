@@ -54,7 +54,10 @@
             if ($Cache.ContainsKey('asr')) { $Cache.Remove('asr') }   # invalidate cache
             return @{ Changed = $true; Message = "ASR rule $id set to $action" }
         } catch {
-            return @{ Changed = $false; Message = "ASR apply failed for $id : $($_.Exception.Message)" }
+            # THROW so the engine counts this in ApplyFailed and surfaces a warning.
+            # Returning Changed=$false here made a failed ASR apply invisible -- the
+            # same green-summary bug class fixed for secedit/auditpol in 0.5.1/0.8.0.
+            throw "ASR apply failed for $id : $($_.Exception.Message)"
         }
     }
 }

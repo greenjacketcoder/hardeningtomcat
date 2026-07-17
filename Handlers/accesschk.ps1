@@ -13,39 +13,14 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        $infPath = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_userrights_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
-        $exportOk = $false
-        try {
-            & secedit.exe /export /areas USER_RIGHTS /cfg $infPath /quiet 2>$null
-            # secedit returns 0 on success; also require the file to actually exist & be non-empty.
-            if ($LASTEXITCODE -eq 0 -and (Test-Path $infPath) -and (Get-Item $infPath).Length -gt 0) {
-                $exportOk = $true
-            }
-        } catch {
-            & $Context.Log "accesschk: secedit export threw: $($_.Exception.Message)" 'Warn'
-        }
-
-        $rights = @{}
-        if ($exportOk) {
-            $inSection = $false
-            foreach ($line in (Get-Content -Path $infPath -Encoding Unicode)) {
-                $t = $line.Trim()
-                if ($t -match '^\[Privilege Rights\]') { $inSection = $true; continue }
-                if ($t -match '^\[') { $inSection = $false; continue }
-                if ($inSection -and $t -match '^(Se\w+)\s*=\s*(.*)$') {
-                    $rights[$matches[1]] = $matches[2].Trim()
-                }
-            }
-        } else {
-            & $Context.Log "accesschk: USER_RIGHTS export FAILED -- user-rights findings will be Skipped, not passed." 'Warn'
-        }
-
-        # Always clean up the security-policy dump (contains sensitive SID assignments).
-        Remove-Item $infPath -Force -WhatIf:$false -ErrorAction SilentlyContinue
-
+        # USER_RIGHTS-scoped export via the shared helper (Private/_Helpers.ps1). User
+        # rights live in the [Privilege Rights] section; the helper keeps EMPTY values
+        # in Sections (a right assigned to no one exports as 'SeXxx = ').
+        $exp = Get-HtSeceditExport -Areas 'USER_RIGHTS' -Context $Context
+        $rights = if ($exp.Sections.ContainsKey('Privilege Rights')) { $exp.Sections['Privilege Rights'] } else { @{} }
         $Cache['userrights']    = $rights
-        $Cache['userrights_ok'] = $exportOk
-        & $Context.Log "accesschk prefetch: export $(if($exportOk){'OK'}else{'FAILED'}), cached $($rights.Count) assignments."
+        $Cache['userrights_ok'] = $exp.Ok
+        & $Context.Log "accesschk prefetch: export $(if($exp.Ok){'OK'}else{'FAILED'}), cached $($rights.Count) assignments."
     }
 
     Test = {

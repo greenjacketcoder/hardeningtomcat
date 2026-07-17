@@ -25,8 +25,20 @@ function Get-HtRegistryValue {
         # glob-expands *, ?, and [...], so a wildcard path would read (and, in the Apply
         # handler, WRITE) across every matching key -- turning one finding into a broad
         # blast radius. -LiteralPath binds the path exactly as written.
-        $item = Get-ItemProperty -LiteralPath $Path -Name $Name -ErrorAction Stop
-        return @{ Found = $true; Result = $item.$Name }
+        #
+        # The VALUE NAME must be literal too: the previous Get-ItemProperty -Name read
+        # treated the name as a WILDCARD pattern, so names like '\\*\NETLOGON' (Hardened
+        # UNC Paths) worked only by accident, a sibling value matching the pattern could
+        # report Found=$true with a $null Result (grading against empty instead of
+        # defaultValue), and names containing [ ] failed outright. GetValueNames() +
+        # GetValue() bind the name literally -- and skip PSObject property wrapping
+        # (~2-3x faster per read). GetValue's default options expand REG_EXPAND_SZ,
+        # matching Get-ItemProperty's behavior, so observed values are unchanged.
+        $key = Get-Item -LiteralPath $Path -ErrorAction Stop
+        if ($key.GetValueNames() -contains $Name) {
+            return @{ Found = $true; Result = $key.GetValue($Name) }
+        }
+        return @{ Found = $false; Result = $null }
     } catch {
         # ONE generic catch with an explicit -is check, NOT typed catch blocks:
         # Windows PowerShell 5.1 mis-matches typed catch clauses once a hot function
@@ -73,4 +85,66 @@ function Resolve-HtApplyValue {
         $Value = $matches[1]
     }
     return $Value
+}
+
+function Get-HtSeceditExport {
+    <#
+      Runs `secedit /export` ONCE and parses the INF into lookup tables. Shared by the
+      secedit, accountpolicy, and accesschk handlers, which previously carried three
+      near-identical spawn/parse/cleanup copies (differing only in /areas) plus an
+      implicit cache-ordering coupling. One implementation = one place for the
+      exit-code-2 (scesrv memory) diagnosis and the sensitive-temp-file cleanup.
+
+      Returns @{
+        Ok       = $bool     # export ran and produced content
+        Flat     = @{}       # 'key = value' lines, section-agnostic, NON-EMPTY values
+                             #   only (legacy secedit/accountpolicy lookup shape: an
+                             #   empty value falls through to Found=$false/defaultValue)
+        Sections = @{}       # '[Section]' -> @{ key = value }, EMPTY values KEPT (a
+                             #   user right assigned to no one exports as 'SeXxx = ')
+        Error    = <string>  # user-facing scesrv exit-2 message, else $null
+      }
+    #>
+    param(
+        [string] $Areas,   # e.g. 'SECURITYPOLICY' or 'USER_RIGHTS'; empty = full export
+        $Context           # engine context (for logging); optional
+    )
+    $log = { param($m, $l = 'Warn') if ($Context -and $Context.Log) { & $Context.Log $m $l } }
+    $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secexp_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
+    $ok = $false; $exitCode = $null; $err = $null
+    try {
+        if ($Areas) { & secedit.exe /export /areas $Areas /cfg $tmp /quiet 2>$null }
+        else        { & secedit.exe /export /cfg $tmp /quiet 2>$null }
+        $exitCode = $LASTEXITCODE
+        if ($exitCode -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $ok = $true }
+    } catch {
+        & $log "secedit export threw: $($_.Exception.Message)"
+    }
+    $flat = @{}; $sections = @{}
+    if ($ok) {
+        $current = ''
+        foreach ($line in (Get-Content -Path $tmp -Encoding Unicode)) {
+            $t = $line.Trim()
+            if ($t -match '^\[(.+)\]$') {
+                $current = $matches[1]
+                if (-not $sections.ContainsKey($current)) { $sections[$current] = @{} }
+                continue
+            }
+            if ($t -match '^([^=\[]+?)\s*=\s*(.*)$') {
+                $k = $matches[1].Trim(); $v = $matches[2].Trim()
+                if ($current) { $sections[$current][$k] = $v }
+                if ($v) { $flat[$k] = $v }
+            }
+        }
+    } elseif ($exitCode -eq 2) {
+        # secedit exit 2 = "Not enough memory resources" -- a system/scesrv resource
+        # condition, NOT a problem with any finding. Diagnosed here once for all callers.
+        $err = 'secedit could not run: the system reported insufficient memory resources (scesrv). Free memory or reboot, then re-run. Policy findings were skipped, not failed.'
+        & $log $err 'Error'
+    } else {
+        & $log "secedit export FAILED (exit $exitCode) -- dependent findings will be Skipped, not passed."
+    }
+    # Always remove the dump: it contains full security policy (user rights, SIDs).
+    Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
+    @{ Ok = $ok; Flat = $flat; Sections = $sections; Error = $err }
 }

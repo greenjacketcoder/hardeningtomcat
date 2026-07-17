@@ -24,28 +24,12 @@ $script:HtAccountPolicyMap = @{
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        # Reuse the secedit handler's cache if present; otherwise export ourselves.
+        # Reuse the secedit handler's cache if its prefetch already ran; otherwise run a
+        # SECURITYPOLICY-scoped export via the shared helper (Private/_Helpers.ps1).
         if (-not $Cache.ContainsKey('secedit') -or -not $Cache['secedit_ok']) {
-            $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_acctpol_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
-            $ok = $false; $ec = $null
-            try {
-                & secedit.exe /export /areas SECURITYPOLICY /cfg $tmp /quiet 2>$null
-                $ec = $LASTEXITCODE
-                if ($ec -eq 0 -and (Test-Path $tmp) -and (Get-Item $tmp).Length -gt 0) { $ok = $true }
-            } catch { & $Context.Log "accountpolicy: export threw: $($_.Exception.Message)" 'Warn' }
-            $table = @{}
-            if ($ok) {
-                foreach ($line in (Get-Content $tmp -Encoding Unicode)) {
-                    if ($line -match '^\s*([^=\[]+?)\s*=\s*(.+?)\s*$') { $table[$matches[1].Trim()] = $matches[2].Trim() }
-                }
-            } elseif ($ec -eq 2) {
-                $Cache['secedit_err'] = 'secedit could not run: the system reported insufficient memory resources (scesrv). Free memory or reboot, then re-run. Policy findings were skipped, not failed.'
-                & $Context.Log $Cache['secedit_err'] 'Error'
-            } else {
-                & $Context.Log "accountpolicy: secedit export FAILED (exit $ec) -- findings will Skip, not pass." 'Warn'
-            }
-            Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
-            $Cache['secedit'] = $table; $Cache['secedit_ok'] = $ok
+            $exp = Get-HtSeceditExport -Areas 'SECURITYPOLICY' -Context $Context
+            if ($exp.Error) { $Cache['secedit_err'] = $exp.Error }
+            $Cache['secedit'] = $exp.Flat; $Cache['secedit_ok'] = $exp.Ok
         }
         & $Context.Log "accountpolicy prefetch: using secedit export ($($Cache['secedit'].Count) keys)."
     }

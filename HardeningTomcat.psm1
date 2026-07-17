@@ -304,6 +304,20 @@ function Invoke-HardeningTomcat {
         throw $msg
     }
 
+    # ---- User-scope list guard --------------------------------------------------
+    # A 'scope: user' list (e.g. CIS Intune Office) reads HKCU. In an elevated session
+    # HKCU resolves to the ELEVATED identity's hive -- elevate under a different admin
+    # account than the user being audited and every HKCU finding silently grades the
+    # WRONG user. Warn so the operator runs user-scope lists as the target user
+    # (non-elevated is fine; these reads need no admin).
+    if ("$($list.scope)" -eq 'user' -and $IsAdmin) {
+        Write-Warning ("This finding list is user-scope (reads HKCU), and this session is elevated: HKCU " +
+            "resolves to the elevated identity's hive. If you elevated under a different account than " +
+            "the user being audited, results will reflect the WRONG user. For accurate results, run " +
+            "non-elevated as the target user.")
+        & $Context.Log "User-scope list running elevated; HKCU hive caution issued." 'Warn'
+    }
+
     $findings = $list.findings
     if ($Filter) { $findings = $findings | Where-Object $Filter }
     if ($ExcludeHighImpact) {
@@ -787,6 +801,11 @@ function Test-HtOperator {
     # Comparison operators supported by the engine (see schema enum for the list).
     param([string]$Operator, [string]$Observed, [string]$Recommended)
     switch ($Operator) {
+        # NOTE: string comparisons are CASE-INSENSITIVE by design (PowerShell -eq
+        # semantics). Registry data, secedit values, and service start types are
+        # case-insensitive on Windows, so 'Enterprise' must match 'ENTERPRISE'.
+        # This applies to '=', '!=', '=or', and '=|0'; pinned by a Pester test so
+        # changing it is a deliberate decision, not an accident.
         '='    { return ([string]$Observed -eq $Recommended) }
         '=or'  {
             # CIS sometimes lists several acceptable values as "X or Y" (e.g. "2 or 1").

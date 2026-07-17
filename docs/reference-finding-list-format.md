@@ -23,6 +23,7 @@ replacement for the legacy HardeningKitty CSV format. Lists under `lists/` are
 | `listName` | yes | Human name; also used in report filenames (sanitized). |
 | `version` | yes | List version, independent of engine version. |
 | `scope` | no | `machine` (needs elevation) or `user`. |
+| `autoSelect` | no | `false` excludes the list from Recon/Survey OS auto-selection; it runs only when named via `-FindingList` (used by the CIS Intune lists). Absent means `true`. |
 | `findings` | yes | Array of finding objects. |
 
 ## Finding shape

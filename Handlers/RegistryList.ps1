@@ -39,7 +39,9 @@
         if ($match) {
             return [pscustomobject]@{ Result = $needle; Found = $true }
         }
-        # Present the joined list as the observed value when nothing matched, for context.
+        # No match: observed is empty, so '=' fails and '!=' passes. The full value
+        # list is deliberately NOT echoed back as the observed value -- deny-list keys
+        # can hold dozens of GUIDs and would make the report cell unreadable.
         return [pscustomobject]@{ Result = ''; Found = $true }
     }
 

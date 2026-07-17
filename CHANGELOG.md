@@ -41,6 +41,63 @@ they were real milestones that predate formal version tagging.
   an OS-match auto-pick on a non-Intune-managed Windows 11 machine (where the
   Intune list would otherwise win the score tie-break on non-25H2 builds) would
   grade `PolicyManager` state that was never meant to be there.
+- **Engine integration test** -- the first test that exercises the unified loop
+  rather than its pieces: a fixture list against `HKCU:\Software\HtPesterTest`
+  runs a real `Invoke-HardeningTomcat -Mode Recon -PassThru` end to end and
+  asserts pass / fail / defaultValue-substitution / manual-skip grading and the
+  observed values. Elevation-free, so it runs on the existing CI runners.
+- **Auto-select tests** for `Resolve-HtDefaultList` (OS identity mocked):
+  OS-matched selection with the release bonus, legacy lists without the
+  `autoSelect` field staying eligible, and a flagged list never being picked
+  even when it is the only OS match.
+- **Load-time validation tests:** duplicate ids, wildcard registry paths,
+  unknown operators, and `=or` outside the Registry method each abort the run
+  with all problems reported.
+- **Data invariants extended:** every shipped Registry finding must carry
+  non-empty `args.path`/`args.name`, and no Registry/RegistryList path may
+  contain wildcard characters -- CI now enforces both on every list, every push
+  (previously only checked when someone remembered to run
+  `Test-ImportedBaseline.ps1` by hand).
+
+### Fixed
+- **Registry value names were read as wildcard patterns.** `Get-HtRegistryValue`
+  passed the value NAME to `Get-ItemProperty -Name`, which glob-expands
+  `* ? [ ]` -- names like `\\*\NETLOGON` (Hardened UNC Paths, shipped in the new
+  Intune list) worked only by accident, a sibling value matching the pattern
+  could report `Found` with a null result (grading against empty instead of
+  `defaultValue`), and names containing brackets failed outright. Values are now
+  read literally via `GetValueNames()`/`GetValue()` -- also ~2-3x faster per read,
+  with the access-denied rethrow, `Found=$false` semantics, and REG_EXPAND_SZ
+  expansion unchanged. Pinned by a new literal-name Pester test.
+- **Failed ASR applies were invisible.** `MpPreferenceAsr`'s Apply caught errors
+  and returned `Changed=$false`, so the engine never counted them in
+  `ApplyFailed` and a run where every ASR apply failed still looked green -- the
+  same bug class fixed for secedit/auditpol in 0.5.1/0.8.0. It now throws; the
+  engine counts and surfaces the failure.
+- RegistryList: a stale comment claimed the joined value list is echoed back as
+  the observed value; the code (deliberately) returns empty. Comment now states
+  the actual behavior and why.
+
+### Changed
+- **One secedit export implementation instead of three.** The secedit,
+  accountpolicy, and accesschk handlers each carried a near-identical
+  spawn/parse/cleanup of `secedit /export` (~25 duplicated lines apiece, plus an
+  implicit cache-ordering coupling between secedit and accountpolicy). Extracted
+  to `Get-HtSeceditExport` in `Private/_Helpers.ps1` -- section-aware INF parse
+  (accesschk keeps empty user-rights values; the flat table keeps the legacy
+  non-empty-only lookup shape), shared scesrv exit-2 diagnosis, and one place
+  that guarantees the sensitive policy dump is deleted. Handler behavior is
+  unchanged; the handlers are now thin callers.
+- **User-scope list guard.** Running a `scope: user` list (e.g. CIS Intune
+  Office) in an elevated session now warns that HKCU resolves to the elevated
+  identity's hive -- elevating under a different account than the audited user
+  silently grades the wrong hive. Previously the `scope` field was schema-only
+  metadata the engine never read.
+- `Test-HtOperator` documents that string comparisons are case-insensitive by
+  design (PowerShell `-eq` semantics -- correct for registry/secedit data on
+  Windows), pinned by a test so a change is a decision, not an accident.
+- Module manifest: `ReleaseNotes` updated from the stale v0.1.0 text; PSGallery
+  tags gain `Intune`, `STIG`, `Compliance`.
 
 ### Documentation
 - **README: "CIS Intune Benchmarks" source entry with an audit-only callout.**
