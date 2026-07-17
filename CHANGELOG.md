@@ -8,6 +8,24 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.11.1]
+
+### Added
+- **Automated CIS Intune version-drift check** (`.github/workflows/check-cis-updates.yml`)
+  -- a weekly scheduled GitHub Action (Mondays, plus manual `workflow_dispatch`) that
+  checks the public CIS Benchmarks page for the current Windows 11 and Office Intune
+  benchmark version numbers. The PDFs themselves sit behind an email-gated download
+  form, but CIS publishes the version number in plain text on that page -- that's the
+  signal tracked. Compares against what each list's own `source` field records (no
+  separate version file to keep in sync), and files a GitHub issue (deduped against
+  already-open ones) when CIS ships a new version. If the page's structure doesn't
+  match what's expected (redesign, outage), the run skips with a warning rather than
+  risking a false positive.
+- **This does NOT auto-regenerate the lists.** A CIS version bump means added, changed,
+  or removed controls, which needs the same manual review and PDF cross-audit the
+  original import got. The filed issue is a heads-up, not an autopilot -- closes the
+  "no tracking for upstream CIS version bumps" gap noted in 0.11.0.
+
 ## [0.11.0]
 
 ### Added

@@ -1,0 +1,85 @@
+name: Check CIS Intune Benchmark Updates
+
+# Watches the public CIS Benchmarks page for version bumps to the two Intune
+# benchmarks this repo imports from (Windows 11, Office). The PDFs themselves
+# sit behind an email-gated download form, but CIS publishes the CURRENT
+# version number in plain text on this page -- that's the signal tracked here.
+#
+# This ONLY detects drift and files an issue. It never re-generates the JSON
+# lists automatically: a CIS version bump means added/changed/removed
+# controls, and that needs the same manual review (+ PDF cross-audit) the
+# original import got. See lists/cis/CIS_Intune_*.json.
+
+on:
+  schedule:
+    - cron: '0 13 * * 1'  # Every Monday, 13:00 UTC
+  workflow_dispatch: {}    # Manual run from the Actions tab
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-versions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Ensure tracking label exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create cis-benchmark-update --color F9A825 --description "Upstream CIS benchmark version changed" 2>/dev/null || true
+
+      - name: Fetch CIS Benchmarks page
+        run: |
+          curl -sL --retry 3 --max-time 30 -A "Mozilla/5.0 (compatible; hardeningtomcat-ci/1.0)" https://www.cisecurity.org/cis-benchmarks -o /tmp/cis-page.html
+          if ! grep -q "Microsoft Intune for Microsoft Windows" /tmp/cis-page.html; then
+            echo "::warning::CIS page didn't contain the expected section header (redesign, or temporarily down). Skipping this run."
+            echo "SKIP=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Compare Windows 11 version
+        if: env.SKIP != 'true'
+        run: |
+          LIVE=$(grep -oP 'Microsoft Intune for Windows 11 \(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
+          KNOWN=$(jq -r '.source' lists/cis/CIS_Intune_Windows_11_L1-L2.json | grep -oP 'v\K[0-9]+\.[0-9]+\.[0-9]+')
+          echo "Live CIS version: $LIVE | Repo's imported version: $KNOWN"
+          echo "WIN11_LIVE=$LIVE" >> "$GITHUB_ENV"
+          echo "WIN11_KNOWN=$KNOWN" >> "$GITHUB_ENV"
+
+      - name: Compare Office version
+        if: env.SKIP != 'true'
+        run: |
+          LIVE=$(grep -oP 'Microsoft Intune for Office \(\K[0-9]+\.[0-9]+\.[0-9]+(?=\))' /tmp/cis-page.html | head -1)
+          KNOWN=$(jq -r '.source' lists/cis/CIS_Intune_Office_L1-L2.json | grep -oP 'v\K[0-9]+\.[0-9]+\.[0-9]+')
+          echo "Live CIS version: $LIVE | Repo's imported version: $KNOWN"
+          echo "OFFICE_LIVE=$LIVE" >> "$GITHUB_ENV"
+          echo "OFFICE_KNOWN=$KNOWN" >> "$GITHUB_ENV"
+
+      - name: File issue for Windows 11 if drifted
+        if: env.SKIP != 'true' && env.WIN11_LIVE != '' && env.WIN11_LIVE != env.WIN11_KNOWN
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING=$(gh issue list --label cis-benchmark-update --state open --search 'in:title "CIS Intune Windows 11"' --json title -q '.[].title')
+          if echo "$EXISTING" | grep -qF "CIS Intune Windows 11 benchmark updated"; then
+            echo "An open issue already tracks this; not filing a duplicate."
+            exit 0
+          fi
+          BODY=$(printf '%b' "CIS published a new version of the **Microsoft Intune for Windows 11** benchmark.\n\n- Repo currently imports: **v${{ env.WIN11_KNOWN }}**\n- CIS now publishes: **v${{ env.WIN11_LIVE }}**\n\nSource: https://www.cisecurity.org/cis-benchmarks (see \"Microsoft Intune for Microsoft Windows\")\n\nThis does NOT auto-update the lists. Re-importing needs the same manual review the original import got (control adds/removes/changes, corrected against the PDF text). See \`lists/cis/CIS_Intune_Windows_11_L1.json\` and \`_L1-L2.json\`.")
+          gh issue create --title "CIS Intune Windows 11 benchmark updated: ${{ env.WIN11_KNOWN }} -> ${{ env.WIN11_LIVE }}" --label cis-benchmark-update --body "$BODY"
+
+      - name: File issue for Office if drifted
+        if: env.SKIP != 'true' && env.OFFICE_LIVE != '' && env.OFFICE_LIVE != env.OFFICE_KNOWN
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          EXISTING=$(gh issue list --label cis-benchmark-update --state open --search 'in:title "CIS Intune Office"' --json title -q '.[].title')
+          if echo "$EXISTING" | grep -qF "CIS Intune Office benchmark updated"; then
+            echo "An open issue already tracks this; not filing a duplicate."
+            exit 0
+          fi
+          BODY=$(printf '%b' "CIS published a new version of the **Microsoft Intune for Office** benchmark.\n\n- Repo currently imports: **v${{ env.OFFICE_KNOWN }}**\n- CIS now publishes: **v${{ env.OFFICE_LIVE }}**\n\nSource: https://www.cisecurity.org/cis-benchmarks (see \"Microsoft Intune for Microsoft Windows\")\n\nThis does NOT auto-update the lists. Re-importing needs the same manual review the original import got (control adds/removes/changes, corrected against the PDF text). See \`lists/cis/CIS_Intune_Office_L1.json\` and \`_L1-L2.json\`.")
+          gh issue create --title "CIS Intune Office benchmark updated: ${{ env.OFFICE_KNOWN }} -> ${{ env.OFFICE_LIVE }}" --label cis-benchmark-update --body "$BODY"
