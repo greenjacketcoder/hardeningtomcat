@@ -26,6 +26,18 @@ they were real milestones that predate formal version tagging.
   original import got. The filed issue is a heads-up, not an autopilot -- closes the
   "no tracking for upstream CIS version bumps" gap noted in 0.11.0.
 
+### Fixed
+- **Version-extraction regex assumed a single space; the live page uses two.** CIS's
+  benchmarks page renders each entry as `Microsoft Intune for Windows 11  (5.0.0)`
+  (Vue/Nuxt server-rendered `<li>` markup, two spaces before the parenthesis) -- not
+  the single space a quick look at cleaned/rendered text suggested. The check would
+  have silently never detected drift. Caught by testing the workflow's exact `curl`
+  and `grep -oP` commands against the real live page (via a Homebrew GNU grep install,
+  since macOS's built-in grep has no `-P` support) rather than trusting inference from
+  how the page rendered through an HTML-to-text fetch. Fixed to `\s+`; re-verified
+  end-to-end afterward -- fetch, sanity-check header, both version extractions, and
+  both `jq`-based "known version" reads all confirmed against live data.
+
 ## [0.11.0]
 
 ### Added
