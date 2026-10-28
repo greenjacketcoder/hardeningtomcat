@@ -52,6 +52,9 @@ Describe 'Test-HtOperator' {
         It '>= handles 4294967295 (max DWORD)' { (Test-Op '>=' '4294967295' '1') | Should Be $true }
         It '<= handles 4294967295 as bound'    { (Test-Op '<=' '4294967295' '4294967295') | Should Be $true }
         It 'non-numeric observed fails, not throws' { (Test-Op '<=' 'abc' '10') | Should Be $false }
+        It 'dotted version strings compare numerically, not truncated (6.3 >= 6.3)' { (Test-Op '>=' '6.3' '6.3') | Should Be $true }
+        It 'dotted version strings: 6.2 >= 6.3 fails (was 6 >= 6 under int64 truncation)' { (Test-Op '>=' '6.2' '6.3') | Should Be $false }
+        It 'leading/trailing whitespace is tolerated' { (Test-Op '<=' ' 5 ' '10') | Should Be $true }
         It '<=!0 rejects zero'                 { (Test-Op '<=!0' '0' '10') | Should Be $false }
         It '<=!0 passes nonzero within bound'  { (Test-Op '<=!0' '5' '10') | Should Be $true }
     }
@@ -73,6 +76,10 @@ Describe 'Test-HtOperator' {
     Context "'contains'" {
         It 'empty needle never passes (no unjustifiable pass)' { (Test-Op 'contains' 'anything' '') | Should Be $false }
         It 'passes on substring' { (Test-Op 'contains' 'abcdef' 'cde') | Should Be $true }
+        It 'is case-insensitive like every other string operator (pinned)' {
+            (Test-Op 'contains' 'Success and Failure' 'failure') | Should Be $true
+        }
+        It 'fails when the substring is absent' { (Test-Op 'contains' 'Success' 'Failure') | Should Be $false }
     }
 
     Context "'=|0' (match or empty)" {
@@ -138,6 +145,10 @@ Describe 'Get-HtRegistryValue' {
         $r = Get-HtRegistryValue -Path 'HKLM:\SOFTWARE\HtNoSuchKey_12345' -Name 'x'
         $r.Found | Should Be $false
     }
+    It 'accepts the long-form hive name (HKEY_LOCAL_MACHINE\...) via the .NET read path' {
+        $r = Get-HtRegistryValue -Path 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion' -Name 'CurrentBuild'
+        $r.Found | Should Be $true
+    }
     It 'normalizes forward slashes in corrupted paths' {
         $r = Get-HtRegistryValue -Path 'HKLM:\SOFTWARE\Microsoft/Windows NT/CurrentVersion' -Name 'CurrentBuild'
         $r.Found | Should Be $true
@@ -190,6 +201,28 @@ Describe 'Test-HtListIntegrity' {
         $r = Test-HtListIntegrity -FindingList $swapped -ModuleRoot $fixRoot
         $r.Status | Should Be 'not-listed'
         $r.Message | Should Match 'different path/name'
+    }
+    It 'accepts a trusted list relocated OUTSIDE lists/ under its own name (leaf fallback)' {
+        # A verified list copied to another folder keeps its name and content; the
+        # manifest records 'cis/Test_List.json' and no relative path can be formed, so
+        # the leaf names are compared. (Before 0.12.0 every absolute path took the
+        # relative-path branch and all relocated lists were rejected, blocking Strike.)
+        $outDir = Join-Path $env:TEMP ("ht-pester-out-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+        New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+        $moved = Join-Path $outDir 'Test_List.json'
+        Copy-Item $listPath $moved
+        try {
+            (Test-HtListIntegrity -FindingList $moved -ModuleRoot $fixRoot).Status | Should Be 'verified'
+        } finally { Remove-Item -Recurse -Force $outDir -ErrorAction SilentlyContinue }
+    }
+    It 'still refuses trusted content under a different name when relocated outside lists/' {
+        $outDir = Join-Path $env:TEMP ("ht-pester-out-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
+        New-Item -ItemType Directory -Path $outDir -Force | Out-Null
+        $renamed = Join-Path $outDir 'Renamed_List.json'
+        Copy-Item $listPath $renamed
+        try {
+            (Test-HtListIntegrity -FindingList $renamed -ModuleRoot $fixRoot).Status | Should Be 'not-listed'
+        } finally { Remove-Item -Recurse -Force $outDir -ErrorAction SilentlyContinue }
     }
     It 'reports no-manifest when the manifest is absent' {
         $bareRoot = Join-Path $env:TEMP ("ht-pester-{0}" -f ([guid]::NewGuid().ToString('N').Substring(0, 8)))
@@ -249,6 +282,13 @@ Describe 'Finding-list data invariants' -Tag 'Data' {
             $bad.Count | Should Be 0
         }
     }
+    It "every accesschk finding uses 'set=' (user rights are SID sets; '=' can never match the export)" {
+        foreach ($f in $listFiles) {
+            $d = Get-Content -Raw -Path $f.FullName | ConvertFrom-Json
+            $bad = @($d.findings | Where-Object { $_.method -eq 'accesschk' -and $_.operator -ne 'set=' })
+            $bad.Count | Should Be 0
+        }
+    }
     It 'every Registry finding carries non-empty args.path and args.name' {
         foreach ($f in $listFiles) {
             $d = Get-Content -Raw -Path $f.FullName | ConvertFrom-Json
@@ -288,6 +328,21 @@ Describe 'Resolve-HtDefaultList (auto-select)' {
         $r = Resolve-HtDefaultList -ModuleRoot $osdRoot
         $r.Path | Should Match 'CIS_Windows_11_25H2_L1\.json$'
     }
+    It 'Get-HtListHeader reads listName/autoSelect from the file header without a full parse' {
+        $h = Get-HtListHeader -Path (Join-Path $osdCis 'CIS_Intune_Windows_11_L1.json')
+        $h.ListName   | Should Be 'CIS Intune Windows 11 L1'
+        $h.AutoSelect | Should Be $false
+        (Get-HtListHeader -Path (Join-Path $osdCis 'CIS_Windows_11_25H2_L1.json')).AutoSelect | Should Be $true
+    }
+    It 'Get-HtListHeader falls back to a full parse when metadata is not in the header' {
+        # Hand-authored list with the findings array FIRST and listName last.
+        $late = Join-Path $osdRoot 'late.json'
+        ('{"findings":[' + ('{"id":"1","name":"' + ('x' * 4200) + '"}') + '],"listName":"Late Meta","autoSelect":false}') |
+            Set-Content -Path $late -Encoding Ascii
+        $h = Get-HtListHeader -Path $late
+        $h.ListName   | Should Be 'Late Meta'
+        $h.AutoSelect | Should Be $false
+    }
     It 'a list without the autoSelect field remains eligible (legacy lists unaffected)' {
         (Resolve-HtDefaultList -ModuleRoot $osdRoot).Path | Should Not Be $null
     }
@@ -320,17 +375,27 @@ Describe 'Invoke-HardeningTomcat engine (Recon end-to-end)' {
  {"id":"1","name":"passes on observed value","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"PassMe"},"operator":"=","recommendedValue":"1","severity":"Low"},
  {"id":"2","name":"fails on observed value","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"FailMe"},"operator":"=","recommendedValue":"1","severity":"Medium"},
  {"id":"3","name":"absent value grades against defaultValue","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"Missing"},"operator":"=","recommendedValue":"7","defaultValue":"7","severity":"Low"},
- {"id":"4","name":"manual is skipped with fixText","method":"manual","args":{},"operator":"manual","recommendedValue":"","severity":"Low","fixText":"do it by hand"}
+ {"id":"4","name":"manual is skipped with fixText","method":"manual","args":{},"operator":"manual","recommendedValue":"","severity":"Low","fixText":"do it by hand"},
+ {"id":"5","name":"=|0 passes on ABSENT value even with a non-empty defaultValue","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"Missing2"},"operator":"=|0","recommendedValue":"Disabled","defaultValue":"Manual","severity":"Medium"},
+ {"id":"6","name":"=|0 still fails on a PRESENT wrong value","method":"Registry","args":{"path":"HKCU:\\Software\\HtPesterTest","name":"FailMe"},"operator":"=|0","recommendedValue":"1","severity":"Medium"}
 ]}
 '@ | Set-Content -Path $e2eList -Encoding Ascii
 
     $run = Invoke-HardeningTomcat -Mode Recon -FindingList $e2eList -PassThru -WarningAction SilentlyContinue
 
     It 'grades pass / fail / default-pass / manual-skip correctly' {
-        $run.Summary.Total   | Should Be 4
-        $run.Summary.Passed  | Should Be 2   # id 1 (observed) + id 3 (defaultValue path)
-        $run.Summary.Medium  | Should Be 1   # id 2
+        $run.Summary.Total   | Should Be 6
+        $run.Summary.Passed  | Should Be 3   # id 1 (observed) + id 3 (defaultValue path) + id 5 (=|0 absent)
+        $run.Summary.Medium  | Should Be 2   # id 2, id 6
         $run.Summary.Skipped | Should Be 1   # id 4 (manual)
+    }
+    It "'=|0' decides absence from the handler's Found flag, not the substituted defaultValue" {
+        # Before 0.12.0 the engine substituted defaultValue ('Manual') and then asked
+        # "is the string empty?" -- so a not-installed service / absent key could never
+        # pass a "Disabled or Not Installed" check that carried a defaultValue.
+        ($run.Results | Where-Object ID -eq '5').Result | Should Be 'Passed'
+        ($run.Results | Where-Object ID -eq '5').Detail | Should Match 'Not present'
+        ($run.Results | Where-Object ID -eq '6').Result | Should Be 'Medium'
     }
     It 'reports the observed value it actually read' {
         ($run.Results | Where-Object ID -eq '2').Observed | Should Be '5'
@@ -366,6 +431,12 @@ Describe 'Load-time list validation (fail-fast)' {
         '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"Registry","args":{"path":"HKCU:\\S","name":"x"},"operator":"~=","recommendedValue":"1","severity":"Low"}]}' |
             Set-Content -Path $p -Encoding Ascii
         { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw 'invalid operator'
+    }
+    It "rejects accesschk findings that use '=' instead of 'set='" {
+        $p = Join-Path $valDir 'acc.json'
+        '{"listName":"t","version":"1","findings":[{"id":"1","name":"a","method":"accesschk","args":{"privilege":"SeShutdownPrivilege"},"operator":"=","recommendedValue":"BUILTIN\\Administrators","severity":"Low"}]}' |
+            Set-Content -Path $p -Encoding Ascii
+        { Invoke-HardeningTomcat -Mode Recon -FindingList $p -WarningAction SilentlyContinue } | Should Throw 'set='
     }
     It "rejects '=or' outside the Registry method" {
         $p = Join-Path $valDir 'eqor.json'

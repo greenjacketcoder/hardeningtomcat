@@ -54,8 +54,8 @@ test data in `tests/`). But a real baseline is the real test:
 - **registry.pol** → Registry findings: full.
 - **GptTmpl.inf [System Access]** → secedit findings: full.
 - **GptTmpl.inf [Registry Values]** (security options) → Registry findings: full.
-- **GptTmpl.inf [Privilege Rights]** (user-rights / SID lists) → **not yet** — needs the
-  `accesschk` handler, which isn't built. These are skipped on import.
+- **GptTmpl.inf [Privilege Rights]** (user-rights / SID lists) → `accesschk` findings with
+  operator `set=` (order-independent SID-set equality): full.
 - **audit.csv** → auditpol findings: full.
 - **Severity** is defaulted (Microsoft baselines don't carry CIS-style severity). Override
   per-finding after import, or we can add a severity-map later.

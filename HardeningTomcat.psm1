@@ -286,6 +286,13 @@ function Invoke-HardeningTomcat {
         if ($f.operator -eq '=or' -and $f.method -ne 'Registry') {
             $problems.Add("$label uses operator '=or' with method '$($f.method)' -- '=or' is only supported for Registry findings")
         }
+        # User rights are SID SETS: the secedit export yields '*S-1-5-32-544,*S-1-5-19'
+        # while lists carry names or SIDs in any order. Plain '=' can never match that
+        # (every CIS/STIG user-rights finding false-failed before 0.12.0), so accesschk
+        # findings must use 'set=' (order-independent, names resolved to SIDs).
+        if ($f.method -eq 'accesschk' -and $f.operator -and $f.operator -notin 'set=','manual') {
+            $problems.Add("$label (accesschk) uses operator '$($f.operator)' -- user-rights findings must use 'set=' (order-independent SID set equality)")
+        }
         # Reject wildcard characters in registry paths. The registry provider glob-expands
         # *, ?, and [...]; New-Item (no -LiteralPath) would otherwise let a single Strike
         # finding fan a WRITE across every matching key. Registry reads already use
@@ -400,9 +407,17 @@ function Invoke-HardeningTomcat {
 
     # ---- Unified finding loop (drives both Test and Apply) ---------------------
     $results = New-Object System.Collections.Generic.List[object]
-    $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0; ApplyFailed = 0 }
+    $stats = @{ Passed = 0; Low = 0; Medium = 0; High = 0; Skipped = 0; Applied = 0; ApplyFailed = 0; NotRemediable = 0 }
     $wouldChange = New-Object System.Collections.Generic.List[object]
     $script:HtUndoWarned = $false
+
+    # Resolve each handler's RequiresBinary ONCE. The answer cannot change mid-run, and a
+    # filesystem probe per finding (~100 on a CIS list) was pure overhead.
+    $binaryMissing = @{}
+    foreach ($hName in $Handlers.Keys) {
+        $rb = $Handlers[$hName].RequiresBinary
+        if ($rb -and -not (Test-Path -LiteralPath $rb)) { $binaryMissing[$hName] = $rb }
+    }
 
     $total = $findings.Count
     $i = 0
@@ -436,8 +451,8 @@ function Invoke-HardeningTomcat {
             $results.Add((New-HtResult $finding 'Skipped' "Requires elevation; session not admin"))
             $stats.Skipped++; continue
         }
-        if ($handler.RequiresBinary -and -not (Test-Path $handler.RequiresBinary)) {
-            $results.Add((New-HtResult $finding 'Skipped' "Required binary missing: $($handler.RequiresBinary)"))
+        if ($binaryMissing.ContainsKey($finding.method)) {
+            $results.Add((New-HtResult $finding 'Skipped' "Required binary missing: $($binaryMissing[$finding.method])"))
             $stats.Skipped++; continue
         }
 
@@ -465,10 +480,21 @@ function Invoke-HardeningTomcat {
         }
 
         # --- compare (engine owns operator semantics) ---------------------------
-        $passed = Test-HtOperator -Operator $finding.operator -Observed $observed -Recommended ([string]$finding.recommendedValue)
+        # '=|0' means "the recommended value, OR the setting is not present at all"
+        # (CIS "Disabled or Not Installed" services, "X or the key does not exist").
+        # Absence is decided from the handler's Found flag, not the comparison string:
+        # the defaultValue substitution above fills in e.g. 'Manual' for a service that
+        # is not installed, and a string-only check could never see the absence again
+        # (the apply path already treated the same state as compliant -- audit/apply drift).
+        $absentOk = ($finding.operator -eq '=|0') -and (-not $obs.Found)
+        $passed = if ($absentOk) { $true } else {
+            Test-HtOperator -Operator $finding.operator -Observed $observed -Recommended ([string]$finding.recommendedValue)
+        }
 
         if ($passed) {
-            $results.Add((New-HtResult $finding 'Passed' "Observed=$observedDisp, Recommended=$($finding.recommendedValue)" -Observed $observed -Recommended "$($finding.recommendedValue)"))
+            $passDetail = if ($absentOk) { "Not present (absence satisfies '=|0'), Recommended=$($finding.recommendedValue)" }
+                          else { "Observed=$observedDisp, Recommended=$($finding.recommendedValue)" }
+            $results.Add((New-HtResult $finding 'Passed' $passDetail -Observed $observed -Recommended "$($finding.recommendedValue)"))
             $stats.Passed++
             continue
         }
@@ -482,6 +508,15 @@ function Invoke-HardeningTomcat {
         if ($Mode -eq 'Strike') {
             if ($null -eq $handler.Apply) {
                 & $Context.Log "ID $($finding.id): method '$($finding.method)' is read-only; cannot apply." 'Warn'
+                continue
+            }
+            # '!=' findings have no value to write: recommendedValue is the value the
+            # setting must NOT hold ("rename the Administrator account", "the logon
+            # banner must not be empty"). Applying it would write exactly the
+            # non-compliant value and report success. Count and log instead.
+            if ($finding.operator -eq '!=') {
+                $stats.NotRemediable++
+                & $Context.Log "ID $($finding.id): operator '!=' is not auto-remediable (recommendedValue is the forbidden value); fix by hand." 'Warn'
                 continue
             }
             # Some handlers can READ without elevation but need admin to WRITE
@@ -593,6 +628,7 @@ function Invoke-HardeningTomcat {
         Skipped   = $stats.Skipped
         Applied   = $stats.Applied
         ApplyFailed = $stats.ApplyFailed
+        NotRemediable = $stats.NotRemediable
         Score     = "$earned / $max"
         Percent   = $pct
         Duration  = (New-TimeSpan -Start $script:StartTime -End (Get-Date)).TotalSeconds
@@ -678,6 +714,9 @@ function Invoke-HardeningTomcat {
         if ($summary.ApplyFailed -gt 0) {
             Write-Host ("  {0,-12}{1}" -f 'Apply FAILED:', $summary.ApplyFailed) -ForegroundColor Red
         }
+    }
+    if ($Mode -eq 'Strike' -and $summary.NotRemediable -gt 0) {
+        Write-Host ("  {0,-12}{1}  (operator '!=' -- fix by hand; see -ShowDetails / log)" -f 'Manual fix:', $summary.NotRemediable) -ForegroundColor Yellow
     }
     Write-Host ""
     Write-Host ("  {0,-12}{1}" -f 'Score:',    "$($summary.Score)  ($($summary.Percent)%)") -ForegroundColor $passColor
@@ -827,16 +866,23 @@ function Test-HtOperator {
         # false PASS -- reporting an unconfigured control (e.g. LAPS PasswordAgeDays) as
         # compliant. Reject empty/whitespace observations before the numeric cast so an
         # unreadable/absent value can never masquerade as the integer 0.
-        '<='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -le [int64]$Recommended) } catch { return $false } }
-        '>='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -ge [int64]$Recommended) } catch { return $false } }
-        '<'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -lt [int64]$Recommended) } catch { return $false } }
-        '>'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -gt [int64]$Recommended) } catch { return $false } }
-        '<=!0' { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ([int64]$Observed -le [int64]$Recommended -and [int64]$Observed -ne 0) } catch { return $false } }
+        #
+        # Numeric coercion is ConvertTo-HtNumber ([decimal], invariant culture): exact for
+        # every DWORD/QWORD magnitude, and correct for the occasional dotted version a
+        # STIG check compares (CurrentVersion '6.3' >= '6.3'), which [int64] silently
+        # truncated to 6. Non-numeric text throws -> FAIL.
+        '<='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ((ConvertTo-HtNumber $Observed) -le (ConvertTo-HtNumber $Recommended)) } catch { return $false } }
+        '>='   { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ((ConvertTo-HtNumber $Observed) -ge (ConvertTo-HtNumber $Recommended)) } catch { return $false } }
+        '<'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ((ConvertTo-HtNumber $Observed) -lt (ConvertTo-HtNumber $Recommended)) } catch { return $false } }
+        '>'    { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { return ((ConvertTo-HtNumber $Observed) -gt (ConvertTo-HtNumber $Recommended)) } catch { return $false } }
+        '<=!0' { if ([string]::IsNullOrWhiteSpace($Observed)) { return $false } try { $o = ConvertTo-HtNumber $Observed; return ($o -le (ConvertTo-HtNumber $Recommended) -and $o -ne 0) } catch { return $false } }
         'contains' {
             # An empty recommended substring would match everything -- treat as non-match
             # (a security tool must not report a pass it cannot actually justify).
+            # Case-INSENSITIVE like every other string operator here (String.Contains
+            # is ordinal; 'success' must match 'Success and Failure').
             if ([string]::IsNullOrEmpty($Recommended)) { return $false }
-            return ($Observed.ToString().Contains($Recommended))
+            return ($Observed.IndexOf($Recommended, [System.StringComparison]::OrdinalIgnoreCase) -ge 0)
         }
         '=|0'  { try { return ([string]$Observed -eq $Recommended -or $Observed.Length -eq 0) } catch { return $false } }
         'set=' {
@@ -849,12 +895,18 @@ function Test-HtOperator {
                 $items = $s -split '[,;]' | ForEach-Object { $_.Trim().TrimStart('*') } | Where-Object { $_ }
                 $sids = foreach ($it in $items) {
                     if ($it -match '^S-1-') { $it }   # already a SID
+                    elseif ($script:HtSidCache.ContainsKey($it)) { $script:HtSidCache[$it] }
                     else {
-                        # Try to translate an account name to its SID; fall back to the raw name.
-                        try {
+                        # Translate an account name to its SID; fall back to the raw name.
+                        # Memoized per module load: a CIS list resolves the same dozen
+                        # names across ~40 findings, and on a domain-joined box each
+                        # LookupAccountName can be a round trip to a DC.
+                        $sid = try {
                             (New-Object System.Security.Principal.NTAccount($it)
                             ).Translate([System.Security.Principal.SecurityIdentifier]).Value
                         } catch { $it }
+                        $script:HtSidCache[$it] = $sid
+                        $sid
                     }
                 }
                 $sids | Sort-Object -Unique
@@ -870,5 +922,16 @@ function Test-HtOperator {
         default { return $false }
     }
 }
+
+function ConvertTo-HtNumber {
+    # Numeric coercion for the comparison operators. [decimal]::Parse with the
+    # invariant culture: no locale surprises, no silent truncation of '6.3' to 6, exact
+    # up to 28 digits. Throws on non-numeric input (callers turn that into a FAIL).
+    param([string]$Value)
+    return [decimal]::Parse($Value.Trim(), [System.Globalization.NumberStyles]::Number, [System.Globalization.CultureInfo]::InvariantCulture)
+}
+
+# Account-name -> SID memo for 'set=' (see Test-HtOperator). Case-insensitive hashtable.
+$script:HtSidCache = @{}
 
 Export-ModuleMember -Function Invoke-HardeningTomcat

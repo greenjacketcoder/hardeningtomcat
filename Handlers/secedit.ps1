@@ -13,9 +13,10 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        # One export for the whole run, via the shared helper (Private/_Helpers.ps1 --
-        # the same implementation backs accountpolicy and accesschk).
-        $exp = Get-HtSeceditExport -Context $Context
+        # One export for the whole run, via the shared helper (Private/_Helpers.ps1).
+        # -Cache memoizes it: accountpolicy and accesschk read the same parsed export,
+        # so a run spawns secedit once regardless of which handler prefetches first.
+        $exp = Get-HtSeceditExport -Context $Context -Cache $Cache
         if ($exp.Error) { $Cache['secedit_err'] = $exp.Error }
         $Cache['secedit']    = $exp.Flat
         $Cache['secedit_ok'] = $exp.Ok
@@ -102,6 +103,7 @@ $body
         }
         $Cache['secedit_pending'] = @{}
         if ($Cache.ContainsKey('secedit')) { $Cache.Remove('secedit') }
+        if ($Cache.ContainsKey('secedit_export')) { $Cache.Remove('secedit_export') }   # stale after /configure
         @{ Applied = $applied; Message = $msg }
     }
 }

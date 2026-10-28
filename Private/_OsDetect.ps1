@@ -36,6 +36,37 @@ function Get-HtOsIdentity {
     [pscustomobject]@{ Product = $product; Release = $release; Build = $build; Caption = $caption }
 }
 
+function Get-HtListHeader {
+    <#
+      Returns @{ ListName; AutoSelect } for a list file by reading only its first 4 KB
+      and regex-extracting the two metadata fields auto-selection needs. Every generated
+      list writes its metadata object before the findings array (within ~300 bytes), so
+      this replaces a full ConvertFrom-Json of all shipped lists (~4 MB) that
+      Resolve-HtDefaultList used to do on every -FindingList-less Recon/Survey -- the
+      dominant start-up cost on Windows PowerShell 5.1, whose JSON parser is slow.
+      If the header does not carry listName (hand-authored list with metadata last),
+      falls back to the full parse so nothing is mis-scored. $null if unreadable.
+    #>
+    param([string] $Path)
+    $head = ''
+    try {
+        $fs = [System.IO.File]::OpenRead($Path)
+        try { $buf = New-Object byte[] 4096; $n = $fs.Read($buf, 0, $buf.Length) } finally { $fs.Dispose() }
+        $head = [System.Text.Encoding]::UTF8.GetString($buf, 0, $n)
+    } catch { return $null }
+    if ($head -match '"listName"\s*:\s*"((?:[^"\\]|\\.)*)"') {
+        $name = $matches[1] -replace '\\(.)', '$1'
+        $auto = $true
+        if ($head -match '"autoSelect"\s*:\s*(true|false)') { $auto = ($matches[1] -eq 'true') }
+        return [pscustomobject]@{ ListName = $name; AutoSelect = $auto }
+    }
+    try {
+        $meta = Get-Content -LiteralPath $Path -Raw | ConvertFrom-Json
+        $auto = -not ($meta.PSObject.Properties.Name -contains 'autoSelect' -and -not $meta.autoSelect)
+        return [pscustomobject]@{ ListName = "$($meta.listName)"; AutoSelect = $auto }
+    } catch { return $null }
+}
+
 function Resolve-HtDefaultList {
     <#
       Finds the best-matching finding list under lists/ for the running OS.
@@ -53,19 +84,19 @@ function Resolve-HtDefaultList {
     $best = $null; $bestScore = 0
     foreach ($c in $candidates) {
         $hay = "$($c.BaseName)"
-        $meta = $null
-        try { $meta = Get-Content $c.FullName -Raw | ConvertFrom-Json }
-        catch { Write-Verbose "OS detect: could not read listName from $($c.Name); scoring on filename only." }
+        $meta = Get-HtListHeader -Path $c.FullName
         if ($meta) {
             # Lists can opt out of auto-selection (autoSelect: false) -- e.g. the CIS
             # Intune lists, which are audit-only and MDM-specific: an OS-match auto-pick
             # on a non-Intune-managed machine would grade PolicyManager state that was
             # never meant to be there. Such lists run only when named via -FindingList.
-            if ($meta.PSObject.Properties.Name -contains 'autoSelect' -and -not $meta.autoSelect) {
+            if (-not $meta.AutoSelect) {
                 Write-Verbose "OS detect: '$($c.Name)' is autoSelect:false; excluded from auto-selection."
                 continue
             }
-            $hay += ' ' + $meta.listName
+            if ($meta.ListName) { $hay += ' ' + $meta.ListName }
+        } else {
+            Write-Verbose "OS detect: could not read listName from $($c.Name); scoring on filename only."
         }
         $score = 0
         # Product family tokens

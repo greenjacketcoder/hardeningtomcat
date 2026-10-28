@@ -70,9 +70,18 @@
         if ($sub -notmatch '^[\w\s{}/()-]+$') {
             throw "Refused: audit subcategory '$sub' contains unexpected characters"
         }
-        # Map the human setting to auditpol flags
-        $success = if ($val -match 'Success') { 'enable' } else { 'disable' }
-        $failure = if ($val -match 'Failure') { 'enable' } else { 'disable' }
+        # Map the human setting to auditpol flags. For a 'contains' finding the
+        # recommendation is a MINIMUM ("must include Failure"), so keep whatever is
+        # already enabled and add the missing flag -- deriving both flags from the
+        # recommended value alone turned "Success" into "Success only" and silently
+        # switched off the other half of the audit (a hardening run removing auditing).
+        $cur = ''
+        if ($Finding.operator -eq 'contains' -and $Cache['auditpol']) {
+            $t = $Cache['auditpol']
+            if ($t.ContainsKey($sub)) { $cur = "$($t[$sub])" } elseif ($t.ContainsKey($sub.ToLower())) { $cur = "$($t[$sub.ToLower()])" }
+        }
+        $success = if ($val -match 'Success' -or $cur -match 'Success') { 'enable' } else { 'disable' }
+        $failure = if ($val -match 'Failure' -or $cur -match 'Failure') { 'enable' } else { 'disable' }
         if ($Context.WhatIf) {
             return @{ Changed = $false; Message = "WhatIf: would set audit '$sub' to $val" }
         }

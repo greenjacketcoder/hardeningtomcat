@@ -108,6 +108,14 @@ foreach ($r in $rows) {
     if ($r.Method -eq 'Registry' -and $r.RecommendedValue -match '^\s*[\w-]+\s+or\s+[\w-]+' -and $thisOp -eq '=') {
         $thisOp = '=or'
     }
+    # User rights are SID SETS. The secedit export yields '*S-1-5-32-544,*S-1-5-19';
+    # HK CSVs carry names like 'BUILTIN\Administrators;NT AUTHORITY\LOCAL SERVICE'.
+    # HardeningKitty's own engine special-cases accesschk; ours keeps operator semantics
+    # in the engine, so the operator must be 'set=' (order-independent, names resolved
+    # to SIDs). With '=' every user-rights finding false-failed; the engine now rejects it.
+    if ($r.Method -eq 'accesschk' -and $thisOp -eq '=') {
+        $thisOp = 'set='
+    }
     # Make the ID unique: first occurrence keeps the raw ID; repeats get -2, -3, ...
     $rawId = $r.ID
     if ($idCounts.ContainsKey($rawId)) {

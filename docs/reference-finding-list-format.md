@@ -52,7 +52,7 @@ replacement for the legacy HardeningKitty CSV format. Lists under `lists/` are
 | `method` | yes | Which handler evaluates it — must match a handler's `Name`. |
 | `args` | no | Method-specific arguments; each handler documents the keys it reads (e.g. Registry: `path`, `name`). |
 | `operator` | yes | Comparison the engine applies — see the [operator table](reference-invoke-hardeningtomcat.md#operators). |
-| `recommendedValue` | yes* | Target value (string/number/boolean; compared as string or int64 per operator). *May be legitimately empty, e.g. a user right held by no one. |
+| `recommendedValue` | yes* | Target value (string/number/boolean; compared as string or decimal number per operator). *May be legitimately empty, e.g. a user right held by no one. |
 | `defaultValue` | no | Value assumed when the setting is absent (`Found=$false`). |
 | `severity` | yes | `Low` / `Medium` / `High` — the grade if the finding **fails**. |
 | `level` | no | CIS level `1` or `2`; drives the `-Level` filter. Absent on Microsoft lists. |

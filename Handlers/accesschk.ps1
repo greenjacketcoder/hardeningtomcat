@@ -1,7 +1,9 @@
 ﻿# accesschk handler -- user-rights assignments (the [Privilege Rights] section).
 # args: { "privilege": "SeShutdownPrivilege" }
 # recommendedValue: comma-separated SID list, e.g. "S-1-5-32-544,S-1-5-19"
-# operator: 'set=' (order-independent set equality)
+# operator: 'set=' (order-independent set equality; names resolved to SIDs). The engine
+#           rejects any other operator for this method at load time -- a plain '=' can
+#           never match the export's '*S-1-5-...' form against a list's names.
 #
 # Reads user rights via `secedit /export` ONCE in Prefetch (batched), then each Test
 # is an in-memory lookup -- same pattern as the secedit handler. No accesschk.exe needed.
@@ -13,10 +15,11 @@
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        # USER_RIGHTS-scoped export via the shared helper (Private/_Helpers.ps1). User
-        # rights live in the [Privilege Rights] section; the helper keeps EMPTY values
-        # in Sections (a right assigned to no one exports as 'SeXxx = ').
-        $exp = Get-HtSeceditExport -Areas 'USER_RIGHTS' -Context $Context
+        # The shared, memoized full export (Private/_Helpers.ps1) -- one secedit spawn per
+        # run, shared with secedit/accountpolicy. User rights live in the [Privilege Rights]
+        # section; the helper keeps EMPTY values in Sections (a right assigned to no one
+        # exports as 'SeXxx = ').
+        $exp = Get-HtSeceditExport -Context $Context -Cache $Cache
         $rights = if ($exp.Sections.ContainsKey('Privilege Rights')) { $exp.Sections['Privilege Rights'] } else { @{} }
         $Cache['userrights']    = $rights
         $Cache['userrights_ok'] = $exp.Ok

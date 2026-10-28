@@ -167,7 +167,7 @@
       "args": {
         "privilege": "SeTrustedCredManAccessPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -181,7 +181,7 @@
       "args": {
         "privilege": "SeNetworkLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS;BUILTIN\\Administrators;NT AUTHORITY\\Authenticated Users",
       "defaultValue": "NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS;BUILTIN\\Pre-Windows 2000 Compatible Access;BUILTIN\\Administrators;NT AUTHORITY\\Authenticated Users;Everyone",
       "severity": "Medium",
@@ -195,7 +195,7 @@
       "args": {
         "privilege": "SeNetworkLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators;NT AUTHORITY\\Authenticated Users",
       "defaultValue": "BUILTIN\\Pre-Windows 2000 Compatible Access;BUILTIN\\Administrators;NT AUTHORITY\\Authenticated Users;Everyone",
       "severity": "Medium",
@@ -209,7 +209,7 @@
       "args": {
         "privilege": "SeTcbPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -223,7 +223,7 @@
       "args": {
         "privilege": "SeMachineAccountPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "NT AUTHORITY\\Authenticated Users",
       "severity": "Medium",
@@ -237,7 +237,7 @@
       "args": {
         "privilege": "SeIncreaseQuotaPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -251,7 +251,7 @@
       "args": {
         "privilege": "SeInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators;NT AUTHORITY\\ENTERPRISE DOMAIN CONTROLLERS;",
       "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Users;BUILTIN\\Administrators;COMPUTERNAME\\Guest",
       "severity": "Medium",
@@ -265,7 +265,7 @@
       "args": {
         "privilege": "SeInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Users;BUILTIN\\Administrators;COMPUTERNAME\\Guest",
       "severity": "Medium",
@@ -279,7 +279,7 @@
       "args": {
         "privilege": "SeRemoteInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -293,7 +293,7 @@
       "args": {
         "privilege": "SeRemoteInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Remote Desktop Users;BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Remote Desktop Users;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -307,7 +307,7 @@
       "args": {
         "privilege": "SeBackupPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators;BUILTIN\\Backup Operators",
       "severity": "Medium",
@@ -321,7 +321,7 @@
       "args": {
         "privilege": "SeSystemTimePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "BUILTIN\\Administrators;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -335,7 +335,7 @@
       "args": {
         "privilege": "SeCreatePagefilePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -349,7 +349,7 @@
       "args": {
         "privilege": "SeCreateTokenPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -363,7 +363,7 @@
       "args": {
         "privilege": "SeCreateGlobalPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -377,7 +377,7 @@
       "args": {
         "privilege": "SeCreatePermanentPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -391,7 +391,7 @@
       "args": {
         "privilege": "SeCreateSymbolicLinkPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -405,7 +405,7 @@
       "args": {
         "privilege": "SeCreateSymbolicLinkPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -419,7 +419,7 @@
       "args": {
         "privilege": "SeCreateSymbolicLinkPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT VIRTUAL MACHINE\\Virtual Machines;BUILTIN\\Administrators",
       "defaultValue": "S-1-5-83-0;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -433,7 +433,7 @@
       "args": {
         "privilege": "SeDebugPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -447,7 +447,7 @@
       "args": {
         "privilege": "SeDenyNetworkLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests",
       "defaultValue": "BUILTIN\\Guests",
       "severity": "Medium",
@@ -461,7 +461,7 @@
       "args": {
         "privilege": "SeDenyNetworkLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests;NT AUTHORITY\\Local account and member of Administrators group",
       "defaultValue": "BUILTIN\\Guests",
       "severity": "Medium",
@@ -475,7 +475,7 @@
       "args": {
         "privilege": "SeDenyBatchLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests",
       "defaultValue": "",
       "severity": "Medium",
@@ -489,7 +489,7 @@
       "args": {
         "privilege": "SeDenyServiceLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests",
       "defaultValue": "",
       "severity": "Medium",
@@ -503,7 +503,7 @@
       "args": {
         "privilege": "SeDenyInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests",
       "defaultValue": "BUILTIN\\Guests",
       "severity": "Medium",
@@ -517,7 +517,7 @@
       "args": {
         "privilege": "SeDenyRemoteInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests",
       "defaultValue": "",
       "severity": "Medium",
@@ -531,7 +531,7 @@
       "args": {
         "privilege": "SeDenyRemoteInteractiveLogonRight"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Guests;NT AUTHORITY\\Local account",
       "defaultValue": "",
       "severity": "Medium",
@@ -545,7 +545,7 @@
       "args": {
         "privilege": "SeEnableDelegationPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -559,7 +559,7 @@
       "args": {
         "privilege": "SeEnableDelegationPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -573,7 +573,7 @@
       "args": {
         "privilege": "SeRemoteShutdownPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -587,7 +587,7 @@
       "args": {
         "privilege": "SeAuditPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -601,7 +601,7 @@
       "args": {
         "privilege": "SeImpersonatePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -615,7 +615,7 @@
       "args": {
         "privilege": "SeImpersonatePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "NT AUTHORITY\\SERVICE;BUILTIN\\Administrators;NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -629,7 +629,7 @@
       "args": {
         "privilege": "SeIncreaseBasePriorityPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "Window Manager\\Window Manager Group;BUILTIN\\Administrators",
       "defaultValue": "Window Manager\\Window Manager Group;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -643,7 +643,7 @@
       "args": {
         "privilege": "SeLoadDriverPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -657,7 +657,7 @@
       "args": {
         "privilege": "SeLockMemoryPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -671,7 +671,7 @@
       "args": {
         "privilege": "SeSecurityPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -685,7 +685,7 @@
       "args": {
         "privilege": "SeSecurityPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\EXCHANGE SERVERS;BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -699,7 +699,7 @@
       "args": {
         "privilege": "SeSecurityPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -713,7 +713,7 @@
       "args": {
         "privilege": "SeReLabelPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -727,7 +727,7 @@
       "args": {
         "privilege": "SeSystemEnvironmentPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -741,7 +741,7 @@
       "args": {
         "privilege": "SeManageVolumePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -755,7 +755,7 @@
       "args": {
         "privilege": "SeProfileSingleProcessPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",
@@ -769,7 +769,7 @@
       "args": {
         "privilege": "SeSystemProfilePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT SERVICE\\WdiServiceHost;BUILTIN\\Administrators",
       "defaultValue": "NT SERVICE\\WdiServiceHost;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -783,7 +783,7 @@
       "args": {
         "privilege": "SeAssignPrimaryTokenPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "defaultValue": "NT AUTHORITY\\NETWORK SERVICE;NT AUTHORITY\\LOCAL SERVICE",
       "severity": "Medium",
@@ -797,7 +797,7 @@
       "args": {
         "privilege": "SeRestorePrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -811,7 +811,7 @@
       "args": {
         "privilege": "SeShutdownPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Backup Operators;BUILTIN\\Users;BUILTIN\\Administrators",
       "severity": "Medium",
@@ -825,7 +825,7 @@
       "args": {
         "privilege": "SeSyncAgentPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "",
       "defaultValue": "",
       "severity": "Medium",
@@ -839,7 +839,7 @@
       "args": {
         "privilege": "SeTakeOwnershipPrivilege"
       },
-      "operator": "=",
+      "operator": "set=",
       "recommendedValue": "BUILTIN\\Administrators",
       "defaultValue": "BUILTIN\\Administrators",
       "severity": "Medium",

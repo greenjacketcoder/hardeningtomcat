@@ -68,13 +68,13 @@ The engine owns all comparison semantics (handlers only observe):
 
 | Operator | Passes when |
 |---|---|
-| `=` / `!=` | String equality / inequality. |
-| `<=` `>=` `<` `>` | Int64 numeric comparison. Empty/absent observations **fail** (never coerced to 0 — an unreadable value can't masquerade as compliant). |
+| `=` / `!=` | String equality / inequality (case-insensitive). `!=` is **not auto-remediable**: `recommendedValue` is the value the setting must *not* hold, so Strike never writes it — such findings are counted as "Manual fix" in the Strike summary. |
+| `<=` `>=` `<` `>` | Numeric comparison (decimal, invariant culture — exact for any DWORD/QWORD, and dotted versions like `6.3` compare correctly). Empty/absent observations **fail** (never coerced to 0 — an unreadable value can't masquerade as compliant). |
 | `<=!0` | Numeric `<=` AND observed ≠ 0. |
-| `contains` | Observed string contains `recommendedValue`; an empty recommended value never matches. |
-| `=\|0` | Equal, or observed is empty. |
+| `contains` | Observed string contains `recommendedValue` (case-insensitive); an empty recommended value never matches. On apply (auditpol) the recommendation is treated as a *minimum*: the missing flag is enabled and whatever is already enabled is kept. |
+| `=\|0` | Equal, **or the setting is not present** — absence is taken from the handler (key/value/service missing), so it still passes when the finding carries a non-empty `defaultValue` (e.g. CIS "Disabled or Not Installed" services with `defaultValue: Manual`). A present, non-matching value fails. |
 | `=or` | `recommendedValue` like `"2 or 1"` — any listed value passes. **Registry findings only** (its apply resolves to the first value). |
-| `set=` | Order-independent set equality for SID lists; account names are resolved to SIDs on both sides. Two empty sets are equal. |
+| `set=` | Order-independent set equality for SID lists; account names are resolved to SIDs on both sides. Two empty sets are equal. **Required for every `accesschk` finding** — the list loader rejects any other operator on that method (a plain `=` can never match the export's `*S-1-5-…` form). |
 | `manual` | Not evaluated — reported Skipped with the finding's remediation text. |
 
 ## Report outputs

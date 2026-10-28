@@ -104,13 +104,19 @@ function Test-HtListIntegrity {
         # lists in different subdirectories (lists/cis/win11.json vs lists/stig/win11.json)
         # can share a leaf, and leaf-only matching would let one masquerade as the other.
         $recordedRel = ($known[$actual] -replace '\\','/').TrimStart('/')
-        $listsRootN  = (Join-Path $ModuleRoot 'lists') -replace '\\','/'
+        $listsRoot   = Join-Path $ModuleRoot 'lists'
+        $listsRootR  = try { (Resolve-Path -LiteralPath $listsRoot -ErrorAction Stop).Path } catch { $listsRoot }
+        $listsRootN  = ($listsRootR -replace '\\','/').TrimEnd('/')
         $actualFull  = try { (Resolve-Path -LiteralPath $FindingList -ErrorAction Stop).Path } catch { $FindingList }
-        $actualRel   = (($actualFull -replace '\\','/') -replace [regex]::Escape($listsRootN), '').TrimStart('/')
-        # If the list lives outside lists/ we cannot form a relative path; fall back to the
-        # leaf comparison in that case rather than failing a legitimately-relocated list.
-        $recordedCmp = if ($actualRel -match '/') { $recordedRel } else { Split-Path $recordedRel -Leaf }
-        $actualCmp   = if ($actualRel -match '/') { $actualRel }   else { Split-Path $actualFull -Leaf }
+        $actualFullN = $actualFull -replace '\\','/'
+        # Inside lists/: compare the FULL relative path (two subdirectories can share a
+        # leaf). Outside lists/ -- a trusted list copied elsewhere -- no relative path
+        # exists, so compare leaf names: a relocated list is still accepted, a renamed
+        # one is not. (The old test was "does the computed relative path contain a
+        # slash"; an absolute path always does, so every relocated list was rejected.)
+        $inside = $actualFullN.StartsWith($listsRootN + '/', [System.StringComparison]::OrdinalIgnoreCase)
+        if ($inside) { $recordedCmp = $recordedRel;                   $actualCmp = $actualFullN.Substring($listsRootN.Length + 1) }
+        else         { $recordedCmp = Split-Path $recordedRel -Leaf;  $actualCmp = Split-Path $actualFullN -Leaf }
         if ($recordedCmp -and $actualCmp -and ($recordedCmp -ne $actualCmp)) {
             $result.Status = 'not-listed'
             $result.Message = "List content matches manifest entry '$($known[$actual])' but the file resolves to " +

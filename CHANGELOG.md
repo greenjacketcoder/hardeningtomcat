@@ -8,6 +8,96 @@ uses semantic versioning. While in 0.x, minor versions may include breaking chan
 Versions 0.2.0 - 0.4.0 are reconstructed retroactively from the development history;
 they were real milestones that predate formal version tagging.
 
+## [0.12.0]
+
+Accuracy release. A code review of the engine against the shipped list data found a
+cluster of operator / defaultValue / apply-path interactions that graded or wrote the
+wrong thing; none had surfaced because every real report so far was a non-elevated run
+in which the affected handlers were Skipped. Minor version bump because the list loader
+now rejects a shape the previous engine accepted (see Changed).
+
+### Fixed
+- **Every CIS and STIG user-rights finding false-failed when run elevated.** The
+  HardeningKitty-derived lists carried 303 `accesschk` findings with operator `=` and
+  name-form values (`BUILTIN\Administrators;NT AUTHORITY\LOCAL SERVICE`); the secedit
+  export yields `*S-1-5-32-544,*S-1-5-19`, which plain string equality can never match.
+  HardeningKitty's engine special-cases that method; ours keeps operator semantics in
+  the engine, so the operator must be `set=`. `Import-HardeningKittyList.ps1` now emits
+  `set=` for accesschk, the seven affected lists are patched in place (operator line
+  only; manifest regenerated), and a data-invariant test pins it. The Microsoft lists
+  were already correct.
+- **`=|0` could never see "not present" when a finding carried a defaultValue.** The
+  engine substituted `defaultValue` first and then asked "is the string empty?", so the
+  CIS "Disabled or Not Installed" service checks (`defaultValue: Manual`) and
+  18.10.42.5.2 Join Microsoft MAPS (`defaultValue: 0`) false-failed on machines where
+  the service/key was absent -- while the service handler's Apply treated the same state
+  as compliant (audit/apply drift). Absence is now decided from the handler's `Found`
+  flag; the pass Detail says "Not present (absence satisfies '=|0')".
+- **Strike applied `!=` findings by writing the forbidden value.** Nothing in the apply
+  path looked at the operator: CIS 2.3.7.4/2.3.7.5 (logon banner text/title must not be
+  empty) wrote an empty string, counted it as Applied, and left the finding failing.
+  `!=` is now never applied; such findings are counted as `NotRemediable` in the summary
+  ("Manual fix: N") and logged.
+- **Strike applied `contains` audit findings by overwriting, not adding.** The auditpol
+  Apply derived both flags from the recommended value, so CIS 17.5.1 Account Lockout
+  (`contains Failure`) on a box auditing `Success` turned Success OFF -- a hardening run
+  removing auditing. For `contains` the recommendation is a minimum: the missing flag is
+  enabled and the current one kept.
+- **Trusted lists relocated outside `lists/` were rejected by the integrity gate.** The
+  code promised a leaf-name fallback for a list copied elsewhere, but tested "does the
+  computed relative path contain a slash" -- an absolute path always does, so every
+  relocated list reported "content appears under a different path/name" and Strike was
+  blocked. The check now asks whether the resolved path is under `lists/` and compares
+  relative paths only then. Two Pester tests pin relocated-same-name (verified) and
+  relocated-renamed (not-listed).
+- **`contains` was the one case-sensitive string operator.** `String.Contains` is
+  ordinal; every other string operator is case-insensitive by documented design. Now
+  `IndexOf(..., OrdinalIgnoreCase)`, pinned by a test.
+- **Numeric operators truncated dotted values.** `[int64]'6.3'` is 6, so the STIG
+  WN11-00-000040 `CurrentVersion >= 6.3` check compared 6 >= 6. Numeric coercion is now
+  `[decimal]::Parse` with the invariant culture (`ConvertTo-HtNumber`): exact for any
+  DWORD/QWORD magnitude, correct for dotted versions, still FAILs on empty/non-numeric.
+
+### Changed
+- **The list loader rejects `accesschk` findings whose operator is not `set=`** (or
+  `manual`), with the same fail-fast, all-problems-at-once report as the other
+  validation rules. A hand-authored list using `=` on that method was silently
+  producing all-fail results; now it stops at load with the reason.
+- `Summary.NotRemediable` added to the `-PassThru` object (Strike: findings skipped
+  because their operator cannot be applied).
+
+### Performance
+- **One `secedit /export` per run instead of two or three.** The secedit,
+  accountpolicy, and accesschk handlers each ran their own area-scoped export, and
+  Prefetch order follows hashtable key order, so a CIS list paid up to three scesrv
+  round trips. `Get-HtSeceditExport -Cache` now memoizes one full export (all areas)
+  that all three handlers share; the secedit FlushApply invalidates it after
+  `/configure`.
+- **Registry reads use the .NET API, not the provider.** `RegistryKey.OpenSubKey`
+  returns `$null` for a missing key; the provider threw (ErrorRecord + script stack
+  capture) for every miss, and on a fresh machine most policy keys are missing -- your
+  own reports show ~75% of Registry findings absent. Same semantics (literal path and
+  name, default view, REG_EXPAND_SZ expanded, access denied rethrown); long-form hive
+  names (`HKEY_LOCAL_MACHINE\...`) are accepted; unknown drive names fall through to the
+  provider.
+- **Auto-select reads a 4 KB header instead of parsing every list.**
+  `Resolve-HtDefaultList` ran `ConvertFrom-Json` over all 24 shipped lists (~4 MB) to
+  read `listName` and `autoSelect`, which every generated list puts in its first ~300
+  bytes. `Get-HtListHeader` regex-extracts them from the header and falls back to a full
+  parse only if they are not there. Measured on pwsh 7.6: 0.23 s -> 0.02 s; the win on
+  Windows PowerShell 5.1, whose JSON parser is far slower, is the one that matters.
+- **Per-finding costs made per-run:** the handler `RequiresBinary` probe (one
+  `Test-Path` per finding -> one per handler), `Get-Service -Name` per service finding
+  (on 5.1 each call enumerates every service -> one enumeration cached in Prefetch),
+  and `NTAccount.Translate` per name per `set=` finding (can be a DC round trip on
+  domain-joined machines -> memoized per module load).
+
+### Docs
+- Operator table: `!=` not auto-remediable, `=|0` absence semantics, `contains`
+  case-insensitivity and additive apply, decimal numerics, `set=` required for accesschk.
+- `Importers/README.md` no longer claims Privilege Rights are not imported and the
+  accesschk handler is not built; both have existed since 0.3.0.
+
 ## [0.11.1]
 
 ### Added

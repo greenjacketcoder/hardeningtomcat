@@ -9,9 +9,14 @@ function Get-HtRegistryValue {
       Pass/Fail for a key it could not actually read. The contract says such findings
       must be Skipped, and the engine's Test wrapper does that on throw.
 
-      Perf: a single Get-ItemProperty call. The generic catch handles a missing key OR
-      value, so the old pre-check Test-Path (a second registry round-trip per finding)
-      is gone. On a ~300-finding registry-heavy list that halves registry round-trips.
+      Perf: the .NET registry API, not the provider. RegistryKey.OpenSubKey returns
+      $null for a missing key instead of throwing; on a fresh machine MOST policy keys
+      are absent, so the provider's exception path (ErrorRecord + script stack capture
+      per miss) was the COMMON case on every Recon. Semantics are unchanged: literal
+      path and value name, default RegistryView (the engine already refuses the WOW64
+      view for Strike), REG_EXPAND_SZ expanded by GetValue, access denied rethrown.
+      Paths on a drive the hive map does not know (a custom PSDrive) fall through to
+      the provider.
     #>
     param([string]$Path, [string]$Name)
     # Defensive: normalize any forward slashes in the registry path to backslashes.
@@ -21,7 +26,21 @@ function Get-HtRegistryValue {
         $Path = $Path -replace '(?<!:)/', '\'
     }
     try {
-        # -LiteralPath, not -Path: a finding's args.path is semi-trusted list data. -Path
+        if ($Path -match '^(?<hive>[A-Za-z_]+):?(?:\\(?<sub>.*))?$' -and $script:HtHiveMap.ContainsKey($matches.hive)) {
+            $sub  = if ($matches.sub) { $matches.sub } else { '' }
+            $base = [Microsoft.Win32.RegistryKey]::OpenBaseKey($script:HtHiveMap[$matches.hive], [Microsoft.Win32.RegistryView]::Default)
+            try {
+                $key = $base.OpenSubKey($sub, $false)
+                if ($null -eq $key) { return @{ Found = $false; Result = $null } }
+                try {
+                    if ($key.GetValueNames() -contains $Name) {
+                        return @{ Found = $true; Result = $key.GetValue($Name) }
+                    }
+                    return @{ Found = $false; Result = $null }
+                } finally { $key.Dispose() }
+            } finally { $base.Dispose() }
+        }
+        # Provider fallback (custom drive names). -LiteralPath, not -Path: args.path is
         # glob-expands *, ?, and [...], so a wildcard path would read (and, in the Apply
         # handler, WRITE) across every matching key -- turning one finding into a broad
         # blast radius. -LiteralPath binds the path exactly as written.
@@ -51,6 +70,15 @@ function Get-HtRegistryValue {
         }
         return @{ Found = $false; Result = $null }
     }
+}
+
+# Provider drive names and long-form hive names -> RegistryHive, for the .NET read path.
+$script:HtHiveMap = @{
+    HKLM = [Microsoft.Win32.RegistryHive]::LocalMachine;  HKEY_LOCAL_MACHINE  = [Microsoft.Win32.RegistryHive]::LocalMachine
+    HKCU = [Microsoft.Win32.RegistryHive]::CurrentUser;   HKEY_CURRENT_USER   = [Microsoft.Win32.RegistryHive]::CurrentUser
+    HKCR = [Microsoft.Win32.RegistryHive]::ClassesRoot;   HKEY_CLASSES_ROOT   = [Microsoft.Win32.RegistryHive]::ClassesRoot
+    HKU  = [Microsoft.Win32.RegistryHive]::Users;         HKEY_USERS          = [Microsoft.Win32.RegistryHive]::Users
+    HKCC = [Microsoft.Win32.RegistryHive]::CurrentConfig; HKEY_CURRENT_CONFIG = [Microsoft.Win32.RegistryHive]::CurrentConfig
 }
 
 function ConvertTo-HtObservedString {
@@ -95,6 +123,14 @@ function Get-HtSeceditExport {
       implicit cache-ordering coupling. One implementation = one place for the
       exit-code-2 (scesrv memory) diagnosis and the sensitive-temp-file cleanup.
 
+      Memoized per run when -Cache is passed: the first caller pays for ONE full export
+      (all areas -- it includes [System Access], [Privilege Rights], and the rest) and
+      every later caller gets the parsed result from $Cache['secedit_export'].
+      Previously each handler ran its own area-scoped export, and because Prefetch
+      order follows hashtable key order, a CIS list paid two or three scesrv round
+      trips per run. -Areas is ignored when -Cache is given (a shared export must be
+      complete to be shareable).
+
       Returns @{
         Ok       = $bool     # export ran and produced content
         Flat     = @{}       # 'key = value' lines, section-agnostic, NON-EMPTY values
@@ -107,9 +143,14 @@ function Get-HtSeceditExport {
     #>
     param(
         [string] $Areas,   # e.g. 'SECURITYPOLICY' or 'USER_RIGHTS'; empty = full export
-        $Context           # engine context (for logging); optional
+        $Context,          # engine context (for logging); optional
+        $Cache             # engine per-run cache; when given, memoizes one FULL export
     )
     $log = { param($m, $l = 'Warn') if ($Context -and $Context.Log) { & $Context.Log $m $l } }
+    if ($null -ne $Cache) {
+        if ($Cache.ContainsKey('secedit_export')) { return $Cache['secedit_export'] }
+        $Areas = ''
+    }
     $tmp = Join-Path ([System.IO.Path]::GetTempPath()) ("ht_secexp_{0:yyyyMMddHHmmssfff}.inf" -f (Get-Date))
     $ok = $false; $exitCode = $null; $err = $null
     try {
@@ -146,5 +187,7 @@ function Get-HtSeceditExport {
     }
     # Always remove the dump: it contains full security policy (user rights, SIDs).
     Remove-Item $tmp -Force -WhatIf:$false -ErrorAction SilentlyContinue
-    @{ Ok = $ok; Flat = $flat; Sections = $sections; Error = $err }
+    $result = @{ Ok = $ok; Flat = $flat; Sections = $sections; Error = $err }
+    if ($null -ne $Cache) { $Cache['secedit_export'] = $result }
+    $result
 }

@@ -24,13 +24,11 @@ $script:HtAccountPolicyMap = @{
 
     Prefetch = {
         param($Findings, $Cache, $Context)
-        # Reuse the secedit handler's cache if its prefetch already ran; otherwise run a
-        # SECURITYPOLICY-scoped export via the shared helper (Private/_Helpers.ps1).
-        if (-not $Cache.ContainsKey('secedit') -or -not $Cache['secedit_ok']) {
-            $exp = Get-HtSeceditExport -Areas 'SECURITYPOLICY' -Context $Context
-            if ($exp.Error) { $Cache['secedit_err'] = $exp.Error }
-            $Cache['secedit'] = $exp.Flat; $Cache['secedit_ok'] = $exp.Ok
-        }
+        # The shared, memoized export (Private/_Helpers.ps1): whichever of secedit /
+        # accountpolicy / accesschk prefetches first spawns secedit once; the rest reuse it.
+        $exp = Get-HtSeceditExport -Context $Context -Cache $Cache
+        if ($exp.Error) { $Cache['secedit_err'] = $exp.Error }
+        $Cache['secedit'] = $exp.Flat; $Cache['secedit_ok'] = $exp.Ok
         & $Context.Log "accountpolicy prefetch: using secedit export ($($Cache['secedit'].Count) keys)."
     }
 
